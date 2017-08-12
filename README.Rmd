@@ -1,0 +1,66 @@
+---
+output: github_document
+---
+
+# yspec
+
+
+## About
+
+- Write data set specification data in `yaml` format
+    - [About the format](./inst/doc/reference.md)
+- The `yspec` package reads the specification and 
+further formats the data
+    - For example, [splitting data columns by other data items](./inst/doc/reference.md#split-data-column)
+- Information can be accessed or utilized by other functions
+in the ecosystem
+- `yspec` will render a [`Define.pdf`](./inst/doc/define.pdf) document or output
+in any other format supported by `rmarkdown`
+
+## Use
+```{r}
+library(yspec)
+```
+
+We can load [this yaml file](inst/spec/spec.yml)
+
+```{r}
+sp <- load_spec("inst/spec/spec.yml")
+```
+
+See [here](./inst/doc/reference.md) for `YAML` specification details
+
+
+
+
+A lot like the current spec setup
+```{r,comment='.'}
+names(sp)
+sp[WT]$unit
+knitr::kable(as.data.frame(sp))
+```
+
+Render in pdf format
+```{r,echo=TRUE, results="hide", message=FALSE}
+render_spec(sp, "define", output_dir="inst/doc")
+```
+
+with output [here](./inst/doc/define.pdf)
+
+
+Or render to any format
+```{r,echo=TRUE, results="hide", message=FALSE}
+render_spec(sp, "define", output_format="md_document", output_dir="inst/doc")
+```
+
+Then we get [this output](./inst/doc/define.md)
+
+
+
+
+
+
+
+
+
+

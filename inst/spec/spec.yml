@@ -1,0 +1,71 @@
+C:
+  long: commented rows
+  values: [.,C]
+USUBJID:
+  long: universal subject identifier
+ID:
+  long: NONMEM ID number
+EVID:
+  long: event ID indicator
+  comment: per NONMEM specifications
+MDV:
+  long: missing DV indicator
+  comment: per NONMEM specifications
+SEQ:
+  long: record type indicators
+  values: {concentration: 1, response: 2, other: 3}
+AMT:
+  about: [AMT, mg]
+  long: dose amount
+  range: [0,1000]
+II:
+  about: [II, hours]
+  long: interdose interval
+CMT:
+  about: Compartment
+  long: compartment number
+  comment: per NONMEM specifications
+  values: [1,2,3,4]
+TAFD:
+  unit: hours
+  long: time after first dose
+WT:
+  about: [Weight, kg]
+  long: baseline weight
+  range: [40.0, 100]
+EGFR:
+  about: [eGFR, ml/min/1.73 m2]
+  long: estimated glomerular filtration rate
+  range: [10,300]
+STUDY:
+  about: [Study]
+  long: study identifier
+  values: [100, 202, 303, 203]
+SEX:
+  values: {male: 0, female: 1}
+BQL:
+  about: below limit of quantification
+  long: DV value is below the quantitation limit
+  values: [0,1]
+  longvalues: false
+  decode: [no, yes]
+DV:
+  about: DV
+  long: dependent variable
+  split:
+    DV1: {about: [NoDoze concentration,  ng/mL], when: SEQ==1}
+    DV2: {about: Alertness, when: SEQ==2}
+    DV3: {about: [BMI, kg/m2], when: SEQ==3}
+  comment: see SEQ
+DV2:
+  about: DV2
+  long: second dependent variable
+  split:
+    DV21: {about: [NoDoze concentration,  ng/mL]}
+    DV22: {about: Alertness}
+    DV23: {about: [BMI, kg/m2]}
+HAIR:
+  long: patient hair color
+  values: [0,1,2]
+  decode: [brown, blonde, black]
+

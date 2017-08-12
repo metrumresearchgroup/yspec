@@ -1,0 +1,15 @@
+Package: yspec
+Type: Package
+Title: Data Specification for Pharmacometrics
+Version: 0.0.2
+Authors@R: c(
+       person("Kyle T", "Baron", "", "kyleb@metrumrg.com", c("aut", "cre")),
+       person("Metrum Research Group LLC", role =  c("cph"))
+       )
+Maintainer: Kyle Baron <kyleb@metrumrg.com>
+Description: Generate Define.pdf from yaml specification.
+License: GPL (>=2)
+Encoding: UTF-8
+LazyData: true
+Imports: yaml, dplyr, rmarkdown
+RoxygenNote: 6.0.1
