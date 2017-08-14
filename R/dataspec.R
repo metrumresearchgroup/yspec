@@ -13,8 +13,13 @@ make_axis_label <- function(x) {
 
 make_col_label <- function(x) {
   x$col_label <- paste0(x$col, "//", x$axis_label)
+  x$plot_data <- c(x$col, x$axis_label)
   x
 }
+
+
+
+
 
 .get <- function(x,what,default) {
   what <- as.character(substitute(what))
