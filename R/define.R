@@ -96,6 +96,20 @@ pack_long <- function(x) {
   paste0("    - ", x$long)
 }
 
+pack_derivation <- function(x) {
+  if(is.null(x$derivation)) return(NULL)
+  x <- x$derivation
+  x <- paste0("      `", x, "`")
+  if(length(x) > 1) x <- paste(x, collapse = '; ')
+  c("    - derivation: ", x)
+}
+
+pack_if_missing <- function(x) {
+  if(is.null(x$if_missing)) return(NULL)
+  paste0("    - if_missing: ", x$if_missing)
+}
+
+
 define_col_1 <- function(x) {
   unit <- NULL
   source <- NULL
@@ -107,6 +121,8 @@ define_col_1 <- function(x) {
   short <- pack_short(x)
   descr  <- pack_long(x)
   unit <- pack_unit(x)
+  derivation <- pack_derivation(x)
+  miss <- pack_if_missing(x)
   source <- pack_source(x)
   comment <- pack_comment(x)
 
@@ -118,7 +134,7 @@ define_col_1 <- function(x) {
     values <- pack_split(x)
     values <- paste0("        ", values)
   }
-  return(c(col,descr,short,values,unit,source,comment))
+  return(c(col,descr,short,values,unit,derivation,miss,source,comment))
 }
 
 

@@ -37,10 +37,17 @@ EGFR:
   about: [eGFR, ml/min/1.73 m2]
   long: estimated glomerular filtration rate
   range: [10,300]
+  if_missing: imputed
 STUDY:
   about: [Study]
   long: study identifier
+  longvalues: true
   values: [100, 202, 303, 203]
+  decode:
+    - The first phase 1 study
+    - The first phase 2 study conducted only at sites 1, 2, 3 when the formulation was still oral liquid only
+    - The renal impairment study
+    - The second phase 2 study
 SEX:
   values: {male: 0, female: 1}
 BQL:
@@ -68,4 +75,11 @@ HAIR:
   long: patient hair color
   values: [0,1,2]
   decode: [brown, blonde, black]
+CLCR:
+  about: [creatinine clearance, ml/min]
+  derivation:
+    - (140-AGE)*IBW/SCR
+    - x 0.85 if female
+  if_missing: dropped
+
 

@@ -16,6 +16,7 @@
     - print the values in a (long) `yaml`-formatted list
 - `decode: [name1, name2, name3]`
     - Separate the `decode` from the `values` specification
+    - See example below for clearer way to input very long decodes
 - `comment: just whatever you want to say`
 - `comment: >
       say something 
@@ -23,6 +24,9 @@
       text`
 - `source: ADSL.xpt`
     - Where the data came from
+- `derivation: WEEKS = TIME/24/7`
+- `if_missing: imputed`
+
 
 ## Examples
 
@@ -77,6 +81,19 @@ BQL:
   values: [0,1]
   decode: [not below quantitation limit, below quantitation limit]
 ```
+  
+__Method 3__
+Really, it's the same as method 2, but easier to type and read when the
+decode gets really long
+
+```yaml
+BQL: 
+  values [0, 1]
+  decode:
+    - not below the quantitation limit of 2 ng/ml
+    - below the quantitation limit of 2 ng/ml
+```
+
   
 ### Split data column
 
