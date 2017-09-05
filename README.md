@@ -35,7 +35,7 @@ names(sp)
 
     .  [1] "C"       "USUBJID" "ID"      "EVID"    "MDV"     "SEQ"     "AMT"    
     .  [8] "II"      "CMT"     "TAFD"    "WT"      "EGFR"    "STUDY"   "SEX"    
-    . [15] "BQL"     "DV"      "DV2"     "HAIR"
+    . [15] "BQL"     "DV"      "DV2"     "HAIR"    "CLCR"
 
 ``` r
 sp[WT]$unit
@@ -67,6 +67,7 @@ knitr::kable(as.data.frame(sp))
 |   16| DV      | .              | dependent variable                       |
 |   17| DV2     | .              | second dependent variable                |
 |   18| HAIR    | .              | patient hair color                       |
+|   19| CLCR    | ml/min         | .                                        |
 
 Render in pdf format
 
