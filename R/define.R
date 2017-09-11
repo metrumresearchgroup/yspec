@@ -140,21 +140,21 @@ define_col_1 <- function(x) {
 
 md_header <- function(file="tran2.xpt",...) {
   c("---",
-  "title: ''",
-   "author: ''",
-  "date: ''",
-  "fontsize: 12pt",
-  "---\n",
-  "## Data source",
-  paste0("  * File: ", file),
-  paste0("  * Date: ", Sys.Date(), "\n"),
-  "## Data definitions\n")
+    "title: ''",
+    "author: ''",
+    "date: ''",
+    "fontsize: 12pt",
+    "---\n",
+    "## Data source",
+    paste0("  * File: ", file),
+    paste0("  * Date: ", Sys.Date(), "\n"),
+    "## Data definitions\n")
 }
 
 
-md_outline <- function(x,...) {
+md_outline <- function(x, head = TRUE,...) {
 
-  head <- md_header(...)
+  if(!is.null(head)) head <- md_header(...)
 
   cols <- vector(mode="list", length(x))
 
@@ -210,4 +210,78 @@ pack_split <- function(sp) {
 }
 
 
+##' Render a define.pdf document
+##'
+##' @param file yaml file identifying specifications
+##' @param title a title for the define document
+##' @param output character stem to create a name for the output file
+##' @param ... passed to \code{rmarkdown::render}
+##'
+##' @details
+##' \code{output} should not include a file extension.
+##'
+##' @export
+render_define <- function(file, title, output, ...) {
+
+  output <- paste0(output, ".md")
+
+  x <- yaml.load_file(file)
+  files <- names(x)
+  n_files <- length(x)
+  path <- '.'
+
+  for(i in seq_along(x)) {
+    x[[i]]$name <- files[[i]]
+    if(is.null(x[[i]]$spec)) x[[i]]$spec <- paste0(files[[i]], ".yml")
+    if(is.null(x[[i]]$source)) x[[i]]$source <- paste0(x[[i]]$name, ".xpt")
+    if(is.null(x[[i]]$path)) x[[i]]$path <- path
+    x[[i]]$file <- file.path(x[[i]]$path, x[[i]]$spec)
+    if(!file.exists(x[[i]]$file)) stop("could not find file ", x[[i]]$file)
+  }
+
+  template_title <- '---
+title: <insert-title>
+author: ""
+date: ""
+---
+'
+
+  main_title <- sub("<insert-title>", title, template_title, fixed=TRUE)
+
+  specs <- vector("list", length(x))
+
+  for(i in seq_along(x)) {
+    spec <- load_spec(x[[i]]$file)
+    specs[[i]] <- md_outline(spec, head = NULL)
+  }
+
+  if(file.exists(output)) file.remove(output)
+
+  cat(file = output, main_title, "\n")
+
+  contents_header <- paste0("# Contents")
+
+  cat(file = output, contents_header, "\n", append = TRUE)
+
+  contents <- vector("list", length(x))
+  for(i in seq_along(contents)) {
+    link <- gsub("[[:punct:]]", "-", x[[i]]$name)
+    contents[[i]] <- paste0("  - [__", basename(x[[i]]$source), "__](#",link,")")
+    contents[[i]] <- paste0(contents[[i]], " ", x[[i]]$description)
+    cat(file = output, contents[[i]], "\n\n", append = TRUE)
+  }
+  contents <- c(contents_header,contents)
+  cat(file = output, "\n", append = TRUE)
+
+
+  for(i in seq_along(specs)) {
+    header <- paste0("# Dataset: ", x[[i]]$name)
+    cat(file = output, header, "\n", append = TRUE)
+    file_header <- paste0("### ", x[[i]]$description)
+    cat(file = output, file_header, "\n", append = TRUE)
+    cat(file = output, specs[[i]], "\n", sep = "\n", append = TRUE)
+  }
+
+  rmarkdown::render(input = output, output_format = "pdf_document", ...)
+}
 

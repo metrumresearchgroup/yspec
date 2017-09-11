@@ -55,8 +55,16 @@ render_spec(sp, "define", output_format="md_document", output_dir="inst/doc")
 
 Then we get [this output](./inst/doc/define.md)
 
+## Build a `define.pdf` document
 
+```{r, echo = TRUE, results = "hide", message = FALSE}
+render_define(file = "./inst/spec/project.yml", 
+              output = "project", 
+              title = "DEM104101 PK/PD Analysis Data sets", 
+              output_dir = "inst/doc")
+```
 
+Output [here](./inst/doc/
 
 
 

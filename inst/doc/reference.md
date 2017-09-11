@@ -19,11 +19,12 @@
     - See example below for clearer way to input very long decodes
 - `comment: just whatever you want to say`
 - `comment: >
-      say something 
+      say something
       on multiple lines of
       text`
 - `source: ADSL.xpt`
     - Where the data came from
+    - include both the sdtm domain and variable name
 - `derivation: WEEKS = TIME/24/7`
 - `if_missing: imputed`
 
@@ -36,7 +37,7 @@
 - Using `range` indicates continuous data
 
 ```yaml
-WT: 
+WT:
   about: [Weight, kg]
   range: [5,300]
 ```
@@ -45,15 +46,15 @@ WT:
 - Using `values` indicates discrete data
 
 ```yaml
-RACE: 
+RACE:
   values: [white, black, Native American, Other]
 ```
 
-By default, `values` are printed as comma-separated list.  To 
+By default, `values` are printed as comma-separated list.  To
 get them to print in long format
 
 ```yaml
-RACE: 
+RACE:
   values: [white, black, Native American, Other]
   longvalues: true
 ```
@@ -65,9 +66,9 @@ __Method 1__
 - Notice that the yaml key can only be simple character value
 - Also, we use curly braces to specify a list like this
 - Finally it is a `:` that separates name and value (not `male=1`)
-  
+
 ```yaml
-SEX: 
+SEX:
   values: {dude: 0, gal: 1}
 ```
 
@@ -77,24 +78,24 @@ __Method 2__
 - Put the `values` and `deode` in brackets (array)
 
 ```yaml
-BQL: 
+BQL:
   values: [0,1]
   decode: [not below quantitation limit, below quantitation limit]
 ```
-  
+
 __Method 3__
 Really, it's the same as method 2, but easier to type and read when the
 decode gets really long
 
 ```yaml
-BQL: 
+BQL:
   values [0, 1]
   decode:
     - not below the quantitation limit of 2 ng/ml
     - below the quantitation limit of 2 ng/ml
 ```
 
-  
+
 ### Split data column
 
 - `DV` is on type on some records different type on other records
@@ -107,7 +108,7 @@ that brings this definition in the mix
 
 
 ```yaml
-DV: 
+DV:
   long: dependent variable
   split:
     DV1: {about: [concentration, ng/mL], when: SEQ==1}

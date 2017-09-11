@@ -1,0 +1,33 @@
+C:
+  long: commented rows
+  values: [.,C]
+MDV:
+  long: missing DV indicator
+  comment: per NONMEM specifications
+SEQ:
+  long: record type indicators
+  values: {concentration: 1, response: 2, other: 3}
+AMT:
+  about: [AMT, mg]
+  long: dose amount
+  range: [0,1000]
+II:
+  about: [II, hours]
+  long: interdose interval
+CMT:
+  about: Compartment
+  long: compartment number
+  comment: per NONMEM specifications
+  values: [1,2,3,4]
+TAFD:
+  unit: hours
+  long: time after first dose
+WT:
+  about: [Weight, kg]
+  long: baseline weight
+  range: [40.0, 100]
+EGFR:
+  about: [eGFR, ml/min/1.73 m2]
+  long: estimated glomerular filtration rate
+  range: [10,300]
+  if_missing: imputed

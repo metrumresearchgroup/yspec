@@ -1,0 +1,10 @@
+C:
+  long: commented rows
+  values: [.,C]
+USUBJID:
+  long: universal subject identifier
+ID:
+  long: NONMEM ID number
+EVID:
+  long: event ID indicator
+  comment: per NONMEM specifications

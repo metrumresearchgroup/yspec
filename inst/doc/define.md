@@ -2,7 +2,7 @@ Data source
 -----------
 
 -   File: tran2.xpt
--   Date: 2017-09-05
+-   Date: 2017-09-11
 
 Data definitions
 ----------------
@@ -45,6 +45,7 @@ Data definitions
     -   estimated glomerular filtration rate
     -   short name: eGFR
     -   unit: `ml/min/1.73 m2`
+    -   if\_missing: imputed
 13. **`STUDY`**
     -   study identifier
     -   short name: Study
@@ -77,3 +78,4 @@ Data definitions
     -   short name: creatinine clearance
     -   unit: `ml/min`
     -   derivation: `(140-AGE)*IBW/SCR`; `x 0.85 if female`
+    -   if\_missing: dropped
