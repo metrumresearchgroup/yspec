@@ -95,4 +95,4 @@ render_define(file = "./inst/spec/project.yml",
               output_dir = "inst/doc")
 ```
 
-Output \[here\](./inst/doc/
+Output [here](./inst/doc/project.pdf)
