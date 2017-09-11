@@ -88,6 +88,12 @@ Then we get [this output](./inst/doc/define.md)
 Build a `define.pdf` document
 -----------------------------
 
+To make a proper `define.pdf` document, create another yaml file that points to data set specific files.
+
+For example [./inst/spec/project.yml](./inst/spec/project.yml)
+
+Then render it:
+
 ``` r
 render_define(file = "./inst/spec/project.yml", 
               output = "project", 
