@@ -67,7 +67,7 @@ Then render it:
 ```{r, echo = TRUE, results = "hide", message = FALSE}
 render_define(file = "./inst/spec/project.yml", 
               output = "project", 
-              title = "DEM104101 PK/PD Analysis Data sets", 
+              title = "DEM104101 PK/PD Analysis Data Sets", 
               output_dir = "inst/doc")
 ```
 
