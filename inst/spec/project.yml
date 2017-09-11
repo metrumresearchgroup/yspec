@@ -4,5 +4,7 @@ DEM104101F_PK:
 DEM104101F_PKPD:
   description: The population PK/PD analysis data set
   path: inst/spec
-
+DEM104101F_AE:
+  description: Adverse event analysis data set
+  path: inst/spec
 
