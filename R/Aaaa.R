@@ -3,5 +3,4 @@
 ##' @importFrom rmarkdown render pdf_document
 NULL
 
-
 globalVariables(c("decode", "unit", "source"))
