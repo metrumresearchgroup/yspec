@@ -15,7 +15,7 @@ SEQ:
   long: record type indicators
   values: {concentration: 1, response: 2, other: 3}
 AMT:
-  about: [Amount, mg]
+  about: [AMT, mg]
   long: dose amount
   range: [0,1000]
 II:
