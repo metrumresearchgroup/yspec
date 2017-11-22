@@ -45,6 +45,7 @@ align[2] <- paste0("|", align[2])
 ##' Generate a table for FDA define.pdf document
 ##'
 ##' @param x a yspec object
+##' @param file the full path to yaml specification file
 ##'
 ##' @return Character vector of latex code for
 ##' the content of an FDA define.pdf document.  It
@@ -114,6 +115,7 @@ spec_define <- function(file) {
 ##'
 ##' @param file full path to define yaml file
 ##' @param main Title for the main heading
+##' @param ... passed to \code{\link{print_fda_define}}
 ##'
 ##' @details
 ##' Use \code{print_fda_define} to generate the output in the context
@@ -158,7 +160,8 @@ as_fda_content <- function(x) {
 
 ##' Print a table of contents for FDA define document
 ##'
-##' @param contents a spec define object
+##' @param x a spec define object
+##' @param file the full path to a yaml specification file
 ##' @seealso \code{\link{spec_define}}
 ##' @export
 fda_content_table <- function(x) {

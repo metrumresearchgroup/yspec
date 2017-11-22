@@ -1,11 +1,11 @@
-##' @export
+
 check_values <- function(x,values) {
   if(is.null(values)) return(TRUE)
   x <- unlist(unique(x),use.names = FALSE)
   if(length(x) != length(values)) return(FALSE)
   length(setdiff(x,values))==0
 }
-##' @export
+
 check_range <- function(x,range) {
   if(is.null(range)) return(TRUE)
   if(length(range) !=2) return(FALSE)
@@ -13,19 +13,25 @@ check_range <- function(x,range) {
   range <- sort(range)
   x[1] > range[1] & x[2] < range[2]
 }
-##' @export
+
 add_log <- function(env,...) {
   msg <- as.character(list(...))
   msg <- paste(msg, collapse = " ")
   env$log <- c(env$log, paste0("- ", msg))
   return(invisible(NULL))
 }
-##' @export
+
 add_error <- function(env) {
   env$error <- TRUE
   return(invisible(NULL))
 }
 
+
+##' Check a data set against its specification
+##'
+##' @param data a data frame
+##' @param spec a yspec object
+##' @param file the full path to a yaml specification file
 ##' @export
 check_data <- function(data, spec) {
   env <- new.env()
@@ -72,6 +78,7 @@ check_data <- function(data, spec) {
   return(invisible(env$error))
 }
 
+##' @rdname check_data
 ##' @export
 check_data_file <- function(data, file) {
   check_data(data, load_spec(file))

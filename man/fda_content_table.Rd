@@ -10,7 +10,9 @@ fda_content_table(x)
 fda_content_table_file(file)
 }
 \arguments{
-\item{contents}{a spec define object}
+\item{x}{a spec define object}
+
+\item{file}{the full path to a yaml specification file}
 }
 \description{
 Print a table of contents for FDA define document

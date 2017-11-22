@@ -13,6 +13,8 @@ fda_define(...)
 \item{file}{full path to define yaml file}
 
 \item{main}{Title for the main heading}
+
+\item{...}{passed to \code{\link{print_fda_define}}}
 }
 \description{
 Print a define document suitable for FDA submission

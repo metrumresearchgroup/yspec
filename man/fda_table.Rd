@@ -11,6 +11,8 @@ fda_table_file(file)
 }
 \arguments{
 \item{x}{a yspec object}
+
+\item{file}{the full path to yaml specification file}
 }
 \value{
 Character vector of latex code for

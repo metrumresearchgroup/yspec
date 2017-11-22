@@ -3,6 +3,7 @@
 ##' @importFrom rmarkdown render pdf_document
 ##' @importFrom knitr kable
 ##' @importFrom xtable xtable
+##' @importFrom utils capture.output
 NULL
 
 
