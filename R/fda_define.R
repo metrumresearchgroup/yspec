@@ -88,7 +88,7 @@ spec_define <- function(file) {
 
   for(i in seq_along(x)) {
     if(i==1) next
-    x[[i]] <- merge(x[[i]], x[[i-1]], open = TRUE)
+    x[[i]] <- merge(x[[i-1]], x[[i]], open = TRUE)
   }
 
   for(i in seq_along(x)) {

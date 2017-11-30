@@ -1,0 +1,25 @@
+---
+title: "DEM101101 Definition File"
+date: ""
+author: "Kyle T. Baron, Pharm.D., Ph.D."
+sponsor: ABC Pharma Inc, LLC
+projectnumber: "DEM101101"
+template: mrgtemplate.tex
+output:
+  pdf_document:
+    number_sections: true
+    toc: false
+---
+
+```{r echo = FALSE, results = "hide", message = FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(yaml)
+library(yspec)
+library(xtable)
+library(dplyr)
+```
+
+```{r results = "asis"}
+print_fda_define("inst/spec/project.yml")
+```
+

@@ -61,17 +61,52 @@ unpack_col <- function(x) {
   x
 }
 
-unpack_spec <- function(x) {
-  cols <- names(x)
-  for(i in seq_along(x)) {
-    if(is.null(x[[i]])) x[[i]] <- list()
-    x[[i]][["col"]] <- cols[i]
-    x[[i]] <- unpack_col(x[[i]])
+
+load_lookup_spec <- function(x) {
+  if(!exists("lookup_file",x)) return(list())
+  if(!file.exists(x$lookup_file)) {
+    stop("Couldn't find lookup file", call. = FALSE)
   }
-  structure(x,class="yspec")
+  message("Using lookup file: ", basename(x$lookup_file))
+  yaml.load_file(x$lookup_file)
 }
 
 
+unpack_spec <- function(x) {
+  meta <- list()
+  metai <- grepl("Options__", names(x), fixed = TRUE)
+  if(any(metai)) {
+    meta <- x[[which(metai)]]
+    x <- x[!metai]
+  }
+  if(exists("lookup_file", meta)) {
+    meta[["lookup_file"]] <- normalizePath(meta[["lookup_file"]])
+  }
+  lookup <- load_lookup_spec(meta)
+  cols <- names(x)
+  for(i in seq_along(x)) {
+    col <- cols[i]
+    def <- list(lookup = col)
+    if(is.null(x[[i]])) {
+      x[[i]] <- list()
+    }
+    x[[i]] <- merge.list(def,x[[i]], open = TRUE)
+    if(exists(x[[i]][["lookup"]],lookup)) {
+      x[[i]] <- merge.list(lookup[[x[[i]][["lookup"]]]],x[[i]], open = TRUE)
+    }
+    x[[i]][["col"]] <- col
+    x[[i]] <- unpack_col(x[[i]])
+  }
+  structure(x,class="yspec",meta = meta)
+}
+
+
+
+
+##' @export
+get_meta <- function(x) {
+  attr(x, "meta")
+}
 
 ##' Load a data specification file
 ##'
@@ -139,6 +174,10 @@ unpack_split <- function(x,col) {
   stop()
 }
 
+##' @export
+as.list.yspec <- function(x,...) {
+  unclass(x)
+}
 
 ##' @export
 as.data.frame.yspec <- function(x,...) {
