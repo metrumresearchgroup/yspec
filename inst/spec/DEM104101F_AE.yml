@@ -1,6 +1,7 @@
 C:
   long: commented rows
   values: [.,C]
+  type: character
 MDV:
   long: missing DV indicator
   comment: per NONMEM specifications
@@ -14,6 +15,7 @@ AMT:
 II:
   about: [II, hours]
   long: interdose interval
+  type: numeric
 CMT:
   about: Compartment
   long: compartment number

@@ -37,3 +37,11 @@ merge.list <- function(x,y,...,open=FALSE,
 }
 
 is_yspec <- function(x) inherits(x, "yspec")
+
+parens <- function(x) paste0("(",x,")")
+
+is_error <- function(x) inherits(x,"try-error")
+
+
+.no <- function(x,y) is.null(x[[as.character(substitute(y))]])
+.has <- function(x,y) !is.null(x[[as.character(substitute(y))]])

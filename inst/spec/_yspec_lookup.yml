@@ -6,8 +6,10 @@ WT:
 EGFR:
   long: estimated glomerular filtration rate
   about: [eGFR, ml/min/1.73m2]
-  range: [10,170]
+  range: [40,170]
   type: numeric
+EGFR2:
+  range: [10,60]
 SEX:
   values: [0,1]
   decodes: [male, female]
@@ -35,4 +37,7 @@ C:
   long: comment
   values: [., C]
   decodes: [not a comment, comment]
+CMT:
+  short: compartment
+  long: compartment number per NONMEM
 

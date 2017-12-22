@@ -1,16 +1,15 @@
-Options__:
+SETUP__:
   lookup_file: inst/spec/_yspec_lookup.yml
   project: DEM104101F
   client: ABC Pharmaceuticals, Inc
 WT:
-  about: [weigt, lbs]
-  range: [10, 3000]
-  lookup: none
-EGFR:
 HT:
 BMI:
-  lookup: BMI2
 ALB:
+EGFR:
+  lookup: none
+CMT:
+  values: [1,2,3]
 C:
 
 

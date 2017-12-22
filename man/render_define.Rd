@@ -4,7 +4,7 @@
 \alias{render_define}
 \title{Render a define.pdf document}
 \usage{
-render_define(file, title, output, ...)
+render_define(file, title = "Data Definition", output, ...)
 }
 \arguments{
 \item{file}{yaml file identifying specifications}

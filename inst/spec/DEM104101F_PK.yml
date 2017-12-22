@@ -1,10 +1,23 @@
+SETUP__:
+  lookup_file: inst/spec/_yspec_lookup.yml
+  project: DEM104101F
+  client: ABC Pharmaceuticals, Inc
 C:
   long: commented rows
   values: [.,C]
+  type: character
 USUBJID:
   long: universal subject identifier
+  type: character
 ID:
   long: NONMEM ID number
+  type: character
 EVID:
   long: event ID indicator
   comment: per NONMEM specifications
+  type: numeric
+WT:
+  range: [2,4]
+  type: numeric
+
+

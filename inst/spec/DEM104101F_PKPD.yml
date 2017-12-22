@@ -1,6 +1,7 @@
 C:
   long: commented rows
   values: [.,C]
+  type: character
 MDV:
   long: missing DV indicator
   comment: per NONMEM specifications
