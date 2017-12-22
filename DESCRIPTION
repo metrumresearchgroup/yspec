@@ -11,5 +11,5 @@ Description: Generate Define.pdf from yaml specification.
 License: GPL (>=2)
 Encoding: UTF-8
 LazyData: true
-Imports: yaml, dplyr, rmarkdown, knitr, xtable
+Imports: yaml, dplyr, rmarkdown, knitr, xtable, rlang
 RoxygenNote: 6.0.1

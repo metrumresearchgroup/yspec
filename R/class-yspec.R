@@ -68,8 +68,9 @@ print.yspec <- function(x,i=0,...) {
 }
 
 ##' @export
-summary.yspec <- function(object, .vars ) {
-  vars <- select_vars(names(object),!!rlang::enquo(.vars))
+summary.yspec <- function(object, ...) {
+  .vars <- quos(...)
+  vars <- select_vars(names(object),!!!.vars)
   if(length(vars)==0) vars <- names(object)[seq_len(min(10,length(object)))]
   for(v in vars) {
     x <- object[[v]]
@@ -127,7 +128,7 @@ primary_keys <- function(x) {
 }
 
 ##' @export
-print.ycol <- function(x) {
+print.ycol <- function(x,...) {
   rnge <- '.'
   if(!is.null(x$range)) {
     rnge <- paste0(x$range[1], " to ", x$range[2])
