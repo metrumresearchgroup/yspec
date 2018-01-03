@@ -12,7 +12,7 @@ has_values <- function(x) {
 }
 
 has_decode <- function(x) {
-  if(.has(x,decode)) {
+  if(.has("decode",x)) {
     if(length(x$decode) > 0) {
       return(TRUE)
     }
@@ -21,23 +21,21 @@ has_decode <- function(x) {
 }
 
 has_unit <- function(x) {
-  if(is.null(x$unit)) return(FALSE)
-  return(TRUE)
+  !is.null(x$unit)
 }
 
 has_source <- function(x) {
-  if(is.null(x$source)) return(FALSE)
-  !is.na(x$source)
+  !is.null(x$source)
 }
 
 has_comment <- function(x) {
-  if(is.null(x$comment)) return(FALSE)
-  return(TRUE)
+  !is.null(x$comment)
 }
 
 define_values <- function(x) {
 
-  if(.no(x,"values")) return(NULL)
+  if(.no("values", x)) return(NULL)
+
   long <- x[["longvalues"]]
   decode <- NULL
   values <- NULL
@@ -71,37 +69,34 @@ define_values <- function(x) {
 
 
 pack_unit <- function(x) {
-  if(.no(x,"unit")) return(NULL)
+  if(.no("unit", x)) return(NULL)
   paste0("    - unit: `", x$unit,"`")
 }
 
 pack_source <- function(x) {
-  if(.no(x,"source")) return(NULL)
+  if(.no("source", x)) return(NULL)
   paste0("    - source: `", x$source,"`")
 }
 
 pack_comment <- function(x) {
-  if(.no(x,"comment")) return(NULL)
+  if(.no("comment", x)) return(NULL)
   paste0("    - comment: ", x$comment)
 }
 
 pack_short <- function(x) {
-  if(.no(x,"short")) return(NULL)
+  if(.no("short", x)) return(NULL)
   if(x$short==x$col) return(NULL)
   paste0("    - short name: ", x$short)
 }
 
 pack_long <- function(x) {
-  if(.no(x,"long")) return(NULL)
+  if(.no("long", x)) return(NULL)
   paste0("    - ", x$long)
 }
 
-pack_derivation <- function(x) {
-  if(is.null(x$derivation)) return(NULL)
-  x <- x$derivation
-  x <- paste0("      `", x, "`")
-  if(length(x) > 1) x <- paste(x, collapse = '; ')
-  c("    - derivation: ", x)
+pack_type <- function(x) {
+  if(.no("type", x)) return(NULL)
+  paste0("    - ", x$type)
 }
 
 pack_if_missing <- function(x) {
@@ -123,12 +118,10 @@ define_col_1 <- function(x) {
   miss <- pack_if_missing(x)
   source <- pack_source(x)
   comment <- pack_comment(x)
-  type <- x$type
+  type <- pack_type(x)
 
-  values <- NULL
-  if(.has(x,"values")) {
-    values <- define_values(x)
-  }
+  values <- define_values(x)
+
   if(x$is_split) {
     values <- pack_split(x)
     values <- paste0("        ", values)
@@ -137,7 +130,7 @@ define_col_1 <- function(x) {
 }
 
 
-md_header <- function(file="tran2.xpt",...) {
+md_header <- function(data_file,...) {
   c("---",
     "title: ''",
     "author: ''",
@@ -145,15 +138,15 @@ md_header <- function(file="tran2.xpt",...) {
     "fontsize: 12pt",
     "---\n",
     "## Data source",
-    paste0("  * File: ", file),
+    paste0("  * Data Set: ", backticks(data_file)),
     paste0("  * Date: ", Sys.Date(), "\n"),
     "## Data definitions\n")
 }
 
 
-md_outline <- function(x, head = TRUE,...) {
+md_outline <- function(x,data_file, head = TRUE,...) {
 
-  if(!is.null(head)) head <- md_header(...)
+  if(!is.null(head)) head <- md_header(data_file,...)
 
   cols <- vector(mode="list", length(x))
 
@@ -165,10 +158,13 @@ md_outline <- function(x, head = TRUE,...) {
 }
 
 
+
+
 ##' Render a data specification object
 ##'
 ##' @param x object
 ##' @param stem for output file name
+##' @param data_file the data file the spec is describing
 ##' @param format function defining how to render the object
 ##' @param output_format passed to \code{rmarkdown::render}
 ##' @param ... passed to \code{rmarkdown::render}
@@ -176,6 +172,7 @@ md_outline <- function(x, head = TRUE,...) {
 ##' @export
 render_spec <- function(x,
                         stem,
+                        data_file = data_stem(x),
                         format = c("md_outline"),
                         output_format="pdf_document",...) {
   .dir <- tempdir()
@@ -188,7 +185,7 @@ render_spec <- function(x,
 
   if(file.exists(file)) file.remove(file)
 
-  cat(format_fun(x,...), file=file, sep="\n")
+  cat(format_fun(x,data_file = data_file,...), file=file, sep="\n")
 
   rmarkdown::render(file, output_format=output_format,
                     output_dir=getwd(), ...)
@@ -211,11 +208,6 @@ pack_split <- function(sp) {
 }
 
 
-read_project_file <- function(project_file) {
-
-
-}
-
 ##' Render a define.pdf document
 ##'
 ##' @param file yaml file identifying specifications
@@ -233,18 +225,6 @@ render_define <- function(file, title = "Data Definition", output, ...) {
   .dir <- tempdir()
   output <- file.path(.dir,paste0(output, ".md"))
   x <- spec_define(file)
-  # x <- yaml.load_file(file)
-  # files <- names(x)
-  # n_files <- length(x)
-  # path <- '.'
-  #
-  # for(i in seq_along(x)) {
-  #   x[[i]]$name <- files[[i]]
-  #   if(is.null(x[[i]]$spec)) x[[i]]$spec <- paste0(files[[i]], ".yml")
-  #   if(is.null(x[[i]]$source)) x[[i]]$source <- paste0(x[[i]]$name, ".xpt")
-  #   if(is.null(x[[i]]$path)) x[[i]]$path <- path
-  #   x[[i]]$file <- file.path(x[[i]]$path, x[[i]]$spec)
-  # }
   files <- names(x)
   n_files <- length(x)
   template_title <- '---
@@ -261,28 +241,18 @@ output:
   main_title <- sub("<insert-title>", title, template_title, fixed=TRUE)
   specs <- vector("list", length(x))
   for(i in seq_along(x)) {
-    if(!file.exists(x[[i]]$file)) stop("could not find file ", x[[i]]$file)
+    if(!file.exists(x[[i]]$file)) {
+      stop("could not find file ", x[[i]]$file)
+    }
     spec <- load_spec(x[[i]]$file)
     specs[[i]] <- md_outline(spec, head = NULL)
   }
   if(file.exists(output)) file.remove(output)
   cat(file = output, main_title, "\n")
-  # contents_header <- paste0("# Contents")
-  # cat(file = output, contents_header, "\n", append = TRUE)
-  # contents <- vector("list", length(x))
-  # for(i in seq_along(contents)) {
-  #   link <- gsub("[[:punct:]]", "-", x[[i]]$name)
-  #   contents[[i]] <- paste0("  - [__", basename(x[[i]]$source), "__](#",link,")")
-  #   contents[[i]] <- paste0(contents[[i]], " ", x[[i]]$description)
-  #   cat(file = output, contents[[i]], "\n\n", append = TRUE)
-  # }
-  # contents <- c(contents_header,contents)
   cat(file = output, "\n", append = TRUE)
   for(i in seq_along(specs)) {
     header <- paste0("# ", x[[i]]$description, " ", parens(x[[i]]$name))
     cat(file = output, header, "\n", append = TRUE)
-    #file_header <- paste0("### ", x[[i]]$description)
-    #cat(file = output, file_header, "\n", append = TRUE)
     cat(file = output, specs[[i]], "\n", sep = "\n", append = TRUE)
   }
   rmarkdown::render(input = output,

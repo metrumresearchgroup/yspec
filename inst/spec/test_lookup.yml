@@ -1,5 +1,5 @@
 SETUP__:
-  lookup_file: inst/spec/_yspec_lookup.yml
+  lookup_file: [_yspec_lookup.yml, _yspec_lookup_2.yml]
   project: DEM104101F
   client: ABC Pharmaceuticals, Inc
 WT:
@@ -10,6 +10,8 @@ EGFR:
   lookup: none
 CMT:
   values: [1,2,3]
+  comment: This is the same thing as what we get in nonmem,
+           except better!
 C:
 
 

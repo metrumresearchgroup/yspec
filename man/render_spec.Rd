@@ -4,13 +4,15 @@
 \alias{render_spec}
 \title{Render a data specification object}
 \usage{
-render_spec(x, stem, format = c("md_outline"),
+render_spec(x, stem, data_file = data_stem(x), format = c("md_outline"),
   output_format = "pdf_document", ...)
 }
 \arguments{
 \item{x}{object}
 
 \item{stem}{for output file name}
+
+\item{data_file}{the data file the spec is describing}
 
 \item{format}{function defining how to render the object}
 

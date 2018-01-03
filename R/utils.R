@@ -10,18 +10,13 @@ xy <- function(x,name) {
 }
 
 
-merge.list <- function(x,y,...,open=FALSE,
-                       warn=TRUE,context="object") {
+merge.list <- function(x,y,..., open=FALSE,
+                       warn=TRUE, context="object") {
 
   y <- as.list(y)
 
-  # if(!open) {
-  #   y <- y[names(y)!=wild | is.null(names(y))]
-  # }
-
   ## Merge two lists
   common <- intersect(names(x), names(y))
-  #common <- common[common != wild]
 
   x[common] <- y[common]
 
@@ -36,12 +31,55 @@ merge.list <- function(x,y,...,open=FALSE,
   x
 }
 
-is_yspec <- function(x) inherits(x, "yspec")
+combine_list <- function(left, right) {
+  if(!all(is.list(left),is.list(right))) {
+    stop("input are not lists")
+  }
+  left[names(right)] <-  right
+  left
+}
+
+update_list <- function(left, right) {
+  if(!all(is.list(left),is.list(right))) {
+    stop("input are not lists")
+  }
+  common <- intersect(names(left), names(right))
+  left[common] <-  right[common]
+  left
+}
+
 
 parens <- function(x) paste0("(",x,")")
+brackets <- function(x) paste0("[",x,"]")
+
+backticks <- function(x) paste0("`",x,"`")
 
 is_error <- function(x) inherits(x,"try-error")
 
+.no <- function(name,object) {
+  is.null(object[[name]])
+}
 
-.no <- function(x,y) is.null(x[[as.character(substitute(y))]])
-.has <- function(x,y) !is.null(x[[as.character(substitute(y))]])
+.has <- function(name,object) {
+  !is.null(object[[name]])
+}
+
+.stop <- function(...) stop(..., call. = FALSE)
+
+try_yaml <- function(file) {
+  this <- try(yaml.load_file(file))
+  if(is_error(this)) {
+    tryfile <- paste0("yaml::yaml.load_file(\"",file,"\")")
+    .stop(
+      "failed to parse the file ",
+      basename(file),
+      "\n",
+      "please try running ",
+      tryfile,
+      " and fix yaml code"
+    )
+  }
+  this
+}
+
+

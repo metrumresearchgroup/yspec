@@ -1,5 +1,5 @@
 SETUP__:
-  lookup_file: inst/spec/_yspec_lookup.yml
+  lookup_file: [_yspec_lookup.yml, _yspec_lookup.yml]
   project: DEM104101F
   client: ABC Pharmaceuticals, Inc
 C:

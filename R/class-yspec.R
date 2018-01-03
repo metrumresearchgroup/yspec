@@ -1,6 +1,12 @@
+
+is_yspec <- function(x) inherits(x, "yspec")
+
 ##' @export
 `$.yspec` <- function(x, name, ...) {
-    structure(x[[name]], class = "ycol")
+  if(!exists(name,x)) {
+    return(NULL)
+  }
+  structure(x[[name]], class = "ycol")
 }
 
 
@@ -41,21 +47,21 @@ as.list.yspec <- function(x,...) {
 as.data.frame.yspec <- function(x,...) {
   out <- data.frame(col = seq_along(x),name=names(x))
   u <- lapply(x,function(xx) {
-    ifelse(.has(xx,"unit"), xx[["unit"]], '.')
+    ifelse(.has("unit",xx), xx[["unit"]], '.')
   })
   out$units <- u
   u <- lapply(x,function(xx) {
-    ifelse(.has(xx,"long"), xx[["long"]], '.')
+    ifelse(.has("long",xx), xx[["long"]], '.')
   })
   out$long <- u
   out
 }
 
-
 ##' @export
 head.yspec <- function(x, n = 10, ...) {
   ans <- as.data.frame.yspec(x)
-  ans[seq_len(n),]
+  n <- min(n,nrow(ans))
+  ans[seq(n),]
 }
 
 ##' @export
@@ -71,7 +77,9 @@ print.yspec <- function(x,i=0,...) {
 summary.yspec <- function(object, ...) {
   .vars <- quos(...)
   vars <- select_vars(names(object),!!!.vars)
-  if(length(vars)==0) vars <- names(object)[seq_len(min(10,length(object)))]
+  if(length(vars)==0) {
+    vars <- names(object)[seq_len(min(10,length(object)))]
+  }
   for(v in vars) {
     x <- object[[v]]
     unit <- dplyr::if_else(is.null(x$unit), "no-unit", x$unit)
@@ -90,9 +98,9 @@ print1 <- function(x,...) {
     decode <- '.'
     values <- '.'
     unit <- '.'
-    if(.has(xx,"decode")) decode <- xx$decode
-    if(.has(xx,"values")) values <- xx$values
-    if(.has(xx,"unit")) unit <- xx$unit
+    if(.has("decode",xx)) decode <- xx$decode
+    if(.has("values",xx)) values <- xx$values
+    if(.has("unit",xx)) unit <- xx$unit
     data.frame(col=xx$col,
                unit=unit,
                value=values,
@@ -133,14 +141,20 @@ print.ycol <- function(x,...) {
   if(!is.null(x$range)) {
     rnge <- paste0(x$range[1], " to ", x$range[2])
   }
+  x$unit <- ifelse(is.null(x$unit), '.', x$unit)
   name <- c("col", "type", "short", "unit", "range")
-  values <- c(x$col, x$type, x$short, x$unit,rnge)
+  values <- c(x$col, x$type, x$short, x$unit, rnge)
   ans <- data.frame(name = name, value = values)
   print(ans, row.names = FALSE, right = FALSE)
-
 }
 
 ##' @export
 as.list.ycol <- function(x,...) {
   unclass(x)
+}
+
+data_stem <- function(x) {
+  m <- get_meta(x)
+  file <- basename(m[["yml_file"]])
+  gsub(".ya?ml$", "", file)
 }

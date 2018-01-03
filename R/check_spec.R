@@ -72,7 +72,7 @@ check_data <- function(data, spec) {
     message("Messages:")
     message(paste(" ",env$log, collapse = "\n"))
     message("")
-    stop("please review messages and re-check", call. = FALSE)
+    .stop("please review messages and re-check")
   }
   message("Everything checks out!")
   return(invisible(env$error))

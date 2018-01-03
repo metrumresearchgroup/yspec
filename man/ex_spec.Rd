@@ -4,7 +4,10 @@
 \alias{ex_spec}
 \title{Generate an example specification object}
 \usage{
-ex_spec()
+ex_spec(file = "spec.yml")
+}
+\arguments{
+\item{file}{an example spec file name}
 }
 \description{
 Generate an example specification object

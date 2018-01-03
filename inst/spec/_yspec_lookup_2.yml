@@ -1,0 +1,32 @@
+WT:
+  long: patient weight
+  about: [Weight, kg]
+  range: [20, 220]
+  type: numeric
+BMI:
+  long: body mass index
+  unit: m2/kg
+  type: numeric
+BMI2:
+  long: alternate BMI measure
+  unit: grains/mm
+  type: factor
+HT:
+  long: height
+  about: [height, cm]
+  range: [100,200]
+  type: numeric
+ALB:
+  long: serum albumin
+  unit: g/dL
+  short: albumin
+  range: [2, 8]
+  type: numeric
+C:
+  long: comment
+  values: [., C]
+  decodes: [not a comment, comment]
+CMT:
+  short: compartment - from_lookup_2
+  long: compartment number per NONMEM
+
