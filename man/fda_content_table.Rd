@@ -18,5 +18,5 @@ fda_content_table_file(file)
 Print a table of contents for FDA define document
 }
 \seealso{
-\code{\link{spec_define}}
+\code{\link{load_spec_proj}}
 }

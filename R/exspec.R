@@ -4,7 +4,7 @@
 ##'
 ##' @export
 ##'
-ex_spec <- function(file = "spec.yml") {
+load_spec_ex <- function(file = "spec.yml") {
  spec <- system.file("spec", file, package="yspec")
  load_spec(spec)
 }

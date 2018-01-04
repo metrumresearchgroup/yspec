@@ -1,32 +1,33 @@
 
 pack_codes <- function(x) {
-  if(is.null(x[["values"]])) return("")
-  if(is.null(x[["decode"]])) {
+  if(.no("values",x)) return("")
+  if(.no("decode",x)) {
     ans <- paste(x[["values"]], collapse = ', ')
     ans <- paste0("values: ", ans)
     return(ans)
   }
-  ans <- paste0(x[["decode"]], " = ", x[["values"]])
+  ans <- paste0(x[["values"]], " = ", x[["decode"]])
   paste(ans, collapse = ", ")
 }
 
 # Functions for generating spec tables for a
 # single data set
 as_fda_table_ <- function(x) {
-  x1 <- x[["col"]]
-  x2 <- x[["long"]]
-  if(is.null(x2)) x2 <- x[["col"]]
-  data_frame(VARIABLE = x1,
-             LABEL = x2,
-             TYPE = "numeric",
+  variable <- x[["col"]]
+  label <- long(x, default = x[["col"]])
+  if(.has("unit", x)) {
+    label <- paste0(label, " (unit: ", x$unit, ")")
+  }
+
+  data_frame(VARIABLE = x[["col"]],
+             LABEL = label,
+             TYPE = type(x, " "),
              CODES = pack_codes(x))
 }
 
 as_fda_table <- function(x) {
-  bind_rows(lapply(x,as_fda_table_))
+  map_df(x, as_fda_table_)
 }
-
-
 
 add.to.row <- list(pos = list(0), command = NULL)
 command <- paste0("\\hline\n\\endhead\n",
@@ -58,9 +59,11 @@ align[2] <- paste0("|", align[2])
 ##'
 ##' @export
 fda_table <- function(x) {
-  if(!is_yspec(x)) stop("x is not a yspec object", call. = FALSE)
+  if(!is_yspec(x)) {
+    .stop("x is not a yspec object")
+  }
   x <- as_fda_table(x)
-  xx <- xtable(x, align = align )
+  xx <- xtable(x, align = align)
   capture.output(
     print(xx, hline.after=c(-1,0,seq_len(nrow(xx)-1)),
           add.to.row = add.to.row, comment = FALSE,
@@ -76,40 +79,6 @@ fda_table_file <- function(file) {
   fda_table(x)
 }
 
-##' Load a spec define yaml document
-##'
-##' @param file file name
-##'
-##' @export
-spec_define <- function(file) {
-  x <- yaml.load_file(file)
-  files <- names(x)
-  n_files <- length(x)
-
-  for(i in seq_along(x)) {
-    if(i==1) next
-    x[[i]] <- merge(x[[i-1]], x[[i]], open = TRUE)
-  }
-
-  for(i in seq_along(x)) {
-    x[[i]]$name <- files[[i]]
-    if(is.null(x[[i]]$spec)) {
-      x[[i]]$spec <- paste0(files[[i]], ".yml")
-    }
-    if(is.null(x[[i]]$source)) {
-      x[[i]]$source <- paste0(x[[i]]$name, ".xpt")
-    }
-    if(is.null(x[[i]]$path)) {
-      x[[i]]$path <- '.'
-    }
-    x[[i]]$file <- file.path(x[[i]]$path, x[[i]]$spec)
-    if(!file.exists(x[[i]]$file)) {
-      stop("could not find file ", x[[i]]$file)
-    }
-  }
-
-  x
-}
 
 ##' Print a define document suitable for FDA submission
 ##'
@@ -125,17 +94,18 @@ spec_define <- function(file) {
 ##' @export
 print_fda_define <- function(file, main = "Datasets") {
 
-  x <- spec_define(file)
+  x <- load_spec_proj(file)
+
   writeLines(paste0("# ", main))
+
   writeLines(fda_content_table(x))
 
-  for(i in seq_along(x)) {
-    this <- x[[i]]
+  walk(x, function(this) {
     title <- paste0(this$description, " (`", this$source, "`)")
     header <- paste0("## ", title, " \\label{", this$name,"}")
     writeLines(header)
     writeLines(fda_table_file(this$file))
-  }
+  })
 }
 
 ##' @rdname print_fda_define
@@ -144,29 +114,18 @@ fda_define <- function(...) {
   capture.output(print_fda_define(...))
 }
 
-fda_content_ref <- function(name, source) {
-  source <- gsub("_", "\\\\_", source)
-  paste0("\\hyperref[",name,"]{", source, "}")
-}
-
-as_fda_content_ <- function(x) {
-  data_frame(Description  = x$description,
-             Location = paste0(fda_content_ref(x$name,x$source)))
-}
-
-as_fda_content <- function(x) {
-  lapply(x, as_fda_content_) %>% bind_rows
-}
 
 ##' Print a table of contents for FDA define document
 ##'
 ##' @param x a spec define object
 ##' @param file the full path to a yaml specification file
-##' @seealso \code{\link{spec_define}}
+##' @seealso \code{\link{load_spec_proj}}
 ##' @export
 fda_content_table <- function(x) {
-  if(!is.list(x)) stop("x is not a list", call. = FALSE)
-  contents <- as_fda_content(x)
+  if(!is_yproj(x)) {
+    .stop("x is not a project specification object")
+  }
+  contents <- fda_content_rows(x)
   kable(contents,
         format = "latex",
         align = c("|p{2.85in}", "p{2.75in}|"),
@@ -176,6 +135,18 @@ fda_content_table <- function(x) {
 ##' @rdname fda_content_table
 ##' @export
 fda_content_table_file <- function(file) {
-  x <- spec_define(file)
-  fda_content_table(x)
+  fda_content_table(load_spec_proj(file))
+}
+
+fda_content_rows <- function(x) {
+  map_df(x, function(.x) {
+    loc <- fda_content_ref(.x[["name"]], .x[["source"]])
+    data_frame(Description  = .x$description,
+               Location = loc)
+  })
+}
+
+fda_content_ref <- function(name, source) {
+  source <- gsub("_", "\\\\_", source)
+  paste0("\\hyperref[",name,"]{", source, "}")
 }

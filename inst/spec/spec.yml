@@ -1,3 +1,5 @@
+SETUP__:
+  primary_key: [ID,EVID,SEQ]
 C:
   long: commented rows
   values: [.,C]

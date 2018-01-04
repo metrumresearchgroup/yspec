@@ -5,7 +5,7 @@
 \title{Render a data specification object}
 \usage{
 render_spec(x, stem, data_file = data_stem(x), format = c("md_outline"),
-  output_format = "pdf_document", ...)
+  output_format = "pdf_document", output_dir = getwd(), ...)
 }
 \arguments{
 \item{x}{object}

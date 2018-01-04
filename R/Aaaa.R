@@ -7,7 +7,7 @@
 ##' @importFrom utils capture.output head
 ##' @importFrom rlang quos set_names
 ##' @importFrom assertthat assert_that
-##' @importFrom purrr map map_chr
+##' @importFrom purrr map map_chr imap map_df
 NULL
 
 

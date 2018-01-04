@@ -6,36 +6,17 @@ is_yspec <- function(x) inherits(x, "yspec")
   if(!exists(name,x)) {
     return(NULL)
   }
-  structure(x[[name]], class = "ycol")
+  getElement(unclass(x),name)
 }
-
 
 ##' @export
 `[.yspec` <- function(x,i,j,drop=FALSE) {
+  unclass(unclass(x)[[i]])
+}
 
-  i <- as.character(substitute(i))
-  j <- as.character(substitute(j))
-
-  if(i=="1") {
-    return(print1(x))
-  }
-  if(i=='2') {
-    return(print2(x))
-  }
-
-  class(x) <- "list"
-
-  if(j=="") return(x[[i]])
-
-  dol <- substr(j,1,1)
-  if(dol==".") {
-    j <- sub(".", "", j, fixed=TRUE)
-    return(x[[i]][["split"]][[j]])
-  }
-
-  if(nchar(j) > 0) return(x[[i]][[j]])
-
-  stop()
+##' @export
+`[[.yspec` <- function(x,i,..., exact = TRUE) {
+  unclass(x)[[i]]
 }
 
 ##' @export
@@ -46,22 +27,16 @@ as.list.yspec <- function(x,...) {
 ##' @export
 as.data.frame.yspec <- function(x,...) {
   out <- data.frame(col = seq_along(x),name=names(x))
-  u <- lapply(x,function(xx) {
-    ifelse(.has("unit",xx), xx[["unit"]], '.')
-  })
-  out$units <- u
-  u <- lapply(x,function(xx) {
-    ifelse(.has("long",xx), xx[["long"]], '.')
-  })
-  out$long <- u
+  out$type <- map_chr(x, "type", .default = ".")
+  out$unit <- map_chr(x, "unit", .default = ".")
+  out$short <- map_chr(x, "short", .default = ".")
   out
 }
 
 ##' @export
 head.yspec <- function(x, n = 10, ...) {
   ans <- as.data.frame.yspec(x)
-  n <- min(n,nrow(ans))
-  ans[seq(n),]
+  head(ans, n = n, ...)
 }
 
 ##' @export
@@ -135,26 +110,102 @@ primary_keys <- function(x) {
   get_meta(x)[["primary_key"]]
 }
 
-##' @export
-print.ycol <- function(x,...) {
-  rnge <- '.'
-  if(!is.null(x$range)) {
-    rnge <- paste0(x$range[1], " to ", x$range[2])
-  }
-  x$unit <- ifelse(is.null(x$unit), '.', x$unit)
-  name <- c("col", "type", "short", "unit", "range")
-  values <- c(x$col, x$type, x$short, x$unit, rnge)
-  ans <- data.frame(name = name, value = values)
-  print(ans, row.names = FALSE, right = FALSE)
-}
-
-##' @export
-as.list.ycol <- function(x,...) {
-  unclass(x)
-}
 
 data_stem <- function(x) {
   m <- get_meta(x)
   file <- basename(m[["yml_file"]])
   gsub(".ya?ml$", "", file)
 }
+
+get_lookup_files <- function(x) {
+  ans <- get_meta(x)[["lookup_file"]]
+  if(is.character(ans)) {
+    return(ans)
+  }
+  return(character(0))
+}
+
+
+unit <- function(x,...) UseMethod("unit")
+##' @export
+unit.ycol <- function(x, default = '.',...) {
+  if(is.null(x[["unit"]])) {
+    return(default)
+  }
+  x[["unit"]]
+}
+##' @export
+unit.yspec <- function(x,default = '.',...) {
+  map_chr(x,"unit", .default = default)
+}
+
+long <- function(x,...) UseMethod("long")
+##' @export
+long.ycol <- function(x, default = '.', ... ) {
+  if(is.null(x[["long"]])) {
+    return(default)
+  }
+  x[["long"]]
+}
+##' @export
+long.yspec <- function(x, default = '.', ...) {
+  map_chr(x,"long", .default = default)
+}
+
+type <- function(x,...) UseMethod("type")
+##' @export
+type.ycol <- function(x, default = "numeric", ... ) {
+  if(is.null(x[["type"]])) {
+    return(default)
+  }
+  x[["type"]]
+}
+##' @export
+type.yspec <- function(x, default = "numeric",...) {
+  map_chr(x,"type", .default = default)
+}
+
+short <- function(x,...) UseMethod("short")
+##' @export
+short.ycol <- function(x, default = ".", ...) {
+  if(.no("short", x)) {
+    return(default)
+  }
+  x[["short"]]
+}
+
+comment <- function(x,...) UseMethod("comment")
+##' @export
+comment.ycol <- function(x, default = ".",...) {
+  if(.no("comment",x)) {
+    return(default)
+  }
+  x[["comment"]]
+}
+##' @export
+comment.yspec <- function(x,default = '.',...) {
+  map_chr(x, "comment", .default = default)
+}
+
+Range <- function(x,...) UseMethod("Range")
+##' @export
+Range.ycol <- function(x, default = '.', ...) {
+  if(.no("range",x)) {
+    return(default)
+  }
+  paste(x[["range"]], collapse = " to ")
+}
+##' @export
+Range.yspec <- function(x, default = '.', ...) {
+  map_chr(x, Range.ycol)
+}
+
+lookup <- function(x,...) UseMethod("lookup")
+##' @export
+lookup.ycol <- function(x,...) {
+  if(.has("lookup",x)) {
+    return(x[["lookup"]])
+  }
+  x[["col"]]
+}
+

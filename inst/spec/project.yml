@@ -1,11 +1,10 @@
+SETUP__:
+  project_file: true
 DEM104101F_PK:
   description: The population PK analysis data set
-  path: inst/spec
   data_path: data/derived
 DEM104101F_PKPD:
   description: The population PK/PD analysis data set
-DEMO101101_PK:
-  description: Yet another PK data set
 DEM104101F_AE:
   description: Adverse event analysis data set
 

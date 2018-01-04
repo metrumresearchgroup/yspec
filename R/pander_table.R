@@ -23,8 +23,6 @@ pander_table <- function(x, data_file = "data", ...) {
 
 pander_table_df <- function(x, data_file = "data", ...) {
 
-  if(!is.null(head)) head <- md_header(data_file,...)
-
   cols <- vector(mode="list", length(x))
 
   for(i in seq_along(x)) {
@@ -45,30 +43,12 @@ define_col_pander <- function(x) {
   decode <- NULL
   chna <- as.character(NA)
 
-  long <- is.character(x$long)
-
-  long <- ifelse(long, x[["long"]],chna)
-
-  if(.has("comment",x)) {
-    comment <- x[["comment"]]
-  } else {
-    comment <- chna
-  }
-
-  if(.has("unit",x)) {
-    unit <- parens(x$unit)
-  } else {
-    unit <- character(0)
-  }
-
+  long <- long(x, chna)
+  comment <- comment(x, chna)
+  unit <- unit(x, character(0))
   col_ <- paste0(col, " ", unit)
-
-  if(.has("range", x)) {
-    ran <- parens(paste(x$range,collapse = " - "))
-  } else {
-    ran <- chna
-  }
-
+  ran <- Range(x,chna)
+  type <- type(x,'.')
 
   fields <- c("short-name", "long-name","comment","range")
   values <- c(x$short, long,  comment, ran)
@@ -76,7 +56,7 @@ define_col_pander <- function(x) {
 
   ans <- data_frame(
     col = col_,
-    type = x$type,
+    type = type,
     field = fields,
     value = values)
 

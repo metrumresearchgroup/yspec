@@ -25,7 +25,10 @@ merge.list <- function(x,y,..., open=FALSE,
     x <- c(x,y[nw])
   } else {
     if(length(common)==0 & warn) {
-      warning(paste0("Found nothing to update: ", context), call.=FALSE)
+      warning(
+        paste0("Found nothing to update: ", context),
+        call.=FALSE
+      )
     }
   }
   x
@@ -67,14 +70,20 @@ is_error <- function(x) inherits(x,"try-error")
 .stop <- function(...) stop(..., call. = FALSE)
 
 try_yaml <- function(file) {
-  this <- try(yaml.load_file(file))
+  if(!file.exists(file)) {
+    .stop("the file ", basename(file) ,
+          "\n  does not exist in directory\n  ",
+          dirname(file))
+  }
+  this <- try(yaml.load_file(file), silent = TRUE)
   if(is_error(this)) {
     tryfile <- paste0("yaml::yaml.load_file(\"",file,"\")")
     .stop(
-      "failed to parse the file ",
+      "failed to parse ",
       basename(file),
-      "\n",
-      "please try running ",
+      "\n\n",
+      this,
+      "\nplease try running ",
       tryfile,
       " and fix yaml code"
     )

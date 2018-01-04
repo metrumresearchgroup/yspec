@@ -4,6 +4,7 @@
 ##' @param file name of yaml file containing specification
 ##' @export
 load_spec <- function(file) {
+  file <- normalizePath(file, mustWork=TRUE)
   x <- try_yaml(file)
   x[["SETUP__"]][["yml_file"]] <- file
   x[["SETUP__"]][["path"]] <- dirname(file)
@@ -13,6 +14,29 @@ load_spec <- function(file) {
 unpack_spec <- function(x) {
 
   # handle meta data
+  x <- unpack_meta(x)
+
+  # defaults
+  x <- imap(x,.f=set_defaults)
+
+  # for looking up column data
+  lookup <- load_lookup_spec(x)
+
+  if(length(lookup) > 0) {
+    x[] <- map(x,
+               .f = merge_lookup_column,
+               lookup = lookup
+    )
+  }
+
+  # unpack the columns
+  x[] <- map(x, unpack_col)
+
+  # return `yspec`
+  structure(x, class = "yspec")
+}
+
+unpack_meta <- function(x) {
   meta <- list()
   metai <- names(x) == "SETUP__"
   if(any(metai)) {
@@ -20,12 +44,14 @@ unpack_spec <- function(x) {
     x <- x[!metai]
   }
   if(exists("lookup_file", meta)) {
+    assert_that(is.character(meta[["lookup_file"]]))
     meta[["lookup_file"]] <- file.path(meta[["path"]],meta[["lookup_file"]])
     meta[["lookup_file"]] <- normalizePath(meta[["lookup_file"]])
   }
   if(is.null(meta[["primary_key"]])) {
     meta[["primary_key"]] <- character(0)
   } else {
+    assert_that(is.character(meta[["primary_key"]]))
     found_keys <- all(
       is.element(
         meta[["primary_key"]],
@@ -38,60 +64,33 @@ unpack_spec <- function(x) {
       )
     }
   }
-
-  # for looking up column data
-  x <- merge_lookup_spec(x,meta)
-  x <- lapply(x, unpack_col)
-  structure(x, class = "yspec", meta = meta)
+  structure(x, meta = meta)
 }
 
-
-
 load_lookup_spec <- function(x) {
-
-  if(!exists("lookup_file",x)) {
+  files <- get_lookup_files(x)
+  if(length(files)==0) {
     return(list())
   }
   ans <- list()
-  for(look in x[["lookup_file"]]) {
-    assert_that(file.exists(look))
-    this <- try_yaml(look)
+  for(f in files) {
+    this <- try_yaml(f)
     ans <- combine_list(ans,this)
   }
   ans
 }
 
 
-merge_lookup_spec <- function(x, meta = meta(x)) {
-  lookup <- load_lookup_spec(meta)
-  cols <- names(x)
-
-  tolook <- map_chr(x, "lookup", .default = NA)
-  tolook[is.na(tolook)] <- cols[is.na(tolook)]
-  has_lookup <- is.element(tolook,names(lookup))
-
-  for(i in seq_along(x)) {
-
-    def <- list(lookup = tolook[i],type = "numeric")
-    xi <- x[[i]]
-    if(is.null(xi)) {
-      xi <- list()
-    }
-    xi <- combine_list(def, xi)
-    if(has_lookup[i]) {
-      xi <- combine_list(
-        lookup[[xi[["lookup"]]]],
-        xi
-      )
-    }
-    xi[["col"]] <- cols[i]
-    xi[["lookup"]] <- tolook[i]
-    x[[i]] <- xi
+merge_lookup_column <- function(x,lookup) {
+  name <- lookup.ycol(x)
+  if(.has(name,lookup)) {
+    x <- combine_list(
+      lookup[[name]],
+      x
+    )
   }
-  return(x)
+  x
 }
-
-
 
 # Weight (kg)
 make_axis_label <- function(x) {
@@ -172,6 +171,12 @@ unpack_col <- function(x) {
   x
 }
 
-
+set_defaults <- function(x, name,
+                         def = list(type="numeric",
+                                    col = name)) {
+  if(is.null(x)) x <- list()
+  x[["col"]] <- NULL
+  structure(combine_list(def,x), class="ycol")
+}
 
 
