@@ -44,30 +44,287 @@ sp[WT]$unit
     . [1] "kg"
 
 ``` r
-knitr::kable(as.data.frame(sp))
+yspec:::pander_table(sp)
 ```
 
-|  col| name    | units          | long                                     |
-|----:|:--------|:---------------|:-----------------------------------------|
-|    1| C       | .              | commented rows                           |
-|    2| USUBJID | .              | universal subject identifier             |
-|    3| ID      | .              | NONMEM ID number                         |
-|    4| EVID    | .              | event ID indicator                       |
-|    5| MDV     | .              | missing DV indicator                     |
-|    6| SEQ     | .              | record type indicators                   |
-|    7| AMT     | mg             | dose amount                              |
-|    8| II      | hours          | interdose interval                       |
-|    9| CMT     | .              | compartment number                       |
-|   10| TAFD    | hours          | time after first dose                    |
-|   11| WT      | kg             | baseline weight                          |
-|   12| EGFR    | ml/min/1.73 m2 | estimated glomerular filtration rate     |
-|   13| STUDY   | .              | study identifier                         |
-|   14| SEX     | .              | .                                        |
-|   15| BQL     | .              | DV value is below the quantitation limit |
-|   16| DV      | .              | dependent variable                       |
-|   17| DV2     | .              | second dependent variable                |
-|   18| HAIR    | .              | patient hair color                       |
-|   19| CLCR    | ml/min         | .                                        |
+    ## Loading required namespace: pander
+
+<table style="width:90%;">
+<colgroup>
+<col width="20%" />
+<col width="13%" />
+<col width="18%" />
+<col width="37%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Column</th>
+<th align="left">Type</th>
+<th align="left">Field</th>
+<th align="left">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">C</td>
+<td align="left">numeric</td>
+<td align="left">short-name</td>
+<td align="left">C</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">long-name</td>
+<td align="left">commented rows</td>
+</tr>
+<tr class="odd">
+<td align="left">USUBJID</td>
+<td align="left">numeric</td>
+<td align="left">short-name</td>
+<td align="left">USUBJID</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">long-name</td>
+<td align="left">universal subject identifier</td>
+</tr>
+<tr class="odd">
+<td align="left">ID</td>
+<td align="left">numeric</td>
+<td align="left">short-name</td>
+<td align="left">ID</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">long-name</td>
+<td align="left">NONMEM ID number</td>
+</tr>
+<tr class="odd">
+<td align="left">EVID</td>
+<td align="left">numeric</td>
+<td align="left">short-name</td>
+<td align="left">EVID</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">long-name</td>
+<td align="left">event ID indicator</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">comment</td>
+<td align="left">per NONMEM specifications</td>
+</tr>
+<tr class="even">
+<td align="left">MDV</td>
+<td align="left">numeric</td>
+<td align="left">short-name</td>
+<td align="left">MDV</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">long-name</td>
+<td align="left">missing DV indicator</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">comment</td>
+<td align="left">per NONMEM specifications</td>
+</tr>
+<tr class="odd">
+<td align="left">SEQ</td>
+<td align="left">numeric</td>
+<td align="left">short-name</td>
+<td align="left">SEQ</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">long-name</td>
+<td align="left">record type indicators</td>
+</tr>
+<tr class="odd">
+<td align="left">AMT (mg)</td>
+<td align="left">numeric</td>
+<td align="left">short-name</td>
+<td align="left">Amount</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">long-name</td>
+<td align="left">dose amount</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">range</td>
+<td align="left">(0 - 1000)</td>
+</tr>
+<tr class="even">
+<td align="left">II (hours)</td>
+<td align="left">numeric</td>
+<td align="left">short-name</td>
+<td align="left">II</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">long-name</td>
+<td align="left">interdose interval</td>
+</tr>
+<tr class="even">
+<td align="left">CMT</td>
+<td align="left">numeric</td>
+<td align="left">short-name</td>
+<td align="left">Compartment</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">long-name</td>
+<td align="left">compartment number</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">comment</td>
+<td align="left">per NONMEM specifications</td>
+</tr>
+<tr class="odd">
+<td align="left">TAFD (hours)</td>
+<td align="left">numeric</td>
+<td align="left">short-name</td>
+<td align="left">TAFD</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">long-name</td>
+<td align="left">time after first dose</td>
+</tr>
+<tr class="odd">
+<td align="left">WT (kg)</td>
+<td align="left">numeric</td>
+<td align="left">short-name</td>
+<td align="left">Weight</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">long-name</td>
+<td align="left">baseline weight</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">range</td>
+<td align="left">(40 - 100)</td>
+</tr>
+<tr class="even">
+<td align="left">EGFR (ml/min/1.73 m2)</td>
+<td align="left">numeric</td>
+<td align="left">short-name</td>
+<td align="left">eGFR</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">long-name</td>
+<td align="left">estimated glomerular filtration rate</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">range</td>
+<td align="left">(10 - 300)</td>
+</tr>
+<tr class="odd">
+<td align="left">STUDY</td>
+<td align="left">numeric</td>
+<td align="left">short-name</td>
+<td align="left">Study</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">long-name</td>
+<td align="left">study identifier</td>
+</tr>
+<tr class="odd">
+<td align="left">SEX</td>
+<td align="left">numeric</td>
+<td align="left">short-name</td>
+<td align="left">SEX</td>
+</tr>
+<tr class="even">
+<td align="left">BQL</td>
+<td align="left">numeric</td>
+<td align="left">short-name</td>
+<td align="left">below limit of quantification</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">long-name</td>
+<td align="left">DV value is below the quantitation limit</td>
+</tr>
+<tr class="even">
+<td align="left">DV</td>
+<td align="left">numeric</td>
+<td align="left">short-name</td>
+<td align="left">DV</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">long-name</td>
+<td align="left">dependent variable</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">comment</td>
+<td align="left">see SEQ</td>
+</tr>
+<tr class="odd">
+<td align="left">DV2</td>
+<td align="left">numeric</td>
+<td align="left">short-name</td>
+<td align="left">DV2</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">long-name</td>
+<td align="left">second dependent variable</td>
+</tr>
+<tr class="odd">
+<td align="left">HAIR</td>
+<td align="left">numeric</td>
+<td align="left">short-name</td>
+<td align="left">HAIR</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">long-name</td>
+<td align="left">patient hair color</td>
+</tr>
+<tr class="odd">
+<td align="left">CLCR (ml/min)</td>
+<td align="left">numeric</td>
+<td align="left">short-name</td>
+<td align="left">creatinine clearance</td>
+</tr>
+</tbody>
+</table>
 
 Render in pdf format
 
@@ -97,8 +354,7 @@ Then render it:
 ``` r
 render_define(file = "./inst/spec/project.yml", 
               output = "project", 
-              title = "DEM104101 PK/PD Analysis Data sets", 
-              output_dir = "inst/doc")
+              title = "DEM104101 PK/PD Analysis Data Sets")
 ```
 
 Output [here](./inst/doc/project.pdf)

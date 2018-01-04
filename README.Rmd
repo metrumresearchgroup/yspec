@@ -35,8 +35,13 @@ A lot like the current spec setup
 ```{r,comment='.'}
 names(sp)
 sp[WT]$unit
-knitr::kable(as.data.frame(sp))
 ```
+
+```{r, results = "asis"}
+yspec:::pander_table(sp)
+```
+
+
 
 Render in pdf format
 ```{r,echo=TRUE, results="hide", message=FALSE}
@@ -67,8 +72,7 @@ Then render it:
 ```{r, echo = TRUE, results = "hide", message = FALSE}
 render_define(file = "./inst/spec/project.yml", 
               output = "project", 
-              title = "DEM104101 PK/PD Analysis Data Sets", 
-              output_dir = "inst/doc")
+              title = "DEM104101 PK/PD Analysis Data Sets")
 ```
 
 Output [here](./inst/doc/project.pdf)

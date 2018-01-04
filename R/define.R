@@ -174,7 +174,8 @@ render_spec <- function(x,
                         stem,
                         data_file = data_stem(x),
                         format = c("md_outline"),
-                        output_format="pdf_document",...) {
+                        output_format="pdf_document",
+                        output_dir = getwd(),...) {
   .dir <- tempdir()
 
   format <- match.arg(format)
@@ -188,7 +189,7 @@ render_spec <- function(x,
   cat(format_fun(x,data_file = data_file,...), file=file, sep="\n")
 
   rmarkdown::render(file, output_format=output_format,
-                    output_dir=getwd(), ...)
+                    output_dir=output_dir, ...)
 }
 
 
