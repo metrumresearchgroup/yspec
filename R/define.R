@@ -167,26 +167,35 @@ md_outline <- function(x,data_file, head = TRUE,...) {
 ##' @param data_file the data file the spec is describing
 ##' @param format function defining how to render the object
 ##' @param output_format passed to \code{rmarkdown::render}
+##' @param output_dir passed to \code{rmarkdown::render}
 ##' @param ... passed to \code{rmarkdown::render}
 ##'
 ##' @export
 render_spec <- function(x,
                         stem,
                         data_file = data_stem(x),
-                        format = c("md_outline"),
-                        output_format="pdf_document",
-                        output_dir = getwd(),...) {
-  .dir <- tempdir()
+                        format = c("pander_table","md_outline"),
+                        title  = "Data Specification",
+                        output_format="html_document",
+                        output_dir = getwd(),
+                        build_dir = tempdir(),...) {
+
 
   format <- match.arg(format)
 
   format_fun <- get(format, mode="function")
 
-  file <- file.path(.dir,paste0(stem, ".Rmd"))
+  file <- file.path(build_dir,paste0(stem, ".Rmd"))
 
   if(file.exists(file)) file.remove(file)
 
-  cat(format_fun(x,data_file = data_file,...), file=file, sep="\n")
+  txt <- capture.output(cat(format_fun(x, data_file = data_file,...),sep = "\n"))
+
+  assert_that(is.character(title))
+
+  cat(paste0("# ", title, "\n\n"), file = file)
+
+  cat(txt, file=file, sep="\n", append = TRUE)
 
   rmarkdown::render(file, output_format=output_format,
                     output_dir=output_dir, ...)
@@ -211,21 +220,28 @@ pack_split <- function(sp) {
 
 ##' Render a define.pdf document
 ##'
-##' @param file yaml file identifying specifications
-##' @param title a title for the define document
+##' @param file a project spec file loaded via \code{\link{load_spec_proj}}
 ##' @param output character stem to create a name for the output file
+##' @param output_format passed to \code{rmarkdown::render}
+##' @param title a title for the define document
 ##' @param ... passed to \code{rmarkdown::render}
 ##'
 ##' @details
-##' \code{output} should not include a file extension.
+##' \code{output} should not include a file extension, just
+##' the file stem.
 ##'
 ##' @export
-render_define <- function(file, title = "Data Definition", output, ...) {
+render_define <- function(file,
+                          output = "define",
+                          output_format = "html_document",
+                          output_dir = getwd(),
+                          title = "Data Specification",
+                          ...) {
 
 
   .dir <- tempdir()
-  output <- file.path(.dir,paste0(output, ".md"))
-  x <- spec_define(file)
+  output <- file.path(.dir, paste0(output, ".md"))
+  x <- load_spec_proj(file)
   files <- names(x)
   n_files <- length(x)
   template_title <- '---
@@ -240,25 +256,29 @@ output:
 ---
 '
   main_title <- sub("<insert-title>", title, template_title, fixed=TRUE)
+
   specs <- vector("list", length(x))
-  for(i in seq_along(x)) {
-    if(!file.exists(x[[i]]$file)) {
-      stop("could not find file ", x[[i]]$file)
-    }
-    spec <- load_spec(x[[i]]$file)
-    specs[[i]] <- md_outline(spec, head = NULL)
+
+  outlines <- map(x, function(.x) {
+    spec <- load_spec(.x[["file"]])
+    md_outline(spec, head = NULL)
+  })
+
+  if(file.exists(output)) {
+    file.remove(output)
   }
-  if(file.exists(output)) file.remove(output)
+
   cat(file = output, main_title, "\n")
+
   cat(file = output, "\n", append = TRUE)
-  for(i in seq_along(specs)) {
-    header <- paste0("# ", x[[i]]$description, " ", parens(x[[i]]$name))
+
+  walk2(x, outlines, function(x,y) {
+    header <- paste0("# ", x[["description"]], " ", parens(x[["name"]]))
     cat(file = output, header, "\n", append = TRUE)
-    cat(file = output, specs[[i]], "\n", sep = "\n", append = TRUE)
-  }
-  rmarkdown::render(input = output,
-                    output_format = "pdf_document",
-                    output_dir = getwd(),
-                    ...)
+    cat(file = output, y, "\n", sep = "\n", append = TRUE)
+  })
+
+  rmarkdown::render(input = output, output_format = output_format,
+                    output_dir = output_dir, ...)
 }
 

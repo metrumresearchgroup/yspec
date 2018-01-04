@@ -18,7 +18,15 @@ load_spec_proj <- function(file) {
   files <- names(x)
 
   for(i in seq_along(x)) {
-    if(i==1) next
+    if(.no("description",x[[i]])) {
+     .stop("no description found for ", files[i])
+    }
+    if(i==1) {
+      if(.no("data_path",x[[i]])) {
+        .stop("the first entry must specify the data_path")
+      }
+      next
+    }
     x[[i]] <- combine_list(x[[i-1]], x[[i]])
   }
 
@@ -34,7 +42,6 @@ load_spec_proj <- function(file) {
     if(.no("data_path",x)) {
       x[["data_path"]] <- get_meta(x)[["path"]]
     }
-
     x[["file"]] <- normalizePath(
       file.path(x[["spec_path"]],x[["spec"]])
     )

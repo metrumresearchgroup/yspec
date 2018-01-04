@@ -21,7 +21,7 @@ is_yspec <- function(x) inherits(x, "yspec")
 
 ##' @export
 as.list.yspec <- function(x,...) {
-  unclass(x)
+  unclass(lapply(x, as.list.ycol))
 }
 
 ##' @export

@@ -4,8 +4,10 @@
 \alias{render_spec}
 \title{Render a data specification object}
 \usage{
-render_spec(x, stem, data_file = data_stem(x), format = c("md_outline"),
-  output_format = "pdf_document", output_dir = getwd(), ...)
+render_spec(x, stem, data_file = data_stem(x), format = c("pander_table",
+  "md_outline"), title = "Data Specification",
+  output_format = "html_document", output_dir = getwd(),
+  build_dir = tempdir(), ...)
 }
 \arguments{
 \item{x}{object}
@@ -17,6 +19,8 @@ render_spec(x, stem, data_file = data_stem(x), format = c("md_outline"),
 \item{format}{function defining how to render the object}
 
 \item{output_format}{passed to \code{rmarkdown::render}}
+
+\item{output_dir}{passed to \code{rmarkdown::render}}
 
 \item{...}{passed to \code{rmarkdown::render}}
 }

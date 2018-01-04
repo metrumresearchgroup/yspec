@@ -4,14 +4,17 @@
 \alias{render_define}
 \title{Render a define.pdf document}
 \usage{
-render_define(file, title = "Data Definition", output, ...)
+render_define(file, output = "define", output_format = "html_document",
+  output_dir = getwd(), title = "Data Specification", ...)
 }
 \arguments{
-\item{file}{yaml file identifying specifications}
-
-\item{title}{a title for the define document}
+\item{file}{a project spec file loaded via \code{\link{load_spec_proj}}}
 
 \item{output}{character stem to create a name for the output file}
+
+\item{output_format}{passed to \code{rmarkdown::render}}
+
+\item{title}{a title for the define document}
 
 \item{...}{passed to \code{rmarkdown::render}}
 }
@@ -19,5 +22,6 @@ render_define(file, title = "Data Definition", output, ...)
 Render a define.pdf document
 }
 \details{
-\code{output} should not include a file extension.
+\code{output} should not include a file extension, just
+the file stem.
 }

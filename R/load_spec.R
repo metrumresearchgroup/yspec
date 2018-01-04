@@ -17,7 +17,7 @@ unpack_spec <- function(x) {
   x <- unpack_meta(x)
 
   # defaults
-  x <- imap(x,.f=set_defaults)
+  x[] <- imap(x,.f=set_defaults)
 
   # for looking up column data
   lookup <- load_lookup_spec(x)
