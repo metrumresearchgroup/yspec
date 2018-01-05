@@ -1,6 +1,6 @@
 WT:
   long: patient weight
-  about: [Weight, kg]
+  about: [weight, kg]
   range: [20, 220]
   type: numeric
 BMI:
@@ -12,7 +12,7 @@ BMI2:
   unit: grains/mm
   type: factor
 HT:
-  long: height
+  long: Height
   about: [height, cm]
   range: [100,200]
   type: numeric
@@ -23,7 +23,7 @@ ALB:
   range: [2, 8]
   type: numeric
 C:
-  long: comment
+  short: comment
   values: [., C]
   decodes: [not a comment, comment]
 CMT:

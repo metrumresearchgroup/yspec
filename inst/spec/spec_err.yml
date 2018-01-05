@@ -1,0 +1,9 @@
+
+DV:
+  short: dependent variable
+WT:
+  short: patient-weight
+  check: true
+A:
+B: 2
+C: [2, a, 2, c]

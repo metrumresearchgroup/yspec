@@ -6,7 +6,7 @@ is_yspec <- function(x) inherits(x, "yspec")
   if(!exists(name,x)) {
     return(NULL)
   }
-  getElement(unclass(x),name)
+  x[[name]]
 }
 
 ##' @export
@@ -19,9 +19,10 @@ is_yspec <- function(x) inherits(x, "yspec")
   unclass(x)[[i]]
 }
 
+##' @method as.list yspec
 ##' @export
 as.list.yspec <- function(x,...) {
-  unclass(lapply(x, as.list.ycol))
+  lapply(unclass(x),unclass)
 }
 
 ##' @export
@@ -37,6 +38,12 @@ as.data.frame.yspec <- function(x,...) {
 head.yspec <- function(x, n = 10, ...) {
   ans <- as.data.frame.yspec(x)
   head(ans, n = n, ...)
+}
+
+##' @export
+tail.yspec <- function(x, n = 10, ...) {
+  ans <- as.data.frame.yspec(x)
+  tail(ans, n = n, ...)
 }
 
 ##' @export

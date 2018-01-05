@@ -3,11 +3,15 @@ SETUP__:
   project: DEM104101F
   client: ABC Pharmaceuticals, Inc
 WT:
+  lookup: true
 HT:
+  lookup: true
 BMI:
+  lookup: true
 ALB:
+  lookup: false
 EGFR:
-  lookup: none
+  lookup: true
 CMT:
   values: [1,2,3]
   comment: This is the same thing as what we get in nonmem,

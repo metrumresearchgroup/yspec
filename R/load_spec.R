@@ -1,4 +1,52 @@
 
+
+VALID_SPEC_NAMES <- c("type", "unit", "values", "decode",
+                      "source", "comment",
+                      "short", "long", "about",
+                      "range", "longvalues",  "lookup")
+
+check_spec_input_col <- function(x, col, env) {
+  errors <- c()
+  t0 <- !is.null(x)
+  if(!t0) {
+    env$err[[col]] <- "no spec data was founc"
+    return(NULL)
+  }
+  t1 <- all(names(x) %in% VALID_SPEC_NAMES)
+  if(!t1) {
+    inval <- setdiff(names(x), VALID_SPEC_NAMES)
+    inval <- paste(inval, collapse = ", ")
+    env$err[[col]] <- paste0(
+      "invalid column field(s): ", inval
+    )
+  }
+  if(!is.list(x)) {
+    env$err[[col]] <- "item is not a list"
+  }
+  if(is.null(names(x))) {
+    env$err[[col]] <- "names not found"
+  } else {
+    if(any(nchar(names(x))==0)) {
+      env$err[[col]] <- "problem with names"
+    }
+  }
+}
+
+check_spec_input <- function(x) {
+  env <- new.env()
+  env$err <- set_names(vector("list", length(x)),names(x))
+  walk2(x, seq_along(x),  check_spec_input_col, env = env)
+  err <- discard(as.list(env)$err, is.null)
+  if(length(err)==0) return(NULL)
+  iwalk(err, function(msg, col) {
+    msg <- paste0("  - ", msg)
+    cat("column: ",  col, "\n")
+    cat(paste(msg, collapse = "\n"), "\n")
+  })
+  .stop("invalid spec input data")
+}
+
+
 ##' Load a data specification file
 ##'
 ##' @param file name of yaml file containing specification
@@ -16,6 +64,8 @@ unpack_spec <- function(x) {
   # handle meta data
   x <- unpack_meta(x)
 
+  check_spec_input(x)
+
   # defaults
   x[] <- imap(x,.f=set_defaults)
 
@@ -23,9 +73,10 @@ unpack_spec <- function(x) {
   lookup <- load_lookup_spec(x)
 
   if(length(lookup) > 0) {
-    x[] <- map(x,
-               .f = merge_lookup_column,
-               lookup = lookup
+    x[] <- map_if(.x = x,
+                  .p = ~.x$do_lookup,
+                  .f = merge_lookup_column,
+                  lookup = lookup
     )
   }
 
@@ -82,49 +133,20 @@ load_lookup_spec <- function(x) {
 
 
 merge_lookup_column <- function(x,lookup) {
-  name <- lookup.ycol(x)
-  if(.has(name,lookup)) {
+
+  lookup_name <- x[["lookup"]]
+
+  if(.has(lookup_name,lookup)) {
     x <- combine_list(
-      lookup[[name]],
+      lookup[[lookup_name]],
       x
     )
+  } else {
+    warning("could not find lookup for column ", lookup_name)
   }
   x
 }
 
-# Weight (kg)
-make_axis_label <- function(x) {
-  unit <- NULL
-  if(has_unit(x)) {
-    unit <- paste0(" (", x$unit,")")
-  }
-  x$axis_label <- paste0(x$short, unit)
-  x
-}
-
-# WT//Weight (kg)
-make_col_label <- function(x) {
-  x$col_label <- paste0(x$col, "//", x$axis_label)
-  x$plot_data <- c(x$col, x$axis_label)
-  x
-}
-
-unpack_split_col <- function(x) {
-  x <- unpack_about(x)
-  if(!is.character(x[["when"]])) x[["when"]] <- NA
-  x <- make_axis_label(x)
-  x <- make_col_label(x)
-  x
-}
-
-unpack_split <- function(x,col) {
-  for(n in names(x)) {
-    x[[n]][["col"]] <- col
-    x[[n]][["name"]] <- n
-    x[[n]] <- unpack_split_col(x[[n]])
-  }
-  x
-}
 
 unpack_about <- function(x) {
   if(!exists("about",x)) {
@@ -140,8 +162,12 @@ unpack_about <- function(x) {
 }
 
 unpack_col <- function(x) {
+
   if(.no("short",x)) {
     x[["short"]] <- x[["col"]]
+  }
+  if(.no("type", x)) {
+    x[["type"]] <- "numeric"
   }
   x <- unpack_about(x)
   x$continuous <- .has("range",x)
@@ -158,25 +184,35 @@ unpack_col <- function(x) {
     }
     x$values <- unlist(x$values, use.names=FALSE)
   }
-  x <- make_axis_label(x)
-  x <- make_col_label(x)
-  x$is_split <- FALSE
-  if(exists("split", x)) {
-    x$is_split <- TRUE
-    x$split <- unpack_split(x$split,x$col)
-  }
-  if(.no("lookup",x)) {
-    x[["lookup"]] <- x[["col"]]
-  }
-  x
+  structure(x, class = "ycol")
 }
 
-set_defaults <- function(x, name,
-                         def = list(type="numeric",
-                                    col = name)) {
-  if(is.null(x)) x <- list()
-  x[["col"]] <- NULL
-  structure(combine_list(def,x), class="ycol")
+set_defaults <- function(x, name) {
+
+  if(is.null(x)) x <- list(lookup = TRUE)
+
+  x[["col"]] <- name
+  x[["do_lookup"]] <- NULL
+
+  if(is.character(x[["lookup"]])) {
+    x[["do_lookup"]] <- TRUE
+  }
+
+  if(is.logical(x[["lookup"]])) {
+    x[["do_lookup"]] <- x[["lookup"]]
+    if(x[["do_lookup"]]) {
+      x[["lookup"]] <- name
+    } else {
+      x[["lookup"]] <- "<none>"
+    }
+  }
+
+  if(.no("do_lookup",x)) {
+    x[["do_lookup"]] <- FALSE
+    x[["lookup"]] <- "<none>"
+  }
+
+  x
 }
 
 

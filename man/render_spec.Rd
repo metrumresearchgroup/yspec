@@ -18,9 +18,13 @@ render_spec(x, stem, data_file = data_stem(x), format = c("pander_table",
 
 \item{format}{function defining how to render the object}
 
+\item{title}{a title for the rendered document}
+
 \item{output_format}{passed to \code{rmarkdown::render}}
 
 \item{output_dir}{passed to \code{rmarkdown::render}}
+
+\item{build_dir}{where to build the document}
 
 \item{...}{passed to \code{rmarkdown::render}}
 }

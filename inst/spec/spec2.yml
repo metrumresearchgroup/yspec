@@ -2,10 +2,6 @@
 DV:
   about: DV
   long: dependent variable
-  split:
-    DV1: {about: [NoDoze concentration,  ng/mL], when: SEQ==1}
-    DV2: {about: Alertness, when: SEQ==2}
-    DV3: {about: [BMI, kg/m2], when: SEQ==3}
 
 
 

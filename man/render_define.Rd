@@ -14,6 +14,8 @@ render_define(file, output = "define", output_format = "html_document",
 
 \item{output_format}{passed to \code{rmarkdown::render}}
 
+\item{output_dir}{passed to \code{rmarkdown::render}}
+
 \item{title}{a title for the define document}
 
 \item{...}{passed to \code{rmarkdown::render}}

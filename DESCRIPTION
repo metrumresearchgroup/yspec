@@ -12,5 +12,5 @@ License: GPL (>=2)
 Encoding: UTF-8
 LazyData: true
 Imports: yaml, dplyr, rmarkdown, knitr, xtable, rlang, assertthat, purrr
-Suggests: pander
+Suggests: pander, testthat
 RoxygenNote: 6.0.1

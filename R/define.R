@@ -166,8 +166,10 @@ md_outline <- function(x,data_file, head = TRUE,...) {
 ##' @param stem for output file name
 ##' @param data_file the data file the spec is describing
 ##' @param format function defining how to render the object
+##' @param title a title for the rendered document
 ##' @param output_format passed to \code{rmarkdown::render}
 ##' @param output_dir passed to \code{rmarkdown::render}
+##' @param build_dir where to build the document
 ##' @param ... passed to \code{rmarkdown::render}
 ##'
 ##' @export
@@ -189,7 +191,9 @@ render_spec <- function(x,
 
   if(file.exists(file)) file.remove(file)
 
-  txt <- capture.output(cat(format_fun(x, data_file = data_file,...),sep = "\n"))
+  txt <- capture.output(
+    cat(format_fun(x, data_file = data_file,...),sep = "\n")
+  )
 
   assert_that(is.character(title))
 
@@ -223,6 +227,7 @@ pack_split <- function(sp) {
 ##' @param file a project spec file loaded via \code{\link{load_spec_proj}}
 ##' @param output character stem to create a name for the output file
 ##' @param output_format passed to \code{rmarkdown::render}
+##' @param output_dir passed to \code{rmarkdown::render}
 ##' @param title a title for the define document
 ##' @param ... passed to \code{rmarkdown::render}
 ##'

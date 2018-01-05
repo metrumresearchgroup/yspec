@@ -1,5 +1,6 @@
 .*\.tar\.gz$
 Makefile
-^test.*\.R$
+^test\.R$
+^test_.*\.R$
 ^.*\.Rproj$
 ^\.Rproj\.user$

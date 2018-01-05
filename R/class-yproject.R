@@ -49,3 +49,18 @@ load_spec_proj <- function(file) {
   })
   structure(x, class = "yproj")
 }
+
+##' @export
+print.yproj <- function(x,i=0,...) {
+  names <- map_chr(x, "name")
+  specs <- map_chr(x, "spec")
+  ans <- data.frame(name = names, spec = specs)
+  print.data.frame(ans, row.names = FALSE,
+                   right = FALSE)
+}
+
+##' @export
+##' @method as.list yproj
+as.list.yproj <- function(x, ...) {
+  unclass(x)
+}

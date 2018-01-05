@@ -11,6 +11,7 @@ print.ycol <- function(x,...) {
   print(ans, row.names = FALSE, right = FALSE)
 }
 
+##' @method as.list ycol
 ##' @export
 as.list.ycol <- function(x,...) {
   unclass(x)

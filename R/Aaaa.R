@@ -4,10 +4,12 @@
 ##' @importFrom rmarkdown render pdf_document
 ##' @importFrom knitr kable
 ##' @importFrom xtable xtable
-##' @importFrom utils capture.output head
+##' @importFrom utils capture.output head tail
 ##' @importFrom rlang quos set_names
 ##' @importFrom assertthat assert_that
-##' @importFrom purrr map map_chr imap map_df
+##' @importFrom purrr map map_chr imap map_df map_if
+##' @importFrom purrr discard
+##' @importFrom purrr walk walk2 iwalk
 NULL
 
 

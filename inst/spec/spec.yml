@@ -1,9 +1,11 @@
 SETUP__:
   primary_key: [ID,EVID,SEQ]
 C:
+  type: character
   long: commented rows
   values: [.,C]
 USUBJID:
+  type: character
   long: universal subject identifier
 ID:
   long: NONMEM ID number
@@ -39,8 +41,8 @@ EGFR:
   about: [eGFR, ml/min/1.73 m2]
   long: estimated glomerular filtration rate
   range: [10,300]
-  if_missing: imputed
 STUDY:
+  type: character
   about: [Study]
   long: study identifier
   longvalues: true
@@ -61,27 +63,18 @@ BQL:
 DV:
   about: DV
   long: dependent variable
-  split:
-    DV1: {about: [NoDoze concentration,  ng/mL], when: SEQ==1}
-    DV2: {about: Alertness, when: SEQ==2}
-    DV3: {about: [BMI, kg/m2], when: SEQ==3}
   comment: see SEQ
 DV2:
   about: DV2
   long: second dependent variable
-  split:
-    DV21: {about: [NoDoze concentration,  ng/mL]}
-    DV22: {about: Alertness}
-    DV23: {about: [BMI, kg/m2]}
+
 HAIR:
+  type: character
   long: patient hair color
   values: [0,1,2]
   decode: [brown, blonde, black]
 CLCR:
   about: [creatinine clearance, ml/min]
-  derivation:
-    - (140-AGE)*IBW/SCR
-    - x 0.85 if female
-  if_missing: dropped
+
 
 

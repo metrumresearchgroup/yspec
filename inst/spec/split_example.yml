@@ -1,61 +1,52 @@
 SETUP__:
-  lookup_file: [_yspec_lookup.yml]
-  primary_key: [ID, EVID, SEQ]
+  primary_key: [ID,EVID,SEQ]
 C:
+  type: character
   long: commented rows
   values: [.,C]
-  type: character
 USUBJID:
-  long: universal subject identifier
   type: character
+  long: universal subject identifier
 ID:
   long: NONMEM ID number
-  type: numeric
 EVID:
   long: event ID indicator
   comment: per NONMEM specifications
-  type: numeric
 MDV:
   long: missing DV indicator
   comment: per NONMEM specifications
-  type: numeric
 SEQ:
   long: record type indicators
   values: {concentration: 1, response: 2, other: 3}
-  type: numeric
 AMT:
-  about: [AMT, mg]
+  about: [Amount, mg]
   long: dose amount
   range: [0,1000]
-  type: numeric
 II:
   about: [II, hours]
   long: interdose interval
-  type: numeric
 CMT:
   about: Compartment
   long: compartment number
   comment: per NONMEM specifications
   values: [1,2,3,4]
-  type: numeric
 TAFD:
   unit: hours
   long: time after first dose
-  type: numeric
 WT:
-  source: DEMO$WT
+  about: [Weight, kg]
+  long: baseline weight
+  range: [40.0, 100]
 EGFR:
-  short: eGFR
-  unit: ml/min/1.73m2
+  about: [eGFR, ml/min/1.73 m2]
   long: estimated glomerular filtration rate
   range: [10,300]
-  type: numeric
 STUDY:
+  type: character
   about: [Study]
   long: study identifier
   longvalues: true
   values: [100, 202, 303, 203]
-  type: numeric
   decode:
     - The first phase 1 study
     - The first phase 2 study conducted only at sites 1, 2, 3 when the formulation was still oral liquid only
@@ -63,11 +54,9 @@ STUDY:
     - The second phase 2 study
 SEX:
   values: {male: 0, female: 1}
-  type: numeric
 BQL:
   about: below limit of quantification
   long: DV value is below the quantitation limit
-  type: numeric
   values: [0,1]
   longvalues: false
   decode: [no, yes]
@@ -75,23 +64,20 @@ DV:
   about: DV
   long: dependent variable
   comment: see SEQ
-  type: numeric
 DV2:
   about: DV2
   long: second dependent variable
-  type: numeric
+  split:
+    DV21: {about: [NoDoze concentration,  ng/mL]}
+    DV22: {about: Alertness}
+    DV23: {about: [BMI, kg/m2]}
 HAIR:
+  type: character
   long: patient hair color
   values: [0,1,2]
   decode: [brown, blonde, black]
-  type: numeric
 CLCR:
   about: [creatinine clearance, ml/min]
-  source: |
-    (140-AGE)*IBW/SCR (x 0.85 if female)
-    we got all the variables from other parts of the data set
-  type: numeric
-RACE:
-  values: [1,3,5]
-  decode: ["white", "black", "other"]
-  type: numeric
+
+
+
