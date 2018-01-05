@@ -38,12 +38,12 @@ check_spec_input <- function(x) {
   walk2(x, seq_along(x),  check_spec_input_col, env = env)
   err <- discard(as.list(env)$err, is.null)
   if(length(err)==0) return(NULL)
-  iwalk(err, function(msg, col) {
-    msg <- paste0("  - ", msg)
-    cat("column: ",  col, "\n")
-    cat(paste(msg, collapse = "\n"), "\n")
+  err <- imap_chr(err, function(msg, col) {
+    msg <- paste0("   - ", msg)
+    paste(" column: ",  col, "\n",
+      paste(msg, collapse = "\n"), "\n", collapse = "\n")
   })
-  .stop("invalid spec input data")
+  .stop("invalid spec input data\n",err)
 }
 
 

@@ -91,4 +91,19 @@ try_yaml <- function(file) {
   this
 }
 
+.test_spec <- function(.name, ..., .where = tempfile()) {
+
+  a <- set_names(list(list(type = "numeric", lookup = FALSE)),
+                 "AAA")
+  b <- set_names(list(list(type = "numeric", short = "just a test",
+                           lookup = FALSE)), "BBB")
+  x <- set_names(list(list(...)),.name)
+  yaml <- as.yaml(c(a, x,b))
+  writeLines(yaml, .where)
+  return(.where)
+}
+
+.test_load <- function(...) {
+  suppressMessages(load_spec(.test_spec(...)))
+}
 
