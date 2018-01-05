@@ -1,0 +1,84 @@
+tests:
+  section: Unit tests
+  requirements:
+    - All unit tests pass
+    - Unit tests implemented in `testthat` framework
+load:
+  section: Loading a specification object
+  requirements:
+    - Elements of the data specification object are coded in
+      yaml format in a specification file
+    - The specification file is parsed with `yaml::yaml.load_file`
+    - On loading, an error is generted if foreign fields
+      are found for a column or if no data is found for a column
+fields:
+  section: Valid fields in the specification file
+  requirements:
+    - Field `type` - character or numeric
+    - Field `short` - a short name for the column
+    - Field `long` - a (possibly) longer name for the column
+    - Field `unit` - the unit for the data item
+    - Field `range` - potential minimum and maximum value if continuous
+      data
+    - Field `values` - unique values that the column could take if discrete
+      data
+    - Field `decodes` - meaningful names when `values` is specified
+    - Field `longvalues` - if `true`, values are displayed in long format
+    - Field `source` - originating data domain or method for deriving the
+      value in the column
+    - Field `comment` - other information relevant to the data column
+    - Field `lookup` - if `false`, the column will not be merged with the
+      lookup table; if `true`, the column will be merged by the column
+      name; if `character` name, the column will be merged by the name
+      specified in this field
+lookup:
+  section: Import specification details from a lookup document
+  requirements:
+    - For each specification file, external specification files
+      can be referenced and used to import column specification field data
+      into the current specification object
+render_single:
+  section: Render single specification documents
+  requirements:
+    - A data specification object can be rendered in
+      a variety of formats using `rmarkdown::render`
+project:
+  section: Project-level listing document
+  requirements:
+    - A separate yaml file can be created that lists
+      all of the data specification documents across a single project
+    - The project-level specification listing can be loaded and used
+      to direct content in  a comprehensive definitions document
+      for all data sets in a project
+render_fda:
+  section: Specification documents for FDA submission
+  requirements:
+    - A data definition document meeting FDA requirements can
+      be generated from a project-level listing file
+    - The columns for each data set are `VARIABLE`, `LABEL`,
+      `TYPE`, and `CODES`
+    - In addition to FDA requirements, the `unit` is included
+      in the `LABEL` column when it is available
+render_general:
+  section: Specification documents in custom formats
+  requirements:
+    - A project-wide data definition document can be rendered in a custom
+      format using `rmarkdown::render`
+check:
+  section: Reconcile data set and specification
+  requirements:
+    - The check procedure verifies that data set columns have the
+      same names and same order as that found in the spec
+    - The check procedure verifies that all values in a continuous
+      data column are greater than the minimum and less than maximum
+      value given in the range field
+    - The check procedure verifies that all unique values in a discrete
+      data column exactly overlap
+      with the `values` field for that column in the specification
+      object
+r_packages:
+  section: R packages
+  requirements:
+    - "Imports: `yaml`, `dplyr`, `rmarkdown`, `knitr`, `xtable`,
+      `rlang`, `assertthat`, `purrr`, `glue`"
+    - "Suggests: `pander`, `testthat`"
