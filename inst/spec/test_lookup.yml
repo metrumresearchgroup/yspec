@@ -14,9 +14,10 @@ EGFR:
   lookup: true
 CMT:
   values: [1,2,3]
-  comment: This is the same thing as what we get in nonmem,
-           except better!
+  comment: This is just like the CMT data item in NONMEM
 C:
+  short: a comment
+
 
 
 

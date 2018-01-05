@@ -91,6 +91,29 @@ try_yaml <- function(file) {
   this
 }
 
+as_front_matter <- function(title = NULL, author = NULL,
+                            date = NULL, .dots = character(0)) {
+
+  if(is.character(title)) {
+    title <- paste0("title: ", title)
+  }else {
+    title <- character(0)
+  }
+  if(is.character(date)) {
+    date <- paste0("date: ", date)
+  }else {
+    title <- character(0)
+  }
+  if(is.character(author)) {
+    author <- paste0("author: ", author)
+  } else {
+    author <- character(0)
+  }
+  c("---",title, author, date, .dots, "---")
+
+}
+
+
 .test_spec <- function(.name, ..., .where = tempfile()) {
 
   a <- set_names(list(list(type = "numeric", lookup = FALSE)),

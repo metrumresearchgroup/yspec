@@ -32,4 +32,4 @@ EGFR:
   about: [eGFR, ml/min/1.73 m2]
   long: estimated glomerular filtration rate
   range: [10,300]
-  if_missing: imputed
+

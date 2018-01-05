@@ -11,6 +11,7 @@
 ##' @importFrom purrr imap imap_chr
 ##' @importFrom purrr discard
 ##' @importFrom purrr walk walk2 iwalk
+##' @importFrom glue glue
 NULL
 
 

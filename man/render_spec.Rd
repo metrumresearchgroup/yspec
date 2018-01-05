@@ -5,9 +5,9 @@
 \title{Render a data specification object}
 \usage{
 render_spec(x, stem, data_file = data_stem(x), format = c("pander_table",
-  "md_outline"), title = "Data Specification",
-  output_format = "html_document", output_dir = getwd(),
-  build_dir = tempdir(), ...)
+  "md_outline"), title = "Data Specification", author = NULL,
+  date = format(Sys.time()), output_format = "html_document",
+  output_dir = getwd(), build_dir = tempdir(), ...)
 }
 \arguments{
 \item{x}{object}
@@ -18,7 +18,11 @@ render_spec(x, stem, data_file = data_stem(x), format = c("pander_table",
 
 \item{format}{function defining how to render the object}
 
-\item{title}{a title for the rendered document}
+\item{title}{used for yaml front matter}
+
+\item{author}{used for yaml front matter}
+
+\item{date}{used for yaml front matter}
 
 \item{output_format}{passed to \code{rmarkdown::render}}
 

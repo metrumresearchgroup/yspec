@@ -1,7 +1,7 @@
 WT:
   long: patient weight
   about: [Weight, kg]
-  range: [20, 220]
+  range: [50, 120]
   type: numeric
 EGFR:
   long: estimated glomerular filtration rate

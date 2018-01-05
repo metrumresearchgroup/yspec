@@ -99,10 +99,7 @@ pack_type <- function(x) {
   paste0("    - ", x$type)
 }
 
-pack_if_missing <- function(x) {
-  if(is.null(x$if_missing)) return(NULL)
-  paste0("    - if_missing: ", x$if_missing)
-}
+
 
 define_col_1 <- function(x) {
   unit <- NULL
@@ -115,18 +112,13 @@ define_col_1 <- function(x) {
   short <- pack_short(x)
   descr  <- pack_long(x)
   unit <- pack_unit(x)
-  miss <- pack_if_missing(x)
   source <- pack_source(x)
   comment <- pack_comment(x)
   type <- pack_type(x)
 
   values <- define_values(x)
 
-  if(x$is_split) {
-    values <- pack_split(x)
-    values <- paste0("        ", values)
-  }
-  return(c(col,descr,short,type,values,unit,miss,source,comment))
+  return(c(col,descr,short,type,values,unit,source,comment))
 }
 
 
@@ -166,7 +158,9 @@ md_outline <- function(x,data_file, head = TRUE,...) {
 ##' @param stem for output file name
 ##' @param data_file the data file the spec is describing
 ##' @param format function defining how to render the object
-##' @param title a title for the rendered document
+##' @param title used for yaml front matter
+##' @param author used for yaml front matter
+##' @param date used for yaml front matter
 ##' @param output_format passed to \code{rmarkdown::render}
 ##' @param output_dir passed to \code{rmarkdown::render}
 ##' @param build_dir where to build the document
@@ -178,6 +172,8 @@ render_spec <- function(x,
                         data_file = data_stem(x),
                         format = c("pander_table","md_outline"),
                         title  = "Data Specification",
+                        author = NULL,
+                        date = format(Sys.time()),
                         output_format="html_document",
                         output_dir = getwd(),
                         build_dir = tempdir(),...) {
@@ -197,7 +193,11 @@ render_spec <- function(x,
 
   assert_that(is.character(title))
 
-  cat(paste0("# ", title, "\n\n"), file = file)
+  header <- as_front_matter(title, author, date)
+
+  cat(header, file = file, sep = "\n")
+
+  cat("\n", file = file, append = TRUE)
 
   cat(txt, file=file, sep="\n", append = TRUE)
 
@@ -228,7 +228,9 @@ pack_split <- function(sp) {
 ##' @param output character stem to create a name for the output file
 ##' @param output_format passed to \code{rmarkdown::render}
 ##' @param output_dir passed to \code{rmarkdown::render}
-##' @param title a title for the define document
+##' @param title used for yaml front matter
+##' @param author used for yaml front matter
+##' @param date used for yaml front matter
 ##' @param ... passed to \code{rmarkdown::render}
 ##'
 ##' @details
@@ -241,6 +243,8 @@ render_define <- function(file,
                           output_format = "html_document",
                           output_dir = getwd(),
                           title = "Data Specification",
+                          author = "",
+                          date = "",
                           ...) {
 
 
@@ -250,17 +254,17 @@ render_define <- function(file,
   files <- names(x)
   n_files <- length(x)
   template_title <- '---
-title: <insert-title>
-author: ""
-date: ""
+title: {title}
+author: {author}
+date: {date}
 output:
-  pdf_document:
+  html_document:
     number_sections: true
     toc_depth: 1
     toc: true
 ---
 '
-  main_title <- sub("<insert-title>", title, template_title, fixed=TRUE)
+  main_title <- glue::glue(template_title)
 
   specs <- vector("list", length(x))
 

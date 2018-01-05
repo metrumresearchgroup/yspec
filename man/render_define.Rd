@@ -5,7 +5,8 @@
 \title{Render a define.pdf document}
 \usage{
 render_define(file, output = "define", output_format = "html_document",
-  output_dir = getwd(), title = "Data Specification", ...)
+  output_dir = getwd(), title = "Data Specification", author = "",
+  date = "", ...)
 }
 \arguments{
 \item{file}{a project spec file loaded via \code{\link{load_spec_proj}}}
@@ -16,7 +17,11 @@ render_define(file, output = "define", output_format = "html_document",
 
 \item{output_dir}{passed to \code{rmarkdown::render}}
 
-\item{title}{a title for the define document}
+\item{title}{used for yaml front matter}
+
+\item{author}{used for yaml front matter}
+
+\item{date}{used for yaml front matter}
 
 \item{...}{passed to \code{rmarkdown::render}}
 }
