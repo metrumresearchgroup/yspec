@@ -17,4 +17,19 @@ unpack_split <- function(x,col) {
   # }
   # x
 }
+pack_split <- function(sp) {
+  .stop("not in service")
+  # if(!exists("split",sp)) return(character(0))
+  # sp <- sp$split
+  # short <- sapply(sp, `[[`, "short")
+  # unit <- sapply(sp, `[[`, "unit")
+  # unit[is.na(unit)] <- ""
+  # unit[nchar(unit)>1] <- paste0("`",unit[nchar(unit)>1],"`")
+  # when <- sapply(sp, `[[`, "when")
+  # when[is.na(when)] <- ""
+  # p <- paste0("- ", short," ", unit)
+  # p[when !=""] <- paste0(p[when!=""], " when `", when[when!=""], "`")
+  # p
+}
+
 

@@ -5,8 +5,8 @@
 \title{Render a define.pdf document}
 \usage{
 render_define(file, output = "define", output_format = "html_document",
-  output_dir = getwd(), title = "Data Specification", author = "",
-  date = "", ...)
+  output_dir = getwd(), title = "Data Specification",
+  format = c("pander_table", "md_outline"), author = "", date = "", ...)
 }
 \arguments{
 \item{file}{a project spec file loaded via \code{\link{load_spec_proj}}}

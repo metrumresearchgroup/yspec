@@ -127,7 +127,7 @@ md_header <- function(data_file,...) {
     "title: ''",
     "author: ''",
     "date: ''",
-    "fontsize: 12pt",
+    "fontsize: 16pt",
     "---\n",
     "## Data source",
     paste0("  * Data Set: ", backticks(data_file)),
@@ -136,17 +136,14 @@ md_header <- function(data_file,...) {
 }
 
 
-md_outline <- function(x,data_file, head = TRUE,...) {
+md_outline <- function(x, data_file = "", head = NULL,...) {
 
   if(!is.null(head)) head <- md_header(data_file,...)
 
-  cols <- vector(mode="list", length(x))
+  txt <- lapply(x, define_col_1)
 
-  for(i in seq_along(x)) {
-    cols[[i]] <- define_col_1(x[[i]])
-  }
+  c(head, flatten_chr(txt))
 
-  c(head, unlist(cols, use.names=FALSE))
 }
 
 
@@ -178,6 +175,7 @@ render_spec <- function(x,
                         output_dir = getwd(),
                         build_dir = tempdir(),...) {
 
+  assert_that(is_yspec(x))
 
   format <- match.arg(format)
 
@@ -188,7 +186,7 @@ render_spec <- function(x,
   if(file.exists(file)) file.remove(file)
 
   txt <- capture.output(
-    cat(format_fun(x, data_file = data_file,...),sep = "\n")
+    cat(format_fun(x, data_file = data_file, head = TRUE, ...),sep = "\n")
   )
 
   assert_that(is.character(title))
@@ -207,19 +205,6 @@ render_spec <- function(x,
 
 
 
-pack_split <- function(sp) {
-  if(!exists("split",sp)) return(character(0))
-  sp <- sp$split
-  short <- sapply(sp, `[[`, "short")
-  unit <- sapply(sp, `[[`, "unit")
-  unit[is.na(unit)] <- ""
-  unit[nchar(unit)>1] <- paste0("`",unit[nchar(unit)>1],"`")
-  when <- sapply(sp, `[[`, "when")
-  when[is.na(when)] <- ""
-  p <- paste0("- ", short," ", unit)
-  p[when !=""] <- paste0(p[when!=""], " when `", when[when!=""], "`")
-  p
-}
 
 
 ##' Render a define.pdf document
@@ -243,10 +228,14 @@ render_define <- function(file,
                           output_format = "html_document",
                           output_dir = getwd(),
                           title = "Data Specification",
+                          format = c("pander_table", "md_outline"),
                           author = "",
                           date = "",
                           ...) {
 
+  format <- match.arg(format)
+
+  format_fun <- get(format, mode="function")
 
   .dir <- tempdir()
   output <- file.path(.dir, paste0(output, ".md"))
@@ -268,9 +257,11 @@ output:
 
   specs <- vector("list", length(x))
 
+  fun <-
+
   outlines <- map(x, function(.x) {
     spec <- load_spec(.x[["spec_file"]])
-    md_outline(spec, head = NULL)
+    format_fun(spec, ...)
   })
 
   if(file.exists(output)) {

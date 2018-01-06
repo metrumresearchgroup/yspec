@@ -51,6 +51,9 @@ check_spec_input <- function(x, .fun = check_spec_input_col,
   .stop("invalid ", context, " input data\n", file, "\n", err)
 }
 
+
+# workhorse load and prep function
+# used to load spec, lookup, and project files
 load_spec_file <- function(file) {
   file <- normalizePath(file)
   x <- try_yaml(file)

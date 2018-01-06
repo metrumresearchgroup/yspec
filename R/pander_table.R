@@ -11,7 +11,7 @@ pander_table <- function(x, data_file = "data", ...) {
 
   ans <- pander_table_df(x, data_file, ...)
 
-  pander::pandoc.table(
+  pander::pandoc.table.return(
     ans,
     justify = c("left", "left", "left", "left"),
     split.tables = 80,
