@@ -1,10 +1,11 @@
 SETUP__:
-  project_file: true
-DEM104101F_PK:
-  description: The population PK analysis data set
+  sponsor: "ABC Pharma, Inc"
+  projectnumber: "DEM104101F"
   data_path: data/derived
+DEM104101F_PK:
+  description: Population PK analysis data set
 DEM104101F_PKPD:
-  description: The population PK/PD analysis data set
+  description: Population PK/PD analysis data set
 DEM104101F_AE:
-  description: Adverse event analysis data set
+  description: AE analysis data set
 

@@ -101,10 +101,10 @@ print_fda_define <- function(file, main = "Datasets") {
   writeLines(fda_content_table(x))
 
   walk(x, function(this) {
-    title <- paste0(this$description, " (`", this$source, "`)")
+    title <- paste0(this$description, " (`", this$data_file, "`)")
     header <- paste0("## ", title, " \\label{", this$name,"}")
     writeLines(header)
-    writeLines(fda_table_file(this$file))
+    writeLines(fda_table_file(this$spec_file))
   })
 }
 
@@ -140,13 +140,65 @@ fda_content_table_file <- function(file) {
 
 fda_content_rows <- function(x) {
   map_df(x, function(.x) {
-    loc <- fda_content_ref(.x[["name"]], .x[["source"]])
+    loc <- fda_content_ref(.x[["name"]], .x[["data_file"]])
     data_frame(Description  = .x$description,
                Location = loc)
   })
 }
 
-fda_content_ref <- function(name, source) {
-  source <- gsub("_", "\\\\_", source)
-  paste0("\\hyperref[",name,"]{", source, "}")
+fda_content_ref <- function(name, data_file) {
+  data_file <- gsub("_", "\\\\_", data_file)
+  paste0("\\hyperref[",name,"]{", data_file, "}")
+}
+
+
+
+##' @export
+##'
+render_fda_define <- function(x, ... ) {
+  UseMethod("render_fda_define")
+}
+
+##' @export
+render_fda_define.yproj <- function(x, ...) {
+  m <- get_meta(x)
+  project_file_name <- m$yml_file
+  assert_that(is.character(project_file_name))
+  render_fda_define(project_file_name, ...)
+}
+
+##' @export
+render_fda_define.character <- function(x,
+                                        title = "Data Definitions",
+                                        date = format(Sys.time()),
+                                        author = "MetrumRG Staff Scientist",
+                                        template = "mrgtemplate.tex",
+                                        ...) {
+
+  yamlfile <- x
+
+  proj <- load_spec_proj(yamlfile)
+
+  m <- get_meta(proj)
+
+  if(!is.character(m[["sponsor"]])) {
+    .stop("sponsor field is required in SETUP__")
+  }
+  sponsor <- m[["sponsor"]]
+
+  if(!is.character(m[["projectnumber"]])) {
+    .stop("projectnumber field is required in SETUP__")
+  }
+  projectnumber <- m[["projectnumber"]]
+
+  rmd <- system.file("rmd", "fdadefine.Rmd", package = "yspec")
+
+  txt <- paste0(readLines(rmd),collapse = "\n")
+
+  txt <- glue(txt, .open = "<", .close = ">")
+
+  writeLines(txt,"define.Rmd")
+
+  return(invisible(rmarkdown::render("define.Rmd")))
+
 }

@@ -1,12 +1,15 @@
 ---
-title: "DEM101101 Definition File"
-date: ""
-author: "Kyle T. Baron, Pharm.D., Ph.D."
-sponsor: ABC Pharma Inc, LLC
-projectnumber: "DEM101101"
-template: mrgtemplate.tex
+title: <title>
+date: <date>
+sponsor: <sponsor>
+projectnumber: <projectnumber>
+template: <template>
+author: <author>
 output:
   pdf_document:
+    number_sections: true
+    toc: false
+  html_document:
     number_sections: true
     toc: false
 ---
@@ -20,6 +23,6 @@ library(dplyr)
 ```
 
 ```{r results = "asis"}
-print_fda_define("inst/spec/project.yml")
+print_fda_define("<yamlfile>")
 ```
 

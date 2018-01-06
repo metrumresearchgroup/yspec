@@ -9,52 +9,53 @@ is_yproj <- function(x) {
 ##'
 ##' @export
 load_spec_proj <- function(file) {
-  x <- try_yaml(file)
-  x[["SETUP__"]][["yml_file"]] <- file
-  x[["SETUP__"]][["path"]] <- path <- dirname(file)
 
-  x <- unpack_meta(x)
+  x <- load_spec_file(file)
 
-  files <- names(x)
+  defaults <- get_meta(x)
+  path <- defaults[["path"]]
 
-  for(i in seq_along(x)) {
-    if(.no("description",x[[i]])) {
-     .stop("no description found for ", files[i])
-    }
-    if(i==1) {
-      if(.no("data_path",x[[i]])) {
-        .stop("the first entry must specify the data_path")
-      }
-      next
-    }
-    x[[i]] <- combine_list(x[[i-1]], x[[i]])
+  defaults <- defaults[names(defaults) %in% c("data_path")]
+
+  nulls <- map_lgl(x, is.null)
+  if(any(nulls)) {
+    err <- paste0(names(x)[which(nulls)],collapse = ', ')
+    .stop("empty entries in project file\n ", err)
   }
 
-  x <- imap(x, function(x,y) {
+  desc <- map_chr(x, "description", .default = as.character(NA))
+  if(any(is.na(desc))) {
+    err <- paste0(names(x)[which(is.na(desc))],collapse = ', ')
+    .stop("entries in project file with no description\n ", err)
+  }
+
+  x[] <- imap(x, function(x,y) {
+    x <- combine_list(defaults,x)
     x[["spec_path"]] <- path
     x[["name"]] <- y
-    if(.no("spec", x)) {
-      x[["spec"]] <- paste0(y, ".yml")
+    if(.no("spec_file", x)) {
+      x[["spec_file"]] <- paste0(y, ".yml")
     }
-    if(.no("source", x)) {
-      x[["source"]] <- paste0(y,".xpt")
+    if(.no("data_file", x)) {
+      x[["data_file"]] <- paste0(y,".xpt")
     }
     if(.no("data_path",x)) {
-      x[["data_path"]] <- get_meta(x)[["path"]]
+      x[["data_path"]] <- path
     }
-    x[["file"]] <- normalizePath(
-      file.path(x[["spec_path"]],x[["spec"]])
+    x[["spec_file"]] <- normalizePath(
+      file.path(x[["spec_path"]],x[["spec_file"]])
     )
     x
   })
-  structure(x, class = "yproj")
+
+  structure(x, class = "yproj", meta = get_meta(x))
 }
 
 ##' @export
 print.yproj <- function(x,i=0,...) {
   names <- map_chr(x, "name")
-  specs <- map_chr(x, "spec")
-  ans <- data.frame(name = names, spec = specs)
+  desc <- map_chr(x, "description")
+  ans <- data.frame(name = names, desc = desc)
   print.data.frame(ans, row.names = FALSE,
                    right = FALSE)
 }

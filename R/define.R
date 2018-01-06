@@ -269,7 +269,7 @@ output:
   specs <- vector("list", length(x))
 
   outlines <- map(x, function(.x) {
-    spec <- load_spec(.x[["file"]])
+    spec <- load_spec(.x[["spec_file"]])
     md_outline(spec, head = NULL)
   })
 

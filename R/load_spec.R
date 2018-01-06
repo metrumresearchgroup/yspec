@@ -5,16 +5,18 @@ VALID_SPEC_NAMES <- c("type", "unit", "values", "decode",
                       "short", "long", "about",
                       "range", "longvalues",  "lookup")
 
-check_spec_input_col <- function(x, col, env) {
+check_spec_input_col <- function(x, col, env, not_allowed = NULL, ...) {
   errors <- c()
   t0 <- !is.null(x)
   if(!t0) {
     env$err[[col]] <- "no spec data was founc"
     return(NULL)
   }
-  t1 <- all(names(x) %in% VALID_SPEC_NAMES)
+
+  t1 <- all(names(x) %in% setdiff(VALID_SPEC_NAMES, not_allowed))
   if(!t1) {
-    inval <- setdiff(names(x), VALID_SPEC_NAMES)
+    valid <- setdiff(VALID_SPEC_NAMES, not_allowed)
+    inval <- setdiff(names(x), valid)
     inval <- paste(inval, collapse = ", ")
     env$err[[col]] <- paste0(
       "invalid column field(s): ", inval
@@ -32,10 +34,11 @@ check_spec_input_col <- function(x, col, env) {
   }
 }
 
-check_spec_input <- function(x) {
+check_spec_input <- function(x, .fun = check_spec_input_col,
+                             context = "spec", ...) {
   env <- new.env()
   env$err <- set_names(vector("list", length(x)),names(x))
-  walk2(x, seq_along(x),  check_spec_input_col, env = env)
+  walk2(x, seq_along(x), .fun, env = env, ...)
   err <- discard(as.list(env)$err, is.null)
   if(length(err)==0) return(NULL)
   err <- imap_chr(err, function(msg, col) {
@@ -43,26 +46,34 @@ check_spec_input <- function(x) {
     paste(" column: ",  col, "\n",
       paste(msg, collapse = "\n"), "\n", collapse = "\n")
   })
-  .stop("invalid spec input data\n",err)
+  file <- basename(get_meta(x)[["yml_file"]])
+  file <- paste0("In file: ", file)
+  .stop("invalid ", context, " input data\n", file, "\n", err)
 }
 
+load_spec_file <- function(file) {
+  file <- normalizePath(file)
+  x <- try_yaml(file)
+  x <- capture_file_info(x,file)
+  unpack_meta(x)
+}
+
+capture_file_info <- function(x,file,where = "SETUP__") {
+  x[[where]][["yml_file"]] <- file
+  x[[where]][["path"]] <- dirname(file)
+  x
+}
 
 ##' Load a data specification file
 ##'
 ##' @param file name of yaml file containing specification
 ##' @export
 load_spec <- function(file) {
-  file <- normalizePath(file, mustWork=TRUE)
-  x <- try_yaml(file)
-  x[["SETUP__"]][["yml_file"]] <- file
-  x[["SETUP__"]][["path"]] <- dirname(file)
+  x <- load_spec_file(file)
   unpack_spec(x)
 }
 
 unpack_spec <- function(x) {
-
-  # handle meta data
-  x <- unpack_meta(x)
 
   check_spec_input(x)
 
@@ -125,7 +136,8 @@ load_lookup_spec <- function(x) {
   }
   ans <- list()
   for(f in files) {
-    this <- try_yaml(f)
+    this <- load_spec_file(f)
+    check_spec_input(this, context = "lookup spec", not_allowed = "lookup")
     ans <- combine_list(ans,this)
   }
   ans

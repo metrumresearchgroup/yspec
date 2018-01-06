@@ -12,9 +12,10 @@ EGFR2:
   range: [10,60]
 SEX:
   values: [0,1]
-  decodes: [male, female]
+  decode: [male, female]
   type: integer
 CMT:
   short: compartment - from_lookup
   long: compartment number per NONMEM
-
+C:
+  short: commented row indicator

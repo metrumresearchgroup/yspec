@@ -25,7 +25,7 @@ ALB:
 C:
   short: comment
   values: [., C]
-  decodes: [not a comment, comment]
+  decode: [not a comment, comment]
 CMT:
   short: compartment - from_lookup_2
   long: compartment number per NONMEM
