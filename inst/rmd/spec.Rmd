@@ -1,0 +1,25 @@
+---
+title: <title>
+author: <author>
+date: <date>
+template: <template>
+output:
+  pdf_document:
+    number_sections: false
+    toc: false
+  html_document:
+    number_sections: false
+    toc: false
+---
+
+
+```{r echo = FALSE, results = "hide", message = FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(yspec)
+```
+
+
+```{r results = "asis"}
+writeLines(yspec:::call_format_fun("<yamlfile>", format = "<format>"))
+```
+

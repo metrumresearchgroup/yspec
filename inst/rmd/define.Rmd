@@ -1,0 +1,32 @@
+---
+title: <title>
+date: <date>
+sponsor: <sponsor>
+projectnumber: <projectnumber>
+scientist: <author>
+author: <author>
+geometry: "left=3.5cm,right=3.5cm,top=3cm,bottom=3cm"
+output:
+  pdf_document:
+    number_sections: true
+    toc: true
+    extra_dependencies:
+      fontenc: T1
+      mathdesign: utopia
+      longtable:
+      booktabs:
+  html_document:
+    number_sections: true
+    toc: true
+---
+
+```{r echo = FALSE, results = "hide", message = FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(yspec)
+```
+
+
+```{r results = "asis"}
+print_define_for_rmd("<yamlfile>", "<format>")
+```
+
