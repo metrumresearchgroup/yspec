@@ -39,7 +39,7 @@ command <- paste0("\\hline\n\\endhead\n",
 
 add.to.row$command <- command
 
-lengths <- c(0, 0.75, 1.85, 0.75, 2)
+lengths <- c(0, 0.75, 1.85, 0.6, 1.8)
 align <- paste0("p{",lengths,"in}|")
 align[2] <- paste0("|", align[2])
 
@@ -92,26 +92,26 @@ fda_table_file <- function(file) {
 ##' document as a character vector.
 ##'
 ##' @export
-print_fda_define <- function(file, main = "Datasets") {
+fda_define <- function(file, main = "Datasets") {
 
   x <- load_spec_proj(file)
 
-  writeLines(paste0("# ", main))
+  main <- paste0("# ", main)
 
-  writeLines(fda_content_table(x))
+  contents <- fda_content_table(x)
 
-  walk(x, function(this) {
+  specs <- map(x, function(this) {
     title <- paste0(this$description, " (`", this$data_file, "`)")
     header <- paste0("## ", title, " \\label{", this$name,"}")
-    writeLines(header)
-    writeLines(fda_table_file(this$spec_file))
+    c(header, "\\noindent", " ", "  ", fda_table_file(this$spec_file))
   })
+  c(main, contents, flatten_chr(specs))
 }
 
 ##' @rdname print_fda_define
 ##' @export
-fda_define <- function(...) {
-  capture.output(print_fda_define(...))
+print_fda_define <- function(...) {
+  writeLines(fda_define(...))
 }
 
 
@@ -128,7 +128,7 @@ fda_content_table <- function(x) {
   contents <- fda_content_rows(x)
   kable(contents,
         format = "latex",
-        align = c("|p{2.85in}", "p{2.75in}|"),
+        align = c("|p{2.85in}", "p{2.55in}|"),
         escape = FALSE)
 }
 
@@ -173,9 +173,18 @@ render_fda_define.character <- function(x,
                                         date = format(Sys.time()),
                                         author = "MetrumRG Staff Scientist",
                                         template = "mrgtemplate.tex",
+                                        output_format = "pdf_document",
+                                        output_dir = getwd(),
+                                        build_dir = tempdir(),
                                         ...) {
 
-  yamlfile <- x
+  yamlfile <- normalizePath(x)
+  output_dir <- normalizePath(output_dir)
+  cwd <- normalizePath(getwd())
+  if(cwd != build_dir) {
+    setwd(build_dir)
+    on.exit(setwd(cwd))
+  }
 
   proj <- load_spec_proj(yamlfile)
 
@@ -199,6 +208,9 @@ render_fda_define.character <- function(x,
 
   writeLines(txt,"define.Rmd")
 
-  return(invisible(rmarkdown::render("define.Rmd")))
+
+  ans <- rmarkdown::render("define.Rmd", output_dir = output_dir,
+                           output_format = output_format, ...)
+  return(invisible(ans))
 
 }

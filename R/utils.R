@@ -130,3 +130,15 @@ as_front_matter <- function(title = NULL, author = NULL,
   suppressMessages(load_spec(.test_spec(...)))
 }
 
+yspec_pdf_document <- function(...,template = NULL) {
+
+  template <- system.file("tex", "yspectemplate.tex",
+                          package = "yspec")
+  rmarkdown:::pdf_document(..., template = template)
+}
+
+
+yspectemplate <- function() {
+  system.file("tex", "yspectemplate.tex",
+              package = "yspec")
+}

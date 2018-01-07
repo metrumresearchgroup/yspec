@@ -4,9 +4,11 @@
 \alias{render_define}
 \title{Render a define.pdf document}
 \usage{
-render_define(file, output = "define", output_format = "html_document",
-  output_dir = getwd(), title = "Data Specification",
-  format = c("pander_table", "md_outline"), author = "", date = "", ...)
+render_define(file, stem = basename(file), output = "define",
+  output_format = "html_document", output_dir = getwd(),
+  build_dir = tempdir(), title = "Data Specification",
+  format = c("pander_table", "md_outline"), author = "MetrumRG",
+  date = format(Sys.time()), ...)
 }
 \arguments{
 \item{file}{a project spec file loaded via \code{\link{load_spec_proj}}}

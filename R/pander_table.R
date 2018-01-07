@@ -14,8 +14,8 @@ pander_table <- function(x, data_file = "data", ...) {
   pander::pandoc.table.return(
     ans,
     justify = c("left", "left", "left", "left"),
-    split.tables = 80,
-    split.cells = c(5,25,8,25),
+    split.tables = 100,
+    split.cells = c("22%","15%","22%","41%"),
     style = "multiline"
   )
 }

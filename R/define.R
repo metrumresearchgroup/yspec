@@ -146,7 +146,13 @@ md_outline <- function(x, data_file = "", head = NULL,...) {
 
 }
 
-
+call_format_fun <- function(yamlfile,
+                            format = c("pander_table", "md_outline")) {
+  format <- match.arg(format)
+  format_fun <- get(format, mode = "function")
+  spec <- load_spec(yamlfile)
+  format_fun(spec, head = NULL)
+}
 
 
 ##' Render a data specification object
@@ -164,47 +170,57 @@ md_outline <- function(x, data_file = "", head = NULL,...) {
 ##' @param ... passed to \code{rmarkdown::render}
 ##'
 ##' @export
-render_spec <- function(x,
-                        stem,
+render_spec <- function(yamlfile,
+                        stem = basename(yamlfile),
                         data_file = data_stem(x),
                         format = c("pander_table","md_outline"),
                         title  = "Data Specification",
-                        author = NULL,
+                        author =  "MetrumRG",
+                        template = NULL,
                         date = format(Sys.time()),
                         output_format="html_document",
                         output_dir = getwd(),
                         build_dir = tempdir(),...) {
 
-  assert_that(is_yspec(x))
+  yamlfile <- normalizePath(yamlfile)
+  output_dir <- normalizePath(output_dir)
+  cwd <- normalizePath(getwd())
+  if(cwd != build_dir) {
+    setwd(build_dir)
+    on.exit(setwd(cwd))
+  }
 
   format <- match.arg(format)
 
-  format_fun <- get(format, mode="function")
+  file <- paste0(stem, ".Rmd")
 
-  file <- file.path(build_dir,paste0(stem, ".Rmd"))
+  rmd <- system.file("rmd", "spec.Rmd", package = "yspec")
 
-  if(file.exists(file)) file.remove(file)
+  txt <- paste0(readLines(rmd), collapse = "\n")
 
-  txt <- capture.output(
-    cat(format_fun(x, data_file = data_file, head = TRUE, ...),sep = "\n")
-  )
+  txt <- glue::glue(txt, .open = "<", .close = ">")
 
-  assert_that(is.character(title))
+  writeLines(txt,file)
 
-  header <- as_front_matter(title, author, date)
-
-  cat(header, file = file, sep = "\n")
-
-  cat("\n", file = file, append = TRUE)
-
-  cat(txt, file=file, sep="\n", append = TRUE)
-
-  rmarkdown::render(file, output_format=output_format,
-                    output_dir=output_dir, ...)
+  return(invisible(rmarkdown::render(file, output_format = output_format,
+                                     output_dir = output_dir, ...)))
 }
 
 
 
+print_define_for_rmd <- function(yamlfile,
+                                 format, ...) {
+  format_fun <- get(format, mode = "function")
+
+  proj <- load_spec_proj(yamlfile)
+  specs <- imap(proj, .f = function(x,name) {
+    sp <- load_spec(x[["spec_file"]])
+    sp <- format_fun(sp)
+    c(paste0("# ", name), sp, " ")
+  })
+  specs <- flatten_chr(specs)
+  writeLines(specs)
+}
 
 
 ##' Render a define.pdf document
@@ -224,61 +240,44 @@ render_spec <- function(x,
 ##'
 ##' @export
 render_define <- function(file,
+                          stem = basename(file),
                           output = "define",
                           output_format = "html_document",
                           output_dir = getwd(),
+                          build_dir = tempdir(),
                           title = "Data Specification",
                           format = c("pander_table", "md_outline"),
-                          author = "",
-                          date = "",
+                          author = "MetrumRG",
+                          date = format(Sys.time()),
                           ...) {
+
+  yamlfile <- normalizePath(file)
+  output_dir <- normalizePath(output_dir)
+  cwd <- normalizePath(getwd())
+  if(cwd != build_dir) {
+    setwd(build_dir)
+    on.exit(setwd(cwd))
+  }
+
+  sponsor <- ""
+  projectnumber <- ''
 
   format <- match.arg(format)
 
-  format_fun <- get(format, mode="function")
+  file <- paste0(stem, ".Rmd")
 
-  .dir <- tempdir()
-  output <- file.path(.dir, paste0(output, ".md"))
-  x <- load_spec_proj(file)
-  files <- names(x)
-  n_files <- length(x)
-  template_title <- '---
-title: {title}
-author: {author}
-date: {date}
-output:
-  html_document:
-    number_sections: true
-    toc_depth: 1
-    toc: true
----
-'
-  main_title <- glue::glue(template_title)
+  rmd <- system.file("rmd", "define.Rmd", package = "yspec")
 
-  specs <- vector("list", length(x))
+  txt <- paste0(readLines(rmd), collapse = "\n")
 
-  fun <-
+  txt <- glue::glue(txt, .open = "<", .close = ">")
 
-  outlines <- map(x, function(.x) {
-    spec <- load_spec(.x[["spec_file"]])
-    format_fun(spec, ...)
-  })
+  writeLines(txt,file)
 
-  if(file.exists(output)) {
-    file.remove(output)
-  }
+  return(invisible(rmarkdown::render(file, output_format = output_format,
+                                     output_dir = output_dir, ...)))
 
-  cat(file = output, main_title, "\n")
 
-  cat(file = output, "\n", append = TRUE)
 
-  walk2(x, outlines, function(x,y) {
-    header <- paste0("# ", x[["description"]], " ", parens(x[["name"]]))
-    cat(file = output, header, "\n", append = TRUE)
-    cat(file = output, y, "\n", sep = "\n", append = TRUE)
-  })
-
-  rmarkdown::render(input = output, output_format = output_format,
-                    output_dir = output_dir, ...)
 }
 

@@ -4,14 +4,13 @@
 \alias{render_spec}
 \title{Render a data specification object}
 \usage{
-render_spec(x, stem, data_file = data_stem(x), format = c("pander_table",
-  "md_outline"), title = "Data Specification", author = NULL,
-  date = format(Sys.time()), output_format = "html_document",
-  output_dir = getwd(), build_dir = tempdir(), ...)
+render_spec(yamlfile, stem = basename(yamlfile), data_file = data_stem(x),
+  format = c("pander_table", "md_outline"), title = "Data Specification",
+  author = "MetrumRG", template = NULL, date = format(Sys.time()),
+  output_format = "html_document", output_dir = getwd(),
+  build_dir = tempdir(), ...)
 }
 \arguments{
-\item{x}{object}
-
 \item{stem}{for output file name}
 
 \item{data_file}{the data file the spec is describing}
@@ -31,6 +30,8 @@ render_spec(x, stem, data_file = data_stem(x), format = c("pander_table",
 \item{build_dir}{where to build the document}
 
 \item{...}{passed to \code{rmarkdown::render}}
+
+\item{x}{object}
 }
 \description{
 Render a data specification object
