@@ -84,6 +84,8 @@ Then render it:
 ```{r, "render-define-1", echo = TRUE, results = "hide", message = FALSE}
 render_define(file = "inst/spec/project.yml", 
               stem = "project", envir = new.env(),
+              output_format = "pdf_document",
+              output_dir = "inst/doc",
               title = "DEM104101 PK/PD Analysis Data Sets")
 ```
 
