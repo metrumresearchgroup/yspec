@@ -198,6 +198,8 @@ render_spec.character <- function(x,
 
   output_dir <- normalizePath(output_dir)
 
+  build_dir <- normalizePath(build_dir)
+
   cwd <- normalizePath(getwd())
   if(cwd != build_dir) {
     setwd(build_dir)
@@ -299,6 +301,7 @@ render_define <- function(file,
 
   yamlfile <- normalizePath(file)
   output_dir <- normalizePath(output_dir)
+  build_dir <- normalizePath(build_dir)
   cwd <- normalizePath(getwd())
   if(cwd != build_dir) {
     setwd(build_dir)
