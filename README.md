@@ -544,3 +544,5 @@ render_fda_define(spec_ex_proj(),
                   stem = "fda_define",
                   output_dir = "inst/doc")
 ```
+
+Output [here](./inst/doc/fda_define.pdf)
