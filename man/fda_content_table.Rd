@@ -17,6 +17,12 @@ fda_content_table_file(file)
 \description{
 Print a table of contents for FDA define document
 }
+\examples{
+proj <- spec_example_file("project.yml")
+spec <- load_spec_proj(proj)
+fda_content_table(spec)
+
+}
 \seealso{
 \code{\link{load_spec_proj}}
 }

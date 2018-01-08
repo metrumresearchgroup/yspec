@@ -1,6 +1,5 @@
-
 yspec
-=====
+================
 
 About
 -----
@@ -23,7 +22,20 @@ We can load [this yaml file](inst/spec/spec.yml)
 
 ``` r
 sp <- load_spec("inst/spec/spec.yml")
+head(sp)
 ```
+
+    ##    col    name      type  unit                   short
+    ## 1    1       C character     . commented row indicator
+    ## 2    2 USUBJID character     .                 USUBJID
+    ## 3    3      ID   numeric     .                      ID
+    ## 4    4    EVID   numeric     .                    EVID
+    ## 5    5     MDV   numeric     .                     MDV
+    ## 6    6     SEQ   numeric     .                     SEQ
+    ## 7    7     AMT   numeric    mg                  Amount
+    ## 8    8      II   numeric hours                      II
+    ## 9    9     CMT   numeric     .             Compartment
+    ## 10  10    TAFD   numeric hours                    TAFD
 
 See [here](./inst/doc/reference.md) for `YAML` specification details
 
@@ -38,23 +50,23 @@ names(sp)
     . [15] "BQL"     "DV"      "DV2"     "HAIR"    "CLCR"
 
 ``` r
-sp[WT]$unit
+sp$WT$unit
 ```
 
     . [1] "kg"
 
 ``` r
-yspec:::pander_table(sp)
+writeLines(yspec:::pander_table(sp))
 ```
 
     ## Loading required namespace: pander
 
-<table style="width:90%;">
+<table style="width:97%;">
 <colgroup>
-<col width="20%" />
 <col width="13%" />
+<col width="16%" />
 <col width="18%" />
-<col width="37%" />
+<col width="48%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -67,31 +79,55 @@ yspec:::pander_table(sp)
 <tbody>
 <tr class="odd">
 <td align="left">C</td>
-<td align="left">numeric</td>
-<td align="left">short-name</td>
-<td align="left">C</td>
+<td align="left">character</td>
+<td align="left">unit</td>
+<td align="left"></td>
 </tr>
 <tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">short-name</td>
+<td align="left">commented row indicator</td>
+</tr>
+<tr class="odd">
 <td align="left"></td>
 <td align="left"></td>
 <td align="left">long-name</td>
 <td align="left">commented rows</td>
 </tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">values</td>
+<td align="left">., C</td>
+</tr>
 <tr class="odd">
 <td align="left">USUBJID</td>
-<td align="left">numeric</td>
+<td align="left">character</td>
+<td align="left">unit</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
 <td align="left">short-name</td>
 <td align="left">USUBJID</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"></td>
 <td align="left"></td>
 <td align="left">long-name</td>
 <td align="left">universal subject identifier</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">ID</td>
 <td align="left">numeric</td>
+<td align="left">unit</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
 <td align="left">short-name</td>
 <td align="left">ID</td>
 </tr>
@@ -104,24 +140,36 @@ yspec:::pander_table(sp)
 <tr class="odd">
 <td align="left">EVID</td>
 <td align="left">numeric</td>
+<td align="left">unit</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
 <td align="left">short-name</td>
 <td align="left">EVID</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"></td>
 <td align="left"></td>
 <td align="left">long-name</td>
 <td align="left">event ID indicator</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"></td>
 <td align="left"></td>
 <td align="left">comment</td>
 <td align="left">per NONMEM specifications</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">MDV</td>
 <td align="left">numeric</td>
+<td align="left">unit</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
 <td align="left">short-name</td>
 <td align="left">MDV</td>
 </tr>
@@ -140,36 +188,60 @@ yspec:::pander_table(sp)
 <tr class="odd">
 <td align="left">SEQ</td>
 <td align="left">numeric</td>
+<td align="left">unit</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
 <td align="left">short-name</td>
 <td align="left">SEQ</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"></td>
 <td align="left"></td>
 <td align="left">long-name</td>
 <td align="left">record type indicators</td>
 </tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">values</td>
+<td align="left">1 = concentration, 2 = response, 3 = other</td>
+</tr>
 <tr class="odd">
-<td align="left">AMT (mg)</td>
+<td align="left">AMT</td>
 <td align="left">numeric</td>
+<td align="left">unit</td>
+<td align="left">mg</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
 <td align="left">short-name</td>
 <td align="left">Amount</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"></td>
 <td align="left"></td>
 <td align="left">long-name</td>
 <td align="left">dose amount</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"></td>
 <td align="left"></td>
 <td align="left">range</td>
-<td align="left">(0 - 1000)</td>
+<td align="left">0 to 1000</td>
+</tr>
+<tr class="odd">
+<td align="left">II</td>
+<td align="left">numeric</td>
+<td align="left">unit</td>
+<td align="left">hours</td>
 </tr>
 <tr class="even">
-<td align="left">II (hours)</td>
-<td align="left">numeric</td>
+<td align="left"></td>
+<td align="left"></td>
 <td align="left">short-name</td>
 <td align="left">II</td>
 </tr>
@@ -182,36 +254,60 @@ yspec:::pander_table(sp)
 <tr class="even">
 <td align="left">CMT</td>
 <td align="left">numeric</td>
+<td align="left">unit</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
 <td align="left">short-name</td>
 <td align="left">Compartment</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"></td>
 <td align="left"></td>
 <td align="left">long-name</td>
 <td align="left">compartment number</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"></td>
 <td align="left"></td>
 <td align="left">comment</td>
 <td align="left">per NONMEM specifications</td>
 </tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">values</td>
+<td align="left">1, 2, 3, 4</td>
+</tr>
 <tr class="odd">
-<td align="left">TAFD (hours)</td>
+<td align="left">TAFD</td>
 <td align="left">numeric</td>
+<td align="left">unit</td>
+<td align="left">hours</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
 <td align="left">short-name</td>
 <td align="left">TAFD</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"></td>
 <td align="left"></td>
 <td align="left">long-name</td>
 <td align="left">time after first dose</td>
 </tr>
-<tr class="odd">
-<td align="left">WT (kg)</td>
+<tr class="even">
+<td align="left">WT</td>
 <td align="left">numeric</td>
+<td align="left">unit</td>
+<td align="left">kg</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
 <td align="left">short-name</td>
 <td align="left">Weight</td>
 </tr>
@@ -225,29 +321,41 @@ yspec:::pander_table(sp)
 <td align="left"></td>
 <td align="left"></td>
 <td align="left">range</td>
-<td align="left">(40 - 100)</td>
+<td align="left">40 to 100</td>
 </tr>
 <tr class="even">
-<td align="left">EGFR (ml/min/1.73 m2)</td>
+<td align="left">EGFR</td>
 <td align="left">numeric</td>
+<td align="left">unit</td>
+<td align="left">ml/min/1.73 m2</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
 <td align="left">short-name</td>
 <td align="left">eGFR</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"></td>
 <td align="left"></td>
 <td align="left">long-name</td>
 <td align="left">estimated glomerular filtration rate</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"></td>
 <td align="left"></td>
 <td align="left">range</td>
-<td align="left">(10 - 300)</td>
+<td align="left">10 to 300</td>
+</tr>
+<tr class="even">
+<td align="left">STUDY</td>
+<td align="left">character</td>
+<td align="left">unit</td>
+<td align="left"></td>
 </tr>
 <tr class="odd">
-<td align="left">STUDY</td>
-<td align="left">numeric</td>
+<td align="left"></td>
+<td align="left"></td>
 <td align="left">short-name</td>
 <td align="left">Study</td>
 </tr>
@@ -258,14 +366,38 @@ yspec:::pander_table(sp)
 <td align="left">study identifier</td>
 </tr>
 <tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">values</td>
+<td align="left">100 = The first phase 1 study, 202 = The first phase 2 study conducted only at sites 1, 2, 3 when the formulation was still oral liquid only, 303 = The renal impairment study, 203 = The second phase 2 study</td>
+</tr>
+<tr class="even">
 <td align="left">SEX</td>
-<td align="left">numeric</td>
+<td align="left">integer</td>
+<td align="left">unit</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
 <td align="left">short-name</td>
 <td align="left">SEX</td>
 </tr>
 <tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">values</td>
+<td align="left">0 = male, 1 = female</td>
+</tr>
+<tr class="odd">
 <td align="left">BQL</td>
 <td align="left">numeric</td>
+<td align="left">unit</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
 <td align="left">short-name</td>
 <td align="left">below limit of quantification</td>
 </tr>
@@ -276,8 +408,20 @@ yspec:::pander_table(sp)
 <td align="left">DV value is below the quantitation limit</td>
 </tr>
 <tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">values</td>
+<td align="left">0 = FALSE, 1 = TRUE</td>
+</tr>
+<tr class="odd">
 <td align="left">DV</td>
 <td align="left">numeric</td>
+<td align="left">unit</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
 <td align="left">short-name</td>
 <td align="left">DV</td>
 </tr>
@@ -296,18 +440,30 @@ yspec:::pander_table(sp)
 <tr class="odd">
 <td align="left">DV2</td>
 <td align="left">numeric</td>
+<td align="left">unit</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
 <td align="left">short-name</td>
 <td align="left">DV2</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"></td>
 <td align="left"></td>
 <td align="left">long-name</td>
 <td align="left">second dependent variable</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">HAIR</td>
-<td align="left">numeric</td>
+<td align="left">character</td>
+<td align="left">unit</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
 <td align="left">short-name</td>
 <td align="left">HAIR</td>
 </tr>
@@ -318,10 +474,28 @@ yspec:::pander_table(sp)
 <td align="left">patient hair color</td>
 </tr>
 <tr class="odd">
-<td align="left">CLCR (ml/min)</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">values</td>
+<td align="left">0 = brown, 1 = blonde, 2 = black</td>
+</tr>
+<tr class="even">
+<td align="left">CLCR</td>
 <td align="left">numeric</td>
+<td align="left">unit</td>
+<td align="left">ml/min</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
 <td align="left">short-name</td>
 <td align="left">creatinine clearance</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">range</td>
+<td align="left">40 to 180</td>
 </tr>
 </tbody>
 </table>
@@ -329,7 +503,7 @@ yspec:::pander_table(sp)
 Render in pdf format
 
 ``` r
-render_spec(sp, "define", output_dir="inst/doc")
+render_spec(sp, stem = "define", output_dir="inst/doc")
 ```
 
 with output [here](./inst/doc/define.pdf)
@@ -337,10 +511,13 @@ with output [here](./inst/doc/define.pdf)
 Or render to any format
 
 ``` r
-render_spec(sp, "define", output_format="md_document", output_dir="inst/doc")
+render_spec(sp, stem = "define_example", 
+            envir  = new.env(),
+            output_format="md_document",
+            output_dir="inst/doc")
 ```
 
-Then we get [this output](./inst/doc/define.md)
+Then we get [this output](./inst/doc/example_define.md)
 
 Build a `define.pdf` document
 -----------------------------
@@ -352,9 +529,57 @@ For example [./inst/spec/project.yml](./inst/spec/project.yml)
 Then render it:
 
 ``` r
-render_define(file = "./inst/spec/project.yml", 
-              output = "project", 
+render_define(file = "inst/spec/project.yml", 
+              stem = "project", envir = new.env(),
               title = "DEM104101 PK/PD Analysis Data Sets")
 ```
 
 Output [here](./inst/doc/project.pdf)
+
+Build a `define.pdf` document for sending to FDA
+------------------------------------------------
+
+``` r
+render_fda_define(spec_ex_proj(), 
+                  stem = "fda_define",
+                  output_dir = "inst/doc")
+```
+
+    ## 
+    ## 
+    ## processing file: fda_define.Rmd
+
+    ## 
+      |                                                                       
+      |                                                                 |   0%
+      |                                                                       
+      |................                                                 |  25%
+    ##   ordinary text without R code
+    ## 
+    ## 
+      |                                                                       
+      |................................                                 |  50%
+    ## label: unnamed-chunk-1 (with options) 
+    ## List of 3
+    ##  $ echo   : logi FALSE
+    ##  $ results: chr "hide"
+    ##  $ message: logi FALSE
+    ## 
+    ## 
+      |                                                                       
+      |.................................................                |  75%
+    ##   ordinary text without R code
+    ## 
+    ## 
+      |                                                                       
+      |.................................................................| 100%
+    ## label: unnamed-chunk-2 (with options) 
+    ## List of 1
+    ##  $ results: chr "asis"
+
+    ## output file: fda_define.knit.md
+
+    ## /Applications/RStudio.app/Contents/MacOS/pandoc/pandoc +RTS -K512m -RTS fda_define.utf8.md --to latex --from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash --output /Users/kyleb/ghe/software/yspec/inst/doc/fda_define.pdf --template /Users/kyleb/Rlibs/rmarkdown/rmd/latex/default-1.17.0.2.tex --number-sections --highlight-style tango --latex-engine /Library/TeX/texbin/pdflatex --variable graphics=yes --include-in-header /var/folders/xb/hqmfzgl95fq8mx6tjxkzb71r0000gn/T//RtmpTo7Dfi/file152661c111306
+
+    ## 
+    ## Output created: /Users/kyleb/ghe/software/yspec/inst/doc/fda_define.pdf

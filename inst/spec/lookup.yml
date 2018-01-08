@@ -1,0 +1,20 @@
+WT:
+  long: patient weight
+  about: [Weight, kg]
+  range: [50, 120]
+  type: numeric
+EGFR:
+  long: estimated glomerular filtration rate
+  about: [eGFR, ml/min/1.73m2]
+  range: [40,170]
+  type: numeric
+EGFR2:
+  range: [10,60]
+SEX:
+  values: {male: 0, female: 1}
+  type: integer
+CMT:
+  short: compartment
+  long: compartment number per NONMEM
+C:
+  short: commented row indicator

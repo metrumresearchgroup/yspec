@@ -2,25 +2,26 @@
 % Please edit documentation in R/fda_define.R
 \name{fda_define}
 \alias{fda_define}
-\alias{print_fda_define}
-\title{Print a define document suitable for FDA submission}
+\title{Generate content for FDA define document}
 \usage{
 fda_define(file, title = "Datasets")
-
-print_fda_define(...)
 }
 \arguments{
 \item{file}{full path to define yaml file}
 
 \item{title}{used in yaml front matter}
-
-\item{...}{arguments to \code{fda_define}}
+}
+\value{
+A character vector of in markdown format.  Wrap
+\code{fda_define} in \code{\link{writeLines}} and
+render \code{asis} in an Rmarkdown document.
 }
 \description{
-Print a define document suitable for FDA submission
+Generate content for FDA define document
 }
-\details{
-Use \code{print_fda_define} to generate the output in the context
-of an Rmarkdown document.  Use \code{fda_define} to generate the
-document as a character vector.
+\examples{
+proj <- spec_example_file("project.yml")
+cat(readLines(proj), sep = "\\n")
+fda_define(proj)
+
 }

@@ -55,7 +55,7 @@ load_spec_proj <- function(file) {
 print.yproj <- function(x,i=0,...) {
   names <- map_chr(x, "name")
   desc <- map_chr(x, "description")
-  ans <- data.frame(name = names, desc = desc)
+  ans <- data.frame(name = names, description = desc)
   print.data.frame(ans, row.names = FALSE,
                    right = FALSE)
 }

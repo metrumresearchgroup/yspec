@@ -6,8 +6,10 @@ PKGDIR=.
 CHKDIR=.
 
 readme:
-	Rscript -e 'library(rmarkdown)' -e 'render("README.Rmd")'
+	Rscript -e 'rmarkdown::render("README.Rmd")'
 
+vignette:
+	Rscript -e 'rmarkdown::render("inst/doc/vignette.Rmd")'
 
 ec:
 	echo ${VERSION}
@@ -39,10 +41,5 @@ check:
 	make doc
 	make build
 	R CMD CHECK ${TARBALL} -o ${CHKDIR}
-
-checkk:
-	make doc
-	make build
-	R CMD CHECK ${TARBALL} -o ${CHKDIR} --no-examples
 
 

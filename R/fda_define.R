@@ -10,9 +10,7 @@ pack_codes <- function(x) {
   paste(ans, collapse = ", ")
 }
 
-# Functions for generating spec tables for a
-# single data set
-as_fda_table_ <- function(x) {
+as_fda_table_row <- function(x) {
   variable <- x[["col"]]
   label <- long(x, default = x[["col"]])
   if(.has("unit", x)) {
@@ -26,22 +24,19 @@ as_fda_table_ <- function(x) {
 }
 
 as_fda_table <- function(x) {
-  map_df(x, as_fda_table_)
+  map_df(x, as_fda_table_row)
 }
 
 add.to.row <- list(pos = list(0), command = NULL)
-command <- paste0("\\hline\n\\endhead\n",
-                  "\\hline\n",
-                  "\\multicolumn{4}{l}",
-                  "{\\footnotesize Continued on next page}\n",
-                  "\\endfoot\n",
-                  "\\endlastfoot\n")
+command__ <- paste0("\\hline\n\\endhead\n",
+                    "\\hline\n",
+                    "\\multicolumn{4}{l}",
+                    "{\\footnotesize Continued on next page}\n",
+                    "\\endfoot\n",
+                    "\\endlastfoot\n")
+add.to.row$command <- command__
 
-add.to.row$command <- command
 
-lengths <- c(0, 0.75, 1.85, 0.6, 1.8)
-align <- paste0("p{",lengths,"in}|")
-align[2] <- paste0("|", align[2])
 
 ##' Generate a table for FDA define.pdf document
 ##'
@@ -51,11 +46,12 @@ align[2] <- paste0("|", align[2])
 ##' @return Character vector of latex code for
 ##' the content of an FDA define.pdf document.  It
 ##' includes a table of contents as well as data spec
-##' tables for each dataset for a project.  Use
-##' \code{\link{print_fda_define}} to print the
-##' output in the context of an Rmarkdown document.
+##' tables for each dataset for a project.
 ##'
-##' @seealso \code{\link{print_fda_define}}
+##' @examples
+##' spec <- load_spec_ex()
+##' spec
+##' fda_table(spec)
 ##'
 ##' @export
 fda_table <- function(x) {
@@ -63,6 +59,9 @@ fda_table <- function(x) {
     .stop("x is not a yspec object")
   }
   x <- as_fda_table(x)
+  lengths <- c(0, 0.75, 1.85, 0.6, 1.8)
+  align <- paste0("p{",lengths,"in}|")
+  align[2] <- paste0("|", align[2])
   xx <- xtable(x, align = align)
   capture.output(
     print(xx, hline.after=c(-1,0,seq_len(nrow(xx)-1)),
@@ -80,16 +79,60 @@ fda_table_file <- function(file) {
 }
 
 
-##' Print a define document suitable for FDA submission
+##' Print a table of contents for FDA define document
+##'
+##' @param x a spec define object
+##' @param file the full path to a yaml specification file
+##' @seealso \code{\link{load_spec_proj}}
+##'
+##' @examples
+##' proj <- spec_example_file("project.yml")
+##' spec <- load_spec_proj(proj)
+##' fda_content_table(spec)
+##'
+##' @export
+fda_content_table <- function(x) {
+  if(!is_yproj(x)) {
+    .stop("x is not a project specification object")
+  }
+  contents <- map_df(x, fda_content_table_row)
+  kable(contents,
+        format = "latex",
+        align = c("|p{2.85in}", "p{2.55in}|"),
+        escape = FALSE)
+}
+
+##' @rdname fda_content_table
+##' @export
+fda_content_table_file <- function(file) {
+  fda_content_table(load_spec_proj(file))
+}
+
+fda_content_table_row <- function(.x) {
+  loc <- fda_content_table_ref(.x[["name"]], .x[["data_file"]])
+  data_frame(Description  = .x$description,
+             Location = loc)
+}
+
+fda_content_table_ref <- function(name, data_file) {
+  data_file <- gsub("_", "\\\\_", data_file)
+  paste0("\\hyperref[",name,"]{", data_file, "}")
+}
+
+##' Generate content for FDA define document
 ##'
 ##' @param file full path to define yaml file
 ##' @param title used in yaml front matter
-##' @param ... arguments to \code{fda_define}
 ##'
-##' @details
-##' Use \code{print_fda_define} to generate the output in the context
-##' of an Rmarkdown document.  Use \code{fda_define} to generate the
-##' document as a character vector.
+##' @return
+##' A character vector of in markdown format.  Wrap
+##' \code{fda_define} in \code{\link{writeLines}} and
+##' render \code{asis} in an Rmarkdown document.
+##'
+##' @examples
+##' proj <- spec_example_file("project.yml")
+##' cat(readLines(proj), sep = "\n")
+##' fda_define(proj)
 ##'
 ##' @export
 fda_define <- function(file, title = "Datasets") {
@@ -108,60 +151,22 @@ fda_define <- function(file, title = "Datasets") {
   c(main, contents, flatten_chr(specs))
 }
 
-##' @rdname fda_define
-##' @export
-print_fda_define <- function(...) {
-  writeLines(fda_define(...))
-}
-
-
-##' Print a table of contents for FDA define document
-##'
-##' @param x a spec define object
-##' @param file the full path to a yaml specification file
-##' @seealso \code{\link{load_spec_proj}}
-##' @export
-fda_content_table <- function(x) {
-  if(!is_yproj(x)) {
-    .stop("x is not a project specification object")
-  }
-  contents <- fda_content_rows(x)
-  kable(contents,
-        format = "latex",
-        align = c("|p{2.85in}", "p{2.55in}|"),
-        escape = FALSE)
-}
-
-##' @rdname fda_content_table
-##' @export
-fda_content_table_file <- function(file) {
-  fda_content_table(load_spec_proj(file))
-}
-
-fda_content_rows <- function(x) {
-  map_df(x, function(.x) {
-    loc <- fda_content_ref(.x[["name"]], .x[["data_file"]])
-    data_frame(Description  = .x$description,
-               Location = loc)
-  })
-}
-
-fda_content_ref <- function(name, data_file) {
-  data_file <- gsub("_", "\\\\_", data_file)
-  paste0("\\hyperref[",name,"]{", data_file, "}")
-}
-
-
 
 ##' Render a define document for sending to FDA
 ##'
 ##' @param x a yaml specification file name or a yproj object
+##' @param stem used to name the output document
 ##' @param title a title for the document
 ##' @param date the document date
 ##' @param author the document author
 ##' @param output_dir passed to \code{rmarkdown::render}
 ##' @param build_dir directory where rmarkdown will build the document
 ##' @param ... passed to \code{rmarkdown::render}
+##'
+##' @examples
+##' proj_file <- spec_example_file("project.yml")
+##' proj_file
+##' render_fda_define(proj_file)
 ##'
 ##' @export
 render_fda_define <- function(x, ... ) {
@@ -180,6 +185,7 @@ render_fda_define.yproj <- function(x, ...) {
 ##' @rdname render_fda_define
 ##' @export
 render_fda_define.character <- function(x,
+                                        stem = "define",
                                         title = "Data Definitions",
                                         date = format(Sys.time()),
                                         author = "MetrumRG Staff Scientist",
@@ -217,10 +223,12 @@ render_fda_define.character <- function(x,
 
   txt <- glue(txt, .open = "<", .close = ">")
 
-  writeLines(txt,"define.Rmd")
+  .file <- paste0(stem, ".Rmd")
+
+  writeLines(txt,.file)
 
 
-  ans <- rmarkdown::render("define.Rmd", output_dir = output_dir, ...)
+  ans <- rmarkdown::render(.file, output_dir = output_dir, ...)
   return(invisible(ans))
 
 }

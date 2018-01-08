@@ -35,6 +35,15 @@ the data specification information}
 Render a define.pdf document
 }
 \details{
-\code{output} should not include a file extension, just
+\code{stem} should not include a file extension, just
 the file stem.
+}
+\examples{
+
+\dontrun{
+file <- proj_example_file()
+file
+render_define(file)
+}
+
 }

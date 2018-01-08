@@ -1,8 +1,11 @@
 ---
+title: yspec
+author: ""
+date: ""
+scientist: MRG
+projectnumber: yspec
 output: github_document
 ---
-
-# yspec
 
 
 ## About
@@ -18,45 +21,49 @@ in the ecosystem
 in any other format supported by `rmarkdown`
 
 ## Use
-```{r}
+```{r, "setup"}
 library(yspec)
 ```
 
 We can load [this yaml file](inst/spec/spec.yml)
 
-```{r}
+```{r, "demo-1"}
 sp <- load_spec("inst/spec/spec.yml")
+head(sp)
 ```
 
 See [here](./inst/doc/reference.md) for `YAML` specification details
 
 
 A lot like the current spec setup
-```{r,comment='.'}
+```{r, "demo-2", comment='.'}
 names(sp)
-sp[WT]$unit
+sp$WT$unit
 ```
 
-```{r, results = "asis"}
-yspec:::pander_table(sp)
+```{r, "pander-table", results = "asis"}
+writeLines(yspec:::pander_table(sp))
 ```
 
 
 
 Render in pdf format
-```{r,echo=TRUE, results="hide", message=FALSE}
-render_spec(sp, "define", output_dir="inst/doc")
+```{r, "render-1", echo=TRUE, results="hide", message=FALSE}
+render_spec(sp, stem = "define", output_dir="inst/doc")
 ```
 
 with output [here](./inst/doc/define.pdf)
 
 
 Or render to any format
-```{r,echo=TRUE, results="hide", message=FALSE}
-render_spec(sp, "define", output_format="md_document", output_dir="inst/doc")
+```{r, "render-2", echo=TRUE, results="hide", message=FALSE}
+render_spec(sp, stem = "define_example", 
+            envir  = new.env(),
+            output_format="md_document",
+            output_dir="inst/doc")
 ```
 
-Then we get [this output](./inst/doc/define.md)
+Then we get [this output](./inst/doc/example_define.md)
 
 
 
@@ -69,13 +76,21 @@ For example [./inst/spec/project.yml](./inst/spec/project.yml)
 
 Then render it:
 
-```{r, echo = TRUE, results = "hide", message = FALSE}
-render_define(file = "./inst/spec/project.yml", 
-              output = "project", 
+```{r, "render-define-1", echo = TRUE, results = "hide", message = FALSE}
+render_define(file = "inst/spec/project.yml", 
+              stem = "project", envir = new.env(),
               title = "DEM104101 PK/PD Analysis Data Sets")
 ```
 
 Output [here](./inst/doc/project.pdf)
+
+## Build a `define.pdf` document for sending to FDA
+```{r, "render-fda-define"}
+render_fda_define(spec_ex_proj(), 
+                  stem = "fda_define",
+                  output_dir = "inst/doc")
+```
+
 
 
 

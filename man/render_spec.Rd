@@ -2,15 +2,24 @@
 % Please edit documentation in R/define.R
 \name{render_spec}
 \alias{render_spec}
+\alias{render_spec.character}
+\alias{render_spec.yspec}
 \title{Render a data specification file}
 \usage{
-render_spec(yamlfile, stem = basename(yamlfile), format = c("pander_table",
-  "md_outline"), title = "Data Specification", author = "MetrumRG",
-  date = format(Sys.time()), output_format = "html_document",
-  output_dir = getwd(), build_dir = tempdir(), ...)
+render_spec(x, ...)
+
+\method{render_spec}{character}(x, stem = basename(x),
+  format = c("pander_table", "md_outline"), title = "Data Specification",
+  author = "MetrumRG", date = format(Sys.time()),
+  output_format = "html_document", output_dir = getwd(),
+  build_dir = tempdir(), ...)
+
+\method{render_spec}{yspec}(x, ...)
 }
 \arguments{
-\item{yamlfile}{a data specification file name}
+\item{x}{a data specification file name or a yspec object}
+
+\item{...}{passed to \code{rmarkdown::render}}
 
 \item{stem}{for output file name}
 
@@ -27,9 +36,18 @@ render_spec(yamlfile, stem = basename(yamlfile), format = c("pander_table",
 \item{output_dir}{passed to \code{rmarkdown::render}}
 
 \item{build_dir}{where to build the document}
-
-\item{...}{passed to \code{rmarkdown::render}}
 }
 \description{
 Render a data specification file
+}
+\examples{
+\dontrun{
+  file <- spec_example_file()
+  render_spec(file)
+
+  spec <- load_spec_ex()
+  render_spec(spec)
+}
+
+
 }

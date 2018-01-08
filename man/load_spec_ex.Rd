@@ -2,9 +2,21 @@
 % Please edit documentation in R/exspec.R
 \name{load_spec_ex}
 \alias{load_spec_ex}
+\alias{load_proj_ex}
+\alias{spec_ex_file}
+\alias{spec_ex_spec}
+\alias{spec_ex_proj}
 \title{Generate an example specification object}
 \usage{
 load_spec_ex(file = "spec.yml")
+
+load_proj_ex(file = "project.yml")
+
+spec_ex_file(file = "spec.yml")
+
+spec_ex_spec(file = "spec.yml")
+
+spec_ex_proj(file = "spec.yml")
 }
 \arguments{
 \item{file}{an example spec file name}

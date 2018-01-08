@@ -18,13 +18,14 @@ fda_table_file(file)
 Character vector of latex code for
 the content of an FDA define.pdf document.  It
 includes a table of contents as well as data spec
-tables for each dataset for a project.  Use
-\code{\link{print_fda_define}} to print the
-output in the context of an Rmarkdown document.
+tables for each dataset for a project.
 }
 \description{
 Generate a table for FDA define.pdf document
 }
-\seealso{
-\code{\link{print_fda_define}}
+\examples{
+spec <- load_spec_ex()
+spec
+fda_table(spec)
+
 }

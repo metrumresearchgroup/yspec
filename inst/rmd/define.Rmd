@@ -27,6 +27,6 @@ library(yspec)
 
 
 ```{r results = "asis"}
-print_define_for_rmd("<yamlfile>", "<format>")
+writeLines(yspec::define_for_rmd("<yamlfile>", "<format>"))
 ```
 

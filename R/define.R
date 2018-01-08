@@ -157,7 +157,7 @@ call_format_fun <- function(yamlfile,
 
 ##' Render a data specification file
 ##'
-##' @param yamlfile a data specification file name
+##' @param x a data specification file name or a yspec object
 ##' @param stem for output file name
 ##' @param format function defining how to render the object
 ##' @param title used for yaml front matter
@@ -168,18 +168,33 @@ call_format_fun <- function(yamlfile,
 ##' @param build_dir where to build the document
 ##' @param ... passed to \code{rmarkdown::render}
 ##'
+##'
+##' @examples
+##' \dontrun{
+##'   file <- spec_example_file()
+##'   render_spec(file)
+##'
+##'   spec <- load_spec_ex()
+##'   render_spec(spec)
+##' }
+##'
+##'
 ##' @export
-render_spec <- function(yamlfile,
-                        stem = basename(yamlfile),
-                        format = c("pander_table","md_outline"),
-                        title  = "Data Specification",
-                        author =  "MetrumRG",
-                        date = format(Sys.time()),
-                        output_format="html_document",
-                        output_dir = getwd(),
-                        build_dir = tempdir(),...) {
+render_spec <- function(x, ...) UseMethod("render_spec")
 
-  yamlfile <- normalizePath(yamlfile)
+##' @rdname render_spec
+##' @export
+render_spec.character <- function(x,
+                                  stem = basename(x),
+                                  format = c("pander_table","md_outline"),
+                                  title  = "Data Specification",
+                                  author =  "MetrumRG",
+                                  date = format(Sys.time()),
+                                  output_format="html_document",
+                                  output_dir = getwd(),
+                                  build_dir = tempdir(), ...) {
+
+  yamlfile <- normalizePath(x)
 
   output_dir <- normalizePath(output_dir)
 
@@ -205,13 +220,30 @@ render_spec <- function(yamlfile,
                                      output_dir = output_dir, ...)))
 }
 
+##' @rdname render_spec
+##' @export
+render_spec.yspec <- function(x,...) {
+  render_spec(get_meta(x)[["yml_file"]])
+}
 
+##' Generate code for a generic define document
+##'
+##' @param yamlfile a project file name
+##' @param format a function or the name of a function to format the spec
+##' contents
+##' @export
+define_for_rmd <- function(yamlfile, format) {
 
-print_define_for_rmd <- function(yamlfile,
-                                 format, ...) {
-  format_fun <- get(format, mode = "function")
+  if(is.character(format)) {
+    format_fun <- get(format, mode = "function")
+  } else {
+    format_fun <- format
+  }
+
+  assert_that(is.function(format_fun))
 
   proj <- load_spec_proj(yamlfile)
+
   specs <- imap(proj, .f = function(x,name) {
     description <- proj[[name]][["description"]]
     sp <- load_spec(x[["spec_file"]])
@@ -223,7 +255,7 @@ print_define_for_rmd <- function(yamlfile,
       sp, " ")
   })
   specs <- flatten_chr(specs)
-  writeLines(specs)
+  specs
 }
 
 
@@ -242,8 +274,16 @@ print_define_for_rmd <- function(yamlfile,
 ##' @param ... passed to \code{rmarkdown::render}
 ##'
 ##' @details
-##' \code{output} should not include a file extension, just
+##' \code{stem} should not include a file extension, just
 ##' the file stem.
+##'
+##' @examples
+##'
+##' \dontrun{
+##' file <- proj_example_file()
+##' file
+##' render_define(file)
+##' }
 ##'
 ##' @export
 render_define <- function(file,
