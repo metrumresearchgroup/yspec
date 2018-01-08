@@ -59,8 +59,6 @@ sp$WT$unit
 writeLines(yspec:::pander_table(sp))
 ```
 
-    . Loading required namespace: pander
-
 <table style="width:97%;">
 <colgroup>
 <col width="13%" />
@@ -546,12 +544,3 @@ render_fda_define(spec_ex_proj(),
                   stem = "fda_define",
                   output_dir = "inst/doc")
 ```
-
-    . 
-    . 
-    . processing file: fda_define.Rmd
-
-    . output file: fda_define.knit.md
-
-    . 
-    . Output created: /Users/kyleb/ghe/software/yspec/inst/doc/fda_define.pdf
