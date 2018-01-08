@@ -92,7 +92,7 @@ render_define(file = "inst/spec/project.yml",
 Output [here](./inst/doc/project.pdf)
 
 ## Build a `define.pdf` document for sending to FDA
-```{r, "render-fda-define"}
+```{r, "render-fda-define", results = "hide"}
 render_fda_define(spec_ex_proj(), 
                   stem = "fda_define",
                   output_dir = "inst/doc")

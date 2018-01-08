@@ -551,37 +551,7 @@ render_fda_define(spec_ex_proj(),
     . 
     . processing file: fda_define.Rmd
 
-    . 
-      |                                                                       
-      |                                                                 |   0%
-      |                                                                       
-      |................                                                 |  25%
-    .   ordinary text without R code
-    . 
-    . 
-      |                                                                       
-      |................................                                 |  50%
-    . label: unnamed-chunk-1 (with options) 
-    . List of 3
-    .  $ echo   : logi FALSE
-    .  $ results: chr "hide"
-    .  $ message: logi FALSE
-    . 
-    . 
-      |                                                                       
-      |.................................................                |  75%
-    .   ordinary text without R code
-    . 
-    . 
-      |                                                                       
-      |.................................................................| 100%
-    . label: unnamed-chunk-2 (with options) 
-    . List of 1
-    .  $ results: chr "asis"
-
     . output file: fda_define.knit.md
-
-    . /Applications/RStudio.app/Contents/MacOS/pandoc/pandoc +RTS -K512m -RTS fda_define.utf8.md --to latex --from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash --output /Users/kyleb/ghe/software/yspec/inst/doc/fda_define.pdf --template /Users/kyleb/Rlibs/rmarkdown/rmd/latex/default-1.17.0.2.tex --number-sections --highlight-style tango --latex-engine /Library/TeX/texbin/pdflatex --variable graphics=yes --include-in-header /var/folders/xb/hqmfzgl95fq8mx6tjxkzb71r0000gn/T//RtmpurI5vp/file1539a5b343be2
 
     . 
     . Output created: /Users/kyleb/ghe/software/yspec/inst/doc/fda_define.pdf
