@@ -44,12 +44,12 @@ define_col_pander <- function(x) {
   decode <- NULL
   chna <- as.character(NA)
 
-  long <- long(x, chna)
-  comment <- comment(x, chna)
-  unit <- unit(x, "")
-  ran <- Range(x,chna)
-  type <- type(x,'.')
-  src <- Source(x,chna)
+  long <- long.ycol(x, chna)
+  comment <- comment.ycol(x, chna)
+  unit <- unit.ycol(x, "")
+  ran <- Range.ycol(x,chna)
+  type <- type.ycol(x,'.')
+  src <- Source.ycol(x,chna)
 
   if(.has("values", x)) {
     val <- x[["values"]]
