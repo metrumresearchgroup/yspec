@@ -47,7 +47,7 @@ sp$WT$unit
 ```
 
 We can write output in different formats
-```{r, "pander-table", results = "asis"}
+```{r, "pander-table", results = "asis", echo = FALSE}
 sp2 <- sp[c("WT", "SEX", "STUDY")]
 writeLines(yspec:::pander_table(sp2))
 ```

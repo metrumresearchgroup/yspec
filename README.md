@@ -57,11 +57,6 @@ sp$WT$unit
 
 We can write output in different formats
 
-``` r
-sp2 <- sp[c("WT", "SEX", "STUDY")]
-writeLines(yspec:::pander_table(sp2))
-```
-
 <table style="width:96%;">
 <colgroup>
 <col width="12%" />
