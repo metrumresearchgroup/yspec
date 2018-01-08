@@ -142,3 +142,7 @@ yspectemplate <- function() {
   system.file("tex", "yspectemplate.tex",
               package = "yspec")
 }
+
+mrgtemplate <- function() {
+  system.file("mrgtemplate", package = "yspec")
+}

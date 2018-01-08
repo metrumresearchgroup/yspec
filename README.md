@@ -542,6 +542,7 @@ Build a `define.pdf` document for sending to FDA
 ``` r
 render_fda_define(spec_ex_proj(), 
                   stem = "fda_define",
+                  build_dir = yspec:::mrgtemplate(),
                   output_dir = "inst/doc")
 ```
 

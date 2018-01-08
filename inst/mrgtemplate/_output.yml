@@ -1,0 +1,9 @@
+pdf_document:
+  toc: true
+  number_sections: true
+  keep_tex: true
+  fig_width: 6
+  fig_height: 4
+  template: mrgtemplate.tex
+  include:
+    in_header: header.tex
