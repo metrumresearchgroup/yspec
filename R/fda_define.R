@@ -86,7 +86,7 @@ fda_table_file <- function(file) {
 ##' @seealso \code{\link{load_spec_proj}}
 ##'
 ##' @examples
-##' proj <- spec_example_file("project.yml")
+##' proj <- spec_ex_file("project.yml")
 ##' spec <- load_spec_proj(proj)
 ##' fda_content_table(spec)
 ##'
@@ -130,7 +130,7 @@ fda_content_table_ref <- function(name, data_file) {
 ##' render \code{asis} in an Rmarkdown document.
 ##'
 ##' @examples
-##' proj <- spec_example_file("project.yml")
+##' proj <- spec_ex_file("project.yml")
 ##' cat(readLines(proj), sep = "\n")
 ##' fda_define(proj)
 ##'
@@ -164,7 +164,7 @@ fda_define <- function(file, title = "Datasets") {
 ##' @param ... passed to \code{rmarkdown::render}
 ##'
 ##' @examples
-##' proj_file <- spec_example_file("project.yml")
+##' proj_file <- spec_ex_file("project.yml")
 ##' proj_file
 ##' render_fda_define(proj_file)
 ##'

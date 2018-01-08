@@ -282,7 +282,7 @@ define_for_rmd <- function(yamlfile, format) {
 ##' @examples
 ##'
 ##' \dontrun{
-##' file <- proj_example_file()
+##' file <- spec_ex_proj()
 ##' file
 ##' render_define(file)
 ##' }
