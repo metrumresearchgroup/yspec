@@ -9,7 +9,7 @@ About
 -   The `yspec` package reads the specification and further formats the data
     -   For example, [splitting data columns by other data items](./inst/doc/reference.md#split-data-column)
 -   Information can be accessed or utilized by other functions in the ecosystem
--   `yspec` will render a [`Define.pdf`](./inst/readme_docs/define.pdf) document or output in any other format supported by `rmarkdown`
+-   `yspec` will render a [`Define.pdf`](./inst/readme_docs/fda_define.pdf) document or output in any other format supported by `rmarkdown`
 
 Use
 ---

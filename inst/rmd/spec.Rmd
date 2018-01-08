@@ -6,6 +6,11 @@ output:
   pdf_document:
     number_sections: false
     toc: false
+    extra_dependencies:
+      fontenc: T1
+      mathdesign: utopia
+      longtable:
+      booktabs:
   html_document:
     number_sections: false
     toc: false
