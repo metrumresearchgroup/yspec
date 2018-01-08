@@ -517,7 +517,7 @@ render_spec(sp, stem = "define_example",
             output_dir="inst/doc")
 ```
 
-Then we get [this output](./inst/doc/example_define.md)
+Then we get [this output](./inst/doc/define_example.md)
 
 Build a `define.pdf` document
 -----------------------------
@@ -579,7 +579,7 @@ render_fda_define(spec_ex_proj(),
 
     . output file: fda_define.knit.md
 
-    . /Applications/RStudio.app/Contents/MacOS/pandoc/pandoc +RTS -K512m -RTS fda_define.utf8.md --to latex --from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash --output /Users/kyleb/ghe/software/yspec/inst/doc/fda_define.pdf --template /Users/kyleb/Rlibs/rmarkdown/rmd/latex/default-1.17.0.2.tex --number-sections --highlight-style tango --latex-engine /Library/TeX/texbin/pdflatex --variable graphics=yes --include-in-header /var/folders/xb/hqmfzgl95fq8mx6tjxkzb71r0000gn/T//Rtmp684tlD/file152f17a15aa45
+    . /Applications/RStudio.app/Contents/MacOS/pandoc/pandoc +RTS -K512m -RTS fda_define.utf8.md --to latex --from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash --output /Users/kyleb/ghe/software/yspec/inst/doc/fda_define.pdf --template /Users/kyleb/Rlibs/rmarkdown/rmd/latex/default-1.17.0.2.tex --number-sections --highlight-style tango --latex-engine /Library/TeX/texbin/pdflatex --variable graphics=yes --include-in-header /var/folders/xb/hqmfzgl95fq8mx6tjxkzb71r0000gn/T//Rtmp7jeinO/file153357c416504
 
     . 
     . Output created: /Users/kyleb/ghe/software/yspec/inst/doc/fda_define.pdf

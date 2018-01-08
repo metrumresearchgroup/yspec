@@ -68,7 +68,7 @@ render_spec(sp, stem = "define_example",
             output_dir="inst/doc")
 ```
 
-Then we get [this output](./inst/doc/example_define.md)
+Then we get [this output](./inst/doc/define_example.md)
 
 
 
