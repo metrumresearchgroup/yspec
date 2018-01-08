@@ -22,7 +22,7 @@ further formats the data
     - For example, [splitting data columns by other data items](./inst/doc/reference.md#split-data-column)
 - Information can be accessed or utilized by other functions
 in the ecosystem
-- `yspec` will render a [`Define.pdf`](./inst/doc/define.pdf) document or output
+- `yspec` will render a [`Define.pdf`](./inst/readme_docs/define.pdf) document or output
 in any other format supported by `rmarkdown`
 
 ## Use
@@ -52,15 +52,18 @@ writeLines(yspec:::pander_table(sp))
 
 
 ```{r, "out-dir", echo = FALSE}
-output__dir <- normalizePath("inst/doc")
+output__dir <- normalizePath("inst/readme_docs")
 ```
 
 Render in pdf format
 ```{r, "render-1", echo=TRUE, results="hide", message=FALSE}
-render_spec(sp, stem = "define", output_dir=output__dir)
+render_spec(sp, 
+            stem = "define", 
+            output_format = "pdf_document",
+            output_dir = "inst/readme_docs")
 ```
 
-with output [here](./inst/doc/define.pdf)
+with output [here](./inst/readme_docs/define.pdf)
 
 
 Or render to any format
@@ -68,10 +71,10 @@ Or render to any format
 render_spec(sp, stem = "define_example", 
             envir  = new.env(),
             output_format="md_document",
-            output_dir = "inst/doc")
+            output_dir = "inst/readme_docs")
 ```
 
-Then we get [this output](./inst/doc/define_example.md)
+Then we get [this output](./inst/readme_docs/define_example.md)
 
 
 
@@ -88,21 +91,21 @@ Then render it:
 render_define(file = "inst/spec/project.yml", 
               stem = "project", envir = new.env(),
               output_format = "pdf_document",
-              output_dir = "inst/doc",
+              output_dir = "inst/readme_docs",
               title = "DEM104101 PK/PD Analysis Data Sets")
 ```
 
-Output [here](./inst/doc/project.pdf)
+Output [here](./inst/readme_docs/project.pdf)
 
 ## Build a `define.pdf` document for sending to FDA
 ```{r, "render-fda-define", results = "hide"}
 render_fda_define(spec_ex_proj(), 
                   stem = "fda_define",
                   build_dir = yspec:::mrgtemplate(),
-                  output_dir = "inst/doc")
+                  output_dir = "inst/readme_docs")
 ```
 
-Output [here](./inst/doc/fda_define.pdf)
+Output [here](./inst/readme_docs/fda_define.pdf)
 
 
 
