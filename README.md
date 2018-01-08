@@ -501,7 +501,7 @@ writeLines(yspec:::pander_table(sp))
 Render in pdf format
 
 ``` r
-render_spec(sp, stem = "define", output_dir="inst/doc")
+render_spec(sp, stem = "define", output_dir=output__dir)
 ```
 
 with output [here](./inst/doc/define.pdf)
@@ -512,7 +512,7 @@ Or render to any format
 render_spec(sp, stem = "define_example", 
             envir  = new.env(),
             output_format="md_document",
-            output_dir="inst/doc")
+            output_dir=output__dir)
 ```
 
 Then we get [this output](./inst/doc/define_example.md)
@@ -530,7 +530,7 @@ Then render it:
 render_define(file = "inst/spec/project.yml", 
               stem = "project", envir = new.env(),
               output_format = "pdf_document",
-              output_dir = "inst/doc",
+              output_dir=output__dir,
               title = "DEM104101 PK/PD Analysis Data Sets")
 ```
 
