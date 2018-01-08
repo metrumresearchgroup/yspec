@@ -134,7 +134,7 @@ yspec_pdf_document <- function(...,template = NULL) {
 
   template <- system.file("tex", "yspectemplate.tex",
                           package = "yspec")
-  rmarkdown:::pdf_document(..., template = template)
+  rmarkdown::pdf_document(..., template = template)
 }
 
 

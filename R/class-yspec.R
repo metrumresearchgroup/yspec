@@ -216,3 +216,15 @@ lookup.ycol <- function(x,...) {
   x[["col"]]
 }
 
+Source <- function(x,...) UseMethod("Source")
+##' @export
+Source.ycol <- function(x, default = ".",...) {
+  if(.no("source",x)) {
+    return(default)
+  }
+  x[["source"]]
+}
+##' @export
+Source.yspec <- function(x,default = '.',...) {
+  map_chr(x, "source", .default = default)
+}

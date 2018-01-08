@@ -2,16 +2,19 @@
 % Please edit documentation in R/fda_define.R
 \name{fda_define}
 \alias{fda_define}
+\alias{print_fda_define}
 \title{Print a define document suitable for FDA submission}
 \usage{
-fda_define(file, main = "Datasets")
+fda_define(file, title = "Datasets")
+
+print_fda_define(...)
 }
 \arguments{
 \item{file}{full path to define yaml file}
 
-\item{main}{Title for the main heading}
+\item{title}{used in yaml front matter}
 
-\item{...}{passed to \code{\link{print_fda_define}}}
+\item{...}{arguments to \code{fda_define}}
 }
 \description{
 Print a define document suitable for FDA submission

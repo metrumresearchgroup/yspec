@@ -7,10 +7,11 @@
 ##' @importFrom utils capture.output head tail
 ##' @importFrom rlang quos set_names
 ##' @importFrom assertthat assert_that
-##' @importFrom purrr map map_chr map_df map_if
+##' @importFrom purrr map map_chr map_df map_if map_lgl
 ##' @importFrom purrr imap imap_chr
 ##' @importFrom purrr discard
 ##' @importFrom purrr walk walk2 iwalk
+##' @importFrom purrr flatten flatten_chr
 ##' @importFrom glue glue
 NULL
 

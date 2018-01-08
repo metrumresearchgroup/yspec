@@ -14,10 +14,11 @@ pander_table <- function(x, data_file = "data", ...) {
   pander::pandoc.table.return(
     ans,
     justify = c("left", "left", "left", "left"),
-    split.tables = 100,
+    split.tables = 80,
     split.cells = c("22%","15%","22%","41%"),
     style = "multiline"
   )
+
 }
 
 
@@ -36,7 +37,7 @@ pander_table_df <- function(x, data_file = "data", ...) {
 
 define_col_pander <- function(x) {
 
-  col <- x$col
+
   unit <- NULL
   source <- NULL
   comment <- NULL
@@ -45,17 +46,32 @@ define_col_pander <- function(x) {
 
   long <- long(x, chna)
   comment <- comment(x, chna)
-  unit <- unit(x, character(0))
-  col_ <- paste0(col, " ", unit)
+  unit <- unit(x, "")
   ran <- Range(x,chna)
   type <- type(x,'.')
+  src <- Source(x,chna)
 
-  fields <- c("short-name", "long-name","comment","range")
-  values <- c(x$short, long,  comment, ran)
+  if(.has("values", x)) {
+    val <- x[["values"]]
+    if(.has("decode",x)) {
+      val <- paste(val, " = ", x[["decode"]])
+    }
+    val <- paste0(val, collapse=", ")
+  } else {
+    val <- chna
+  }
 
+
+  fields <- c("unit", "short-name", "long-name",
+              "source",
+              "comment", "range", "values")
+  values <- c(unit, x$short, long,
+              src,
+              comment, ran, val)
+  col <- x$col
 
   ans <- data_frame(
-    col = col_,
+    col = col,
     type = type,
     field = fields,
     value = values)

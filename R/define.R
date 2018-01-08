@@ -155,11 +155,10 @@ call_format_fun <- function(yamlfile,
 }
 
 
-##' Render a data specification object
+##' Render a data specification file
 ##'
-##' @param x object
+##' @param yamlfile a data specification file name
 ##' @param stem for output file name
-##' @param data_file the data file the spec is describing
 ##' @param format function defining how to render the object
 ##' @param title used for yaml front matter
 ##' @param author used for yaml front matter
@@ -172,18 +171,18 @@ call_format_fun <- function(yamlfile,
 ##' @export
 render_spec <- function(yamlfile,
                         stem = basename(yamlfile),
-                        data_file = data_stem(x),
                         format = c("pander_table","md_outline"),
                         title  = "Data Specification",
                         author =  "MetrumRG",
-                        template = NULL,
                         date = format(Sys.time()),
                         output_format="html_document",
                         output_dir = getwd(),
                         build_dir = tempdir(),...) {
 
   yamlfile <- normalizePath(yamlfile)
+
   output_dir <- normalizePath(output_dir)
+
   cwd <- normalizePath(getwd())
   if(cwd != build_dir) {
     setwd(build_dir)
@@ -214,9 +213,14 @@ print_define_for_rmd <- function(yamlfile,
 
   proj <- load_spec_proj(yamlfile)
   specs <- imap(proj, .f = function(x,name) {
+    description <- proj[[name]][["description"]]
     sp <- load_spec(x[["spec_file"]])
     sp <- format_fun(sp)
-    c(paste0("# ", name), sp, " ")
+    c(paste0("# ", name),
+      "",
+      "__Description__: ",
+      description,"",
+      sp, " ")
   })
   specs <- flatten_chr(specs)
   writeLines(specs)
@@ -226,12 +230,15 @@ print_define_for_rmd <- function(yamlfile,
 ##' Render a define.pdf document
 ##'
 ##' @param file a project spec file loaded via \code{\link{load_spec_proj}}
-##' @param output character stem to create a name for the output file
+##' @param stem used to name the output file
+##' @param format the name of a function that will genrate code formatting
+##' the data specification information
 ##' @param output_format passed to \code{rmarkdown::render}
 ##' @param output_dir passed to \code{rmarkdown::render}
-##' @param title used for yaml front matter
-##' @param author used for yaml front matter
-##' @param date used for yaml front matter
+##' @param build_dir directory where \code{rmarkdown} should build the document
+##' @param title used in yaml front matter
+##' @param author used in yaml front matter
+##' @param date used in yaml front matter
 ##' @param ... passed to \code{rmarkdown::render}
 ##'
 ##' @details
@@ -241,12 +248,11 @@ print_define_for_rmd <- function(yamlfile,
 ##' @export
 render_define <- function(file,
                           stem = basename(file),
-                          output = "define",
+                          format = c("pander_table", "md_outline"),
                           output_format = "html_document",
                           output_dir = getwd(),
                           build_dir = tempdir(),
                           title = "Data Specification",
-                          format = c("pander_table", "md_outline"),
                           author = "MetrumRG",
                           date = format(Sys.time()),
                           ...) {
@@ -276,8 +282,5 @@ render_define <- function(file,
 
   return(invisible(rmarkdown::render(file, output_format = output_format,
                                      output_dir = output_dir, ...)))
-
-
-
 }
 

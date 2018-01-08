@@ -31,4 +31,5 @@ EGFR:
   about: [eGFR, ml/min/1.73 m2]
   long: estimated glomerular filtration rate
   range: [10,300]
-
+SEX:
+  values: {male: 0, female: 1}

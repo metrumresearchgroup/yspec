@@ -2,14 +2,14 @@
 
 VALID_SPEC_NAMES <- c("type", "unit", "values", "decode",
                       "source", "comment",
-                      "short", "long", "about",
+                      "short", "long", "about", "dots",
                       "range", "longvalues",  "lookup")
 
 check_spec_input_col <- function(x, col, env, not_allowed = NULL, ...) {
-  errors <- c()
+  err <- c()
   t0 <- !is.null(x)
   if(!t0) {
-    env$err[[col]] <- "no spec data was founc"
+    env$err[[col]] <- "no spec data was found"
     return(NULL)
   }
 
@@ -18,38 +18,69 @@ check_spec_input_col <- function(x, col, env, not_allowed = NULL, ...) {
     valid <- setdiff(VALID_SPEC_NAMES, not_allowed)
     inval <- setdiff(names(x), valid)
     inval <- paste(inval, collapse = ", ")
-    env$err[[col]] <- paste0(
-      "invalid column field(s): ", inval
-    )
+    err <- c(err,
+             paste0(
+               "invalid column field(s): ", inval
+             ))
   }
   if(!is.list(x)) {
-    env$err[[col]] <- "item is not a list"
+    err <- c(err, "item is not a list")
   }
   if(is.null(names(x))) {
-    env$err[[col]] <- "names not found"
+    err <- c(err, "names not found")
   } else {
     if(any(nchar(names(x))==0)) {
-      env$err[[col]] <- "problem with names"
+      err <- c(err, "problem with names")
     }
   }
+  env$err[[col]] <- err
 }
 
 check_spec_input <- function(x, .fun = check_spec_input_col,
                              context = "spec", ...) {
-  env <- new.env()
-  env$err <- set_names(vector("list", length(x)),names(x))
-  walk2(x, seq_along(x), .fun, env = env, ...)
-  err <- discard(as.list(env)$err, is.null)
-  if(length(err)==0) return(NULL)
-  err <- imap_chr(err, function(msg, col) {
-    msg <- paste0("   - ", msg)
-    paste(" column: ",  col, "\n",
-      paste(msg, collapse = "\n"), "\n", collapse = "\n")
-  })
+  err <- check_for_err(x, .fun)
+  if(length(err)==0) return(invisible(NULL))
   file <- basename(get_meta(x)[["yml_file"]])
   file <- paste0("In file: ", file)
   .stop("invalid ", context, " input data\n", file, "\n", err)
 }
+
+
+check_this_col <- function(x,col,env,...) {
+  err <- c()
+  if(.has("values",x) & .has("range",x)) {
+    err <- c(err, "column has both values and range")
+  }
+  if(.has("decode",x)) {
+    if(length(x[["values"]]) != length(x[["decode"]])) {
+      err <- c(err, "the length of values is not equal to the length of decode")
+    }
+  }
+  env$err[[col]] <- err
+}
+
+check_spec_cols <- function(x, context = "column") {
+  err <- check_for_err(x, check_this_col)
+  if(length(err)==0) return(invisible(NULL))
+  file <- basename(get_meta(x)[["yml_file"]])
+  file <- paste0("In file: ", file)
+  .stop("invalid ", context, " data\n", file, "\n", err)
+}
+
+check_for_err <- function(x, .fun, ...) {
+  env <- new.env()
+  env$err <- set_names(vector("list", length(x)),names(x))
+  walk2(x, seq_along(x), .fun, env = env, ...)
+  err <- discard(as.list(env)$err, is.null)
+  if(length(err)==0) return(character(0))
+  err <- imap_chr(err, .f = function(msg, col) {
+    msg <- paste0("   - ", msg, collapse = "\n")
+    paste0(" column: ",  col, "\n",
+          msg, "\n", collapse = "\n")
+  })
+  err
+}
+
 
 
 # workhorse load and prep function
@@ -96,6 +127,8 @@ unpack_spec <- function(x) {
 
   # unpack the columns
   x[] <- map(x, unpack_col)
+
+  check_spec_cols(x)
 
   # return `yspec`
   structure(x, class = "yspec")
@@ -189,7 +222,7 @@ unpack_col <- function(x) {
   if(x$continuous) {
     x$range <- unlist(x$range, use.names=FALSE)
   }
-  x$discrete <- !x$continuous
+  x$discrete <- .has("values",x)
   if(.no("longvalues",x)) {
     x[["longvalues"]] <- FALSE
   }

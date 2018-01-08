@@ -5,6 +5,7 @@ SETUP__:
 C:
   long: commented rows
   values: [.,C]
+  decode: [not a comment, comment]
   type: character
 USUBJID:
   long: universal subject identifier

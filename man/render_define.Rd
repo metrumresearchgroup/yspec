@@ -4,26 +4,30 @@
 \alias{render_define}
 \title{Render a define.pdf document}
 \usage{
-render_define(file, stem = basename(file), output = "define",
-  output_format = "html_document", output_dir = getwd(),
+render_define(file, stem = basename(file), format = c("pander_table",
+  "md_outline"), output_format = "html_document", output_dir = getwd(),
   build_dir = tempdir(), title = "Data Specification",
-  format = c("pander_table", "md_outline"), author = "MetrumRG",
-  date = format(Sys.time()), ...)
+  author = "MetrumRG", date = format(Sys.time()), ...)
 }
 \arguments{
 \item{file}{a project spec file loaded via \code{\link{load_spec_proj}}}
 
-\item{output}{character stem to create a name for the output file}
+\item{stem}{used to name the output file}
+
+\item{format}{the name of a function that will genrate code formatting
+the data specification information}
 
 \item{output_format}{passed to \code{rmarkdown::render}}
 
 \item{output_dir}{passed to \code{rmarkdown::render}}
 
-\item{title}{used for yaml front matter}
+\item{build_dir}{directory where \code{rmarkdown} should build the document}
 
-\item{author}{used for yaml front matter}
+\item{title}{used in yaml front matter}
 
-\item{date}{used for yaml front matter}
+\item{author}{used in yaml front matter}
+
+\item{date}{used in yaml front matter}
 
 \item{...}{passed to \code{rmarkdown::render}}
 }

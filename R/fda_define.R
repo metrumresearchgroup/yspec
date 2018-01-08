@@ -83,8 +83,8 @@ fda_table_file <- function(file) {
 ##' Print a define document suitable for FDA submission
 ##'
 ##' @param file full path to define yaml file
-##' @param main Title for the main heading
-##' @param ... passed to \code{\link{print_fda_define}}
+##' @param title used in yaml front matter
+##' @param ... arguments to \code{fda_define}
 ##'
 ##' @details
 ##' Use \code{print_fda_define} to generate the output in the context
@@ -92,11 +92,11 @@ fda_table_file <- function(file) {
 ##' document as a character vector.
 ##'
 ##' @export
-fda_define <- function(file, main = "Datasets") {
+fda_define <- function(file, title = "Datasets") {
 
   x <- load_spec_proj(file)
 
-  main <- paste0("# ", main)
+  main <- paste0("# ", title)
 
   contents <- fda_content_table(x)
 
@@ -108,7 +108,7 @@ fda_define <- function(file, main = "Datasets") {
   c(main, contents, flatten_chr(specs))
 }
 
-##' @rdname print_fda_define
+##' @rdname fda_define
 ##' @export
 print_fda_define <- function(...) {
   writeLines(fda_define(...))
@@ -153,12 +153,22 @@ fda_content_ref <- function(name, data_file) {
 
 
 
-##' @export
+##' Render a define document for sending to FDA
 ##'
+##' @param x a yaml specification file name or a yproj object
+##' @param title a title for the document
+##' @param date the document date
+##' @param author the document author
+##' @param output_dir passed to \code{rmarkdown::render}
+##' @param build_dir directory where rmarkdown will build the document
+##' @param ... passed to \code{rmarkdown::render}
+##'
+##' @export
 render_fda_define <- function(x, ... ) {
   UseMethod("render_fda_define")
 }
 
+##' @rdname render_fda_define
 ##' @export
 render_fda_define.yproj <- function(x, ...) {
   m <- get_meta(x)
@@ -167,19 +177,20 @@ render_fda_define.yproj <- function(x, ...) {
   render_fda_define(project_file_name, ...)
 }
 
+##' @rdname render_fda_define
 ##' @export
 render_fda_define.character <- function(x,
                                         title = "Data Definitions",
                                         date = format(Sys.time()),
                                         author = "MetrumRG Staff Scientist",
-                                        template = "mrgtemplate.tex",
-                                        output_format = "pdf_document",
                                         output_dir = getwd(),
                                         build_dir = tempdir(),
                                         ...) {
 
   yamlfile <- normalizePath(x)
+
   output_dir <- normalizePath(output_dir)
+
   cwd <- normalizePath(getwd())
   if(cwd != build_dir) {
     setwd(build_dir)
@@ -209,8 +220,7 @@ render_fda_define.character <- function(x,
   writeLines(txt,"define.Rmd")
 
 
-  ans <- rmarkdown::render("define.Rmd", output_dir = output_dir,
-                           output_format = output_format, ...)
+  ans <- rmarkdown::render("define.Rmd", output_dir = output_dir, ...)
   return(invisible(ans))
 
 }

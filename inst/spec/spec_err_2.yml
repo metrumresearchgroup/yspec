@@ -1,0 +1,12 @@
+
+WT:
+  values: [1,2,3]
+  range: [50,200]
+  decode: [a,b]
+SEX:
+  values: [0,1]
+  decode: ["male", "female"]
+EGFR:
+  short: eGFr
+  range: [10,145]
+
