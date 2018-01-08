@@ -25,17 +25,17 @@ sp <- load_spec("inst/spec/spec.yml")
 head(sp)
 ```
 
-    ##    col    name      type  unit                   short
-    ## 1    1       C character     . commented row indicator
-    ## 2    2 USUBJID character     .                 USUBJID
-    ## 3    3      ID   numeric     .                      ID
-    ## 4    4    EVID   numeric     .                    EVID
-    ## 5    5     MDV   numeric     .                     MDV
-    ## 6    6     SEQ   numeric     .                     SEQ
-    ## 7    7     AMT   numeric    mg                  Amount
-    ## 8    8      II   numeric hours                      II
-    ## 9    9     CMT   numeric     .             Compartment
-    ## 10  10    TAFD   numeric hours                    TAFD
+    .    col    name      type  unit                   short
+    . 1    1       C character     . commented row indicator
+    . 2    2 USUBJID character     .                 USUBJID
+    . 3    3      ID   numeric     .                      ID
+    . 4    4    EVID   numeric     .                    EVID
+    . 5    5     MDV   numeric     .                     MDV
+    . 6    6     SEQ   numeric     .                     SEQ
+    . 7    7     AMT   numeric    mg                  Amount
+    . 8    8      II   numeric hours                      II
+    . 9    9     CMT   numeric     .             Compartment
+    . 10  10    TAFD   numeric hours                    TAFD
 
 See [here](./inst/doc/reference.md) for `YAML` specification details
 
@@ -59,7 +59,7 @@ sp$WT$unit
 writeLines(yspec:::pander_table(sp))
 ```
 
-    ## Loading required namespace: pander
+    . Loading required namespace: pander
 
 <table style="width:97%;">
 <colgroup>
@@ -545,41 +545,41 @@ render_fda_define(spec_ex_proj(),
                   output_dir = "inst/doc")
 ```
 
-    ## 
-    ## 
-    ## processing file: fda_define.Rmd
+    . 
+    . 
+    . processing file: fda_define.Rmd
 
-    ## 
+    . 
       |                                                                       
       |                                                                 |   0%
       |                                                                       
       |................                                                 |  25%
-    ##   ordinary text without R code
-    ## 
-    ## 
+    .   ordinary text without R code
+    . 
+    . 
       |                                                                       
       |................................                                 |  50%
-    ## label: unnamed-chunk-1 (with options) 
-    ## List of 3
-    ##  $ echo   : logi FALSE
-    ##  $ results: chr "hide"
-    ##  $ message: logi FALSE
-    ## 
-    ## 
+    . label: unnamed-chunk-1 (with options) 
+    . List of 3
+    .  $ echo   : logi FALSE
+    .  $ results: chr "hide"
+    .  $ message: logi FALSE
+    . 
+    . 
       |                                                                       
       |.................................................                |  75%
-    ##   ordinary text without R code
-    ## 
-    ## 
+    .   ordinary text without R code
+    . 
+    . 
       |                                                                       
       |.................................................................| 100%
-    ## label: unnamed-chunk-2 (with options) 
-    ## List of 1
-    ##  $ results: chr "asis"
+    . label: unnamed-chunk-2 (with options) 
+    . List of 1
+    .  $ results: chr "asis"
 
-    ## output file: fda_define.knit.md
+    . output file: fda_define.knit.md
 
-    ## /Applications/RStudio.app/Contents/MacOS/pandoc/pandoc +RTS -K512m -RTS fda_define.utf8.md --to latex --from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash --output /Users/kyleb/ghe/software/yspec/inst/doc/fda_define.pdf --template /Users/kyleb/Rlibs/rmarkdown/rmd/latex/default-1.17.0.2.tex --number-sections --highlight-style tango --latex-engine /Library/TeX/texbin/pdflatex --variable graphics=yes --include-in-header /var/folders/xb/hqmfzgl95fq8mx6tjxkzb71r0000gn/T//RtmpTo7Dfi/file152661c111306
+    . /Applications/RStudio.app/Contents/MacOS/pandoc/pandoc +RTS -K512m -RTS fda_define.utf8.md --to latex --from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash --output /Users/kyleb/ghe/software/yspec/inst/doc/fda_define.pdf --template /Users/kyleb/Rlibs/rmarkdown/rmd/latex/default-1.17.0.2.tex --number-sections --highlight-style tango --latex-engine /Library/TeX/texbin/pdflatex --variable graphics=yes --include-in-header /var/folders/xb/hqmfzgl95fq8mx6tjxkzb71r0000gn/T//Rtmp684tlD/file152f17a15aa45
 
-    ## 
-    ## Output created: /Users/kyleb/ghe/software/yspec/inst/doc/fda_define.pdf
+    . 
+    . Output created: /Users/kyleb/ghe/software/yspec/inst/doc/fda_define.pdf

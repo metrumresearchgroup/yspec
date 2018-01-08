@@ -8,6 +8,11 @@ output: github_document
 ---
 
 
+```{r,"setup-0",echo = FALSE}
+knitr::opts_chunk$set(comment = '.')
+```
+
+
 ## About
 
 - Write data set specification data in `yaml` format
@@ -21,7 +26,7 @@ in the ecosystem
 in any other format supported by `rmarkdown`
 
 ## Use
-```{r, "setup"}
+```{r, "setup-1"}
 library(yspec)
 ```
 
