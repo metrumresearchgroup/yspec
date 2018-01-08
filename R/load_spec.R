@@ -86,7 +86,7 @@ check_for_err <- function(x, .fun, ...) {
 # workhorse load and prep function
 # used to load spec, lookup, and project files
 load_spec_file <- function(file) {
-  file <- normalizePath(file)
+  file <- normalizePath(file, mustWork = FALSE)
   x <- try_yaml(file)
   x <- capture_file_info(x,file)
   unpack_meta(x)
@@ -144,7 +144,7 @@ unpack_meta <- function(x) {
   if(exists("lookup_file", meta)) {
     assert_that(is.character(meta[["lookup_file"]]))
     meta[["lookup_file"]] <- file.path(meta[["path"]],meta[["lookup_file"]])
-    meta[["lookup_file"]] <- normalizePath(meta[["lookup_file"]])
+    meta[["lookup_file"]] <- normalizePath(meta[["lookup_file"]],mustWork = FALSE)
   }
   if(is.null(meta[["primary_key"]])) {
     meta[["primary_key"]] <- character(0)

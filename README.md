@@ -513,8 +513,7 @@ Or render to any format
 
 ``` r
 render_spec(sp, stem = "define_example", 
-            envir  = new.env(),
-            output_format="md_document",
+            output_format = "md_document",
             output_dir = "inst/readme_docs")
 ```
 
@@ -531,7 +530,7 @@ Then render it:
 
 ``` r
 render_define(file = "inst/spec/project.yml", 
-              stem = "project", envir = new.env(),
+              stem = "project", 
               output_format = "pdf_document",
               output_dir = "inst/readme_docs",
               title = "DEM104101 PK/PD Analysis Data Sets")

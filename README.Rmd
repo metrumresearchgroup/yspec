@@ -46,8 +46,10 @@ names(sp)
 sp$WT$unit
 ```
 
+We can write output in different formats
 ```{r, "pander-table", results = "asis"}
-writeLines(yspec:::pander_table(sp))
+sp2 <- sp[c("WT", "SEX", "STUDY")]
+writeLines(yspec:::pander_table(sp2))
 ```
 
 
@@ -69,8 +71,7 @@ with output [here](./inst/readme_docs/define.pdf)
 Or render to any format
 ```{r, "render-2", echo=TRUE, results="hide", message=FALSE}
 render_spec(sp, stem = "define_example", 
-            envir  = new.env(),
-            output_format="md_document",
+            output_format = "md_document",
             output_dir = "inst/readme_docs")
 ```
 
@@ -89,7 +90,7 @@ Then render it:
 
 ```{r, "render-define-1", echo = TRUE, results = "hide", message = FALSE}
 render_define(file = "inst/spec/project.yml", 
-              stem = "project", envir = new.env(),
+              stem = "project", 
               output_format = "pdf_document",
               output_dir = "inst/readme_docs",
               title = "DEM104101 PK/PD Analysis Data Sets")

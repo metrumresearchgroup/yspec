@@ -10,8 +10,11 @@ is_yspec <- function(x) inherits(x, "yspec")
 }
 
 ##' @export
-`[.yspec` <- function(x,i,j,drop=FALSE) {
-  unclass(unclass(x)[[i]])
+ `[.yspec` <- function(x,i,j,drop=FALSE) {
+   meta <- get_meta(x)
+   x <- unclass(x)
+   x <- x[i]
+   structure(x, class = "yspec", meta = meta)
 }
 
 ##' @export
