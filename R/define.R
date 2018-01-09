@@ -117,7 +117,16 @@ define_col_1 <- function(x) {
   return(c(col,descr,short,type,values,unit,source,comment))
 }
 
-md_outline <- function(x, data_file = "", head = NULL,...) {
+##' Generate an outline representation of a data spec
+##'
+##' @param x a yspec object
+##'
+##' @return character
+##'
+##' @export
+md_outline <- function(x) {
+
+  assert_that(is_yspec(x))
 
   txt <- lapply(x, define_col_1)
 
@@ -147,14 +156,12 @@ call_format_fun <- function(yamlfile,
 ##' @param ... passed to \code{rmarkdown::render}
 ##'
 ##' @examples
-##' \dontrun{
-##'   file <- file_spec_ex()
-##'   render_spec(file)
 ##'
-##'   spec <- load_spec_ex()
-##'   render_spec(spec)
-##' }
+##' file <- file_spec_ex()
+##' render_spec(file)
 ##'
+##' spec <- load_spec_ex()
+##' render_spec(spec)
 ##'
 ##' @export
 render_spec <- function(x, ...) UseMethod("render_spec")

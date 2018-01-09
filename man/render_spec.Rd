@@ -41,13 +41,11 @@ render_spec(x, ...)
 Render a data specification file
 }
 \examples{
-\dontrun{
-  file <- file_spec_ex()
-  render_spec(file)
 
-  spec <- load_spec_ex()
-  render_spec(spec)
-}
+file <- file_spec_ex()
+render_spec(file)
 
+spec <- load_spec_ex()
+render_spec(spec)
 
 }

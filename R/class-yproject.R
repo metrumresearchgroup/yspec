@@ -20,11 +20,11 @@ load_spec_proj <- function(file) {
 
   x <- load_spec_file(file)
 
-  defaults <- get_meta(x)
+  meta <- get_meta(x)
 
-  path <- defaults[["path"]]
+  path <- meta[["path"]]
 
-  defaults <- defaults[names(defaults) %in% c("data_path")]
+  defaults <- meta[names(meta) %in% c("data_path")]
 
   # no nulls
   nulls <- map_lgl(x, is.null)
@@ -34,8 +34,8 @@ load_spec_proj <- function(file) {
   }
 
   # description is required
-  desc <- map_chr(x, "description", .default = as.character(NA))
-  if(any(is.na(desc))) {
+  desc <- map_chr(x, "description", .default = '.')
+  if(any(desc=='.')) {
     err <- paste0(names(x)[which(is.na(desc))],collapse = ', ')
     .stop("entries in project file with no description\n ", err)
   }
@@ -48,19 +48,19 @@ load_spec_proj <- function(file) {
       x[["spec_file"]] <- paste0(y, ".yml")
     }
     if(.no("data_file", x)) {
-      x[["data_file"]] <- paste0(y,".xpt")
+      x[["data_file"]] <- paste0(y, ".xpt")
     }
     if(.no("data_path",x)) {
       x[["data_path"]] <- path
     }
     x[["spec_file"]] <- normalizePath(
-      file.path(x[["spec_path"]],x[["spec_file"]]),
+      file.path(x[["spec_path"]], x[["spec_file"]]),
       mustWork = FALSE
     )
     x
   })
 
-  structure(x, class = "yproj", meta = get_meta(x))
+  structure(x, class = "yproj", meta = meta)
 }
 
 ##' @export
@@ -68,8 +68,7 @@ print.yproj <- function(x,i=0,...) {
   names <- map_chr(x, "name")
   desc <- map_chr(x, "description")
   ans <- data.frame(name = names, description = desc)
-  print.data.frame(ans, row.names = FALSE,
-                   right = FALSE)
+  print.data.frame(ans, row.names = FALSE, right = FALSE)
 }
 
 ##' @export
