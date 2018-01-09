@@ -12,3 +12,12 @@ load_spec_proj(file)
 \description{
 Load a project-wide spec file
 }
+\examples{
+
+file <- file_proj_ex()
+
+spec <- load_spec_proj(file)
+
+spec
+
+}

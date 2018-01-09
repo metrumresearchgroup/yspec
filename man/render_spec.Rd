@@ -42,7 +42,7 @@ Render a data specification file
 }
 \examples{
 \dontrun{
-  file <- spec_example_file()
+  file <- file_spec_ex()
   render_spec(file)
 
   spec <- load_spec_ex()

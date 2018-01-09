@@ -20,8 +20,10 @@ render \code{asis} in an Rmarkdown document.
 Generate content for FDA define document
 }
 \examples{
-proj <- spec_ex_file("project.yml")
+proj <- file_proj_ex()
+
 cat(readLines(proj), sep = "\\n")
+
 fda_define(proj)
 
 }

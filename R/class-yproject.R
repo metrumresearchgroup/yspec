@@ -7,22 +7,33 @@ is_yproj <- function(x) {
 ##'
 ##' @param file file name
 ##'
+##' @examples
+##'
+##' file <- file_proj_ex()
+##'
+##' spec <- load_spec_proj(file)
+##'
+##' spec
+##'
 ##' @export
 load_spec_proj <- function(file) {
 
   x <- load_spec_file(file)
 
   defaults <- get_meta(x)
+
   path <- defaults[["path"]]
 
   defaults <- defaults[names(defaults) %in% c("data_path")]
 
+  # no nulls
   nulls <- map_lgl(x, is.null)
   if(any(nulls)) {
     err <- paste0(names(x)[which(nulls)],collapse = ', ')
     .stop("empty entries in project file\n ", err)
   }
 
+  # description is required
   desc <- map_chr(x, "description", .default = as.character(NA))
   if(any(is.na(desc))) {
     err <- paste0(names(x)[which(is.na(desc))],collapse = ', ')
@@ -43,7 +54,8 @@ load_spec_proj <- function(file) {
       x[["data_path"]] <- path
     }
     x[["spec_file"]] <- normalizePath(
-      file.path(x[["spec_path"]],x[["spec_file"]])
+      file.path(x[["spec_path"]],x[["spec_file"]]),
+      mustWork = FALSE
     )
     x
   })

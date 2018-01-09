@@ -53,7 +53,10 @@ check_this_col <- function(x,col,env,...) {
   }
   if(.has("decode",x)) {
     if(length(x[["values"]]) != length(x[["decode"]])) {
-      err <- c(err, "the length of values is not equal to the length of decode")
+      err <- c(
+        err,
+        "the length of values is not equal to the length of decode"
+      )
     }
   }
   env$err[[col]] <- err
@@ -76,12 +79,10 @@ check_for_err <- function(x, .fun, ...) {
   err <- imap_chr(err, .f = function(msg, col) {
     msg <- paste0("   - ", msg, collapse = "\n")
     paste0(" column: ",  col, "\n",
-          msg, "\n", collapse = "\n")
+           msg, "\n", collapse = "\n")
   })
   err
 }
-
-
 
 # workhorse load and prep function
 # used to load spec, lookup, and project files
@@ -112,7 +113,7 @@ unpack_spec <- function(x) {
   check_spec_input(x)
 
   # defaults
-  x[] <- imap(x,.f=set_defaults)
+  x[] <- imap(x,.f=col_initialize)
 
   # for looking up column data
   lookup <- load_lookup_spec(x)
@@ -235,7 +236,7 @@ unpack_col <- function(x) {
   structure(x, class = "ycol")
 }
 
-set_defaults <- function(x, name) {
+col_initialize <- function(x, name) {
 
   if(is.null(x)) x <- list(lookup = TRUE)
 

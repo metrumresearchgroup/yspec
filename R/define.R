@@ -1,6 +1,4 @@
 
-spc1 <- "    "
-spc2 <- "        "
 
 has_values <- function(x) {
   if(!is.null(x$values)) {
@@ -99,8 +97,6 @@ pack_type <- function(x) {
   paste0("    - ", x$type)
 }
 
-
-
 define_col_1 <- function(x) {
   unit <- NULL
   source <- NULL
@@ -121,28 +117,11 @@ define_col_1 <- function(x) {
   return(c(col,descr,short,type,values,unit,source,comment))
 }
 
-
-md_header <- function(data_file,...) {
-  c("---",
-    "title: ''",
-    "author: ''",
-    "date: ''",
-    "fontsize: 16pt",
-    "---\n",
-    "## Data source",
-    paste0("  * Data Set: ", backticks(data_file)),
-    paste0("  * Date: ", Sys.Date(), "\n"),
-    "## Data definitions\n")
-}
-
-
 md_outline <- function(x, data_file = "", head = NULL,...) {
-
-  if(!is.null(head)) head <- md_header(data_file,...)
 
   txt <- lapply(x, define_col_1)
 
-  c(head, flatten_chr(txt))
+  flatten_chr(txt)
 
 }
 
@@ -153,7 +132,6 @@ call_format_fun <- function(yamlfile,
   spec <- load_spec(yamlfile)
   format_fun(spec, head = NULL)
 }
-
 
 ##' Render a data specification file
 ##'
@@ -168,10 +146,9 @@ call_format_fun <- function(yamlfile,
 ##' @param build_dir where to build the document
 ##' @param ... passed to \code{rmarkdown::render}
 ##'
-##'
 ##' @examples
 ##' \dontrun{
-##'   file <- spec_example_file()
+##'   file <- file_spec_ex()
 ##'   render_spec(file)
 ##'
 ##'   spec <- load_spec_ex()
@@ -218,8 +195,10 @@ render_spec.character <- function(x,
 
   writeLines(txt,file)
 
-  return(invisible(rmarkdown::render(file, output_format = output_format,
-                                     output_dir = output_dir, ...)))
+  ans <- rmarkdown::render(file, output_format = output_format,
+                           output_dir = output_dir, ...)
+
+  return(invisible(ans))
 }
 
 ##' @rdname render_spec
@@ -256,10 +235,11 @@ define_for_rmd <- function(yamlfile, format) {
       description,"",
       sp, " ")
   })
+
   specs <- flatten_chr(specs)
+
   specs
 }
-
 
 ##' Render a define.pdf document
 ##'
@@ -269,7 +249,8 @@ define_for_rmd <- function(yamlfile, format) {
 ##' the data specification information
 ##' @param output_format passed to \code{rmarkdown::render}
 ##' @param output_dir passed to \code{rmarkdown::render}
-##' @param build_dir directory where \code{rmarkdown} should build the document
+##' @param build_dir directory where \code{rmarkdown} should build the
+##' document
 ##' @param title used in yaml front matter
 ##' @param author used in yaml front matter
 ##' @param date used in yaml front matter
@@ -281,11 +262,11 @@ define_for_rmd <- function(yamlfile, format) {
 ##'
 ##' @examples
 ##'
-##' \dontrun{
-##' file <- spec_ex_proj()
+##' file <- file_proj_ex()
+##'
 ##' file
+##'
 ##' render_define(file)
-##' }
 ##'
 ##' @export
 render_define <- function(file,

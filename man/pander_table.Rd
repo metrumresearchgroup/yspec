@@ -2,17 +2,26 @@
 % Please edit documentation in R/pander_table.R
 \name{pander_table}
 \alias{pander_table}
+\alias{pander_table_df}
 \title{Render a spec as a pandoc table}
 \usage{
-pander_table(x, data_file = "data", ...)
+pander_table(x, ...)
+
+pander_table_df(x)
 }
 \arguments{
 \item{x}{a spec object}
-
-\item{data_file}{not used}
 
 \item{...}{passed to other functions}
 }
 \description{
 Render a spec as a pandoc table
+}
+\examples{
+spec <- load_spec_ex()
+
+pander_table_df(spec)
+
+pander_table(spec)
+
 }

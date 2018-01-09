@@ -36,8 +36,10 @@ render_fda_define(x, ...)
 Render a define document for sending to FDA
 }
 \examples{
-proj_file <- spec_ex_file("project.yml")
+proj_file <- file_proj_ex()
+
 proj_file
+
 render_fda_define(proj_file)
 
 }

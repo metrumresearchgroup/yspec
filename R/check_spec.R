@@ -75,6 +75,7 @@ check_data <- function(data, spec) {
     .stop("please review messages and re-check")
   }
   message("Everything checks out!")
+
   return(invisible(env$error))
 }
 

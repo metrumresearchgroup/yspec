@@ -36,8 +36,6 @@ command__ <- paste0("\\hline\n\\endhead\n",
                     "\\endlastfoot\n")
 add.to.row$command <- command__
 
-
-
 ##' Generate a table for FDA define.pdf document
 ##'
 ##' @param x a yspec object
@@ -78,7 +76,6 @@ fda_table_file <- function(file) {
   fda_table(x)
 }
 
-
 ##' Print a table of contents for FDA define document
 ##'
 ##' @param x a spec define object
@@ -86,8 +83,10 @@ fda_table_file <- function(file) {
 ##' @seealso \code{\link{load_spec_proj}}
 ##'
 ##' @examples
-##' proj <- spec_ex_file("project.yml")
+##' proj <- file_proj_ex()
+##'
 ##' spec <- load_spec_proj(proj)
+##'
 ##' fda_content_table(spec)
 ##'
 ##' @export
@@ -130,8 +129,10 @@ fda_content_table_ref <- function(name, data_file) {
 ##' render \code{asis} in an Rmarkdown document.
 ##'
 ##' @examples
-##' proj <- spec_ex_file("project.yml")
+##' proj <- file_proj_ex()
+##'
 ##' cat(readLines(proj), sep = "\n")
+##'
 ##' fda_define(proj)
 ##'
 ##' @export
@@ -151,7 +152,6 @@ fda_define <- function(file, title = "Datasets") {
   c(main, contents, flatten_chr(specs))
 }
 
-
 ##' Render a define document for sending to FDA
 ##'
 ##' @param x a yaml specification file name or a yproj object
@@ -164,8 +164,10 @@ fda_define <- function(file, title = "Datasets") {
 ##' @param ... passed to \code{rmarkdown::render}
 ##'
 ##' @examples
-##' proj_file <- spec_ex_file("project.yml")
+##' proj_file <- file_proj_ex()
+##'
 ##' proj_file
+##'
 ##' render_fda_define(proj_file)
 ##'
 ##' @export
@@ -227,8 +229,8 @@ render_fda_define.character <- function(x,
 
   writeLines(txt,.file)
 
-
   ans <- rmarkdown::render(.file, output_dir = output_dir, ...)
+
   return(invisible(ans))
 
 }

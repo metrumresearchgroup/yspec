@@ -3,34 +3,39 @@ tests:
   requirements:
     - All unit tests pass
     - Unit tests implemented in `testthat` framework
+rcmdcheck:
+  section: "R CMD check"
+  requirements:
+    - The package passes `R CMD check`
 load:
   section: Loading a specification object
   requirements:
     - Elements of the data specification object are coded in
-      yaml format in a specification file
+      `yaml` format in a specification file
     - The specification file is parsed with `yaml::yaml.load_file`
     - On loading, an error is generted if foreign fields
       are found for a column or if no data is found for a column
 fields:
-  section: Valid fields in the specification file
+  section: Valid fields
   requirements:
     - Field `type` - character or numeric
-    - Field `short` - a short name for the column
-    - Field `long` - a (possibly) longer name for the column
-    - Field `unit` - the unit for the data item
+    - Field `short` - a short name for the column <same>
+    - Field `long` - a (possibly) longer name for the column <same>
+    - Field `unit` - the unit for the data item <same>
     - Field `range` - potential minimum and maximum value if continuous
-      data
+      data <same>
     - Field `values` - unique values that the column could take if discrete
-      data
-    - Field `decodes` - meaningful names when `values` is specified
-    - Field `longvalues` - if `true`, values are displayed in long format
+      data <same>
+    - Field `decodes` - meaningful names when `values` is specified <same>
+    - Field `longvalues` - if `true`, values are displayed in long format <same>
     - Field `source` - originating data domain or method for deriving the
-      value in the column
-    - Field `comment` - other information relevant to the data column
-    - Field `lookup` - if `false`, the column will not be merged with the
+      value in the column  <same>
+    - Field `comment` - other information relevant to the data column  <same>
+    - Field `lookup` - if `false`, the column will not be merged with the  <same>
       lookup table; if `true`, the column will be merged by the column
       name; if `character` name, the column will be merged by the name
-      specified in this field
+      specified in this field  <same>
+    - Field `dots` - a list of arbitrary data to be passed to a render method <same>
 lookup:
   section: Import specification details from a lookup document
   requirements:

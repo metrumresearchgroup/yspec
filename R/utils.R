@@ -1,14 +1,4 @@
 
-##' Extract plotting information
-##'
-##' @param x data spec object
-##' @param name unquoted data spec name
-##' @export
-xy <- function(x,name) {
-  name <- as.character(substitute(name))
-  x[[name]][["plot_data"]]
-}
-
 
 merge.list <- function(x,y,..., open=FALSE,
                        warn=TRUE, context="object") {
@@ -51,8 +41,8 @@ update_list <- function(left, right) {
   left
 }
 
-
 parens <- function(x) paste0("(",x,")")
+
 brackets <- function(x) paste0("[",x,"]")
 
 backticks <- function(x) paste0("`",x,"`")
@@ -91,28 +81,6 @@ try_yaml <- function(file) {
   this
 }
 
-as_front_matter <- function(title = NULL, author = NULL,
-                            date = NULL, .dots = character(0)) {
-
-  if(is.character(title)) {
-    title <- paste0("title: ", title)
-  }else {
-    title <- character(0)
-  }
-  if(is.character(date)) {
-    date <- paste0("date: ", date)
-  }else {
-    title <- character(0)
-  }
-  if(is.character(author)) {
-    author <- paste0("author: ", author)
-  } else {
-    author <- character(0)
-  }
-  c("---",title, author, date, .dots, "---")
-
-}
-
 
 .test_spec <- function(.name, ..., .where = tempfile()) {
 
@@ -136,7 +104,6 @@ yspec_pdf_document <- function(...,template = NULL) {
                           package = "yspec")
   rmarkdown::pdf_document(..., template = template)
 }
-
 
 yspectemplate <- function() {
   system.file("tex", "yspectemplate.tex",

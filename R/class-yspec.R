@@ -10,11 +10,11 @@ is_yspec <- function(x) inherits(x, "yspec")
 }
 
 ##' @export
- `[.yspec` <- function(x,i,j,drop=FALSE) {
-   meta <- get_meta(x)
-   x <- unclass(x)
-   x <- x[i]
-   structure(x, class = "yspec", meta = meta)
+`[.yspec` <- function(x,i,j,drop=FALSE) {
+  meta <- get_meta(x)
+  x <- unclass(x)
+  x <- x[i]
+  structure(x, class = "yspec", meta = meta)
 }
 
 ##' @export
@@ -30,7 +30,7 @@ as.list.yspec <- function(x,...) {
 
 ##' @export
 as.data.frame.yspec <- function(x,...) {
-  out <- data.frame(col = seq_along(x),name=names(x))
+  out <- data.frame(col = seq_along(x), name=names(x))
   out$type <- map_chr(x, "type", .default = ".")
   out$unit <- map_chr(x, "unit", .default = ".")
   out$short <- map_chr(x, "short", .default = ".")
@@ -55,7 +55,7 @@ print.yspec <- function(x,i=0,...) {
     return(print1(x,...))
   }
   out <- as.data.frame(x)
-  print.data.frame(out, row.names=FALSE,right=FALSE)
+  print.data.frame(out, row.names=FALSE, right=FALSE)
 }
 
 ##' @export
@@ -97,18 +97,17 @@ print1 <- function(x,...) {
   return(out)
 }
 
-print2 <- function(x) {
-  x <- print1(x)
-  x[,c(1,3,4,2)]
-}
-
 ##' Get meta data from a specification object
 ##'
 ##' @param x a yspec object
 ##'
 ##' @export
 get_meta <- function(x) {
-  attr(x, "meta")
+  ans <- attr(x, "meta")
+  if(is.null(ans)) {
+    .stop("this object is corrupted (no meta attribute)")
+  }
+  ans
 }
 
 ##' Get the primary keys from a specification object

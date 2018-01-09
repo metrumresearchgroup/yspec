@@ -18,8 +18,10 @@ fda_content_table_file(file)
 Print a table of contents for FDA define document
 }
 \examples{
-proj <- spec_ex_file("project.yml")
+proj <- file_proj_ex()
+
 spec <- load_spec_proj(proj)
+
 fda_content_table(spec)
 
 }

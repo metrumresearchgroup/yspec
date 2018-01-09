@@ -1,15 +1,21 @@
 ##' Render a spec as a pandoc table
 ##'
 ##' @param x a spec object
-##' @param data_file not used
 ##' @param ... passed to other functions
 ##'
+##' @examples
+##' spec <- load_spec_ex()
+##'
+##' pander_table_df(spec)
+##'
+##' pander_table(spec)
+##'
 ##' @export
-pander_table <- function(x, data_file = "data", ...) {
+pander_table <- function(x, ...) {
 
   assert_that(requireNamespace("pander"))
 
-  ans <- pander_table_df(x, data_file, ...)
+  ans <- pander_table_df(x)
 
   pander::pandoc.table.return(
     ans,
@@ -21,22 +27,13 @@ pander_table <- function(x, data_file = "data", ...) {
 
 }
 
-
-pander_table_df <- function(x, data_file = "data", ...) {
-
-  cols <- vector(mode="list", length(x))
-
-  for(i in seq_along(x)) {
-    cols[[i]] <- define_col_pander(x[[i]])
-  }
-
-  bind_rows(cols)
-
+##' @rdname pander_table
+##' @export
+pander_table_df <- function(x) {
+  map_df(x, define_col_pander)
 }
 
-
 define_col_pander <- function(x) {
-
 
   unit <- NULL
   source <- NULL
@@ -61,10 +58,8 @@ define_col_pander <- function(x) {
     val <- chna
   }
 
-
   fields <- c("unit", "short-name", "long-name",
-              "source",
-              "comment", "range", "values")
+              "source", "comment", "range", "values")
   values <- c(unit, x$short, long,
               src,
               comment, ran, val)
@@ -82,6 +77,7 @@ define_col_pander <- function(x) {
   )
 
   ans <- filter(ans, !is.na(value))
+
   set_names(ans, c("Column", "Type", "Field", "Value"))
 
 }

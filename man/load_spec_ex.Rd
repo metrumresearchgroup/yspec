@@ -3,24 +3,29 @@
 \name{load_spec_ex}
 \alias{load_spec_ex}
 \alias{load_proj_ex}
-\alias{spec_ex_file}
-\alias{spec_ex_spec}
-\alias{spec_ex_proj}
+\alias{file_spec_ex}
+\alias{file_proj_ex}
 \title{Generate an example specification object}
 \usage{
 load_spec_ex(file = "spec.yml")
 
 load_proj_ex(file = "project.yml")
 
-spec_ex_file(file = "spec.yml")
+file_spec_ex(file = "spec.yml")
 
-spec_ex_spec(file = "spec.yml")
-
-spec_ex_proj(file = "spec.yml")
+file_proj_ex(file = "project.yml")
 }
 \arguments{
 \item{file}{an example spec file name}
 }
 \description{
 Generate an example specification object
+}
+\examples{
+
+load_spec_ex()
+load_proj_ex()
+file_spec_ex()
+file_proj_ex()
+
 }

@@ -21,7 +21,8 @@ the data specification information}
 
 \item{output_dir}{passed to \code{rmarkdown::render}}
 
-\item{build_dir}{directory where \code{rmarkdown} should build the document}
+\item{build_dir}{directory where \code{rmarkdown} should build the
+document}
 
 \item{title}{used in yaml front matter}
 
@@ -40,10 +41,10 @@ the file stem.
 }
 \examples{
 
-\dontrun{
-file <- spec_ex_proj()
+file <- file_proj_ex()
+
 file
+
 render_define(file)
-}
 
 }
