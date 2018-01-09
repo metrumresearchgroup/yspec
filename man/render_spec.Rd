@@ -11,7 +11,7 @@ render_spec(x, ...)
 \method{render_spec}{character}(x, stem = basename(x),
   format = c("pander_table", "md_outline"), title = "Data Specification",
   author = "MetrumRG", date = format(Sys.time()),
-  output_format = "html_document", output_dir = getwd(),
+  output_format = "pdf_document", output_dir = getwd(),
   build_dir = tempdir(), ...)
 
 \method{render_spec}{yspec}(x, ...)

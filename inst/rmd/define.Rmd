@@ -9,7 +9,7 @@ geometry: "left=3.5cm,right=3.5cm,top=3cm,bottom=3cm"
 output:
   pdf_document:
     number_sections: true
-    toc: true
+    toc: <toc>
     extra_dependencies:
       fontenc: T1
       mathdesign: utopia

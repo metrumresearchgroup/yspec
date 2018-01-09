@@ -41,7 +41,7 @@ render_spec.character <- function(x,
                                   title  = "Data Specification",
                                   author =  "MetrumRG",
                                   date = format(Sys.time()),
-                                  output_format="html_document",
+                                  output_format="pdf_document",
                                   output_dir = getwd(),
                                   build_dir = tempdir(), ...) {
 
@@ -127,6 +127,9 @@ define_for_rmd <- function(yamlfile, format) {
 ##' document
 ##' @param title used in yaml front matter
 ##' @param author used in yaml front matter
+##' @param sponsor used in yaml front matter
+##' @param projectnumber used in yaml front matter
+##' @param toc used in yaml front matter
 ##' @param date used in yaml front matter
 ##' @param ... passed to \code{rmarkdown::render}
 ##'
@@ -146,11 +149,14 @@ define_for_rmd <- function(yamlfile, format) {
 render_define <- function(file,
                           stem = basename(file),
                           format = c("pander_table", "md_outline"),
-                          output_format = "html_document",
+                          output_format = "pdf_document",
                           output_dir = getwd(),
                           build_dir = tempdir(),
                           title = "Data Specification",
                           author = "MetrumRG",
+                          sponsor = "",
+                          projectnumber = "",
+                          toc = "yes",
                           date = format(Sys.time()),
                           ...) {
 
@@ -162,9 +168,6 @@ render_define <- function(file,
     setwd(build_dir)
     on.exit(setwd(cwd))
   }
-
-  sponsor <- ""
-  projectnumber <- ''
 
   format <- match.arg(format)
 

@@ -110,6 +110,14 @@ yspectemplate <- function() {
               package = "yspec")
 }
 
-mrgtemplate <- function() {
-  system.file("mrgtemplate", package = "yspec")
+
+mrgtemplate <- function(root = tempdir()) {
+  dir <- file.path(root, "mrgtemplate")
+  if(!dir.exists(dir)) dir.create(dir)
+  templ_dir <- system.file(
+    "mrgtemplate", package = "yspec"
+  )
+  files <- list.files(templ_dir, full.names=TRUE)
+  foo <- file.copy(files, dir, overwrite = TRUE)
+  dir
 }
