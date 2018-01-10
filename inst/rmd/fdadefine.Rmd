@@ -24,7 +24,7 @@ knitr::opts_chunk$set(echo = FALSE)
 library(yspec)
 ```
 
-```{r results = "asis"}
+```{r results = "asis", echo = FALSE, message = FALSE}
 writeLines(yspec::fda_define("<yamlfile>"))
 ```
 

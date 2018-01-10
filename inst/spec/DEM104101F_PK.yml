@@ -4,7 +4,7 @@ SETUP__:
   client: ABC Pharmaceuticals, Inc
 C:
   long: commented rows
-  values: [.,C]
+  values: [".",C]
   decode: [not a comment, comment]
   type: character
 USUBJID:

@@ -77,8 +77,8 @@ render_spec.character <- function(x,
 
 ##' @rdname render_spec
 ##' @export
-render_spec.yspec <- function(x,...) {
-  render_spec(get_meta(x)[["yml_file"]], ...)
+render_spec.yspec <- function(x, ...) {
+  render_spec.character(get_meta(x)[["yml_file"]], ...)
 }
 
 ##' Generate code for a generic define document

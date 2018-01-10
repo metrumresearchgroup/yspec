@@ -26,7 +26,7 @@ library(yspec)
 ```
 
 
-```{r results = "asis"}
+```{r results = "asis", echo = FALSE, message = FALSE}
 writeLines(yspec::define_for_rmd("<yamlfile>", "<format>"))
 ```
 

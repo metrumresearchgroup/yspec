@@ -23,7 +23,7 @@ library(yspec)
 ```
 
 
-```{r results = "asis"}
+```{r results = "asis", echo = FALSE, message = FALSE}
 writeLines(yspec:::call_format_fun("<yamlfile>", format = "<format>"))
 ```
 

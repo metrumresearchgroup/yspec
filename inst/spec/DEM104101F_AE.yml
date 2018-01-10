@@ -1,6 +1,6 @@
 C:
   long: commented rows
-  values: [.,C]
+  values: [".",C]
   type: character
 MDV:
   long: missing DV indicator
