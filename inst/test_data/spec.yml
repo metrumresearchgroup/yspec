@@ -1,0 +1,35 @@
+TIME:
+  type: numeric
+  range:
+  - 1.0
+  - 50.0
+  short: time
+  unit: hr
+WT:
+  range:
+  - 10.0
+  - 150.0
+  short: weight
+  unit: kg
+DV:
+  range:
+  - 0.0e+00
+  - 1.0e+04
+  long: dependent variable
+  unit: ng/ml
+SEX:
+  short: female sex
+  values:
+  - 0.0e+00
+  - 1.0e+00
+  decode:
+  - male
+  - female
+STUDY:
+  type: character
+  short: study
+  values:
+  - a
+  - b
+  - c
+

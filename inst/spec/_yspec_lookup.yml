@@ -13,7 +13,7 @@ EGFR2:
 SEX:
   values: [0,1]
   decode: [male, female]
-  type: integer
+  type: numeric
 CMT:
   short: compartment - from_lookup
   long: compartment number per NONMEM

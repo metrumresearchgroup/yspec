@@ -4,7 +4,7 @@ SETUP__:
 C:
   type: character
   long: commented rows
-  values: [.,C]
+  values: [".",C]
   lookup: true
 USUBJID:
   type: character

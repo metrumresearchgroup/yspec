@@ -24,7 +24,7 @@ ALB:
   type: numeric
 C:
   short: comment
-  values: [., C]
+  values: [C, "."]
   decode: [not a comment, comment]
 CMT:
   short: compartment - from_lookup_2
