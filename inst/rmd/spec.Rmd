@@ -17,13 +17,13 @@ output:
 ---
 
 
-```{r echo = FALSE, results = "hide", message = FALSE}
+```{r, "yspec_spec_setup_chunk", echo = FALSE, results = "hide", message = FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 library(yspec)
 ```
 
 
-```{r results = "asis", echo = FALSE, message = FALSE}
+```{r, "yspec_spec_render_chunk", echo = FALSE, results = "asis", echo = FALSE, message = FALSE}
 writeLines(yspec:::call_format_fun("<yamlfile>", format = "<format>"))
 ```
 

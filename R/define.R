@@ -2,7 +2,7 @@
 
 
 call_format_fun <- function(yamlfile,
-                            format = c("pander_table", "md_outline")) {
+                            format = c("x_table","pander_table", "md_outline")) {
   format <- match.arg(format)
   format_fun <- get(format, mode = "function")
   spec <- load_spec(yamlfile)
@@ -37,7 +37,7 @@ render_spec <- function(x, ...) UseMethod("render_spec")
 ##' @export
 render_spec.character <- function(x,
                                   stem = basename(x),
-                                  format = c("pander_table","md_outline"),
+                                  format = c("x_table","pander_table","md_outline"),
                                   title  = "Data Specification",
                                   author =  "MetrumRG",
                                   date = format(Sys.time()),
@@ -148,7 +148,7 @@ define_for_rmd <- function(yamlfile, format) {
 ##' @export
 render_define <- function(file,
                           stem = basename(file),
-                          format = c("pander_table", "md_outline"),
+                          format = c("x_table","pander_table", "md_outline"),
                           output_format = "pdf_document",
                           output_dir = getwd(),
                           build_dir = tempdir(),

@@ -20,13 +20,13 @@ output:
     toc: true
 ---
 
-```{r echo = FALSE, results = "hide", message = FALSE}
+```{r, "yspec_define_rmd_setup", echo = FALSE, results = "hide", message = FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 library(yspec)
 ```
 
 
-```{r results = "asis", echo = FALSE, message = FALSE}
+```{r, "yspec_render", results = "asis", echo = FALSE, message = FALSE}
 writeLines(yspec::define_for_rmd("<yamlfile>", "<format>"))
 ```
 

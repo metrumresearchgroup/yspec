@@ -19,3 +19,18 @@ CMT:
   long: compartment number per NONMEM
 C:
   short: commented row indicator
+EVID:
+  type: numeric
+  short: event ID
+  long: event ID indicator
+  comment: per NONMEM specifications
+MDV:
+  type: numeric
+  long: missing DV indicator
+  comment: per NONMEM specifications
+ALB2:
+  type: numeric
+  short: adjusted albumin
+  unit: g/dL
+  comment: in the lookup document as ALB2
+  range: [1,5]

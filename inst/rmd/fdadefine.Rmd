@@ -19,12 +19,12 @@ output:
     toc: false
 ---
 
-```{r echo = FALSE, results = "hide", message = FALSE}
+```{r, "yspec_FDA_setup_chunk", echo = FALSE, results = "hide", message = FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 library(yspec)
 ```
 
-```{r results = "asis", echo = FALSE, message = FALSE}
+```{r, "yspec_FDA_render_chunk", results = "asis", echo = FALSE, message = FALSE}
 writeLines(yspec::fda_define("<yamlfile>"))
 ```
 

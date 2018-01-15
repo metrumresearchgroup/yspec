@@ -29,6 +29,28 @@ pander_table <- function(x, ...) {
 
 ##' @rdname pander_table
 ##' @export
+x_table <- function(x,...) {
+  assert_that(requireNamespace("xtable"))
+  ans <- pander_table_df(x)
+  lengths <- c(0, 1, 1, 1, 3)
+  align <- paste0("p{",lengths,"in}")
+  #align[1] <- paste0("|", align[1], "|")
+  align[2] <- paste0("|", align[2], "|")
+  align[4] <- paste0("|", align[4])
+  align[5] <- paste0(align[5], "|")
+  hlines <- which(ans[,1] != "")-1
+  xx <- xtable(ans, align = align)
+  capture.output(
+    print(xx, hline.after=c(-1,hlines),
+          add.to.row = add.to.row, comment = FALSE,
+          include.rownames = FALSE, table.placement = "H",
+          tabular.environment = "longtable", floating = FALSE)
+  )
+
+}
+
+##' @rdname pander_table
+##' @export
 pander_table_df <- function(x) {
   map_df(x, define_col_pander)
 }
@@ -43,7 +65,7 @@ define_col_pander <- function(x) {
 
   long <- long.ycol(x, chna)
   comment <- comment.ycol(x, chna)
-  unit <- unit.ycol(x, "")
+  unit <- unit.ycol(x, chna)
   ran <- Range.ycol(x,chna)
   type <- type.ycol(x,'.')
   src <- Source.ycol(x,chna)
@@ -58,11 +80,19 @@ define_col_pander <- function(x) {
     val <- chna
   }
 
-  fields <- c("unit", "short-name", "long-name",
-              "source", "comment", "range", "values")
-  values <- c(unit, x$short, long,
-              src,
-              comment, ran, val)
+  fields <- c("short-name",
+              "unit",
+              "range",
+              "values",
+              "long-name",
+              "source",
+              "comment")
+  values <- c(x$short,
+               unit,
+               ran, val,
+               long,
+               src,
+               comment)
   col <- x$col
 
   ans <- data_frame(

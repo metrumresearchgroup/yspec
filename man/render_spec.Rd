@@ -8,8 +8,8 @@
 \usage{
 render_spec(x, ...)
 
-\method{render_spec}{character}(x, stem = basename(x),
-  format = c("pander_table", "md_outline"), title = "Data Specification",
+\method{render_spec}{character}(x, stem = basename(x), format = c("x_table",
+  "pander_table", "md_outline"), title = "Data Specification",
   author = "MetrumRG", date = format(Sys.time()),
   output_format = "pdf_document", output_dir = getwd(),
   build_dir = tempdir(), ...)

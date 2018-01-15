@@ -1,3 +1,6 @@
+mrglogo\.pdf
+^README\.md$
+^README\.Rmd$
 inst/doc
 inst/readme_docs
 .*\.tar\.gz$

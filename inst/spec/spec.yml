@@ -12,11 +12,9 @@ USUBJID:
 ID:
   long: NONMEM ID number
 EVID:
-  long: event ID indicator
-  comment: per NONMEM specifications
+  lookup: true
 MDV:
-  long: missing DV indicator
-  comment: per NONMEM specifications
+  lookup: true
 SEQ:
   long: record type indicators
   values: {concentration: 1, response: 2, other: 3}
@@ -40,8 +38,7 @@ WT:
   long: baseline weight
   range: [40.0, 100]
 EGFR:
-  about: [eGFR, ml/min/1.73 m2]
-  long: estimated glomerular filtration rate
+  lookup: true
   range: [10,300]
 STUDY:
   type: character
@@ -55,7 +52,6 @@ STUDY:
     - The renal impairment study
     - The second phase 2 study
 SEX:
-  values: {male: 0, female: 1}
   lookup: true
 BQL:
   about: below limit of quantification
@@ -78,5 +74,6 @@ HAIR:
 CLCR:
   about: [creatinine clearance, ml/min]
   range: [40, 180]
-
+ALB:
+  lookup: ALB2
 

@@ -2,10 +2,13 @@
 % Please edit documentation in R/pander_table.R
 \name{pander_table}
 \alias{pander_table}
+\alias{x_table}
 \alias{pander_table_df}
 \title{Render a spec as a pandoc table}
 \usage{
 pander_table(x, ...)
+
+x_table(x, ...)
 
 pander_table_df(x)
 }
