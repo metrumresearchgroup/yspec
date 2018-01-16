@@ -1,7 +1,7 @@
 *.tar.gz
 README.html
-*.Rcheck
-test*.R
+*\.Rcheck
+test\.R
 .Rproj.user
 .Rhistory
 .RData
