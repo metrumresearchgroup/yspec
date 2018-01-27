@@ -44,34 +44,34 @@ render_spec.character <- function(x,
                                   output_format="pdf_document",
                                   output_dir = getwd(),
                                   build_dir = tempdir(), ...) {
-
+  
   yamlfile <- normalizePath(x)
-
+  
   output_dir <- normalizePath(output_dir)
-
+  
   build_dir <- normalizePath(build_dir)
-
+  
   cwd <- normalizePath(getwd())
   if(cwd != build_dir) {
     setwd(build_dir)
     on.exit(setwd(cwd))
   }
-
+  
   format <- match.arg(format)
-
+  
   file <- paste0(stem, ".Rmd")
-
+  
   rmd <- system.file("rmd", "spec.Rmd", package = "yspec")
-
+  
   txt <- paste0(readLines(rmd), collapse = "\n")
-
+  
   txt <- glue::glue(txt, .open = "<", .close = ">")
-
+  
   writeLines(txt,file)
-
+  
   ans <- rmarkdown::render(file, output_format = output_format,
                            output_dir = output_dir, ...)
-
+  
   return(invisible(ans))
 }
 
@@ -88,17 +88,17 @@ render_spec.yspec <- function(x, ...) {
 ##' contents
 ##' @export
 define_for_rmd <- function(yamlfile, format) {
-
+  
   if(is.character(format)) {
     format_fun <- get(format, mode = "function")
   } else {
     format_fun <- format
   }
-
+  
   assert_that(is.function(format_fun))
-
+  
   proj <- load_spec_proj(yamlfile)
-
+  
   specs <- imap(proj, .f = function(x,name) {
     description <- proj[[name]][["description"]]
     sp <- load_spec(x[["spec_file"]])
@@ -109,15 +109,15 @@ define_for_rmd <- function(yamlfile, format) {
       description,"",
       sp, " ")
   })
-
+  
   specs <- flatten_chr(specs)
-
+  
   specs
 }
 
 ##' Render a define.pdf document
 ##'
-##' @param file a project spec file loaded via \code{\link{load_spec_proj}}
+##' @param x a \code{yproj} object or project specification file name
 ##' @param stem used to name the output file
 ##' @param format the name of a function that will genrate code formatting
 ##' the data specification information
@@ -127,8 +127,6 @@ define_for_rmd <- function(yamlfile, format) {
 ##' document
 ##' @param title used in yaml front matter
 ##' @param author used in yaml front matter
-##' @param sponsor used in yaml front matter
-##' @param projectnumber used in yaml front matter
 ##' @param toc used in yaml front matter
 ##' @param date used in yaml front matter
 ##' @param ... passed to \code{rmarkdown::render}
@@ -146,41 +144,66 @@ define_for_rmd <- function(yamlfile, format) {
 ##' render_define(file)
 ##'
 ##' @export
-render_define <- function(file,
-                          stem = basename(file),
-                          format = c("x_table","pander_table", "md_outline"),
-                          output_format = "pdf_document",
-                          output_dir = getwd(),
-                          build_dir = tempdir(),
-                          title = "Data Specification",
-                          author = "MetrumRG",
-                          sponsor = "",
-                          projectnumber = "",
-                          toc = "yes",
-                          date = format(Sys.time()),
-                          ...) {
+render_define <- function(x, ...) {
+  UseMethod("render_define")  
+}
+##' @rdname render_define
+##' @export
+render_define.yproj <- function(x, ...) {
+  m <- get_meta(x)
+  project_file_name <- m$yml_file
+  assert_that(is.character(project_file_name))
+  render_define(project_file_name, ...)
+}
+##' @rdname render_define
+##' @export
+render_define.character <- function(x,
+                                    stem = basename(x),
+                                    format = c("x_table","pander_table", "md_outline"),
+                                    output_format = "pdf_document",
+                                    output_dir = getwd(),
+                                    build_dir = tempdir(),
+                                    title = "Data Specification",
+                                    author = "MetrumRG",
+                                    toc = "yes",
+                                    date = format(Sys.time()),
+                                    ...) {
 
-  yamlfile <- normalizePath(file)
+  spec <- load_spec_proj(x)
+  meta <- get_meta(spec)
+  
+  sponsor <- ""
+  if(.has("sponsor", meta)) {
+    sponsor <- meta[["sponsor"]]  
+  }
+  
+  projectnumber <- ""
+  if(.has("projectnumber", meta)) {
+    projectnumber <- meta[["projectnumber"]] 
+  }
+  
+  yamlfile <- normalizePath(x)
   output_dir <- normalizePath(output_dir)
   build_dir <- normalizePath(build_dir)
+  
   cwd <- normalizePath(getwd())
   if(cwd != build_dir) {
     setwd(build_dir)
     on.exit(setwd(cwd))
   }
-
+  
   format <- match.arg(format)
-
+  
   file <- paste0(stem, ".Rmd")
-
+  
   rmd <- system.file("rmd", "define.Rmd", package = "yspec")
-
+  
   txt <- paste0(readLines(rmd), collapse = "\n")
-
+  
   txt <- glue::glue(txt, .open = "<", .close = ">")
-
+  
   writeLines(txt,file)
-
+  
   return(invisible(rmarkdown::render(file, output_format = output_format,
                                      output_dir = output_dir, ...)))
 }

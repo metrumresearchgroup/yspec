@@ -2,16 +2,24 @@
 % Please edit documentation in R/define.R
 \name{render_define}
 \alias{render_define}
+\alias{render_define.yproj}
+\alias{render_define.character}
 \title{Render a define.pdf document}
 \usage{
-render_define(file, stem = basename(file), format = c("x_table",
-  "pander_table", "md_outline"), output_format = "pdf_document",
-  output_dir = getwd(), build_dir = tempdir(),
-  title = "Data Specification", author = "MetrumRG", sponsor = "",
-  projectnumber = "", toc = "yes", date = format(Sys.time()), ...)
+render_define(x, ...)
+
+\method{render_define}{yproj}(x, ...)
+
+\method{render_define}{character}(x, stem = basename(file),
+  format = c("x_table", "pander_table", "md_outline"),
+  output_format = "pdf_document", output_dir = getwd(),
+  build_dir = tempdir(), title = "Data Specification",
+  author = "MetrumRG", toc = "yes", date = format(Sys.time()), ...)
 }
 \arguments{
-\item{file}{a project spec file loaded via \code{\link{load_spec_proj}}}
+\item{x}{a \code{yproj} object or project specification file name}
+
+\item{...}{passed to \code{rmarkdown::render}}
 
 \item{stem}{used to name the output file}
 
@@ -29,15 +37,9 @@ document}
 
 \item{author}{used in yaml front matter}
 
-\item{sponsor}{used in yaml front matter}
-
-\item{projectnumber}{used in yaml front matter}
-
 \item{toc}{used in yaml front matter}
 
 \item{date}{used in yaml front matter}
-
-\item{...}{passed to \code{rmarkdown::render}}
 }
 \description{
 Render a define.pdf document
