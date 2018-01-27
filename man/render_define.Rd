@@ -10,7 +10,7 @@ render_define(x, ...)
 
 \method{render_define}{yproj}(x, ...)
 
-\method{render_define}{character}(x, stem = basename(file),
+\method{render_define}{character}(x, stem = basename(x),
   format = c("x_table", "pander_table", "md_outline"),
   output_format = "pdf_document", output_dir = getwd(),
   build_dir = tempdir(), title = "Data Specification",

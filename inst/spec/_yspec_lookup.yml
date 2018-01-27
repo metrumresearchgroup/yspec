@@ -14,6 +14,11 @@ SEX:
   values: [0,1]
   decode: [male, female]
   type: numeric
+RACE:
+  values:
+    white: 1
+    black: 2
+    other: 3
 CMT:
   short: compartment - from_lookup
   long: compartment number per NONMEM

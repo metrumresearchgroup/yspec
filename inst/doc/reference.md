@@ -96,6 +96,15 @@ SEX:
   values: {dude: 0, gal: 1}
 ```
 
+Because yaml is so cool, you can write the same thing like this
+
+```yaml
+SEX: 
+  values:
+    dude: 0
+    gal: 1
+```
+
 __Method 2__
 
 - These are more complicated decodes
