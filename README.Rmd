@@ -19,9 +19,6 @@ knitr::opts_chunk$set(comment = '.', message = FALSE)
     - [About the format](./inst/doc/reference.md)
 - The `yspec` package reads the specification and 
 further formats the data
-    - For example, [splitting data columns by other data items](./inst/doc/reference.md#split-data-column)
-- Information can be accessed or utilized by other functions
-in the ecosystem
 - `yspec` will render a [`Define.pdf`](./inst/readme_docs/fda_define.pdf) document or output
 in any other format supported by `rmarkdown`
 
@@ -57,7 +54,7 @@ writeLines(yspec:::pander_table(sp2))
 output__dir <- normalizePath("inst/readme_docs")
 ```
 
-Render in pdf format
+Render this single data specification object in pdf format
 ```{r, "render-1", echo=TRUE, results="hide", message=FALSE}
 render_spec(sp, 
             stem = "define", 
@@ -66,17 +63,6 @@ render_spec(sp,
 ```
 
 with output [here](./inst/readme_docs/define.pdf)
-
-
-Or render to any format
-```{r, "render-2", echo=TRUE, results="hide", message=FALSE}
-render_spec(sp, stem = "define_example", 
-            output_format = "md_document",
-            output_dir = "inst/readme_docs")
-```
-
-Then we get [this output](./inst/readme_docs/define_example.md)
-
 
 
 ## Build a `define.pdf` document
@@ -100,9 +86,8 @@ Output [here](./inst/readme_docs/project.pdf)
 
 ## Build a `define.pdf` document for sending to FDA
 ```{r, "render-fda-define", results = "hide"}
-render_fda_define(spec_ex_proj(), 
+render_fda_define(load_proj_ex(), 
                   stem = "fda_define",
-                  build_dir = yspec:::mrgtemplate(),
                   output_dir = "inst/readme_docs")
 ```
 
