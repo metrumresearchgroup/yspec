@@ -32,7 +32,7 @@ pander_table <- function(x, ...) {
 x_table <- function(x,...) {
   assert_that(requireNamespace("xtable"))
   ans <- pander_table_df(x)
-  lengths <- c(0, 1, 1, 1, 3)
+  lengths <- c(0, 1, 0.65, 0.95, 2.4)
   align <- paste0("p{",lengths,"in}")
   #align[1] <- paste0("|", align[1], "|")
   align[2] <- paste0("|", align[2], "|")
