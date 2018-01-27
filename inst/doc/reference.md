@@ -158,7 +158,7 @@ comment: >
 
 ```yaml
 SETUP___:
-  lookup_file: dictinary.yml
+  lookup_file: dictionary.yml
 WT:
   short: Weight
   unit: kg
@@ -176,7 +176,7 @@ In the above example
 
   - We name a lookup file in `SETUP__` so we can import standard definitions
   - `WT` is taken as specified in the listing
-  - `EGFR` is imported fully from the `EGFR` entry in `dictinary.yml`
+  - `EGFR` is imported fully from the `EGFR` entry in `dictionary.yml`
   - `CA` is imported from the `corrected_calcium` listing in `dictionary.yml`; but 
     the column name remains `CA`
   - `ALB` is imported using all fields from `dictionary.yml` except for 
