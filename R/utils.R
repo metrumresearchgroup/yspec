@@ -121,3 +121,7 @@ mrgtemplate <- function(root = tempdir()) {
   foo <- file.copy(files, dir, overwrite = TRUE)
   dir
 }
+
+cata <- function(..., fill = TRUE, append = TRUE) {
+  cat(..., fill = fill, append = append)  
+}

@@ -1,26 +1,33 @@
 
-check_values <- function(x,values,verbose=FALSE) {
+check_values <- function(x,values,verbose=FALSE, con = NULL) {
   if(is.null(values)) return(TRUE)
   x <- x[!is.na(x)]
   x <- unlist(unique(x),use.names = FALSE)
-  if(verbose) {
+  
+  if(verbose | !is.null(con)) {
     valu <- values
     if(length(values) > 3) {
       valu <- c(valu[seq(3)], "...")
     }
-    message("  values: ", paste0(valu, collapse = ','))
+    if(verbose) message("  values: ", paste0(valu, collapse = ','))
+    if(!is.null(con)) {
+      cata( "  values: ", paste0(valu, collapse = ','),file = con)
+    }
   }
   if(length(x) != length(values)) return(FALSE)
   length(setdiff(x,values))==0
 }
 
-check_range <- function(x,range,verbose=FALSE) {
+check_range <- function(x,range,verbose=FALSE, con = NULL) {
   if(is.null(range)) return(TRUE)
   if(length(range) !=2) return(FALSE)
   x <- x[!is.na(x)]
   if(length(x)==0) return(TRUE)
-  if(verbose) {
-    message("  range: ", paste0(range, collapse = ","))
+  if(verbose | !is.null(con)) {
+    if(verbose) message("  range: ", paste0(range, collapse = ","))
+    if(!is.null(con)) {
+      cata("  range: ", paste0(range, collapse = ","),file = con)
+    }
   }
   x <- sort(range(x))
   range <- sort(range)
@@ -46,9 +53,15 @@ add_error <- function(env) {
 ##' @param spec a yspec object
 ##' @param verbose \code{logical}; if \code{TRUE}, extra messages
 ##' are printed during the check
+##' @param output the name of a file or a connection 
+##' for writing check results
 ##' @param file the full path to a yaml specification file
 ##' @export
-check_data <- function(data, spec, verbose = FALSE) {
+check_data <- function(data, spec, verbose = FALSE, 
+                       output = tempfile()) {
+  if(verbose) {
+    output <- stderr() 
+  }
   env <- new.env()
   env$log <- character(0)
   env$error <- FALSE
@@ -56,9 +69,16 @@ check_data <- function(data, spec, verbose = FALSE) {
   ndata <- names(data)
   data <- as.data.frame(data)
   
-  if(verbose) {
-    message("checking that names in the spec and the data set match")
+  using_stderr <- identical(output,stderr())
+  
+  if(!using_stderr) {
+    cat("#", date(), "\n", file = output)
+    cata("# scroll to the bottom of this file for any check error messages\n",
+        file = output)
   }
+  
+  cata("checking that names in the spec and the data set match\n",
+       file = output)
   
   if(!identical(nspec, ndata)) {
     add_log(env, "data names do not match names in spec")
@@ -75,13 +95,13 @@ check_data <- function(data, spec, verbose = FALSE) {
   for(i in seq_along(spec)) {
     x <- spec[[i]]
     y <- data[,x$col]
-    if(verbose) message("checking column: ", x$col)
-    val <- check_values(y,x$values,verbose=verbose)
+    cata("column: ", x$col, file = output)
+    val <- check_values(y,x$values,verbose = verbose, con=output)
     if(!val) {
       add_log(env, "discrete value out of range:", x$col)
       add_error(env)
     }
-    range <- check_range(y,x$range,verbose=verbose)
+    range <- check_range(y,x$range,verbose=verbose,con = output)
     if(!range) {
       range <- paste0(x$range,collapse = ",")
       range <- paste0("[",range,"]")
@@ -91,13 +111,25 @@ check_data <- function(data, spec, verbose = FALSE) {
   }
   
   if(env$error) {
-    message("")
-    message("Messages:")
-    message(paste(" ",env$log, collapse = "\n"))
-    message("")
+    cata("", file = output)
+    cata("Messages:", file = output)
+    cata(paste(" ",env$log, collapse = "\n"), file = output)
+    cata("", file = output)
+    if(!using_stderr) {
+      message("")
+      message("Messages:")
+      message(paste(" ",env$log, collapse = "\n"))
+      message("", file = stderr())
+      message("Error: please review messages and re-check")
+    }
     .stop("please review messages and re-check")
   }
-  message("Everything checks out!")
+  
+  cata("\nThe data set passed all checks.", file = output) 
+  
+  if(!using_stderr) {
+    message("The data set passed all checks.")
+  }
   
   return(invisible(env$error))
 }

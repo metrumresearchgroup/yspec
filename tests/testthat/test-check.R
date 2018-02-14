@@ -9,7 +9,7 @@ data2 <- readRDS(file.path(data_loc, "test2.RDS"))
 spec <- load_spec(file.path(data_loc, "spec.yml"))
 
 expect_works <- function(...) {
-  expect_message(...,  regexp = "Everything checks out!")
+  expect_message(...,  regexp = "The data set passed all checks.")
 }
 
 test_that("check with no missing values", {
