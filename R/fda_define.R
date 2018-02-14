@@ -1,3 +1,10 @@
+fda_label <- function(x) {
+  if(.no("long", x)) {
+    return(x[["short"]]) 
+  }
+  return(x[["long"]])
+}
+
 
 pack_codes <- function(x) {
   if(.no("values",x)) return("")
@@ -12,7 +19,7 @@ pack_codes <- function(x) {
 
 as_fda_table_row <- function(x) {
   variable <- x[["col"]]
-  label <- long(x, default = x[["col"]])
+  label <- long(x, default = x[["short"]])
   if(.has("unit", x)) {
     label <- paste0(label, " (unit: ", x$unit, ")")
   }
