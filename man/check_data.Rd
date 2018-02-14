@@ -5,7 +5,7 @@
 \alias{check_data_file}
 \title{Check a data set against its specification}
 \usage{
-check_data(data, spec)
+check_data(data, spec, verbose = FALSE)
 
 check_data_file(data, file)
 }
@@ -13,6 +13,9 @@ check_data_file(data, file)
 \item{data}{a data frame}
 
 \item{spec}{a yspec object}
+
+\item{verbose}{\code{logical}; if \code{TRUE}, extra messages
+are printed during the check}
 
 \item{file}{the full path to a yaml specification file}
 }
