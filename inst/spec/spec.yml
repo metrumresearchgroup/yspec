@@ -74,6 +74,7 @@ HAIR:
   long: patient hair color
   values: [0,1,2]
   decode: [brown, blonde, black]
+  axis: Hair color
 CLCR:
   about: [creatinine clearance, ml/min]
   range: [40, 180]
