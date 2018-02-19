@@ -19,7 +19,7 @@ SEQ:
   long: record type indicators
   values: {concentration: 1, response: 2, other: 3}
 AMT:
-  about: [Amount, mg]
+  about: [amount, mg]
   long: dose amount
   range: [0,1000]
 II:
@@ -33,6 +33,7 @@ CMT:
 TAFD:
   unit: hours
   long: time after first dose
+  axis: Time after first dose
 WT:
   about: [Weight, kg]
   long: baseline weight
@@ -40,6 +41,7 @@ WT:
 EGFR:
   lookup: true
   range: [10,300]
+  axis: eGFR
 STUDY:
   type: character
   about: [Study]
@@ -63,6 +65,7 @@ DV:
   about: DV
   long: dependent variable
   comment: see SEQ
+  unit: ng/mL
 DV2:
   about: DV2
   long: second dependent variable
@@ -74,6 +77,8 @@ HAIR:
 CLCR:
   about: [creatinine clearance, ml/min]
   range: [40, 180]
+  axis: Creatinine clearance
 ALB:
   lookup: ALB2
+  axis: Albumin
 
