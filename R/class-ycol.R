@@ -7,7 +7,25 @@ print.ycol <- function(x,...) {
   x$unit <- ifelse(is.null(x$unit), '.', x$unit)
   name <- c("col", "type", "short", "unit", "range")
   values <- c(x$col, x$type, x$short, x$unit, rnge)
-  ans <- data.frame(name = name, value = values)
+  ans <- data_frame(name = name, value = values)
+  
+  if(x$discrete) {
+    ans <- filter(ans, name != "range", name != "unit")
+    if(.has("values", x)) {
+      valu <- x[["values"]]
+      if(.has("decode", x)) {
+        valu <- paste(valu, x[["decode"]], sep = ": ")
+      }
+      if(any(nchar(valu) > 45)) {
+        w <- which(nchar(valu) > 45)
+        valu[w] <- paste0(substr(valu[w],1,45)," ...")
+      }
+      valu <- data_frame(name = c("value",rep('', length(valu)-1)), 
+                         value = valu)
+      ans <- bind_rows(ans,valu)
+    }
+  }
+  ans <- as.data.frame(ans)
   print(ans, row.names = FALSE, right = FALSE)
 }
 

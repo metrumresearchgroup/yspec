@@ -1,0 +1,10 @@
+Name: Insert Numeric Column 
+Description: Inserts fields for numeric data column specification.
+Binding: insertNUMERICAddin
+Interactive: false
+
+Name: Insert Character Column 
+Description: Inserts fields for character data column specification.
+Binding: insertCHARACTERAddin
+Interactive: false
+
