@@ -10,9 +10,9 @@ render_spec(x, ...)
 
 \method{render_spec}{character}(x, stem = basename(x), format = c("x_table",
   "pander_table", "md_outline"), title = "Data Specification",
-  author = "MetrumRG", date = format(Sys.time()),
-  output_format = "pdf_document", output_dir = getwd(),
-  build_dir = tempdir(), ...)
+  author = "MetrumRG", projectnumber = "", sponsor = "",
+  date = format(Sys.time()), output_format = "pdf_document",
+  output_dir = getwd(), build_dir = tempdir(), ...)
 
 \method{render_spec}{yspec}(x, ...)
 }
@@ -28,6 +28,10 @@ render_spec(x, ...)
 \item{title}{used for yaml front matter}
 
 \item{author}{used for yaml front matter}
+
+\item{projectnumber}{project number; only used with mrgtemplate}
+
+\item{sponsor}{project sponsor; only used with mrgtemplate}
 
 \item{date}{used for yaml front matter}
 

@@ -205,9 +205,11 @@ render_fda_define.character <- function(x,
   yamlfile <- normalizePath(x)
 
   output_dir <- normalizePath(output_dir)
-
+  build_dir <- normalizePath(build_dir)
   cwd <- normalizePath(getwd())
+  copy_back <- FALSE
   if(cwd != build_dir) {
+    copy_back <- TRUE
     setwd(build_dir)
     on.exit(setwd(cwd))
   }
@@ -236,7 +238,9 @@ render_fda_define.character <- function(x,
 
   writeLines(txt,.file)
 
-  ans <- rmarkdown::render(.file, output_dir = output_dir, ...)
+  ans <- rmarkdown::render(.file, ...)
+  
+  if(copy_back) file.copy(ans, output_dir, overwrite = TRUE)
 
   return(invisible(ans))
 

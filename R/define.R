@@ -16,6 +16,8 @@ call_format_fun <- function(yamlfile,
 ##' @param format function defining how to render the object
 ##' @param title used for yaml front matter
 ##' @param author used for yaml front matter
+##' @param projectnumber project number; only used with mrgtemplate
+##' @param sponsor project sponsor; only used with mrgtemplate
 ##' @param date used for yaml front matter
 ##' @param output_format passed to \code{rmarkdown::render}
 ##' @param output_dir passed to \code{rmarkdown::render}
@@ -40,6 +42,8 @@ render_spec.character <- function(x,
                                   format = c("x_table","pander_table","md_outline"),
                                   title  = "Data Specification",
                                   author =  "MetrumRG",
+                                  projectnumber = "", 
+                                  sponsor = "",
                                   date = format(Sys.time()),
                                   output_format="pdf_document",
                                   output_dir = getwd(),
@@ -51,9 +55,12 @@ render_spec.character <- function(x,
   
   build_dir <- normalizePath(build_dir)
   
+  copy_back <- FALSE
+  
   cwd <- normalizePath(getwd())
   if(cwd != build_dir) {
     setwd(build_dir)
+    copy_back <- TRUE
     on.exit(setwd(cwd))
   }
   
@@ -69,8 +76,9 @@ render_spec.character <- function(x,
   
   writeLines(txt,file)
   
-  ans <- rmarkdown::render(file, output_format = output_format,
-                           output_dir = output_dir, ...)
+  ans <- rmarkdown::render(file, output_format = output_format, ...)
+  
+  if(copy_back) file.copy(ans, output_dir, overwrite = TRUE)
   
   return(invisible(ans))
 }
@@ -185,10 +193,12 @@ render_define.character <- function(x,
   yamlfile <- normalizePath(x)
   output_dir <- normalizePath(output_dir)
   build_dir <- normalizePath(build_dir)
+  copy_back <- FALSE
   
   cwd <- normalizePath(getwd())
   if(cwd != build_dir) {
     setwd(build_dir)
+    copy_back <- TRUE
     on.exit(setwd(cwd))
   }
   
@@ -204,7 +214,10 @@ render_define.character <- function(x,
   
   writeLines(txt,file)
   
-  return(invisible(rmarkdown::render(file, output_format = output_format,
-                                     output_dir = output_dir, ...)))
+  ans <- rmarkdown::render(file, output_format = output_format, ...)
+  
+  if(copy_back) file.copy(ans, output_dir, overwrite = TRUE)
+  
+  return(invisible(ans))
 }
 

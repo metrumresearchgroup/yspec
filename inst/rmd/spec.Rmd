@@ -2,6 +2,8 @@
 title: <title>
 author: <author>
 date: <date>
+sponsor: <sponsor>
+projectnumber: <projectnumber>
 output:
   pdf_document:
     number_sections: false
