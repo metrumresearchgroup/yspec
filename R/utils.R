@@ -125,3 +125,44 @@ mrgtemplate <- function(root = tempdir()) {
 cata <- function(..., fill = TRUE, append = TRUE) {
   cat(..., fill = fill, append = append)  
 }
+
+
+yspec_is_discrete <- function(x) {
+  x[["discrete"]]  
+}
+
+yspec_is_character <- function(x) {
+  x[["type"]] == "character"  
+}
+
+yspec_select <- function(.spec, ...) {
+  vars <- select_vars(names(.spec), !!!quos(...))
+  .spec[vars]
+}
+
+yspec_select_if <- function(.spec, .p) {
+  if_check <- map_lgl(.spec, .p)
+  if(!any(if_check)) {
+    stop("No columns matched the select criteria.", call. = FALSE)  
+  }
+  .spec[if_check]
+}
+
+##' Select all columns that are discrete
+##' 
+##' @param .spec a yspec object
+##' 
+##' @export
+yspec_select_discrete <- function(.spec) {
+  yspec_select_if(.spec, yspec_is_discrete)  
+}
+
+##' Select all columns that are character
+##' 
+##' @param .spec a yspec object
+##' 
+##' @export
+yspec_select_chr <- function(.spec) {
+  yspec_select_if(.spec, yspec_is_character)  
+}
+

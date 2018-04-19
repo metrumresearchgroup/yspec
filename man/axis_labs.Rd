@@ -4,13 +4,16 @@
 \alias{axis_labs}
 \alias{axis_col_labs}
 \alias{axis_label}
+\alias{axis_asis}
 \title{Generate axis labels or col/label structures for plots}
 \usage{
 axis_labs(.spec, ..., .fun = axis_label)
 
 axis_col_labs(.spec, ..., .fun = axis_label)
 
-axis_label(x)
+axis_label(x, .add_unit = TRUE)
+
+axis_asis(x)
 }
 \arguments{
 \item{.spec}{a yspec object}
@@ -19,7 +22,10 @@ axis_label(x)
 
 \item{.fun}{a function that forms the axis label data for}
 
-\item{x}{a ycol object
+\item{x}{a ycol object}
+
+\item{.add_unit}{if \code{TRUE}, the unit is appended to the axis title
+if it is found
 a single column}
 }
 \description{

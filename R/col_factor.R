@@ -33,11 +33,12 @@ yspec_add_factors <- function(.data, .spec, ... , .suffix = "_f") {
 ##' @rdname yspec_add_factors
 ##' @export
 yspec_make_factor <- function(values,x) {
-  if(!x$discrete) {
-    stop("Column: ", x$col, " is not discrete")
-  }
+
   if(is.null(x[["values"]])) {
-    stop("Column: ", x$col, "values field is not found")
+    stop("Column: ", x$col, " - values field is not found", call. = FALSE)
+  }
+  if(!x[["discrete"]]) {
+    stop("Column: ", x$col, " is not discrete", call. = FALSE)
   }
   if(is.null(x[["decode"]])) {
     decode <- x[["values"]]
