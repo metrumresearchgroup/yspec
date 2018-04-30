@@ -21,7 +21,7 @@ print.ycol <- function(x,...) {
         valu[w] <- paste0(substr(valu[w],1,45)," ...")
       }
       valu <- data_frame(name = c("value",rep('', length(valu)-1)), 
-                         value = valu)
+                         value = as.character(valu))
       ans <- bind_rows(ans,valu)
     }
   }

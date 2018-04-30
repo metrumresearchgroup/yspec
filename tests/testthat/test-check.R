@@ -8,16 +8,14 @@ data1 <- readRDS(file.path(data_loc, "test1.RDS"))
 data2 <- readRDS(file.path(data_loc, "test2.RDS"))
 spec <- load_spec(file.path(data_loc, "spec.yml"))
 
-expect_works <- function(...) {
-  expect_message(...,  regexp = "The data set passed all checks.")
-}
-
 test_that("check with no missing values", {
-  expect_works(check_data(data1, spec))
+  expect_message(check_data(data1, spec),  
+                 regexp = "The data set passed all checks.")
 })
 
 test_that("check with missing values", {
-  expect_works(check_data(data2, spec))
+  expect_message(check_data(data2, spec),  
+                 regexp = "The data set passed all checks.")
 })
 
 test_that("missing column", {
@@ -52,6 +50,19 @@ test_that("categorical out of range", {
 
 test_that("all NA returns success", {
   data <- mutate(data1, WT = as.numeric(NA))
-  expect_works(check_data(data, spec))
+  expect_message(check_data(data, spec),  
+                 regexp = "The data set passed all checks.")
+  
+  data <- mutate(data1, SEX = as.character(NA))
+  expect_message(check_data(data,spec), 
+                 regexp = "The data set passed all checks.")
+  
+  data$SEX[3] <- 4
+  expect_error(check_data(data,spec))
+  
+  data$SEX[3] <- 1
+  expect_message(check_data(data,spec),
+                 regexp = "The data set passed all checks.")
+  
 })
 
