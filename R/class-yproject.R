@@ -42,8 +42,14 @@ load_spec_proj <- function(file) {
 
   x[] <- imap(x, function(x,y) {
     x <- combine_list(defaults,x)
-    x[["spec_path"]] <- path
+    
     x[["name"]] <- y
+    
+    if(.no("path", x)) {
+      x[["spec_path"]] <-  path 
+    } else {
+      x[["spec_path"]] <- x[["path"]]  
+    }
     if(.no("spec_file", x)) {
       x[["spec_file"]] <- paste0(y, ".yml")
     }
@@ -53,10 +59,12 @@ load_spec_proj <- function(file) {
     if(.no("data_path",x)) {
       x[["data_path"]] <- path
     }
-    x[["spec_file"]] <- normalizePath(
-      file.path(x[["spec_path"]], x[["spec_file"]]),
-      mustWork = FALSE
-    )
+    if(.no("spec_file",x)) {
+      x[["spec_file"]] <- normalizePath(
+        file.path(x[["spec_path"]], x[["spec_file"]]),
+        mustWork = FALSE
+      )
+    }  
     x
   })
 
