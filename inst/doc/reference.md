@@ -25,9 +25,16 @@
 - `source: ADSL.xpt`
     - Where the data came from
     - include both the sdtm domain and variable name
-- `derivation: WEEKS = TIME/24/7`
-- `if_missing: imputed`
-
+- `dots`: 
+  - A named list of whatever you want to carry along in the object; the `dots` list
+    isn't used by any rendering function in the yspec package, but might be used 
+    by a custom rendering function 
+- `axis`:
+  - A short-ish name that can be used for axis titles for plots
+  - Generally, don't include units; yspec helpers will add that 
+    automatically by default
+  - If `short` will work for your axis title (as it is ... with no 
+    modification), yspec will use that if no `axis` field is used
 
 ## Examples
 

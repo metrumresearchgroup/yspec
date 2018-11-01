@@ -14,8 +14,8 @@ check_values <- function(x,values,verbose=FALSE, con = NULL) {
       cata( "  values: ", paste0(valu, collapse = ','),file = con)
     }
   }
-  if(length(x) != length(values)) return(FALSE)
-  length(setdiff(x,values))==0
+  if(length(x)==0) return(TRUE)
+  all(x %in% values)
 }
 
 check_range <- function(x,range,verbose=FALSE, con = NULL) {

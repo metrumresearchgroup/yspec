@@ -110,33 +110,9 @@ yspectemplate <- function() {
               package = "yspec")
 }
 
-##' Build a directory with template requirements
-##' 
-##' @param root directory where the build will take place
-##' 
-##' @details The following files will be copied into the 
-##' build directory: \code{_output.yml}, \code{mrgtemplate.tex}, 
-##' \code{header.tex}, \code{mrglogo.pdf}.
-##' 
-##' @return The path to the build directory.
-##' 
-##' @export
-mrgtemplate <- function(root = tempdir()) {
-  dir <- file.path(root, "mrgtemplate")
-  if(!dir.exists(dir)) dir.create(dir)
-  dir <- normalizePath(dir)
-  templ_dir <- system.file(
-    "mrgtemplate", package = "yspec"
-  )
-  files <- list.files(templ_dir, full.names=TRUE)
-  foo <- file.copy(files, dir, overwrite = TRUE, recursive = TRUE)
-  dir
-}
-
 cata <- function(..., fill = TRUE, append = TRUE) {
   cat(..., fill = fill, append = append)  
 }
-
 
 yspec_is_discrete <- function(x) {
   x[["discrete"]]  

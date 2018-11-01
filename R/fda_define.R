@@ -241,7 +241,7 @@ render_fda_define.character <- function(x,
   ans <- rmarkdown::render(.file, ...)
   
   if(copy_back) file.copy(ans, output_dir, overwrite = TRUE)
-
+  
   return(invisible(ans))
 
 }
