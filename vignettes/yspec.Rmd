@@ -1,0 +1,86 @@
+---
+title: "yspec"
+author: "Kyle Baron"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette: 
+    keep_md: true
+vignette: >
+  %\VignetteIndexEntry{yspec}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+## About
+
+The `yspec` package will read you data specification file
+when it is written in a specific `yaml` format.  
+
+```{r "library"}
+library(yspec)
+```
+
+## Example spec file
+
+An example specification file looks like:
+
+```{r "specfile", comment = " "}
+specfile <- yspec::file_spec_ex()
+
+cat(readLines(specfile)[1:29], sep = "\n")
+```
+
+
+Once the data specification `yaml` file is written, 
+it can be loaded in `R`
+
+```{r "load_specfile", comment = " "}
+spec <- load_spec(specfile)
+
+spec
+```
+
+Data from specific columns can be printed
+```{r "column", comment = " "}
+spec$WT
+```
+
+or summarized
+```{r "column_summary", comment = ' '}
+summary(spec, WT, DV, EGFR)
+```
+
+## Example to render spec
+
+The specification object can be rendered to a specification file
+```{r "render_spec", results = "hide", message = FALSE}
+render_spec(spec, stem = "render_spec")
+```
+
+With output [here](render_spec.pdf).
+
+
+## Example project file
+
+To create a project-wide data specification document, first
+create a project file:
+```{r "proj_file", comment = " "}
+proj <- file_proj_ex()
+
+cat(readLines(proj), sep = "\n")
+```
+
+The project file refers to other data specification documents, all of 
+which can be rendered to a single comprehensive 
+data specication file.
+
+
+## Render a project file
+
+```{r "fda_define", results = "hide", message = FALSE}
+render_fda_define(proj)
+```
+
+With output [here](define.pdf).

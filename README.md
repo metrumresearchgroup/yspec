@@ -16,3 +16,8 @@ install.packages("yspec", repos = unique(repos), type = "source", destdir = NULL
 ## News
 
 News can be found [here](news.md)
+
+## Vignettes
+
+- [Using yspec](https://ghe.metrumrg.com/pages/software/yspec/articles/yspec.html)
+

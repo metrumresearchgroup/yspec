@@ -11,3 +11,4 @@ Makefile
 ^test_.*\.R$
 ^.*\.Rproj$
 ^\.Rproj\.user$
+vignettes
