@@ -35,12 +35,12 @@ sp3 <- load_spec_ex("DEM104101F_AE.yml")
 
 ```
 
-So each object looks something like
+Each object looks something like
 ```{r}
 sp1
 ```
 
-So this includes our usual information about the columns in the data set. 
+This includes our usual information about the columns in the data set. 
 
 
 # Create a project object
