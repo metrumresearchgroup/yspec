@@ -20,4 +20,4 @@ News can be found [here](news.md)
 ## Vignettes
 
 - [Using yspec](https://ghe.metrumrg.com/pages/software/yspec/articles/yspec.html)
-
+- [Project template file for define documents](https://ghe.metrumrg.com/pages/software/yspec/articles/project.html)
