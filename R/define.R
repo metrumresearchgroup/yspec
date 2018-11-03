@@ -155,6 +155,7 @@ define_for_rmd <- function(yamlfile, format) {
 render_define <- function(x, ...) {
   UseMethod("render_define")  
 }
+
 ##' @rdname render_define
 ##' @export
 render_define.yproj <- function(x, ...) {
@@ -163,6 +164,7 @@ render_define.yproj <- function(x, ...) {
   assert_that(is.character(project_file_name))
   render_define(project_file_name, ...)
 }
+
 ##' @rdname render_define
 ##' @export
 render_define.character <- function(x,
@@ -176,7 +178,7 @@ render_define.character <- function(x,
                                     toc = "yes",
                                     date = format(Sys.time()),
                                     ...) {
-
+  
   spec <- load_spec_proj(x)
   meta <- get_meta(spec)
   

@@ -2,6 +2,8 @@ SETUP__:
   lookup_file: [_yspec_lookup.yml, _yspec_lookup.yml]
   project: DEM104101F
   client: ABC Pharmaceuticals, Inc
+  description: Population PK analysis data set
+  data_path: data/derived
 C:
   long: commented rows
   values: [".",C]

@@ -48,6 +48,11 @@ check_spec_input <- function(x, .fun = check_spec_input_col,
 
 check_this_col <- function(x,col,env,...) {
   err <- c()
+  if(.has("values",x)) {
+    if(any(x[["values"]] == "<yspec-null>")) {
+      err <- c(err, "values field includes NULLs")  
+    }
+  }
   if(.has("values",x) & .has("range",x)) {
     err <- c(err, "column has both values and range")
   }
@@ -73,7 +78,7 @@ check_spec_cols <- function(x, context = "column") {
 check_for_err <- function(x, .fun, ...) {
   env <- new.env()
   env$err <- set_names(vector("list", length(x)),names(x))
-  walk2(x, seq_along(x), .fun, env = env, ...)
+  walk2(x, names(x), .fun, env = env, ...)
   err <- discard(as.list(env)$err, is.null)
   if(length(err)==0) return(character(0))
   err <- imap_chr(err, .f = function(msg, col) {
@@ -211,7 +216,7 @@ unpack_about <- function(x) {
 }
 
 unpack_col <- function(x) {
-
+  
   if(.no("short",x)) {
     x[["short"]] <- x[["col"]]
   }
@@ -231,9 +236,14 @@ unpack_col <- function(x) {
     if(!.has("decode",x)) {
       x$decode <- names(x$values)
     }
-    x$values <- unlist(x$values, use.names=FALSE)
+    x$values <- sapply(x$values, sub_null, USE.NAMES=FALSE)
+    if(is.character(x$values)) x$type <- "character"
   }
   structure(x, class = "ycol")
+}
+
+sub_null <- function(x) {
+  ifelse(is.null(x), "<yspec-null>", x)
 }
 
 col_initialize <- function(x, name) {

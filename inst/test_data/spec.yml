@@ -13,15 +13,15 @@ WT:
   unit: kg
 DV:
   range:
-  - 0.0e+00
-  - 1.0e+04
+  - 0.0
+  - 10000.0
   long: dependent variable
   unit: ng/ml
 SEX:
   short: female sex
   values:
-  - 0.0e+00
-  - 1.0e+00
+  - 0.0
+  - 1.0
   decode:
   - male
   - female
