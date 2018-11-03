@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create build location for branded documents — mrgtemplate • yspec</title>
+<title>Get the yaml file location for a spec object — yspec_yml_file • yspec</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,10 +30,9 @@
 
 
 
-<meta property="og:title" content="Create build location for branded documents — mrgtemplate" />
+<meta property="og:title" content="Get the yaml file location for a spec object — yspec_yml_file" />
 
-<meta property="og:description" content="The idea is to create a build directory such that, when 
-you render" />
+<meta property="og:description" content="Get the yaml file location for a spec object" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -111,60 +110,35 @@ you render" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create build location for branded documents</h1>
+    <h1>Get the yaml file location for a spec object</h1>
     
-    <div class="hidden name"><code>mrgtemplate.Rd</code></div>
+    <div class="hidden name"><code>yspec_yml_file.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>The idea is to create a build directory such that, when 
-you render</p>
+    <p>Get the yaml file location for a spec object</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>mrgtemplate</span>(<span class='kw'>root</span> <span class='kw'>=</span> <span class='fu'>tempdir</span>())</pre>
+    <pre class="usage"><span class='fu'>yspec_yml_file</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>root</th>
-      <td><p>directory where the build will take place</p></td>
+      <th>x</th>
+      <td><p>yspec object</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The path to the build directory.</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>The following files will be copied into the 
-build directory: <code>_output.yml</code>, <code>mrgtemplate.tex</code>, 
-<code>header.tex</code>, <code>mrglogo.pdf</code>.</p>
-    
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='no'>ans</span> <span class='kw'>&lt;-</span> <span class='fu'>mrgtemplate</span>()
-
-<span class='no'>ans</span></div><div class='output co'>#&gt; [1] "/private/var/folders/xb/hqmfzgl95fq8mx6tjxkzb71r0000gn/T/Rtmp0ZOpDB/mrgtemplate"</div><div class='input'>
-<span class='fu'>list.files</span>(<span class='no'>ans</span>)</div><div class='output co'>#&gt; [1] "_output.yml"     "header.tex"      "mrglogo.pdf"     "mrglogo2.pdf"   
-#&gt; [5] "mrgtemplate.tex"</div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+                </ul>
 
   </div>
 </div>

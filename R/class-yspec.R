@@ -231,3 +231,12 @@ Source.yspec <- function(x,default = '.',...) {
   map_chr(x, "source", .default = default)
 }
 
+##' Get the yaml file location for a spec object
+##' 
+##' @param x yspec object
+##' @export
+yspec_yml_file <- function(x,...) UseMethod("yspec_yml_file")
+##' @export
+yspec_yml_file.default <- function(x) {
+  get_meta(x)[["yml_file"]]  
+}

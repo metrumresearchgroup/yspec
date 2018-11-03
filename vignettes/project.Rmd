@@ -66,9 +66,10 @@ it locally and keep it as a part of the project.
 
 
 To do this, we tucked some additional information into the data set 
-specification file
-```{r}
-str(get_meta(sp1))
+specification file. For example, the specification file for the first spec 
+object (`sp1`) looks like this:
+```{yaml,code = readLines(yspec_yml_file(sp1))}
+
 ```
 
 In the `SETUP__` block, we included a description; this is required to make a 
