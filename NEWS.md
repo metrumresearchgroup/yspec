@@ -1,3 +1,11 @@
+# 0.2.0.9000
+- Fixed bug where column check error were assigned to the wrong column 
+name #7
+- Added `as_proj_spec` function that allows creation of a project
+spec file from individual data set spec objects
+- Added more flexibility for specifying project and data set
+spec files in different locations #5
+
 # 0.1.0.9001
 
 - `render_define` changed to generic function, with methods 

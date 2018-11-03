@@ -21,6 +21,8 @@
 ##' @export
 yspec_add_factors <- function(.data, .spec, ... , .suffix = "_f") {
   
+  assert_that(inherits(.spec, "yspec"))
+  
   vars <- select_vars(names(.data), !!!quos(...))
   
   for(v in vars) {
