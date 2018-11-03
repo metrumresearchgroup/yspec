@@ -49,4 +49,6 @@ check:
 	make build
 	R CMD CHECK ${TARBALL} -o ${CHKDIR}
 
-
+travis:
+	make build
+	R CMD check --no-manual ${TARBALL} -o ${CHKDIR}
