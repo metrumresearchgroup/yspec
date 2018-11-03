@@ -140,8 +140,9 @@ fda_content_table_ref <- function(name, data_file) {
 ##'
 ##' cat(readLines(proj), sep = "\n")
 ##'
-##' fda_define(proj)
-##'
+##' \dontrun{
+##'   fda_define(proj)
+##' }
 ##' @export
 fda_define <- function(file, title = "Datasets") {
 
@@ -174,9 +175,11 @@ fda_define <- function(file, title = "Datasets") {
 ##' proj_file <- file_proj_ex()
 ##'
 ##' proj_file
-##'
-##' render_fda_define(proj_file)
-##'
+##' 
+##' \dontrun{
+##'   render_fda_define(proj_file)
+##' }
+##' 
 ##' @export
 render_fda_define <- function(x, ... ) {
   UseMethod("render_fda_define")

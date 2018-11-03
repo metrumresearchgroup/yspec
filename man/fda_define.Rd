@@ -24,6 +24,7 @@ proj <- file_proj_ex()
 
 cat(readLines(proj), sep = "\\n")
 
-fda_define(proj)
-
+\dontrun{
+  fda_define(proj)
+}
 }

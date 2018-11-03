@@ -30,8 +30,10 @@ call_format_fun <- function(yamlfile,
 ##' render_spec(file)
 ##'
 ##' spec <- load_spec_ex()
-##' render_spec(spec)
-##'
+##' 
+##' \dontrun{
+##'   render_spec(spec)
+##' }
 ##' @export
 render_spec <- function(x, ...) UseMethod("render_spec")
 
@@ -148,9 +150,10 @@ define_for_rmd <- function(yamlfile, format) {
 ##' file <- file_proj_ex()
 ##'
 ##' file
-##'
-##' render_define(file)
-##'
+##' 
+##' \dontrun{
+##'   render_define(file)
+##' }
 ##' @export
 render_define <- function(x, ...) {
   UseMethod("render_define")  

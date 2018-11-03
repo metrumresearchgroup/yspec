@@ -50,6 +50,8 @@ file <- file_spec_ex()
 render_spec(file)
 
 spec <- load_spec_ex()
-render_spec(spec)
 
+\dontrun{
+  render_spec(spec)
+}
 }

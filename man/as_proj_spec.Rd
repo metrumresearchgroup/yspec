@@ -4,19 +4,12 @@
 \alias{as_proj_spec}
 \title{Create a project object from data spec objects}
 \usage{
-as_proj_spec(..., output = tempfile(fileext = "yml"), sponsor = "",
-  projectnumber = "", data_path = "data/derived")
+as_proj_spec(..., output = tempfile(fileext = ".yml"))
 }
 \arguments{
 \item{...}{yspec objects}
 
 \item{output}{the name and path where the project file is to be written}
-
-\item{sponsor}{used when rendering the define document}
-
-\item{projectnumber}{used when rendering the define document}
-
-\item{data_path}{used when rendering the define document}
 }
 \value{
 an object of class yproj

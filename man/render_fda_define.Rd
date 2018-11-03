@@ -40,6 +40,8 @@ proj_file <- file_proj_ex()
 
 proj_file
 
-render_fda_define(proj_file)
+\dontrun{
+  render_fda_define(proj_file)
+}
 
 }

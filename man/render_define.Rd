@@ -54,6 +54,7 @@ file <- file_proj_ex()
 
 file
 
-render_define(file)
-
+\dontrun{
+  render_define(file)
+}
 }

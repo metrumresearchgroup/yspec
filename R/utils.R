@@ -49,6 +49,14 @@ backticks <- function(x) paste0("`",x,"`")
 
 is_error <- function(x) inherits(x,"try-error")
 
+make_null <- function(x, name) {
+  modify(x, function(xx) {
+    xx[[name]] <- NULL
+    xx
+  })
+}
+
+
 .no <- function(name,object) {
   is.null(object[[name]])
 }

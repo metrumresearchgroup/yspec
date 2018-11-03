@@ -152,6 +152,10 @@ unpack_meta <- function(x) {
     meta[["lookup_file"]] <- file.path(meta[["path"]],meta[["lookup_file"]])
     meta[["lookup_file"]] <- normalizePath(meta[["lookup_file"]],mustWork = FALSE)
   }
+  if(.no("name", meta)) {
+    meta[["name"]] <- basename(meta[["yml_file"]])
+    meta[["name"]] <- tools::file_path_sans_ext(meta[["name"]])
+  }
   if(is.null(meta[["primary_key"]])) {
     meta[["primary_key"]] <- character(0)
   } else {

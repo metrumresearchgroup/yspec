@@ -6,6 +6,7 @@ mrglogo\.pdf
 inst/doc
 inst/readme_docs
 .*\.tar\.gz$
+\.travis\.yml
 Makefile
 ^test\.R$
 ^test_.*\.R$

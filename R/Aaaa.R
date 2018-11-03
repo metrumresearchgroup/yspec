@@ -9,7 +9,7 @@
 ##' @importFrom assertthat assert_that
 ##' @importFrom purrr map map_chr map_df map_if map_lgl
 ##' @importFrom purrr imap imap_chr
-##' @importFrom purrr discard
+##' @importFrom purrr discard compact transpose
 ##' @importFrom purrr walk walk2 iwalk
 ##' @importFrom purrr flatten flatten_chr modify
 ##' @importFrom glue glue
