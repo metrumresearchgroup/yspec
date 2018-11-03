@@ -5,6 +5,9 @@ TARBALL=${PACKAGE}_${VERSION}.tar.gz
 PKGDIR=.
 CHKDIR=.
 
+pkgdown:
+	Rscript -e 'pkgdown::build_site()'
+
 readme:
 	Rscript -e 'rmarkdown::render("README.Rmd")'
 
