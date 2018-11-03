@@ -1,3 +1,6 @@
+SETUP__:
+  description: Population PKPD analysis data set
+  data_path: data/derived
 C:
   long: commented rows
   values: [".",C]
