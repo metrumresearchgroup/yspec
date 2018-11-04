@@ -132,6 +132,8 @@ assemble_proj_info <- function(x) {
 ##' 
 ##' @param ... yspec objects or file names of yaml specification files
 ##' @param output the name and path where the project file is to be written
+##' @param where directory containing the specification files if listed
+##' in \code{...}
 ##' @return an object of class yproj
 ##' @export
 as_proj_spec <- function(..., output=tempfile(fileext=".yml")) {

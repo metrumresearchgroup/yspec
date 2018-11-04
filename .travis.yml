@@ -13,8 +13,6 @@ env:
     - _R_S3_METHOD_LOOKUP_USE_TOPENV_AS_DEFENV_=true  
     - _R_CHECK_FORCE_SUGGESTS=0
 
-pandoc: false
-
 script:
   - export _R_CHECK_FORCE_SUGGESTS_=0
   - make travis
