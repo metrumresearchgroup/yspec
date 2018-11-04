@@ -121,14 +121,16 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>as_proj_spec</span>(<span class='no'>...</span>, <span class='kw'>output</span> <span class='kw'>=</span> <span class='fu'>tempfile</span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".yml"</span>))</pre>
+    <pre class="usage"><span class='fu'>as_proj_spec</span>(<span class='no'>...</span>, <span class='kw'>output</span> <span class='kw'>=</span> <span class='fu'>tempfile</span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".yml"</span>))
+
+<span class='fu'>as_proj_spec_file</span>(<span class='no'>...</span>, <span class='kw'>output</span> <span class='kw'>=</span> <span class='fu'>tempfile</span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".yml"</span>), <span class='kw'>where</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>...</th>
-      <td><p>yspec objects</p></td>
+      <td><p>yspec objects or file names of yaml specification files</p></td>
     </tr>
     <tr>
       <th>output</th>

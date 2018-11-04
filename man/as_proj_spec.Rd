@@ -2,12 +2,15 @@
 % Please edit documentation in R/class-yproject.R
 \name{as_proj_spec}
 \alias{as_proj_spec}
+\alias{as_proj_spec_file}
 \title{Create a project object from data spec objects}
 \usage{
 as_proj_spec(..., output = tempfile(fileext = ".yml"))
+
+as_proj_spec_file(..., output = tempfile(fileext = ".yml"), where = NULL)
 }
 \arguments{
-\item{...}{yspec objects}
+\item{...}{yspec objects or file names of yaml specification files}
 
 \item{output}{the name and path where the project file is to be written}
 }
