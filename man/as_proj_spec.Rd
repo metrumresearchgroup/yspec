@@ -13,6 +13,9 @@ as_proj_spec_file(..., output = tempfile(fileext = ".yml"), where = NULL)
 \item{...}{yspec objects or file names of yaml specification files}
 
 \item{output}{the name and path where the project file is to be written}
+
+\item{where}{directory containing the specification files if listed
+in \code{...}}
 }
 \value{
 an object of class yproj
