@@ -2,14 +2,14 @@
 
 merge.list <- function(x,y,..., open=FALSE,
                        warn=TRUE, context="object") {
-
+  
   y <- as.list(y)
-
+  
   ## Merge two lists
   common <- intersect(names(x), names(y))
-
+  
   x[common] <- y[common]
-
+  
   if(open)  {
     nw <- !is.element(names(y),names(x)) #| names(y) == wild
     x <- c(x,y[nw])
@@ -91,7 +91,7 @@ try_yaml <- function(file) {
 
 
 .test_spec <- function(.name, ..., .where = tempfile()) {
-
+  
   a <- set_names(list(list(type = "numeric", lookup = FALSE)),
                  "AAA")
   b <- set_names(list(list(type = "numeric", short = "just a test",
@@ -107,7 +107,7 @@ try_yaml <- function(file) {
 }
 
 yspec_pdf_document <- function(...,template = NULL) {
-
+  
   template <- system.file("tex", "yspectemplate.tex",
                           package = "yspec")
   rmarkdown::pdf_document(..., template = template)
@@ -159,5 +159,18 @@ yspec_select_discrete <- function(.spec) {
 ##' @export
 yspec_select_chr <- function(.spec) {
   yspec_select_if(.spec, yspec_is_character)  
+}
+
+##' Test specification code
+##' 
+##' For internal / testing use
+##' 
+##' @param x a list column specification data
+##' @export
+test_spec_list <- function(x) {
+  file <- tempfile()
+  y <- yaml::as.yaml(x)
+  writeLines(con = file, y)
+  yspec::load_spec(file)
 }
 
