@@ -1,6 +1,6 @@
 ##' @importFrom yaml yaml.load_file as.yaml
 ##' @importFrom dplyr filter %>% bind_rows data_frame select_vars
-##' @importFrom dplyr mutate if_else .data
+##' @importFrom dplyr mutate if_else .data desc
 ##' @importFrom rmarkdown render pdf_document html_document
 ##' @importFrom knitr kable
 ##' @importFrom xtable xtable

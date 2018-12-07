@@ -99,7 +99,8 @@ check_data_names <- function(ndata,nspec,env,output) {
   add_log(env, "names in data but not in spec:")
   append_log(env,diff,.bullet = FALSE)
   
-  dff <- dplyr::arrange(dplyr::bind_rows(dfs,dfd), .data["position"])
+  dff <- dplyr::bind_rows(dfs,dfd)
+  dff <- dplyr::arrange(dff,.data[["position"]], desc(.data[["col_source"]]))
   dff <- capture.output(print(as.data.frame(dff), row.names = FALSE,right=FALSE)) 
   dff <- paste0("  ", dff)
   dff <- paste0(dff,collapse = "\n")
