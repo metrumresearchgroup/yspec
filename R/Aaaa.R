@@ -1,6 +1,6 @@
 ##' @importFrom yaml yaml.load_file as.yaml
 ##' @importFrom dplyr filter %>% bind_rows data_frame select_vars
-##' @importFrom dplyr mutate if_else
+##' @importFrom dplyr mutate if_else .data
 ##' @importFrom rmarkdown render pdf_document html_document
 ##' @importFrom knitr kable
 ##' @importFrom xtable xtable
@@ -17,3 +17,7 @@ NULL
 
 
 globalVariables(c("decode", "unit", "source", "type", "value"))
+
+yspec_internal <- new.env()
+yspec_internal$last_check <- ""
+

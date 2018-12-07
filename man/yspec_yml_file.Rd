@@ -8,6 +8,8 @@ yspec_yml_file(x, ...)
 }
 \arguments{
 \item{x}{yspec object}
+
+\item{...}{not used}
 }
 \description{
 Get the yaml file location for a spec object
