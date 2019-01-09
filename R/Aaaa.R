@@ -13,6 +13,7 @@
 ##' @importFrom purrr walk walk2 iwalk
 ##' @importFrom purrr flatten flatten_chr modify
 ##' @importFrom glue glue
+##' @importFrom utils type.convert
 NULL
 
 

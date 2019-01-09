@@ -73,7 +73,7 @@ try_yaml <- function(file) {
           "\n  does not exist in directory\n  ",
           dirname(file))
   }
-  this <- try(yaml.load_file(file), silent = TRUE)
+  this <- try(yaml.load_file(file, handlers=handlrs), silent = TRUE)
   if(is_error(this)) {
     tryfile <- paste0("yaml::yaml.load_file(\"",file,"\")")
     .stop(
