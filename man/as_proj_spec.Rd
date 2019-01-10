@@ -7,7 +7,8 @@
 \usage{
 as_proj_spec(..., output = tempfile(fileext = ".yml"))
 
-as_proj_spec_file(..., output = tempfile(fileext = ".yml"), where = NULL)
+as_proj_spec_file(..., output = tempfile(fileext = ".yml"),
+  where = NULL)
 }
 \arguments{
 \item{...}{yspec objects or file names of yaml specification files}

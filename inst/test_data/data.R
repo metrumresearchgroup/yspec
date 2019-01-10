@@ -1,14 +1,14 @@
 
-library(dplyr)
+
 library(purrr)
 library(yaml)
 library(yspec)
-
+library(dplyr)
 
 set.seed(1100)
 
 n <- 50
-data <- data_frame(
+data <- tibble(
   TIME = seq(n),
   WT = runif(n, 20, 120),
   DV = runif(n, 0, 1000),

@@ -73,7 +73,7 @@ try_yaml <- function(file) {
           "\n  does not exist in directory\n  ",
           dirname(file))
   }
-  this <- try(yaml.load_file(file), silent = TRUE)
+  this <- try(yaml.load_file(file, handlers=handlrs), silent = TRUE)
   if(is_error(this)) {
     tryfile <- paste0("yaml::yaml.load_file(\"",file,"\")")
     .stop(
@@ -174,3 +174,8 @@ test_spec_list <- function(x) {
   yspec::load_spec(file)
 }
 
+
+make_sep <- function(width = 40) {
+  line <- paste0(rep("-",width-1),collapse = "")
+  paste0("#",line)
+}

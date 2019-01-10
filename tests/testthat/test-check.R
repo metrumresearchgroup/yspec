@@ -19,7 +19,7 @@ test_that("check with missing values", {
 })
 
 test_that("missing column", {
-  data <- dplyr::select(data1, -WT)
+  data <- dplyr::select(data1, -WT, -STUDY)
   expect_error(check_data(data, spec))
 })
 
@@ -32,6 +32,12 @@ test_that("column with wrong name", {
   data <- dplyr::rename(data1, WEIGHT = WT)
   expect_error(check_data(data, spec))
 })
+
+test_that("column with wrong name", {
+  names(spec) <- paste0(names(spec),names(spec))
+  expect_error(check_data(data, spec))
+})
+
 
 test_that("extra column", {
   data <- mutate(data1, FOOO = 1)

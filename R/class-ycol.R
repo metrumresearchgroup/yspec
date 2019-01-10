@@ -13,13 +13,16 @@ print.ycol <- function(x,...) {
     ans <- filter(ans, name != "range", name != "unit")
     if(.has("values", x)) {
       valu <- x[["values"]]
+      mx <- max(nchar(valu))
+      valu <- formatC(valu,width=mx,flag="-")
       if(.has("decode", x)) {
-        valu <- paste(valu, x[["decode"]], sep = ": ")
+        valu <- paste(valu, x[["decode"]], sep = " : ")
       }
       if(any(nchar(valu) > 45)) {
         w <- which(nchar(valu) > 45)
         valu[w] <- paste0(substr(valu[w],1,45)," ...")
       }
+
       valu <- data_frame(name = c("value",rep('', length(valu)-1)), 
                          value = as.character(valu))
       ans <- bind_rows(ans,valu)
