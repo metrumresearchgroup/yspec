@@ -16,9 +16,8 @@
 ##' @importFrom utils type.convert
 NULL
 
-
 globalVariables(c("decode", "unit", "source", "type", "value"))
 
 yspec_internal <- new.env()
-yspec_internal$last_check <- ""
 
+yspec_internal$last_check <- ""
