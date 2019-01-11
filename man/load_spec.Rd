@@ -2,12 +2,22 @@
 % Please edit documentation in R/load_spec.R
 \name{load_spec}
 \alias{load_spec}
+\alias{ys_load}
+\alias{load_spec_file}
 \title{Load a data specification file}
 \usage{
-load_spec(file)
+load_spec(file, ...)
+
+ys_load(...)
+
+load_spec_file(file, data_path = NULL, data_stem = NULL)
 }
 \arguments{
 \item{file}{name of yaml file containing specification}
+
+\item{data_path}{optional path to data sets}
+
+\item{data_stem}{optional alternate stem for data files}
 }
 \description{
 Load a data specification file

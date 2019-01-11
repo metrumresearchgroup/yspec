@@ -52,3 +52,7 @@ check:
 travis:
 	make build
 	R CMD check --no-manual ${TARBALL} -o ${CHKDIR}
+
+clean: 
+	rm *.pdf
+	rm *.yml

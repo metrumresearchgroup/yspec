@@ -89,15 +89,6 @@ check_for_err <- function(x, .fun, ...) {
   err
 }
 
-# workhorse load and prep function
-# used to load spec, lookup, and project files
-load_spec_file <- function(file) {
-  file <- normalizePath(file, mustWork = FALSE)
-  x <- try_yaml(file)
-  x <- capture_file_info(x,file)
-  unpack_meta(x)
-}
-
 capture_file_info <- function(x,file,where = "SETUP__") {
   x[[where]][["yml_file"]] <- file
   x[[where]][["path"]] <- dirname(file)
@@ -107,11 +98,27 @@ capture_file_info <- function(x,file,where = "SETUP__") {
 ##' Load a data specification file
 ##'
 ##' @param file name of yaml file containing specification
+##' @param data_path optional path to data sets
+##' @param data_stem optional alternate stem for data files
 ##' @export
-load_spec <- function(file) {
+load_spec <- function(file, ...) {
   x <- load_spec_file(file)
   unpack_spec(x)
 }
+
+##' @rdname load_spec
+##' @export
+ys_load <- function(...) load_spec(...)
+
+##' @rdname load_spec
+##' @export
+load_spec_file <- function(file, data_path = NULL, data_stem = NULL) {
+  file <- normalizePath(file, mustWork = FALSE)
+  x <- try_yaml(file)
+  x <- capture_file_info(x,file)
+  unpack_meta(x)
+}
+
 
 unpack_spec <- function(x) {
 
