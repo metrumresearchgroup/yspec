@@ -174,8 +174,11 @@ test_spec_list <- function(x) {
   yspec::load_spec(file)
 }
 
-
 make_sep <- function(width = 40) {
   line <- paste0(rep("-",width-1),collapse = "")
   paste0("#",line)
+}
+
+db_quote <- function(x) {
+  paste0("\"", x, "\"")  
 }

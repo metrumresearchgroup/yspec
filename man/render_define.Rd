@@ -4,6 +4,7 @@
 \alias{render_define}
 \alias{render_define.yproj}
 \alias{render_define.character}
+\alias{render_define.yspec}
 \alias{render_spec}
 \alias{render_spec.character}
 \alias{render_spec.yspec}
@@ -17,13 +18,17 @@ render_define(x, ...)
   title = "Data Specification", author = "MetrumRG", toc = "yes",
   number_sections = "yes", date = format(Sys.time()), ...)
 
-\method{render_define}{character}(x, ...)
+\method{render_define}{character}(x, ..., dots = list())
+
+\method{render_define}{yspec}(...)
 
 render_spec(x, ...)
 
-\method{render_spec}{character}(x, stem = basename(x), ...)
+\method{render_spec}{character}(x, stem = basename(x), ...,
+  dots = list())
 
-\method{render_spec}{yspec}(x, stem = get_meta(x)[["name"]], ...)
+\method{render_spec}{yspec}(x, stem = get_meta(x)[["name"]], ...,
+  dots = list())
 }
 \arguments{
 \item{x}{a \code{yproj} object or project specification file name}
@@ -51,6 +56,8 @@ document}
 \item{number_sections}{used in yaml front matter}
 
 \item{date}{used in yaml front matter}
+
+\item{dots}{passed to object converter}
 }
 \description{
 `render_spec` generates a define document from a single specification object

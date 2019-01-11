@@ -4,16 +4,19 @@
 \alias{render_fda_define}
 \alias{render_fda_define.yproj}
 \alias{render_fda_define.character}
+\alias{render_fda_define.yspec}
 \title{Render a define document for sending to FDA}
 \usage{
 render_fda_define(x, ...)
 
-\method{render_fda_define}{yproj}(x, ...)
-
-\method{render_fda_define}{character}(x, stem = "define",
+\method{render_fda_define}{yproj}(x, stem = "define",
   title = "Data Definitions", date = format(Sys.time()),
   author = "MetrumRG Staff Scientist", output_dir = getwd(),
   build_dir = tempdir(), ...)
+
+\method{render_fda_define}{character}(x, ..., dots = list())
+
+\method{render_fda_define}{yspec}(x, ..., dots = list())
 }
 \arguments{
 \item{x}{a yaml specification file name or a yproj object}
@@ -31,6 +34,8 @@ render_fda_define(x, ...)
 \item{output_dir}{passed to \code{rmarkdown::render}}
 
 \item{build_dir}{directory where rmarkdown will build the document}
+
+\item{dots}{passed to object converter function}
 }
 \description{
 Render a define document for sending to FDA

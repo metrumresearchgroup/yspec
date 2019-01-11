@@ -91,10 +91,6 @@ as.list.yproj <- function(x, ...) {
   unclass(x)
 }
 
-# applied to each specification in the project
-# x is a spec object
-# met is the meta data for that spec object
-
 assemble_proj_info <- function(x) {
   met <- get_meta(x)
   description <- met[["description"]]
@@ -139,12 +135,14 @@ csv_file_name <- function(data_path, data_stem, ext = ".csv", ...) {
 ##' @param output the name and path where the project file is to be written
 ##' @param where directory containing the specification files if listed
 ##' @param data_path optional data path
+##' @param dots used to update `SETUP__` block data items
 ##' @param sponsor optional project sponsor
 ##' @param projectnumber optional project number
 ##' in \code{...}
 ##' @return an object of class yproj
 ##' @export
-as_proj_spec <- function(..., output=tempfile(fileext=".yml"), data_path = NULL, 
+as_proj_spec <- function(..., output=tempfile(fileext=".yml"), 
+                         data_path = NULL, dots = list(),
                          sponsor = "[sponsor]", projectnumber = "[projectnumber]") {
   lst <- list(...)
   proj <- map(lst, assemble_proj_info)
@@ -184,6 +182,7 @@ as_proj_spec <- function(..., output=tempfile(fileext=".yml"), data_path = NULL,
     proj_path = dirname(output),
     path = dirname(output)
   )
+  meta <- update_list(meta,dots)
   txt <- yaml::as.yaml(c(list(SETUP__ = meta),proj))
   if(dirname(output)==tempdir()) {
     loc <- paste0(basename(output), " in tempdir()")
@@ -200,7 +199,7 @@ as_proj_spec <- function(..., output=tempfile(fileext=".yml"), data_path = NULL,
 
 ##' @rdname as_proj_spec
 ##' @export
-as_proj_spec_file <- function(..., output = tempfile(fileext=".yml"), where = NULL) {
+ys_project_file <- function(..., output = tempfile(fileext=".yml"), where = NULL, dots = list()) {
   
   files <- list(...) %>% unlist()
   if(is.character(where)) {
@@ -208,7 +207,8 @@ as_proj_spec_file <- function(..., output = tempfile(fileext=".yml"), where = NU
   }
   files <- normalizePath(files)
   specs <- lapply(files, load_spec_file)
-  do.call(as_proj_spec, c(specs, list(output=output)))
+  dots[["output"]] <- output
+  do.call(as_proj_spec, c(specs, dots))
 }
 
 #' @rdname as_proj_spec
@@ -216,5 +216,3 @@ as_proj_spec_file <- function(..., output = tempfile(fileext=".yml"), where = NU
 ys_project <- function(...) {
   as_proj_spec(...)  
 }
-
-

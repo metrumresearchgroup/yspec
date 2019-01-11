@@ -23,7 +23,7 @@ as_fda_table_row <- function(x) {
   if(.has("unit", x)) {
     label <- paste0(label, " (unit: ", x$unit, ")")
   }
-
+  
   data_frame(VARIABLE = x[["col"]],
              LABEL = label,
              TYPE = type(x, " "),
@@ -102,10 +102,12 @@ fda_content_table <- function(x) {
     .stop("x is not a project specification object")
   }
   contents <- map_df(x, fda_content_table_row)
-  kable(contents,
-        format = "latex",
-        align = c("|p{2.85in}", "p{2.55in}|"),
-        escape = FALSE)
+  kable(
+    contents,
+    format = "latex",
+    align = c("|p{2.85in}", "p{2.55in}|"),
+    escape = FALSE
+  )
 }
 
 ##' @rdname fda_content_table
@@ -115,15 +117,21 @@ fda_content_table_file <- function(file) {
 }
 
 fda_content_table_row <- function(.x) {
-  loc <- fda_content_table_ref(.x[["name"]], .x[["data_file"]])
-  data_frame(Description  = .x$description,
-             Location = loc)
+  .x[["data_file"]] <- paste0(.x[["name"]], ".xpt")
+  desc <- fda_content_table_ref(.x[["name"]],.x[["description"]], .x[["data_file"]])
+  loc <-  fda_content_table_loc(.x[["data_file"]])
+  data_frame(Description  = desc, Location = loc)
 }
 
-fda_content_table_ref <- function(name, data_file) {
-  data_file <- gsub("_", "\\\\_", data_file)
-  paste0("\\hyperref[",name,"]{", data_file, "}")
+fda_content_table_ref <- function(name, desc, data_file) {
+  paste0("\\hyperref[",name,"]{", desc, "}")
 }
+
+fda_content_table_loc <- function(data_file) {
+  loc_display <- gsub("_", "\\\\_", data_file)
+  paste0("\\href{run:./",data_file, "}{",loc_display,"}")
+}
+
 
 ##' Generate content for FDA define document
 ##'
@@ -145,13 +153,13 @@ fda_content_table_ref <- function(name, data_file) {
 ##' }
 ##' @export
 fda_define <- function(file, title = "Datasets") {
-
+  
   x <- load_spec_proj(file)
-
+  
   main <- paste0("# ", title)
-
+  
   contents <- fda_content_table(x)
-
+  
   specs <- map(x, function(this) {
     title <- paste0(this$description, " (`", this$data_file, "`)")
     header <- paste0("## ", title, " \\label{", this$name,"}")
@@ -169,6 +177,7 @@ fda_define <- function(file, title = "Datasets") {
 ##' @param author the document author
 ##' @param output_dir passed to \code{rmarkdown::render}
 ##' @param build_dir directory where rmarkdown will build the document
+##' @param dots passed to object converter function
 ##' @param ... passed to \code{rmarkdown::render}
 ##'
 ##' @examples
@@ -187,26 +196,14 @@ render_fda_define <- function(x, ... ) {
 
 ##' @rdname render_fda_define
 ##' @export
-render_fda_define.yproj <- function(x, ...) {
-  m <- get_meta(x)
-  project_file_name <- m$yml_file
-  assert_that(is.character(project_file_name))
-  render_fda_define(project_file_name, ...)
-}
-
-##' @rdname render_fda_define
-##' @export
-render_fda_define.character <- function(x,
-                                        stem = "define",
-                                        title = "Data Definitions",
-                                        date = format(Sys.time()),
-                                        author = "MetrumRG Staff Scientist",
-                                        output_dir = getwd(),
-                                        build_dir = tempdir(),
-                                        ...) {
-
-  yamlfile <- normalizePath(x)
-
+render_fda_define.yproj <- function(x, 
+                                    stem = "define",
+                                    title = "Data Definitions",
+                                    date = format(Sys.time()),
+                                    author = "MetrumRG Staff Scientist",
+                                    output_dir = getwd(),
+                                    build_dir = tempdir(), ...) {
+  
   output_dir <- normalizePath(output_dir)
   build_dir <- normalizePath(build_dir)
   cwd <- normalizePath(getwd())
@@ -216,35 +213,133 @@ render_fda_define.character <- function(x,
     setwd(build_dir)
     on.exit(setwd(cwd))
   }
-
-  proj <- load_spec_proj(yamlfile)
-
-  m <- get_meta(proj)
-
-  if(!is.character(m[["sponsor"]])) {
+  
+  meta <- get_meta(x)
+  
+  yamlfile <- meta[["proj_file"]]
+  
+  if(!is.character(meta[["sponsor"]])) {
     .stop("sponsor field is required in SETUP__")
   }
-  sponsor <- m[["sponsor"]]
-
-  if(!is.character(m[["projectnumber"]])) {
+  sponsor <- meta[["sponsor"]]
+  
+  if(!is.character(meta[["projectnumber"]])) {
     .stop("projectnumber field is required in SETUP__")
   }
-  projectnumber <- m[["projectnumber"]]
-
+  projectnumber <- meta[["projectnumber"]]
+  
+  sponsor <- db_quote(sponsor)
+  projectnumber <- db_quote(projectnumber)
+  
   rmd <- system.file("rmd", "fdadefine.Rmd", package = "yspec")
-
+  
   txt <- paste0(readLines(rmd),collapse = "\n")
-
+  
   txt <- glue(txt, .open = "<", .close = ">")
-
+  
   .file <- paste0(stem, ".Rmd")
-
+  
   writeLines(txt,.file)
-
+  
   ans <- rmarkdown::render(.file, ...)
   
   if(copy_back) file.copy(ans, output_dir, overwrite = TRUE)
   
   return(invisible(ans))
-
+  
 }
+
+##' @rdname render_fda_define
+##' @export
+render_fda_define.character <- function(x,...,dots = list()) {
+  proj <- do.call(ys_project_file, c(list(x),dots))
+  render_fda_define.yproj(proj, ...)
+}
+
+##' @rdname render_fda_define
+##' @export
+render_fda_define.yspec <- function(x, ..., dots = list()) {
+  dots <- c(list(x),dots)
+  proj <- do.call(ys_project, dots)
+  render_fda_define.yproj(proj,...)  
+}
+
+
+
+
+
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# ##' @rdname render_fda_define
+# ##' @export
+# render_fda_define.yproj <- function(x, ...) {
+#   m <- get_meta(x)
+#   project_file_name <- m$yml_file
+#   assert_that(is.character(project_file_name))
+#   render_fda_define(project_file_name, ...)
+# }
+# 
+# ##' @rdname render_fda_define
+# ##' @export
+# render_fda_define.character <- function(x,
+#                                         stem = "define",
+#                                         title = "Data Definitions",
+#                                         date = format(Sys.time()),
+#                                         author = "MetrumRG Staff Scientist",
+#                                         output_dir = getwd(),
+#                                         build_dir = tempdir(),
+#                                         ...) {
+# 
+#   yamlfile <- normalizePath(x)
+# 
+#   output_dir <- normalizePath(output_dir)
+#   build_dir <- normalizePath(build_dir)
+#   cwd <- normalizePath(getwd())
+#   copy_back <- FALSE
+#   if(cwd != build_dir) {
+#     copy_back <- TRUE
+#     setwd(build_dir)
+#     on.exit(setwd(cwd))
+#   }
+# 
+#   proj <- load_spec_proj(yamlfile)
+# 
+#   m <- get_meta(proj)
+# 
+#   if(!is.character(m[["sponsor"]])) {
+#     .stop("sponsor field is required in SETUP__")
+#   }
+#   sponsor <- m[["sponsor"]]
+# 
+#   if(!is.character(m[["projectnumber"]])) {
+#     .stop("projectnumber field is required in SETUP__")
+#   }
+#   projectnumber <- m[["projectnumber"]]
+# 
+#   sponsor <- db_quotes(sponsor)
+#   projectnumber <- db_quotes(projectnumber)
+#   
+#   rmd <- system.file("rmd", "fdadefine.Rmd", package = "yspec")
+# 
+#   txt <- paste0(readLines(rmd),collapse = "\n")
+# 
+#   txt <- glue(txt, .open = "<", .close = ">")
+# 
+#   .file <- paste0(stem, ".Rmd")
+# 
+#   writeLines(txt,.file)
+# 
+#   ans <- rmarkdown::render(.file, ...)
+#   
+#   if(copy_back) file.copy(ans, output_dir, overwrite = TRUE)
+#   
+#   return(invisible(ans))
+# 
+# }

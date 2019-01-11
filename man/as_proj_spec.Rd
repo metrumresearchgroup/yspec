@@ -2,16 +2,16 @@
 % Please edit documentation in R/class-yproject.R
 \name{as_proj_spec}
 \alias{as_proj_spec}
-\alias{as_proj_spec_file}
+\alias{ys_project_file}
 \alias{ys_project}
 \title{Create a project object from data spec objects}
 \usage{
 as_proj_spec(..., output = tempfile(fileext = ".yml"),
-  data_path = NULL, sponsor = "[sponsor]",
+  data_path = NULL, dots = list(), sponsor = "[sponsor]",
   projectnumber = "[projectnumber]")
 
-as_proj_spec_file(..., output = tempfile(fileext = ".yml"),
-  where = NULL)
+ys_project_file(..., output = tempfile(fileext = ".yml"), where = NULL,
+  dots = list())
 
 ys_project(...)
 }
@@ -21,6 +21,8 @@ ys_project(...)
 \item{output}{the name and path where the project file is to be written}
 
 \item{data_path}{optional data path}
+
+\item{dots}{used to update `SETUP__` block data items}
 
 \item{sponsor}{optional project sponsor}
 

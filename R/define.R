@@ -1,12 +1,22 @@
 
-
-
 call_format_fun <- function(yamlfile,
                             format = c("x_table","pander_table", "md_outline")) {
   format <- match.arg(format)
   format_fun <- get(format, mode = "function")
   spec <- load_spec(yamlfile)
   format_fun(spec, head = NULL)
+}
+
+##' Render a document from one or more specification objects
+##' 
+##' @param x a spec or project object
+##' @param type the document type
+##' @param ... passed to [render_define] or [render_fda_define]
+##' @export
+ys_document <- function(x, type = c("regulatory", "working"), ...) {
+  type <- match.arg(type)
+  if(type=="regulatory") return(render_fda_define(x,...))
+  render_define(x,...)
 }
 
 ##' Render a define.pdf document
@@ -27,6 +37,7 @@ call_format_fun <- function(yamlfile,
 ##' @param toc used in yaml front matter
 ##' @param number_sections used in yaml front matter
 ##' @param date used in yaml front matter
+##' @param dots passed to object converter
 ##' @param ... passed to \code{rmarkdown::render}
 ##'
 ##' @details
@@ -66,15 +77,18 @@ render_define.yproj <- function(x,
   
   meta <- get_meta(x)
   
-  sponsor <- "[sponsor]"
+  sponsor <- "[::sponsor::]]"
   if(.has("sponsor", meta)) {
     sponsor <- meta[["sponsor"]]  
   }
   
-  projectnumber <- "[projectnumber]"
+  projectnumber <- "[::projectnumber::]"
   if(.has("projectnumber", meta)) {
     projectnumber <- meta[["projectnumber"]] 
   }
+  
+  sponsor <- db_quote(sponsor)
+  projectnumber <- db_quote(projectnumber)
   
   proj <- meta[["proj_file"]]
   
@@ -111,9 +125,15 @@ render_define.yproj <- function(x,
 
 ##' @rdname render_define
 ##' @export
-render_define.character <- function(x,...) {
-  spec <- load_spec_proj(x)
-  return(render_define(spec))
+render_define.character <- function(x,...,dots = list()) {
+  proj <- do.call(load_spec_proj, c(list(x),dots))
+  render_define(proj, ...)
+}
+
+##' @rdname render_define
+##' @export
+render_define.yspec <- function(...) {
+  render_spec.yspec(...)
 }
 
 ##' @rdname render_define
@@ -122,14 +142,16 @@ render_spec <- function(x, ...) UseMethod("render_spec")
 
 ##' @rdname render_define
 ##' @export
-render_spec.character <- function(x, stem = basename(x),...) {
-  render_define(as_proj_spec_file(x),stem = stem, ...)
+render_spec.character <- function(x, stem = basename(x),...,dots = list()) {
+  proj <- do.call(ys_project_file, c(list(x),dots))
+  render_define(proj,stem = stem, ...)
 }
 
 ##' @rdname render_define
 ##' @export
-render_spec.yspec <- function(x, stem = get_meta(x)[["name"]], ...) {
-  render_define(as_proj_spec(x), stem = stem, ...)
+render_spec.yspec <- function(x, stem = get_meta(x)[["name"]], ..., dots = list()) {
+  proj <- do.call(as_proj_spec, c(list(x),dots))
+  render_define(proj, stem = stem, ...)
 }
 
 ##' Generate code for a generic define document
@@ -165,4 +187,3 @@ define_for_rmd <- function(yamlfile, format) {
   
   specs
 }
-

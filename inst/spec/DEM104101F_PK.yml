@@ -1,6 +1,6 @@
 SETUP__:
-  lookup_file: [_yspec_lookup.yml, _yspec_lookup.yml]
-  descrition: Population PK analysis data set
+  lookup_file: [_yspec_lookup.yml, _yspec_lookup_2.yml]
+  description: Population PK analysis data set
   data_path: ../data/derived
 C:
   long: commented rows

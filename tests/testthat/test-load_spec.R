@@ -25,36 +25,3 @@ test_that("decodes, named list", {
  expect_equal(x$NAME$values, c(A=1,B=2))
  expect_equal(x$NAME$type,"character")
 })
-
-
-x <- yaml::yaml.load("
-NAME:
-  values: 
-    2: a
-    AWWE: b
-")
-
-
-x <- yaml::yaml.load("
-NAME:
-  values: [a,b,c]
-  valuz: {a, b, c}
-  valuzx: {a: 1, b: 3, c: 4}
-")
-
-
-
-yaml::yaml.load("
-? - Detroit Tigers
-  - Chicago cubs
-                :
-                - 2001-07-23
-                
-                ? [ New York Yankees,
-                Atlanta Braves ]
-                : [ 2001-07-02, 2001-08-12,
-                2001-08-14 ]
-")
-
-
-
