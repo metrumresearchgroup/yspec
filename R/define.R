@@ -25,6 +25,7 @@ call_format_fun <- function(yamlfile,
 ##' @param title used in yaml front matter
 ##' @param author used in yaml front matter
 ##' @param toc used in yaml front matter
+##' @param number_sections used in yaml front matter
 ##' @param date used in yaml front matter
 ##' @param ... passed to \code{rmarkdown::render}
 ##'
@@ -48,41 +49,36 @@ render_define <- function(x, ...) {
 
 ##' @rdname render_define
 ##' @export
-render_define.yproj <- function(x, ...) {
-  m <- get_meta(x)
-  project_file_name <- m[["proj_file"]]
-  assert_that(is.character(project_file_name))
-  render_define(project_file_name,...)
-}
-
-##' @rdname render_define
-##' @export
-render_define.character <- function(x,
-                                    stem = basename(x),
-                                    format = c("x_table","pander_table", "md_outline"),
-                                    output_format = "pdf_document",
-                                    output_dir = getwd(),
-                                    build_dir = tempdir(),
-                                    title = "Data Specification",
-                                    author = "MetrumRG",
-                                    toc = "yes",
-                                    date = format(Sys.time()),
-                                    ...) {
+render_define.yproj <- function(x, 
+                                stem = "define",
+                                format = c("x_table","pander_table", "md_outline"),
+                                output_format = "pdf_document",
+                                output_dir = getwd(),
+                                build_dir = tempdir(),
+                                title = "Data Specification",
+                                author = "MetrumRG",
+                                toc = "yes",
+                                number_sections = "yes",
+                                date = format(Sys.time()),...) {
   
-  spec <- load_spec_proj(x)
-  meta <- get_meta(spec)
+  if(missing(toc) & length(x)==1) toc <- "no"
+  if(missing(number_sections) & length(x)==1) number_sections <- "no"
   
-  sponsor <- ""
+  meta <- get_meta(x)
+  
+  sponsor <- "[sponsor]"
   if(.has("sponsor", meta)) {
     sponsor <- meta[["sponsor"]]  
   }
   
-  projectnumber <- ""
+  projectnumber <- "[projectnumber]"
   if(.has("projectnumber", meta)) {
     projectnumber <- meta[["projectnumber"]] 
   }
   
-  yamlfile <- normalizePath(x)
+  proj <- meta[["proj_file"]]
+  
+  yamlfile <- normalizePath(proj)
   output_dir <- normalizePath(output_dir)
   build_dir <- normalizePath(build_dir)
   copy_back <- FALSE
@@ -115,20 +111,25 @@ render_define.character <- function(x,
 
 ##' @rdname render_define
 ##' @export
-render_spec <- function(x, ...) UseMethod("render_spec")
-
-##' @rdname render_define
-##' @export
-render_spec.character <- function(x,stem = NULL,...) {
-  proj <- as_proj_spec_file(x)
-  if(is.null(stem)) stem <- basename(x)
-  render_define(proj, stem = stem,  ...)
+render_define.character <- function(x,...) {
+  spec <- load_spec_proj(x)
+  return(render_define(spec))
 }
 
 ##' @rdname render_define
 ##' @export
-render_spec.yspec <- function(x, ...) {
-  render_spec.character(get_meta(x)[["spec_file"]], ...)
+render_spec <- function(x, ...) UseMethod("render_spec")
+
+##' @rdname render_define
+##' @export
+render_spec.character <- function(x, stem = basename(x),...) {
+  render_define(as_proj_spec_file(x),stem = stem, ...)
+}
+
+##' @rdname render_define
+##' @export
+render_spec.yspec <- function(x, stem = get_meta(x)[["name"]], ...) {
+  render_define(as_proj_spec(x), stem = stem, ...)
 }
 
 ##' Generate code for a generic define document

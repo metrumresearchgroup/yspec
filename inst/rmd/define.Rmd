@@ -8,7 +8,7 @@ author: <author>
 geometry: "left=3.5cm,right=3.5cm,top=3cm,bottom=3cm"
 output:
   pdf_document:
-    number_sections: true
+    number_sections: <number_sections>
     toc: <toc>
     extra_dependencies:
       fontenc: T1

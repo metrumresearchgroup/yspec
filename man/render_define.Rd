@@ -11,19 +11,19 @@
 \usage{
 render_define(x, ...)
 
-\method{render_define}{yproj}(x, ...)
+\method{render_define}{yproj}(x, stem = "define", format = c("x_table",
+  "pander_table", "md_outline"), output_format = "pdf_document",
+  output_dir = getwd(), build_dir = tempdir(),
+  title = "Data Specification", author = "MetrumRG", toc = "yes",
+  number_sections = "yes", date = format(Sys.time()), ...)
 
-\method{render_define}{character}(x, stem = basename(x),
-  format = c("x_table", "pander_table", "md_outline"),
-  output_format = "pdf_document", output_dir = getwd(),
-  build_dir = tempdir(), title = "Data Specification",
-  author = "MetrumRG", toc = "yes", date = format(Sys.time()), ...)
+\method{render_define}{character}(x, ...)
 
 render_spec(x, ...)
 
-\method{render_spec}{character}(x, stem = NULL, ...)
+\method{render_spec}{character}(x, stem = basename(x), ...)
 
-\method{render_spec}{yspec}(x, ...)
+\method{render_spec}{yspec}(x, stem = get_meta(x)[["name"]], ...)
 }
 \arguments{
 \item{x}{a \code{yproj} object or project specification file name}
@@ -47,6 +47,8 @@ document}
 \item{author}{used in yaml front matter}
 
 \item{toc}{used in yaml front matter}
+
+\item{number_sections}{used in yaml front matter}
 
 \item{date}{used in yaml front matter}
 }
