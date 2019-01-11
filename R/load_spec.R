@@ -91,6 +91,7 @@ check_for_err <- function(x, .fun, ...) {
 
 capture_file_info <- function(x,file,where = "SETUP__") {
   x[[where]][["yml_file"]] <- file
+  x[[where]][["spec_file"]] <- file
   x[[where]][["path"]] <- dirname(file)
   x[[where]][["spec_path"]] <- dirname(file)
   x
@@ -171,7 +172,7 @@ unpack_meta <- function(x,to_update) {
     meta[["data_stem"]] <- meta[["name"]]
   }
   if(.no("data_path", meta)) {
-    meta[["data_path"]] <- dirname(meta[["yml_file"]])  
+    meta[["data_path"]] <- "../data/derived"
   }
   if(is.null(meta[["primary_key"]])) {
     meta[["primary_key"]] <- character(0)

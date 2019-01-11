@@ -1,6 +1,5 @@
 SETUP__:
   description: AE analysis data set
-  data_path: data/derived
 C:
   long: commented rows
   values: [".",C]

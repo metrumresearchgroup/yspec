@@ -86,6 +86,10 @@ as.list.yproj <- function(x, ...) {
   unclass(x)
 }
 
+# applied to each specification in the project
+# x is a spec object
+# met is the meta data for that spec object
+
 assemble_proj_info <- function(x) {
   met <- get_meta(x)
   description <- met[["description"]]
@@ -94,35 +98,25 @@ assemble_proj_info <- function(x) {
   }
   file <- basename(met[["yml_file"]])
   name <- met[["name"]]
-  if(is.null(name)) {
-    name <- tools::file_path_sans_ext(file)  
-  }
   data_path <- met[["data_path"]]
   if(is.null(data_path)) {
-    data_path <- "data/derived"  
+    data_path <- "../data/derived"
   }
-  
-  spec_path <- met[["spec_path"]]
-  if(is.null(spec_path)){
-    spec_path <- normalizePath(dirname(file))
-  }
+
   spec_file <- met[["yml_file"]]
-  data_file <- met[["data_file"]]
-  if(is.null(data_file)) {
-    data_file <- paste0(name, ".xpt")  
-  }
+  data_stem <- met[["data_stem"]]
   meta <- list(
     sponsor = met[["sponsor"]], 
     projectnumber = met[["projectnumber"]], 
-    data_path = ifelse(.has("data_path",met), met[["data_path"]], "data/derived")
+    data_path = data_path
   )
   ans <- list(
-    data_path = data_path, 
-    data_file = data_file,
-    spec_path = spec_path, 
-    spec_file = spec_file,
-    description = description, 
     name = name, 
+    description = description, 
+    spec_path = dirname(spec_file), 
+    spec_file = spec_file,
+    data_path = data_path, 
+    data_stem = data_stem,
     meta = meta
   )
   ans
@@ -136,10 +130,10 @@ assemble_proj_info <- function(x) {
 ##' in \code{...}
 ##' @return an object of class yproj
 ##' @export
-as_proj_spec <- function(..., output=tempfile(fileext=".yml")) {
+as_proj_spec <- function(..., output=tempfile(fileext=".yml"), data_path = NULL, 
+                         sponsor = NULL, projectnumber = NULL) {
   lst <- list(...)
   proj <- map(lst, assemble_proj_info)
-  
   meta <- map(proj, "meta")
   meta <- 
     transpose(meta) %>% 
@@ -151,13 +145,6 @@ as_proj_spec <- function(..., output=tempfile(fileext=".yml")) {
     if(length(x)==0) x <- ''
     x
   })
-  meta <- iwalk(meta, function(x,name) {
-    if(length(x) > 1) {
-      warning("Found multiple values for ", name ,
-              "; using: ", x[1], call.=FALSE)
-    }
-  })
-
   names(proj) <- map_chr(proj, "name")
   if(any(duplicated(names(proj)))) {
     dups <- names(proj)[duplicated(names(proj))]
@@ -165,12 +152,17 @@ as_proj_spec <- function(..., output=tempfile(fileext=".yml")) {
     stop("Duplicated spec names:\n", paste0(dups,collapse = "\n"))
   }
   output <- normalizePath(output,mustWork=FALSE)
+  if(is.null(sponsor)) sponsor <- meta$sponsor[1]
+  if(is.null(projectnumber)) projectnumber <- meta$projectnumber[1]
   meta <- list(
-    sponsor=meta$sponsor[1], 
-    projectnumber=meta$projectnumber[1], 
+    sponsor=sponsor, 
+    projectnumber=projectnumber, 
     yml_file = output, 
-    path = dirname(output), 
-    data_path = meta$data_path[1]
+    proj_file = output,
+    path = dirname(output),
+    proj_path = dirname(output),
+    data_path = meta$data_path[1],
+    data_stem = meta[["data_stem"]][1]
   )
   txt <- yaml::as.yaml(c(list(SETUP__ = meta),proj))
   if(dirname(output)==tempdir()) {

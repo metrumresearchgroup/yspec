@@ -3,7 +3,7 @@ SETUP__:
   projectnumber: DEM104101F
   sponsor: ABC Pharmaceuticals, Inc
   description: Population PK analysis data set
-  data_path: data/derived
+  data_path: ../data/derived
 C:
   long: commented rows
   values: [".",C]
