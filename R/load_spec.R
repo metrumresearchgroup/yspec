@@ -92,6 +92,7 @@ check_for_err <- function(x, .fun, ...) {
 capture_file_info <- function(x,file,where = "SETUP__") {
   x[[where]][["yml_file"]] <- file
   x[[where]][["path"]] <- dirname(file)
+  x[[where]][["spec_path"]] <- dirname(file)
   x
 }
 
@@ -102,7 +103,7 @@ capture_file_info <- function(x,file,where = "SETUP__") {
 ##' @param data_stem optional alternate stem for data files
 ##' @export
 load_spec <- function(file, ...) {
-  x <- load_spec_file(file)
+  x <- load_spec_file(file,...)
   unpack_spec(x)
 }
 
@@ -116,9 +117,11 @@ load_spec_file <- function(file, data_path = NULL, data_stem = NULL) {
   file <- normalizePath(file, mustWork = FALSE)
   x <- try_yaml(file)
   x <- capture_file_info(x,file)
-  unpack_meta(x)
+  incoming <- list()
+  incoming[["data_path"]] <- data_path
+  incoming[["data_stem"]] <- data_stem
+  unpack_meta(x, to_update = incoming)
 }
-
 
 unpack_spec <- function(x) {
 
@@ -147,13 +150,14 @@ unpack_spec <- function(x) {
   structure(x, class = "yspec")
 }
 
-unpack_meta <- function(x) {
+unpack_meta <- function(x,to_update) {
   meta <- list()
   metai <- names(x) == "SETUP__"
   if(any(metai)) {
     meta <- as.list(x[[which(metai)]])
     x <- x[!metai]
   }
+  meta <- update_list(meta,to_update)
   if(exists("lookup_file", meta)) {
     assert_that(is.character(meta[["lookup_file"]]))
     meta[["lookup_file"]] <- file.path(meta[["path"]],meta[["lookup_file"]])
@@ -162,6 +166,12 @@ unpack_meta <- function(x) {
   if(.no("name", meta)) {
     meta[["name"]] <- basename(meta[["yml_file"]])
     meta[["name"]] <- tools::file_path_sans_ext(meta[["name"]])
+  }
+  if(.no("data_stem", meta)) {
+    meta[["data_stem"]] <- meta[["name"]]
+  }
+  if(.no("data_path", meta)) {
+    meta[["data_path"]] <- dirname(meta[["yml_file"]])  
   }
   if(is.null(meta[["primary_key"]])) {
     meta[["primary_key"]] <- character(0)
@@ -179,6 +189,7 @@ unpack_meta <- function(x) {
       )
     }
   }
+  spec_validate_meta(meta)
   structure(x, meta = meta)
 }
 

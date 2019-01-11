@@ -13,8 +13,6 @@ decode_value <- function(x) {
   ans
 }
 use_lookup <- function(x) {
-  message("use_lookup")
-  print(x)
   list(lookup = TRUE)  
 }
 
