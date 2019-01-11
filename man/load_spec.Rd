@@ -10,10 +10,12 @@ load_spec(file, ...)
 
 ys_load(...)
 
-load_spec_file(file, data_path = NULL, data_stem = NULL)
+load_spec_file(file, data_path = NULL, data_stem = NULL, ...)
 }
 \arguments{
 \item{file}{name of yaml file containing specification}
+
+\item{...}{other arguments to update `SETUP__`}
 
 \item{data_path}{optional path to data sets}
 

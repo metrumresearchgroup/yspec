@@ -92,8 +92,8 @@ check_for_err <- function(x, .fun, ...) {
 capture_file_info <- function(x,file,where = "SETUP__") {
   x[[where]][["yml_file"]] <- file
   x[[where]][["spec_file"]] <- file
-  x[[where]][["path"]] <- dirname(file)
-  x[[where]][["spec_path"]] <- dirname(file)
+  x[[where]][["path"]] <- normalizePath(dirname(file),mustWork=FALSE)
+  x[[where]][["spec_path"]] <- normalizePath(dirname(file),mustWork=FALSE)
   x
 }
 
@@ -102,6 +102,7 @@ capture_file_info <- function(x,file,where = "SETUP__") {
 ##' @param file name of yaml file containing specification
 ##' @param data_path optional path to data sets
 ##' @param data_stem optional alternate stem for data files
+##' @param ... other arguments to update `SETUP__`
 ##' @export
 load_spec <- function(file, ...) {
   x <- load_spec_file(file,...)
@@ -114,11 +115,11 @@ ys_load <- function(...) load_spec(...)
 
 ##' @rdname load_spec
 ##' @export
-load_spec_file <- function(file, data_path = NULL, data_stem = NULL) {
+load_spec_file <- function(file, data_path = NULL, data_stem = NULL,...) {
   file <- normalizePath(file, mustWork = FALSE)
   x <- try_yaml(file)
   x <- capture_file_info(x,file)
-  incoming <- list()
+  incoming <- list(...)
   incoming[["data_path"]] <- data_path
   incoming[["data_stem"]] <- data_stem
   unpack_meta(x, to_update = incoming)
@@ -158,7 +159,10 @@ unpack_meta <- function(x,to_update) {
     meta <- as.list(x[[which(metai)]])
     x <- x[!metai]
   }
-  meta <- update_list(meta,to_update)
+  
+  if(.no("description", meta)) {
+    meta[["description"]] <- "[data set description]"  
+  }
   if(exists("lookup_file", meta)) {
     assert_that(is.character(meta[["lookup_file"]]))
     meta[["lookup_file"]] <- file.path(meta[["path"]],meta[["lookup_file"]])
@@ -190,6 +194,7 @@ unpack_meta <- function(x,to_update) {
       )
     }
   }
+  meta <- update_list(meta,to_update)
   spec_validate_meta(meta)
   structure(x, meta = meta)
 }
@@ -297,4 +302,12 @@ col_initialize <- function(x, name) {
   x
 }
 
+##' Load SETUP__ block from a file
+##' 
+##' @param file yaml file name
+##' 
+##' @export
+ys_load_meta <- function(file) {
+  get_meta(load_spec_file(file))
+}
 

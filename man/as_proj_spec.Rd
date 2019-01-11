@@ -3,20 +3,31 @@
 \name{as_proj_spec}
 \alias{as_proj_spec}
 \alias{as_proj_spec_file}
+\alias{ys_project}
 \title{Create a project object from data spec objects}
 \usage{
-as_proj_spec(..., output = tempfile(fileext = ".yml"))
+as_proj_spec(..., output = tempfile(fileext = ".yml"),
+  data_path = NULL, sponsor = "[sponsor]",
+  projectnumber = "[projectnumber]")
 
 as_proj_spec_file(..., output = tempfile(fileext = ".yml"),
   where = NULL)
+
+ys_project(...)
 }
 \arguments{
 \item{...}{yspec objects or file names of yaml specification files}
 
 \item{output}{the name and path where the project file is to be written}
 
-\item{where}{directory containing the specification files if listed
+\item{data_path}{optional data path}
+
+\item{sponsor}{optional project sponsor}
+
+\item{projectnumber}{optional project number
 in \code{...}}
+
+\item{where}{directory containing the specification files if listed}
 }
 \value{
 an object of class yproj

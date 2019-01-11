@@ -1,0 +1,14 @@
+EGFR:
+  about: [eGFR, ml/min/1.73m2]
+SEX:
+  values: {male : 0, female: 1}
+AGE:
+  unit: years
+  range: [18,99]
+HAIR:
+  values: [0, 1, 2]
+  decode: [brown, blonde, black]
+
+
+
+

@@ -104,34 +104,43 @@ assemble_proj_info <- function(x) {
   }
 
   spec_file <- met[["yml_file"]]
-  data_stem <- met[["data_stem"]]
-  meta <- list(
-    sponsor = met[["sponsor"]], 
-    projectnumber = met[["projectnumber"]], 
-    data_path = data_path
-  )
+  meta <- list(data_path = data_path)
   ans <- list(
     name = name, 
     description = description, 
     spec_path = dirname(spec_file), 
     spec_file = spec_file,
     data_path = data_path, 
-    data_stem = data_stem,
+    data_stem = met[["data_stem"]],
     meta = meta
   )
+  ans[["csv_file"]] <- do.call(csv_file_name,ans)
+  ans[["xpt_file"]] <- do.call(xpt_file_name,ans)
   ans
 }
+
+xpt_file_name <- function(data_path, data_stem, ext = ".xpt", ...) {
+  file.path(data_path, paste0(data_stem,ext))
+}
+
+csv_file_name <- function(data_path, data_stem, ext = ".csv", ...) {
+  file.path(data_path, paste0(data_stem,ext))
+}
+
 
 ##' Create a project object from data spec objects
 ##' 
 ##' @param ... yspec objects or file names of yaml specification files
 ##' @param output the name and path where the project file is to be written
 ##' @param where directory containing the specification files if listed
+##' @param data_path optional data path
+##' @param sponsor optional project sponsor
+##' @param projectnumber optional project number
 ##' in \code{...}
 ##' @return an object of class yproj
 ##' @export
 as_proj_spec <- function(..., output=tempfile(fileext=".yml"), data_path = NULL, 
-                         sponsor = NULL, projectnumber = NULL) {
+                         sponsor = "[sponsor]", projectnumber = "[projectnumber]") {
   lst <- list(...)
   proj <- map(lst, assemble_proj_info)
   meta <- map(proj, "meta")
@@ -152,17 +161,23 @@ as_proj_spec <- function(..., output=tempfile(fileext=".yml"), data_path = NULL,
     stop("Duplicated spec names:\n", paste0(dups,collapse = "\n"))
   }
   output <- normalizePath(output,mustWork=FALSE)
-  if(is.null(sponsor)) sponsor <- meta$sponsor[1]
-  if(is.null(projectnumber)) projectnumber <- meta$projectnumber[1]
+  if(missing(sponsor)) {
+    if(.has("sponsor", meta)) {
+      sponsor <- meta$sponsor[1]  
+    }
+  }
+  if(missing(projectnumber)) {
+    if(.has("projectnumber", meta)) {
+      sponsor <- meta$projectnumber[1]  
+    } 
+  }
   meta <- list(
     sponsor=sponsor, 
     projectnumber=projectnumber, 
     yml_file = output, 
     proj_file = output,
-    path = dirname(output),
     proj_path = dirname(output),
-    data_path = meta$data_path[1],
-    data_stem = meta[["data_stem"]][1]
+    path = dirname(output)
   )
   txt <- yaml::as.yaml(c(list(SETUP__ = meta),proj))
   if(dirname(output)==tempdir()) {
@@ -180,15 +195,21 @@ as_proj_spec <- function(..., output=tempfile(fileext=".yml"), data_path = NULL,
 
 ##' @rdname as_proj_spec
 ##' @export
-as_proj_spec_file <- function(..., output = tempfile(fileext=".yml"), 
-                              where = NULL) {
+as_proj_spec_file <- function(..., output = tempfile(fileext=".yml"), where = NULL) {
   
   files <- list(...) %>% unlist()
   if(is.character(where)) {
     files <- file.path(where,files)
   }
   files <- normalizePath(files)
-  specs <- lapply(files, load_spec)
+  specs <- lapply(files, load_spec_file)
   do.call(as_proj_spec, c(specs, list(output=output)))
 }
+
+#' @rdname as_proj_spec
+#' @export
+ys_project <- function(...) {
+  as_proj_spec(...)  
+}
+
 

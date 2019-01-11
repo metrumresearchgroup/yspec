@@ -1,5 +1,7 @@
 SETUP__:
   description: AE analysis data set
+  sponsor: Some other company
+  data_stem: DEM0104101F_AE_2
 C:
   long: commented rows
   values: [".",C]
