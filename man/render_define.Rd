@@ -4,6 +4,9 @@
 \alias{render_define}
 \alias{render_define.yproj}
 \alias{render_define.character}
+\alias{render_spec}
+\alias{render_spec.character}
+\alias{render_spec.yspec}
 \title{Render a define.pdf document}
 \usage{
 render_define(x, ...)
@@ -15,6 +18,12 @@ render_define(x, ...)
   output_format = "pdf_document", output_dir = getwd(),
   build_dir = tempdir(), title = "Data Specification",
   author = "MetrumRG", toc = "yes", date = format(Sys.time()), ...)
+
+render_spec(x, ...)
+
+\method{render_spec}{character}(x, stem = NULL, ...)
+
+\method{render_spec}{yspec}(x, ...)
 }
 \arguments{
 \item{x}{a \code{yproj} object or project specification file name}
@@ -42,7 +51,8 @@ document}
 \item{date}{used in yaml front matter}
 }
 \description{
-Render a define.pdf document
+`render_spec` generates a define document from a single specification object
+or file name.
 }
 \details{
 \code{stem} should not include a file extension, just

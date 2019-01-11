@@ -74,9 +74,14 @@ load_spec_proj <- function(file) {
 
 ##' @export
 print.yproj <- function(x,i=0,...) {
+  met <- get_meta(x)
   names <- map_chr(x, "name")
   desc <- map_chr(x, "description")
   ans <- data.frame(name = names, description = desc)
+  cat("projectnumber: ", met[["projectnumber"]], "\n")
+  cat("sponsor:       ", met[["sponsor"]], "\n")
+  cat("-----------------------------------\n")
+  cat("datafiles: \n")
   print.data.frame(ans, row.names = FALSE, right = FALSE)
 }
 
