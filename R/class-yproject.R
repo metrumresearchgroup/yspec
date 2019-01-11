@@ -77,10 +77,11 @@ print.yproj <- function(x,i=0,...) {
   met <- get_meta(x)
   names <- map_chr(x, "name")
   desc <- map_chr(x, "description")
-  ans <- data.frame(name = names, description = desc)
+  data_stem <- map_chr(x, "data_stem")
+  ans <- data.frame(name = names, description = desc, data_stem = data_stem)
   cat("projectnumber: ", met[["projectnumber"]], "\n")
   cat("sponsor:       ", met[["sponsor"]], "\n")
-  cat("-----------------------------------\n")
+  cat("--------------------------------------------\n")
   cat("datafiles: \n")
   print.data.frame(ans, row.names = FALSE, right = FALSE)
 }
@@ -97,15 +98,19 @@ assemble_proj_info <- function(x) {
   if(is.null(description)) {
     stop("A description must be supplied in the SETUP__ front matter")  
   }
-  file <- basename(met[["yml_file"]])
+  file <- basename(met[["spec_file"]])
   name <- met[["name"]]
   data_path <- met[["data_path"]]
   if(is.null(data_path)) {
     data_path <- "../data/derived"
   }
 
-  spec_file <- met[["yml_file"]]
-  meta <- list(data_path = data_path)
+  spec_file <- met[["spec_file"]]
+  meta <- list(
+    data_path = data_path,
+    sponsor = met[["sponsor"]], 
+    projectnumber = met[["projectnumber"]]
+  )
   ans <- list(
     name = name, 
     description = description, 
@@ -171,7 +176,7 @@ as_proj_spec <- function(..., output=tempfile(fileext=".yml"),
   }
   if(missing(projectnumber)) {
     if(.has("projectnumber", meta)) {
-      sponsor <- meta$projectnumber[1]  
+      projectnumber <- meta$projectnumber[1]  
     } 
   }
   meta <- list(

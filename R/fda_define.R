@@ -117,13 +117,13 @@ fda_content_table_file <- function(file) {
 }
 
 fda_content_table_row <- function(.x) {
-  .x[["data_file"]] <- paste0(.x[["name"]], ".xpt")
-  desc <- fda_content_table_ref(.x[["name"]],.x[["description"]], .x[["data_file"]])
-  loc <-  fda_content_table_loc(.x[["data_file"]])
+  data_file <- paste0(.x[["data_stem"]], ".xpt")
+  desc <- fda_content_table_ref(.x[["name"]],.x[["description"]])
+  loc <-  fda_content_table_loc(data_file)
   data_frame(Description  = desc, Location = loc)
 }
 
-fda_content_table_ref <- function(name, desc, data_file) {
+fda_content_table_ref <- function(name, desc) {
   paste0("\\hyperref[",name,"]{", desc, "}")
 }
 

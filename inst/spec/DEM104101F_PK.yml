@@ -2,6 +2,8 @@ SETUP__:
   lookup_file: [_yspec_lookup.yml, _yspec_lookup_2.yml]
   description: Population PK analysis data set
   data_path: ../data/derived
+  sponsor: ABC-Pharma
+  projectnumber: ABC101104F
 C:
   long: commented rows
   values: [".",C]
