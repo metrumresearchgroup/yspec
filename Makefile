@@ -7,6 +7,7 @@ CHKDIR=.
 
 pkgdown:
 	Rscript -e 'pkgdown::build_site()'
+	cp vignettes/*.pdf docs/articles
 
 readme:
 	Rscript -e 'rmarkdown::render("README.Rmd")'

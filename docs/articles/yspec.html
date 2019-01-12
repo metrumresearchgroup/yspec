@@ -58,9 +58,6 @@
 <li>
       <a href="../articles/project.html">Project Object and Define Document</a>
     </li>
-    <li>
-      <a href="../articles/specification.html">Specification</a>
-    </li>
   </ul>
 </li>
 <li>
@@ -248,6 +245,16 @@ This time, we’ll add some extra (optional) arguments that will help us get the
 <a class="sourceLine" id="cb18-7" title="7">)</a></code></pre></div>
 <p>With output <a href="project_document.pdf">here</a>.</p>
 <p>Using the <code>build_dir</code> argument gets us the document rendered with Metrum Research Group branding. Also, <code>author</code> and <code>title</code> are passed into the configuration fields for this document.</p>
+<p>To get a document that is formatted according to FDA requirements, use:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="kw"><a href="../reference/ys_document.html">ys_document</a></span>(</a>
+<a class="sourceLine" id="cb19-2" title="2">  proj, </a>
+<a class="sourceLine" id="cb19-3" title="3">  <span class="dt">type =</span> <span class="st">"regulatory"</span>,</a>
+<a class="sourceLine" id="cb19-4" title="4">  <span class="dt">stem =</span> <span class="st">"fda_document"</span>, </a>
+<a class="sourceLine" id="cb19-5" title="5">  <span class="dt">build_dir =</span> <span class="kw"><a href="../reference/mrgtemplate.html">mrgtemplate</a></span>(),</a>
+<a class="sourceLine" id="cb19-6" title="6">  <span class="dt">author =</span> <span class="st">"Michelle Johnson"</span>, </a>
+<a class="sourceLine" id="cb19-7" title="7">  <span class="dt">title =</span> <span class="st">"Analysis data specification"</span></a>
+<a class="sourceLine" id="cb19-8" title="8">)</a></code></pre></div>
+<p>With output <a href="fda_document.pdf">here</a>.</p>
 </div>
   </div>
 

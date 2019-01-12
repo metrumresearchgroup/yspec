@@ -116,7 +116,7 @@ To render the project file we'll use the same `ys_document()` function.
 This time, we'll add some extra (optional) arguments that will help us 
 get the document to look the way we want:
 
-```{r "fda_define", results = "hide", message = FALSE}
+```{r "render_define", results = "hide", message = FALSE}
 ys_document(
   proj, 
   stem = "project_document", 
@@ -131,4 +131,19 @@ With output [here](project_document.pdf).
 Using the `build_dir` argument gets us the document rendered with Metrum 
 Research Group branding.  Also, `author` and `title` are passed into the
 configuration fields for this document.
+
+To get a document that is formatted according to FDA requirements, use:
+
+```{r "render_fda", results = "hide", message = FALSE}
+ys_document(
+  proj, 
+  type = "regulatory",
+  stem = "fda_document", 
+  build_dir = mrgtemplate(),
+  author = "Michelle Johnson", 
+  title = "Analysis data specification"
+)
+```
+With output [here](fda_document.pdf).
+
 
