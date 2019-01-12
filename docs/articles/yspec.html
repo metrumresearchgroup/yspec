@@ -234,6 +234,9 @@ Keep reading to see how it works.
 <div id="render-a-project-file" class="section level2">
 <h2 class="hasAnchor">
 <a href="#render-a-project-file" class="anchor"></a>Render a project file</h2>
+<div id="working-document" class="section level3">
+<h3 class="hasAnchor">
+<a href="#working-document" class="anchor"></a>Working document</h3>
 <p>To render the project file we’ll use the same <code><a href="../reference/ys_document.html">ys_document()</a></code> function.<br>
 This time, we’ll add some extra (optional) arguments that will help us get the document to look the way we want:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="kw"><a href="../reference/ys_document.html">ys_document</a></span>(</a>
@@ -245,6 +248,10 @@ This time, we’ll add some extra (optional) arguments that will help us get the
 <a class="sourceLine" id="cb18-7" title="7">)</a></code></pre></div>
 <p>With output <a href="project_document.pdf">here</a>.</p>
 <p>Using the <code>build_dir</code> argument gets us the document rendered with Metrum Research Group branding. Also, <code>author</code> and <code>title</code> are passed into the configuration fields for this document.</p>
+</div>
+<div id="regulatory-document" class="section level3">
+<h3 class="hasAnchor">
+<a href="#regulatory-document" class="anchor"></a>Regulatory document</h3>
 <p>To get a document that is formatted according to FDA requirements, use:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="kw"><a href="../reference/ys_document.html">ys_document</a></span>(</a>
 <a class="sourceLine" id="cb19-2" title="2">  proj, </a>
@@ -255,6 +262,7 @@ This time, we’ll add some extra (optional) arguments that will help us get the
 <a class="sourceLine" id="cb19-7" title="7">  <span class="dt">title =</span> <span class="st">"Analysis data specification"</span></a>
 <a class="sourceLine" id="cb19-8" title="8">)</a></code></pre></div>
 <p>With output <a href="fda_document.pdf">here</a>.</p>
+</div>
 </div>
   </div>
 
