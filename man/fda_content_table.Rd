@@ -2,15 +2,18 @@
 % Please edit documentation in R/fda_define.R
 \name{fda_content_table}
 \alias{fda_content_table}
-\alias{fda_content_table_file}
 \title{Print a table of contents for FDA define document}
 \usage{
-fda_content_table(x)
-
-fda_content_table_file(file)
+fda_content_table(x, ext = ".xpt", loc = ".")
 }
 \arguments{
 \item{x}{a spec define object}
+
+\item{ext}{data set file extension to include; this should only 
+be changed from default value of ".xpt" for testing puroses}
+
+\item{loc}{location to use for data set files; this should 
+only be changed from default value of "." for testing purposes}
 
 \item{file}{the full path to a yaml specification file}
 }

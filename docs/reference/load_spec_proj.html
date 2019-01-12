@@ -91,6 +91,9 @@
     <li>
       <a href="../articles/project.html">Project Object and Define Document</a>
     </li>
+    <li>
+      <a href="../articles/specification.html">Specification</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -123,7 +126,9 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>load_spec_proj</span>(<span class='no'>file</span>)</pre>
+    <pre class="usage"><span class='fu'>load_spec_proj</span>(<span class='no'>file</span>)
+
+<span class='fu'>ys_load_proj</span>(<span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -141,11 +146,14 @@
 
 <span class='no'>spec</span> <span class='kw'>&lt;-</span> <span class='fu'>load_spec_proj</span>(<span class='no'>file</span>)
 
-<span class='no'>spec</span></div><div class='output co'>#&gt;  name            description                       
-#&gt;  DEM104101F_PK   Population PK analysis data set   
-#&gt;  DEM104101F_PKPD Population PK/PD analysis data set
-#&gt;  DEM104101F_AE   AE analysis data set              </div><div class='input'>
-</div></pre>
+<span class='no'>spec</span></div><div class='output co'>#&gt; projectnumber:  ABC101104F 
+#&gt; sponsor:        ABC-Pharma 
+#&gt; --------------------------------------------
+#&gt; datafiles: 
+#&gt;  name            description                       data_stem       
+#&gt;  DEM104101F_PK   Population PK analysis data set   DEM104101F_PK   
+#&gt;  DEM104101F_PKPD Population PKPD analysis data set DEM104101F_PKPD 
+#&gt;  DEM104101F_AE   AE analysis data set              DEM0104101F_AE_2</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

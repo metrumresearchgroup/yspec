@@ -13,7 +13,10 @@ call_format_fun <- function(yamlfile,
 ##' @param type the document type
 ##' @param ... passed to [render_define] or [render_fda_define]
 ##' @export
-ys_document <- function(x, type = c("regulatory", "working"), ...) {
+ys_document <- function(x, type = c("working", "regulatory"), ...) {
+  if(is.character(x)) {
+    return(ys_document(load_spec_any(x), type = type, ...))  
+  }
   type <- match.arg(type)
   if(type=="regulatory") return(render_fda_define(x,...))
   render_define(x,...)
@@ -61,7 +64,7 @@ render_define <- function(x, ...) {
 ##' @rdname render_define
 ##' @export
 render_define.yproj <- function(x, 
-                                stem = "define",
+                                stem = "define_working",
                                 format = c("x_table","pander_table", "md_outline"),
                                 output_format = "pdf_document",
                                 output_dir = getwd(),
@@ -106,6 +109,11 @@ render_define.yproj <- function(x,
   
   format <- match.arg(format)
   
+  ys_working_markup_ <- basename(tempfile(fileext="aeiou"))
+  
+  env <- new.env()
+  env[[ys_working_markup_]] <- define_for_rmd(yamlfile,format)
+  
   file <- paste0(stem, ".Rmd")
   
   rmd <- system.file("rmd", "define.Rmd", package = "yspec")
@@ -116,7 +124,7 @@ render_define.yproj <- function(x,
   
   writeLines(txt,file)
   
-  ans <- rmarkdown::render(file, output_format = output_format, ...)
+  ans <- rmarkdown::render(file, output_format = output_format, envir=env, ...)
   
   if(copy_back) file.copy(ans, output_dir, overwrite = TRUE)
   

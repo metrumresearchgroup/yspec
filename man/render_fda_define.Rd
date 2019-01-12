@@ -5,14 +5,15 @@
 \alias{render_fda_define.yproj}
 \alias{render_fda_define.character}
 \alias{render_fda_define.yspec}
-\title{Render a define document for sending to FDA}
+\title{Render a define document conforming to FDA standards}
 \usage{
 render_fda_define(x, ...)
 
 \method{render_fda_define}{yproj}(x, stem = "define",
   title = "Data Definitions", date = format(Sys.time()),
-  author = "MetrumRG Staff Scientist", output_dir = getwd(),
-  build_dir = tempdir(), ...)
+  author = "MetrumRG Staff Scientist", format = "fda_define",
+  output_dir = getwd(), build_dir = tempdir(), ext = ".xpt",
+  loc = ".", ...)
 
 \method{render_fda_define}{character}(x, ..., dots = list())
 
@@ -31,14 +32,22 @@ render_fda_define(x, ...)
 
 \item{author}{the document author}
 
+\item{format}{function to generate the define text}
+
 \item{output_dir}{passed to \code{rmarkdown::render}}
 
 \item{build_dir}{directory where rmarkdown will build the document}
 
-\item{dots}{passed to object converter function}
+\item{ext}{data set file extension to include; this should only 
+be changed from default value of ".xpt" for testing puroses}
+
+\item{loc}{location to use for data set files; this should 
+only be changed from default value of "." for testing purposes}
+
+\item{dots}{named list of arguments passed to object converter function}
 }
 \description{
-Render a define document for sending to FDA
+Render a define document conforming to FDA standards
 }
 \examples{
 proj_file <- file_proj_ex()

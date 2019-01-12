@@ -115,14 +115,14 @@ ys_load <- function(...) load_spec(...)
 
 ##' @rdname load_spec
 ##' @export
-load_spec_file <- function(file, data_path = NULL, data_stem = NULL,...) {
+load_spec_file <- function(file, data_path = NULL, data_stem = NULL, ...) {
   file <- normalizePath(file, mustWork = FALSE)
   x <- try_yaml(file)
   x <- capture_file_info(x,file)
   incoming <- list(...)
   incoming[["data_path"]] <- data_path
   incoming[["data_stem"]] <- data_stem
-  unpack_meta(x, to_update = incoming)
+  unpack_meta(x, to_update = incoming, ...)
 }
 
 unpack_spec <- function(x) {
@@ -142,13 +142,8 @@ unpack_spec <- function(x) {
                   lookup = lookup
     )
   }
-
-  # unpack the columns
   x[] <- map(x, unpack_col)
-
   check_spec_cols(x)
-
-  # return `yspec`
   structure(x, class = "yspec")
 }
 
@@ -169,7 +164,7 @@ unpack_meta <- function(x,to_update) {
     meta[["lookup_file"]] <- normalizePath(meta[["lookup_file"]],mustWork = FALSE)
   }
   if(.no("name", meta)) {
-    meta[["name"]] <- basename(meta[["yml_file"]])
+    meta[["name"]] <- basename(meta[["spec_file"]])
     meta[["name"]] <- tools::file_path_sans_ext(meta[["name"]])
   }
   if(.no("data_stem", meta)) {
@@ -190,7 +185,7 @@ unpack_meta <- function(x,to_update) {
     if(!found_keys) {
       .stop(
         "invalid primary key in ",
-        basename(meta[["yml_file"]])
+        basename(meta[["spec_file"]])
       )
     }
   }
@@ -215,9 +210,7 @@ load_lookup_spec <- function(x) {
 
 
 merge_lookup_column <- function(x,lookup) {
-
   lookup_name <- x[["lookup"]]
-
   if(.has(lookup_name,lookup)) {
     x <- combine_list(
       lookup[[lookup_name]],
@@ -311,3 +304,22 @@ ys_load_meta <- function(file) {
   get_meta(load_spec_file(file))
 }
 
+##' Load a specification file, guessing the type
+##' 
+##' @param file a yaml file name
+##' @param ... arguments passed to [ys_load] or [ys_load_proj]
+##' 
+##' @examples
+##' 
+##' class(load_spec_any(file_spec_ex()))
+##' 
+##' class(load_spec_any(proj_spec_ex()))
+##' 
+##' @export
+load_spec_any <- function(file,...) {
+  file <- normalizePath(file,mustWork=FALSE)
+  if(is_yproj_file(file)) {
+    return(ys_load_proj(file,...))
+  }
+  return(ys_load(file,...))
+}

@@ -12,11 +12,12 @@
 \usage{
 render_define(x, ...)
 
-\method{render_define}{yproj}(x, stem = "define", format = c("x_table",
-  "pander_table", "md_outline"), output_format = "pdf_document",
-  output_dir = getwd(), build_dir = tempdir(),
-  title = "Data Specification", author = "MetrumRG", toc = "yes",
-  number_sections = "yes", date = format(Sys.time()), ...)
+\method{render_define}{yproj}(x, stem = "define_working",
+  format = c("x_table", "pander_table", "md_outline"),
+  output_format = "pdf_document", output_dir = getwd(),
+  build_dir = tempdir(), title = "Data Specification",
+  author = "MetrumRG", toc = "yes", number_sections = "yes",
+  date = format(Sys.time()), ...)
 
 \method{render_define}{character}(x, ..., dots = list())
 

@@ -15,3 +15,24 @@ Imports: yaml, dplyr, rmarkdown, knitr, xtable,
     rlang, assertthat, purrr, glue, rstudioapi, crayon
 Suggests: pander, testthat
 RoxygenNote: 6.1.1
+Collate: 
+    'utils.R'
+    'Aaaa.R'
+    'addin.R'
+    'axis_data.R'
+    'check_spec.R'
+    'class-ycol.R'
+    'class-yproject.R'
+    'class-yspec.R'
+    'col_factor.R'
+    'define.R'
+    'exspec.R'
+    'fda_define.R'
+    'handlers.R'
+    'load_spec.R'
+    'md_outline.R'
+    'mrgtemmplate.R'
+    'old_render_spec.R'
+    'pander_table.R'
+    'spec_validate.R'
+    'split_col.R'

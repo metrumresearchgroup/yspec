@@ -4,12 +4,21 @@
 \alias{fda_define}
 \title{Generate content for FDA define document}
 \usage{
-fda_define(file, title = "Datasets")
+fda_define(file, title = "Datasets", ext = ".xpt", loc = ".", ...)
 }
 \arguments{
 \item{file}{full path to define yaml file}
 
 \item{title}{used in yaml front matter}
+
+\item{ext}{data set file extension to include; this should only 
+be changed from default value of ".xpt" for testing puroses}
+
+\item{loc}{location to use for data set files; this should 
+only be changed from default value of "." for testing purposes}
+
+\item{...}{arguments passed to rendering functions; see
+details}
 }
 \value{
 A character vector of in markdown format.  Wrap
@@ -27,4 +36,7 @@ cat(readLines(proj), sep = "\\n")
 \dontrun{
   fda_define(proj)
 }
+}
+\seealso{
+\code{\link{fda_table}}
 }

@@ -91,6 +91,9 @@
     <li>
       <a href="../articles/project.html">Project Object and Define Document</a>
     </li>
+    <li>
+      <a href="../articles/specification.html">Specification</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -123,9 +126,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>fda_content_table</span>(<span class='no'>x</span>)
-
-<span class='fu'>fda_content_table_file</span>(<span class='no'>file</span>)</pre>
+    <pre class="usage"><span class='fu'>fda_content_table</span>(<span class='no'>x</span>, <span class='kw'>ext</span> <span class='kw'>=</span> <span class='st'>".xpt"</span>, <span class='kw'>loc</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -133,6 +134,16 @@
     <tr>
       <th>x</th>
       <td><p>a spec define object</p></td>
+    </tr>
+    <tr>
+      <th>ext</th>
+      <td><p>data set file extension to include; this should only 
+be changed from default value of ".xpt" for testing puroses</p></td>
+    </tr>
+    <tr>
+      <th>loc</th>
+      <td><p>location to use for data set files; this should 
+only be changed from default value of "." for testing purposes</p></td>
     </tr>
     <tr>
       <th>file</th>
@@ -155,11 +166,11 @@
 #&gt; \hline
 #&gt; Description &amp; Location\\
 #&gt; \hline
-#&gt; Population PK analysis data set &amp; \hyperref[DEM104101F_PK]{DEM104101F\_PK.xpt}\\
+#&gt; \hyperref[DEM104101F_PK]{Population PK analysis data set} &amp; \href{run:./DEM104101F_PK.xpt}{DEM104101F\_PK.xpt}\\
 #&gt; \hline
-#&gt; Population PK/PD analysis data set &amp; \hyperref[DEM104101F_PKPD]{DEM104101F\_PKPD.xpt}\\
+#&gt; \hyperref[DEM104101F_PKPD]{Population PKPD analysis data set} &amp; \href{run:./DEM104101F_PKPD.xpt}{DEM104101F\_PKPD.xpt}\\
 #&gt; \hline
-#&gt; AE analysis data set &amp; \hyperref[DEM104101F_AE]{DEM104101F\_AE.xpt}\\
+#&gt; \hyperref[DEM104101F_AE]{AE analysis data set} &amp; \href{run:./DEM0104101F_AE_2.xpt}{DEM0104101F\_AE\_2.xpt}\\
 #&gt; \hline
 #&gt; \end{tabular}</div><div class='input'>
 </div></pre>

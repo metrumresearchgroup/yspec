@@ -91,6 +91,9 @@
     <li>
       <a href="../articles/project.html">Project Object and Define Document</a>
     </li>
+    <li>
+      <a href="../articles/specification.html">Specification</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -123,7 +126,11 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>load_spec</span>(<span class='no'>file</span>)</pre>
+    <pre class="usage"><span class='fu'>load_spec</span>(<span class='no'>file</span>, <span class='no'>...</span>)
+
+<span class='fu'>ys_load</span>(<span class='no'>...</span>)
+
+<span class='fu'>load_spec_file</span>(<span class='no'>file</span>, <span class='kw'>data_path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data_stem</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -131,6 +138,18 @@
     <tr>
       <th>file</th>
       <td><p>name of yaml file containing specification</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>other arguments to update `SETUP__`</p></td>
+    </tr>
+    <tr>
+      <th>data_path</th>
+      <td><p>optional path to data sets</p></td>
+    </tr>
+    <tr>
+      <th>data_stem</th>
+      <td><p>optional alternate stem for data files</p></td>
     </tr>
     </table>
     

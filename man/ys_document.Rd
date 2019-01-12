@@ -4,7 +4,7 @@
 \alias{ys_document}
 \title{Render a document from one or more specification objects}
 \usage{
-ys_document(x, type = c("regulatory", "working"), ...)
+ys_document(x, type = c("working", "regulatory"), ...)
 }
 \arguments{
 \item{x}{a spec or project object}

@@ -14,6 +14,8 @@
 ##' @importFrom purrr flatten flatten_chr modify
 ##' @importFrom glue glue
 ##' @importFrom utils type.convert
+##' 
+##' @include utils.R
 NULL
 
 globalVariables(c("decode", "unit", "source", "type", "value"))

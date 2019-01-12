@@ -1,7 +1,7 @@
 
 
 merge.list <- function(x,y,..., open=FALSE,
-                       warn=TRUE, context="object") {
+                       warn=FALSE, context="object") {
   
   y <- as.list(y)
   
@@ -56,7 +56,6 @@ make_null <- function(x, name) {
   })
 }
 
-
 .no <- function(name,object) {
   is.null(object[[name]])
 }
@@ -68,6 +67,7 @@ make_null <- function(x, name) {
 .stop <- function(...) stop(..., call. = FALSE)
 
 try_yaml <- function(file) {
+  file <- normalizePath(file,mustWork=FALSE)
   if(!file.exists(file)) {
     .stop("the file ", basename(file) ,
           "\n  does not exist in directory\n  ",
@@ -89,6 +89,9 @@ try_yaml <- function(file) {
   this
 }
 
+scan_yml <- function(file,n) {
+  scan(file,comment.char="#",what=character(),quiet=TRUE,n=n)  
+}
 
 .test_spec <- function(.name, ..., .where = tempfile()) {
   

@@ -21,10 +21,8 @@ output:
 
 ```{r, "yspec_FDA_setup_chunk", echo = FALSE, results = "hide", message = FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-library(yspec)
 ```
 
 ```{r, "yspec_FDA_render_chunk", results = "asis", echo = FALSE, message = FALSE}
-writeLines(yspec::fda_define("<yamlfile>"))
+writeLines(<ys_regulatory_markup_>)
 ```
-

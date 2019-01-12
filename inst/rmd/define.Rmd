@@ -22,11 +22,9 @@ output:
 
 ```{r, "yspec_define_rmd_setup", echo = FALSE, results = "hide", message = FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-library(yspec)
 ```
 
-
 ```{r, "yspec_render", results = "asis", echo = FALSE, message = FALSE}
-writeLines(yspec::define_for_rmd("<yamlfile>", "<format>"))
+writeLines(<ys_working_markup_>)
 ```
 

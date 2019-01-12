@@ -32,7 +32,8 @@
 
 <meta property="og:title" content="Render a define.pdf document — render_define" />
 
-<meta property="og:description" content="Render a define.pdf document" />
+<meta property="og:description" content="`render_spec` generates a define document from a single specification object
+or file name." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -91,6 +92,9 @@
     <li>
       <a href="../articles/project.html">Project Object and Define Document</a>
     </li>
+    <li>
+      <a href="../articles/specification.html">Specification</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -119,21 +123,36 @@
 
     <div class="ref-description">
     
-    <p>Render a define.pdf document</p>
+    <p>`render_spec` generates a define document from a single specification object
+or file name.</p>
     
     </div>
 
     <pre class="usage"><span class='fu'>render_define</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for yproj</span>
-<span class='fu'>render_define</span>(<span class='no'>x</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for character</span>
-<span class='fu'>render_define</span>(<span class='no'>x</span>, <span class='kw'>stem</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/basename'>basename</a></span>(<span class='no'>x</span>),
+<span class='fu'>render_define</span>(<span class='no'>x</span>, <span class='kw'>stem</span> <span class='kw'>=</span> <span class='st'>"define_working"</span>,
   <span class='kw'>format</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"x_table"</span>, <span class='st'>"pander_table"</span>, <span class='st'>"md_outline"</span>),
   <span class='kw'>output_format</span> <span class='kw'>=</span> <span class='st'>"pdf_document"</span>, <span class='kw'>output_dir</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/getwd'>getwd</a></span>(),
   <span class='kw'>build_dir</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempdir</a></span>(), <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Data Specification"</span>,
-  <span class='kw'>author</span> <span class='kw'>=</span> <span class='st'>"MetrumRG"</span>, <span class='kw'>toc</span> <span class='kw'>=</span> <span class='st'>"yes"</span>, <span class='kw'>date</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/format'>format</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Sys.time'>Sys.time</a></span>()), <span class='no'>...</span>)</pre>
+  <span class='kw'>author</span> <span class='kw'>=</span> <span class='st'>"MetrumRG"</span>, <span class='kw'>toc</span> <span class='kw'>=</span> <span class='st'>"yes"</span>, <span class='kw'>number_sections</span> <span class='kw'>=</span> <span class='st'>"yes"</span>,
+  <span class='kw'>date</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/format'>format</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Sys.time'>Sys.time</a></span>()), <span class='no'>...</span>)
+
+<span class='co'># S3 method for character</span>
+<span class='fu'>render_define</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>dots</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>())
+
+<span class='co'># S3 method for yspec</span>
+<span class='fu'>render_define</span>(<span class='no'>...</span>)
+
+<span class='fu'>render_spec</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for character</span>
+<span class='fu'>render_spec</span>(<span class='no'>x</span>, <span class='kw'>stem</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/basename'>basename</a></span>(<span class='no'>x</span>), <span class='no'>...</span>,
+  <span class='kw'>dots</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>())
+
+<span class='co'># S3 method for yspec</span>
+<span class='fu'>render_spec</span>(<span class='no'>x</span>, <span class='kw'>stem</span> <span class='kw'>=</span> <span class='fu'><a href='get_meta.html'>get_meta</a></span>(<span class='no'>x</span>)<span class='kw'>[[</span><span class='st'>"name"</span>]], <span class='no'>...</span>,
+  <span class='kw'>dots</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>())</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -181,8 +200,16 @@ document</p></td>
       <td><p>used in yaml front matter</p></td>
     </tr>
     <tr>
+      <th>number_sections</th>
+      <td><p>used in yaml front matter</p></td>
+    </tr>
+    <tr>
       <th>date</th>
       <td><p>used in yaml front matter</p></td>
+    </tr>
+    <tr>
+      <th>dots</th>
+      <td><p>passed to object converter</p></td>
     </tr>
     </table>
     

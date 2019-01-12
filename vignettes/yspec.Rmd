@@ -1,6 +1,6 @@
 ---
 title: "yspec"
-author: "Kyle Baron"
+author: "STATUS: development"
 date: "`r Sys.Date()`"
 output: 
   rmarkdown::html_vignette: 
@@ -15,8 +15,23 @@ vignette: >
 
 ## About
 
-The `yspec` package will read you data specification file
-when it is written in a specific `yaml` format.  
+The `yspec` package will read you data specification file when it is written 
+in a specific `yaml` format.  
+
+For each data set in your project that needs documentation, create
+a yaml file that lists the columns in the data set along with details 
+about the data in that column.  This yaml file can be loaded into your 
+R session into an object that you can work with. This is referred to as
+a `spec` object.  The term `spec` refers to a single documented data object / 
+data file. 
+
+Once all of your data sets have been documented with their own yaml file, 
+you can create another object called a `yproj` objects.  This is used to 
+template the rendering of a single integrated data definitions file for 
+your entire project. 
+
+Keep reading to see how it works.
+<hr>
 
 ```{r "library"}
 library(yspec)
@@ -37,7 +52,7 @@ Once the data specification `yaml` file is written,
 it can be loaded in `R`
 
 ```{r "load_specfile", comment = " "}
-spec <- load_spec(specfile)
+spec <- ys_load(specfile)
 
 spec
 ```
@@ -54,33 +69,66 @@ summary(spec, WT, DV, EGFR)
 
 ## Example to render spec
 
-The specification object can be rendered to a specification file
+The specification object can be rendered to a specification file with the 
+`ys_document` function
+
 ```{r "render_spec", results = "hide", message = FALSE}
-render_spec(spec, stem = "render_spec")
+ys_document(spec, stem = "working_document")
 ```
 
-With output [here](render_spec.pdf).
+With output [here](working_document.pdf).
 
+`ys_document` will pass along arguments to `rmarkdown::render` so that you 
+can control those aspects of how the document is rendered. You can also 
+create custom output formats to get the data table to render in the way that you
+like.
 
-## Example project file
+## Example project object
 
-To create a project-wide data specification document, first
-create a project file:
-```{r "proj_file", comment = " "}
-proj <- file_proj_ex()
+To create an project-wide listing of documented data sets, we create a 
+`yproj` or project object.  We create this from the spec objects that we 
+read about in the previous section.  Let's load another object to use along 
+with the object loaded in the previous section.
 
-cat(readLines(proj), sep = "\n")
+```{r}
+pdspec <- load_spec_ex("DEM104101F_PKPD.yml")
 ```
 
-The project file refers to other data specification documents, all of 
-which can be rendered to a single comprehensive 
-data specication file.
+Now, we have two objects to work with:
+
+```{r}
+head(spec)
+head(pdspec)
+```
+
+We can create a project object from both objects
+```{r}
+proj <- ys_project(spec,pdspec)
+
+proj
+```
+
 
 
 ## Render a project file
 
+To render the project file we'll use the same `ys_document()` function.  
+This time, we'll add some extra (optional) arguments that will help us 
+get the document to look the way we want:
+
 ```{r "fda_define", results = "hide", message = FALSE}
-render_fda_define(proj)
+ys_document(
+  proj, 
+  stem = "project_document", 
+  build_dir = mrgtemplate(),
+  author = "Michelle Johnson", 
+  title = "Analysis data specification"
+)
 ```
 
-With output [here](define.pdf).
+With output [here](project_document.pdf).
+
+Using the `build_dir` argument gets us the document rendered with Metrum 
+Research Group branding.  Also, `author` and `title` are passed into the
+configuration fields for this document.
+

@@ -1,6 +1,6 @@
 ---
 title: "Project Object and Define Document"
-author: "Kyle Baron"
+author: "STATUS: development"
 date: "`r Sys.Date()`"
 output: 
   rmarkdown::html_vignette: 
@@ -26,7 +26,8 @@ library(yspec)
 If my project had 3 analysis data sets, one for PK, one for PKPD, and one for 
 AEs, we create a specification object for each one.  Here, we're using 
 `load_spec_ex()` because we're using example material from the package.  You 
-should use `load_spec()` for your project.
+should use `ys_load()` for your project and give the full path to the 
+yaml specification file. 
 
 ```{r}
 sp1 <- load_spec_ex("DEM104101F_PK.yml")
@@ -48,7 +49,7 @@ This includes our usual information about the columns in the data set.
 We take these specification objects and create a 
 project object from them. 
 ```{r}
-proj <- as_proj_spec(sp1,sp2,sp3)
+proj <- ys_project(sp1,sp2,sp3)
 
 proj
 
@@ -72,12 +73,11 @@ object (`sp1`) looks like this:
 
 ```
 
-In the `SETUP__` block, we included a description; this is required to make a 
+In the `YPROJ__` block, we included a description; this is required to make a 
 project object from data objects. There also is a `name` that defaults to the 
 stem of the data specification file.  We also optionally included `projectnumber` 
 and `sponsor`.  These will get inserted into the define documentwhen the 
 MetrumRG Rmarkdown template is used.
-
 
 # Render a define file
 Now, we have an object with the project information put together.  The essential
@@ -85,7 +85,7 @@ contents of that object have been written to a project spec file and can
 be used to template the creation of a project data specification file.
 
 ```{r, eval=FALSE}
-render_define(proj, stem = "define_doc")
+ys_document(proj, stem = "define_doc")
 ```
 
 

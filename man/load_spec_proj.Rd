@@ -2,9 +2,12 @@
 % Please edit documentation in R/class-yproject.R
 \name{load_spec_proj}
 \alias{load_spec_proj}
+\alias{ys_load_proj}
 \title{Load a project-wide spec file}
 \usage{
 load_spec_proj(file)
+
+ys_load_proj(...)
 }
 \arguments{
 \item{file}{file name}
@@ -19,5 +22,4 @@ file <- file_proj_ex()
 spec <- load_spec_proj(file)
 
 spec
-
 }

@@ -1,8 +1,4 @@
 
-is_yproj <- function(x) {
-  inherits(x, "yproj")
-}
-
 ##' Load a project-wide spec file
 ##'
 ##' @param file file name
@@ -14,14 +10,21 @@ is_yproj <- function(x) {
 ##' spec <- load_spec_proj(file)
 ##'
 ##' spec
-##'
+##' @include utils.R
 ##' @export
 load_spec_proj <- function(file) {
   
-  x <- load_spec_file(file)
+  if(!is_yproj_file(file)) {
+    file <- paste0("file: ", file, "\n")
+    stop(file, "Does not appear to be a yspec project file.", call.=FALSE)
+  }
   
+  x <- try_yaml(file)
+  x <- capture_file_info(x,file,where="YPROJ__")
+  
+  x <- unpack_meta_yproj(x)
   meta <- get_meta(x)
-  
+
   path <- meta[["path"]]
   
   defaults <- meta[names(meta) %in% c("data_path")]
@@ -70,6 +73,12 @@ load_spec_proj <- function(file) {
     x
   })
   structure(x, class = "yproj", meta = meta)
+}
+
+##' @rdname load_spec_proj
+##' @export
+ys_load_proj <- function(...) {
+  load_spec_proj(...)  
 }
 
 ##' @export
@@ -185,13 +194,14 @@ as_proj_spec <- function(..., output=tempfile(fileext=".yml"),
     yml_file = output, 
     proj_file = output,
     proj_path = dirname(output),
-    path = dirname(output)
+    path = dirname(output), 
+    class = "yproj"
   )
   meta <- update_list(meta,dots)
-  txt <- yaml::as.yaml(c(list(SETUP__ = meta),proj))
+  txt <- yaml::as.yaml(c(list(YPROJ__ = meta),proj))
   if(dirname(output)==tempdir()) {
-    loc <- paste0(basename(output), " in tempdir()")
-    message("Writing project file to:\n", loc)
+    #loc <- paste0(basename(output), " in tempdir()")
+    #message("Writing project file to:\n", loc)
   } else {
     message("Writing project file to:\n ", output)  
   }
@@ -204,7 +214,8 @@ as_proj_spec <- function(..., output=tempfile(fileext=".yml"),
 
 ##' @rdname as_proj_spec
 ##' @export
-ys_project_file <- function(..., output = tempfile(fileext=".yml"), where = NULL, dots = list()) {
+ys_project_file <- function(..., output = tempfile(fileext=".yml"), 
+                            where = NULL, dots = list()) {
   
   files <- list(...) %>% unlist()
   if(is.character(where)) {
@@ -221,3 +232,38 @@ ys_project_file <- function(..., output = tempfile(fileext=".yml"), where = NULL
 ys_project <- function(...) {
   as_proj_spec(...)  
 }
+
+unpack_meta_yproj <- function(x,...) {
+  meta <- list()
+  metai <- names(x) == "YPROJ__"
+  if(any(metai)) {
+    meta <- as.list(x[[which(metai)]])
+    x <- x[!metai]
+  }
+  if(.no("name", meta)) {
+    meta[["name"]] <- basename(meta[["spec_file"]])
+    meta[["name"]] <- tools::file_path_sans_ext(meta[["name"]])
+  }
+  if(.no("name", meta)) {
+    meta[["name"]] <- basename(meta[["spec_file"]])
+    meta[["name"]] <- tools::file_path_sans_ext(meta[["name"]])
+  }
+  if(.no("data_path", meta)) {
+    meta[["data_path"]] <- "../data/derived"
+  }
+  updates <- list(...)
+  meta <- merge.list(meta,updates)
+  structure(x, meta = meta)
+}
+
+is_yproj_file <- function(x) {
+  x <- normalizePath(x,mustWork=FALSE)
+  if(!file.exists(x)) return(FALSE)
+  trimws(scan_yml(file=x,n=1))=="YPROJ__:"
+}
+
+is_yproj <- function(x) {
+  inherits(x, "yproj")
+}
+
+
