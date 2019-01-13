@@ -171,11 +171,16 @@
     </tr>
     <tr>
       <th>output_dir</th>
-      <td><p>passed to <code><a href='https://www.rdocumentation.org/packages/rmarkdown/topics/render'>rmarkdown::render</a></code></p></td>
+      <td><p>The output directory for the rendered <code>output_file</code>.
+This allows for a choice of an alternate directory to which the output file
+should be written (the default output directory of that of the input file).
+If a path is provided with a filename in <code>output_file</code> the directory
+specified here will take precedence. Please note that any directory path
+provided will create any necessary directories if they do not exist.</p></td>
     </tr>
     <tr>
       <th>build_dir</th>
-      <td><p>directory where rmarkdown will build the document</p></td>
+      <td><p>directory where the document is to be built</p></td>
     </tr>
     <tr>
       <th>ext</th>

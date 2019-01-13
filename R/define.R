@@ -22,18 +22,18 @@ ys_document <- function(x, type = c("working", "regulatory"), ...) {
   render_define(x,...)
 }
 
-##' Render a define.pdf document
+##' Render a `define.pdf` document
 ##' 
 ##' `render_spec` generates a define document from a single specification object
 ##' or file name.
 ##'
-##' @param x a \code{yproj} object or project specification file name
+##' @param x a `yproj` object or project specification file name
 ##' @param stem used to name the output file
 ##' @param format the name of a function that will genrate code formatting
 ##' the data specification information
-##' @param output_format passed to \code{rmarkdown::render}
-##' @param output_dir passed to \code{rmarkdown::render}
-##' @param build_dir directory where \code{rmarkdown} should build the
+##' @param output_format passed to [rmarkdown::render]
+##' @param output_dir passed to [rmarkdown::render]
+##' @param build_dir directory where `rmarkdown` should build the
 ##' document
 ##' @param title used in yaml front matter
 ##' @param author used in yaml front matter
@@ -41,10 +41,11 @@ ys_document <- function(x, type = c("working", "regulatory"), ...) {
 ##' @param number_sections used in yaml front matter
 ##' @param date used in yaml front matter
 ##' @param dots passed to object converter
-##' @param ... passed to \code{rmarkdown::render}
+##' @param ... passed to [rmarkdown::render]
+##' 
 ##'
 ##' @details
-##' \code{stem} should not include a file extension, just
+##' `stem` should not include a file extension, just
 ##' the file stem.
 ##'
 ##' @examples
@@ -56,6 +57,7 @@ ys_document <- function(x, type = c("working", "regulatory"), ...) {
 ##' \dontrun{
 ##'   render_define(file)
 ##' }
+##' @md
 ##' @export
 render_define <- function(x, ...) {
   UseMethod("render_define")  
@@ -93,7 +95,7 @@ render_define.yproj <- function(x,
   sponsor <- db_quote(sponsor)
   projectnumber <- db_quote(projectnumber)
   
-  proj <- meta[["proj_file"]]
+  proj <- meta[["spec_file"]]
   
   yamlfile <- normalizePath(proj)
   output_dir <- normalizePath(output_dir)
@@ -124,10 +126,15 @@ render_define.yproj <- function(x,
   
   writeLines(txt,file)
   
-  ans <- rmarkdown::render(file, output_format = output_format, envir=env, ...)
+  ans <- rmarkdown::render(
+    file, 
+    output_format = output_format, 
+    envir=env,
+    ...
+  )
   
   if(copy_back) file.copy(ans, output_dir, overwrite = TRUE)
-  
+
   return(invisible(ans))
 }
 

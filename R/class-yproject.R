@@ -2,17 +2,18 @@
 ##' Load a project-wide spec file
 ##'
 ##' @param file file name
+##' @param ... used for alias only
 ##'
 ##' @examples
 ##'
 ##' file <- file_proj_ex()
 ##'
-##' spec <- load_spec_proj(file)
+##' spec <- ys_load_proj(file)
 ##'
 ##' spec
 ##' @include utils.R
 ##' @export
-load_spec_proj <- function(file) {
+ys_load_proj <- function(file) {
   
   if(!is_yproj_file(file)) {
     file <- paste0("file: ", file, "\n")
@@ -24,8 +25,8 @@ load_spec_proj <- function(file) {
   
   x <- unpack_meta_yproj(x)
   meta <- get_meta(x)
-
-  path <- meta[["path"]]
+  
+  path <- meta[["spec_path"]]
   
   defaults <- meta[names(meta) %in% c("data_path")]
   
@@ -43,42 +44,25 @@ load_spec_proj <- function(file) {
     .stop("entries in project file with no description\n ", err)
   }
   
-  x[] <- imap(x, function(x,y) {
+  x[] <- imap(x, function(x,stem) {
     x <- combine_list(defaults,x)
-    
-    x[["name"]] <- y
-    
+    x[["name"]] <- stem
     add_path <- FALSE  
-    if(.no("spec_path", x)) {
-      x[["spec_path"]] <-  path 
-      add_path <- TRUE
-    } else {
-      x[["spec_path"]] <- x[["path"]]  
-    }
-    if(.no("spec_file", x)) {
-      x[["spec_file"]] <- paste0(y, ".yml")
-    }
     if(.no("data_file", x)) {
-      x[["data_file"]] <- paste0(y, ".xpt")
+      x[["data_file"]] <- paste0(stem, ".xpt")
     }
     if(.no("data_path",x)) {
       x[["data_path"]] <- path
-    }
-    if(add_path) {
-      x[["spec_file"]] <- normalizePath(
-        file.path(x[["spec_path"]], x[["spec_file"]]),
-        mustWork = FALSE
-      )
     }
     x
   })
   structure(x, class = "yproj", meta = meta)
 }
 
-##' @rdname load_spec_proj
+##' @rdname ys_load_proj
 ##' @export
-ys_load_proj <- function(...) {
-  load_spec_proj(...)  
+load_spec_proj<- function(...) {
+  ys_load_proj(...)  
 }
 
 ##' @export
@@ -113,7 +97,7 @@ assemble_proj_info <- function(x) {
   if(is.null(data_path)) {
     data_path <- "../data/derived"
   }
-
+  
   spec_file <- met[["spec_file"]]
   meta <- list(
     data_path = data_path,
@@ -152,12 +136,12 @@ csv_file_name <- function(data_path, data_stem, ext = ".csv", ...) {
 ##' @param dots used to update `SETUP__` block data items
 ##' @param sponsor optional project sponsor
 ##' @param projectnumber optional project number
-##' in \code{...}
+##' in `...`
 ##' @return an object of class yproj
 ##' @export
-as_proj_spec <- function(..., output=tempfile(fileext=".yml"), 
-                         data_path = NULL, dots = list(),
-                         sponsor = "[sponsor]", projectnumber = "[projectnumber]") {
+ys_project <- function(..., output=tempfile(fileext=".yml"), 
+                       data_path = NULL, dots = list(),
+                       sponsor = "[sponsor]", projectnumber = "[projectnumber]") {
   lst <- list(...)
   proj <- map(lst, assemble_proj_info)
   meta <- map(proj, "meta")
@@ -191,9 +175,8 @@ as_proj_spec <- function(..., output=tempfile(fileext=".yml"),
   meta <- list(
     sponsor=sponsor, 
     projectnumber=projectnumber, 
-    yml_file = output, 
-    proj_file = output,
-    proj_path = dirname(output),
+    spec_file = output,
+    spec_path = dirname(output),
     path = dirname(output), 
     class = "yproj"
   )
@@ -212,7 +195,7 @@ as_proj_spec <- function(..., output=tempfile(fileext=".yml"),
   structure(proj, meta=meta, class="yproj")
 }
 
-##' @rdname as_proj_spec
+##' @rdname ys_project
 ##' @export
 ys_project_file <- function(..., output = tempfile(fileext=".yml"), 
                             where = NULL, dots = list()) {
@@ -227,10 +210,10 @@ ys_project_file <- function(..., output = tempfile(fileext=".yml"),
   do.call(as_proj_spec, c(specs, dots))
 }
 
-#' @rdname as_proj_spec
+#' @rdname ys_project
 #' @export
-ys_project <- function(...) {
-  as_proj_spec(...)  
+as_proj_spec <- function(...) {
+  ys_project(...)  
 }
 
 unpack_meta_yproj <- function(x,...) {

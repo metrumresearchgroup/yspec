@@ -31,11 +31,11 @@ test_that("yspec methods", {
 
 test_that("spec object meta data", {
   meta <- get_meta(spec)
-  expect_is(meta$yml_file, "character")
-  expect_is(meta$path, "character")
+  expect_is(meta[["spec_file"]], "character")
+  expect_is(meta[["spec_path"]], "character")
   expect_is(meta$primary_key, "character")
-  expect_identical(meta$path, dirname(meta$yml_file))
-  expect_identical(basename(meta$yml_file), "spec.yml")
+  expect_identical(meta[["spec_path"]], dirname(meta[["spec_file"]]))
+  expect_identical(basename(meta[["spec_file"]]), "spec.yml")
 })
 
 

@@ -122,7 +122,7 @@ primary_keys <- function(x) {
 
 data_stem <- function(x) {
   m <- get_meta(x)
-  file <- basename(m[["yml_file"]])
+  file <- basename(m[["spec_file"]])
   gsub(".ya?ml$", "", file)
 }
 

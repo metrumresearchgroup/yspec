@@ -25,6 +25,7 @@ merge.list <- function(x,y,..., open=FALSE,
 }
 
 combine_list <- function(left, right) {
+  if(length(right)==0) return(left)
   if(!all(is.list(left),is.list(right))) {
     stop("input are not lists")
   }
@@ -33,6 +34,7 @@ combine_list <- function(left, right) {
 }
 
 update_list <- function(left, right) {
+  if(length(right)==0) return(left)
   if(!all(is.list(left),is.list(right))) {
     stop("input are not lists")
   }

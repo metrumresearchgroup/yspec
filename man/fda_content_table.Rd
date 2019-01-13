@@ -14,8 +14,6 @@ be changed from default value of ".xpt" for testing puroses}
 
 \item{loc}{location to use for data set files; this should 
 only be changed from default value of "." for testing purposes}
-
-\item{file}{the full path to a yaml specification file}
 }
 \description{
 Print a table of contents for FDA define document

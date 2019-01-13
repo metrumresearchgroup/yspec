@@ -84,7 +84,6 @@ fda_table <- function(x) {
 ##' Print a table of contents for FDA define document
 ##'
 ##' @param x a spec define object
-##' @param file the full path to a yaml specification file
 ##' @inheritParams fda_define 
 ##' @seealso \code{\link{load_spec_proj}}
 ##'
@@ -116,12 +115,6 @@ fda_table_file <- function(file) {
   x <- load_spec(file)
   fda_table(x)
 }
-
-# ##' @rdname fda_content_table
-# ##' @export
-# fda_content_table_file <- function(file,...) {
-#   fda_content_table(load_spec_proj(file),...)
-# }
 
 fda_content_table_row <- function(.x, ext, loc) {
   data_file <- paste0(.x[["data_stem"]], ext)
@@ -189,10 +182,10 @@ fda_define <- function(file, title="Datasets", ext=".xpt", loc=".",...) {
 ##' @param date the document date
 ##' @param author the document author
 ##' @param format function to generate the define text
-##' @param output_dir passed to \code{rmarkdown::render}
-##' @param build_dir directory where rmarkdown will build the document
 ##' @param dots named list of arguments passed to object converter function
+##' @param build_dir directory where the document is to be built
 ##' @inheritParams fda_define
+##' @inheritParams rmarkdown::render 
 ##' @param ... passed to \code{rmarkdown::render}
 ##'
 ##' @examples
@@ -234,7 +227,7 @@ render_fda_define.yproj <- function(x,
   
   meta <- get_meta(x)
   
-  yamlfile <- meta[["proj_file"]]
+  yamlfile <- meta[["spec_file"]]
   
   if(!is.character(meta[["sponsor"]])) {
     .stop("sponsor field is required in YPROJ__")

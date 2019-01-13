@@ -60,3 +60,4 @@ travis:
 clean: 
 	rm *.pdf
 	rm *.yml
+	rm tests/testthat/*.pdf

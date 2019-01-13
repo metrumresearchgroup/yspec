@@ -56,8 +56,7 @@ STUDY:
     - The first phase 2 study conducted only at sites 1, 2, 3 when the formulation was still oral liquid only
     - The renal impairment study
     - The second phase 2 study
-SEX:
-  lookup: true
+SEX: !look
 BQL:
   about: below limit of quantification
   long: DV value is below the quantitation limit

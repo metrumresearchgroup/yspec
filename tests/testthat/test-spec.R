@@ -16,11 +16,11 @@ test_that("yspec", {
   sp <- load_spec_ex()
   expect_equal(yspec:::unit(sp$AMT), "mg")
   expect_equal(yspec:::type(sp$STUDY), "character")
-  expect_equal(yspec:::short(sp$EGFR), "eGFR")
+  expect_equal(yspec:::short(sp$CLCR), "creatinine clearance")
   expect_equal(yspec:::Range(sp$EGFR), "10 to 300")
   expect_equal(primary_keys(sp), c("ID", "EVID", "SEQ"))
   txt <- capture.output(summary(sp))
   expect_true(grepl("USUBJID", txt[4]))
 })
 
-
+spec <- load_spec_ex()

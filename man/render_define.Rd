@@ -8,7 +8,7 @@
 \alias{render_spec}
 \alias{render_spec.character}
 \alias{render_spec.yspec}
-\title{Render a define.pdf document}
+\title{Render a \code{define.pdf} document}
 \usage{
 render_define(x, ...)
 
@@ -34,16 +34,16 @@ render_spec(x, ...)
 \arguments{
 \item{x}{a \code{yproj} object or project specification file name}
 
-\item{...}{passed to \code{rmarkdown::render}}
+\item{...}{passed to \link[rmarkdown:render]{rmarkdown::render}}
 
 \item{stem}{used to name the output file}
 
 \item{format}{the name of a function that will genrate code formatting
 the data specification information}
 
-\item{output_format}{passed to \code{rmarkdown::render}}
+\item{output_format}{passed to \link[rmarkdown:render]{rmarkdown::render}}
 
-\item{output_dir}{passed to \code{rmarkdown::render}}
+\item{output_dir}{passed to \link[rmarkdown:render]{rmarkdown::render}}
 
 \item{build_dir}{directory where \code{rmarkdown} should build the
 document}
@@ -61,7 +61,7 @@ document}
 \item{dots}{passed to object converter}
 }
 \description{
-`render_spec` generates a define document from a single specification object
+\code{render_spec} generates a define document from a single specification object
 or file name.
 }
 \details{

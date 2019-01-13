@@ -61,7 +61,7 @@ as a description (along with some other information).
 This file is by default saved to a temporary location.  But you can also save 
 it locally and keep it as a part of the project.
 
-```{yaml, code = readLines(get_meta(proj)[["yml_file"]])}
+```{yaml, code = readLines(get_meta(proj)[["spec_file"]])}
 
 ```
 

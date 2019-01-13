@@ -26,6 +26,7 @@ Collate:
     'class-yspec.R'
     'col_factor.R'
     'define.R'
+    'err_log.R'
     'exspec.R'
     'fda_define.R'
     'handlers.R'

@@ -34,9 +34,14 @@ render_fda_define(x, ...)
 
 \item{format}{function to generate the define text}
 
-\item{output_dir}{passed to \code{rmarkdown::render}}
+\item{output_dir}{The output directory for the rendered \code{output_file}.
+This allows for a choice of an alternate directory to which the output file
+should be written (the default output directory of that of the input file).
+If a path is provided with a filename in \code{output_file} the directory
+specified here will take precedence. Please note that any directory path
+provided will create any necessary directories if they do not exist.}
 
-\item{build_dir}{directory where rmarkdown will build the document}
+\item{build_dir}{directory where the document is to be built}
 
 \item{ext}{data set file extension to include; this should only 
 be changed from default value of ".xpt" for testing puroses}

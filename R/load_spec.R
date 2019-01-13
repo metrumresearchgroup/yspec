@@ -40,7 +40,7 @@ check_spec_input <- function(x, .fun = check_spec_input_col,
                              context = "spec", ...) {
   err <- check_for_err(x, .fun)
   if(length(err)==0) return(invisible(NULL))
-  file <- basename(get_meta(x)[["yml_file"]])
+  file <- basename(get_meta(x)[["spec_file"]])
   file <- paste0("In file: ", file)
   .stop("invalid ", context, " input data\n", file, "\n", err)
 }
@@ -70,7 +70,7 @@ check_this_col <- function(x,col,env,...) {
 check_spec_cols <- function(x, context = "column") {
   err <- check_for_err(x, check_this_col)
   if(length(err)==0) return(invisible(NULL))
-  file <- basename(get_meta(x)[["yml_file"]])
+  file <- basename(get_meta(x)[["spec_file"]])
   file <- paste0("In file: ", file)
   .stop("invalid ", context, " data\n", file, "\n", err)
 }
@@ -90,9 +90,9 @@ check_for_err <- function(x, .fun, ...) {
 }
 
 capture_file_info <- function(x,file,where = "SETUP__") {
-  x[[where]][["yml_file"]] <- file
+  #x[[where]][["yml_file"]] <- file
   x[[where]][["spec_file"]] <- file
-  x[[where]][["path"]] <- normalizePath(dirname(file),mustWork=FALSE)
+  #x[[where]][["path"]] <- normalizePath(dirname(file),mustWork=FALSE)
   x[[where]][["spec_path"]] <- normalizePath(dirname(file),mustWork=FALSE)
   x
 }
@@ -160,7 +160,7 @@ unpack_meta <- function(x,to_update) {
   }
   if(exists("lookup_file", meta)) {
     assert_that(is.character(meta[["lookup_file"]]))
-    meta[["lookup_file"]] <- file.path(meta[["path"]],meta[["lookup_file"]])
+    meta[["lookup_file"]] <- file.path(meta[["spec_path"]],meta[["lookup_file"]])
     meta[["lookup_file"]] <- normalizePath(meta[["lookup_file"]],mustWork = FALSE)
   }
   if(.no("name", meta)) {
