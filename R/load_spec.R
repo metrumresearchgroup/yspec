@@ -104,18 +104,14 @@ capture_file_info <- function(x,file,where = "SETUP__") {
 ##' @param data_stem optional alternate stem for data files
 ##' @param ... other arguments to update `SETUP__`
 ##' @export
-load_spec <- function(file, ...) {
-  x <- load_spec_file(file,...)
+ys_load <- function(file, ...) {
+  x <- ys_load_file(file,...)
   unpack_spec(x)
 }
 
-##' @rdname load_spec
+##' @rdname ys_load
 ##' @export
-ys_load <- function(...) load_spec(...)
-
-##' @rdname load_spec
-##' @export
-load_spec_file <- function(file, data_path = NULL, data_stem = NULL, ...) {
+ys_load_file <- function(file, data_path = NULL, data_stem = NULL, ...) {
   file <- normalizePath(file, mustWork = FALSE)
   x <- try_yaml(file)
   x <- capture_file_info(x,file)
@@ -124,6 +120,10 @@ load_spec_file <- function(file, data_path = NULL, data_stem = NULL, ...) {
   incoming[["data_stem"]] <- data_stem
   unpack_meta(x, to_update = incoming, ...)
 }
+
+##' @rdname ys_load
+##' @export
+load_spec <- function(...) ys_load(...)
 
 unpack_spec <- function(x) {
 
@@ -198,7 +198,7 @@ load_lookup_spec <- function(x) {
   }
   ans <- list()
   for(f in files) {
-    this <- load_spec_file(f)
+    this <- ys_load_file(f)
     check_spec_input(this, context = "lookup spec", not_allowed = "lookup")
     ans <- combine_list(ans,this)
   }
@@ -298,7 +298,7 @@ col_initialize <- function(x, name) {
 ##' 
 ##' @export
 ys_load_meta <- function(file) {
-  get_meta(load_spec_file(file))
+  get_meta(ys_load_file(file))
 }
 
 ##' Load a specification file, guessing the type

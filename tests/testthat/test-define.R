@@ -2,7 +2,7 @@ library(yspec)
 library(testthat)
 library(purrr)
 
-context("test-define.R")
+context("test-define")
 
 test_that("define", {
   sp <- load_spec_ex(("DEM104101F_PK.yml"))
@@ -23,9 +23,8 @@ test_that("md_outline", {
 })
 
 test_that("pander_table", {
-  sp <- load_spec_ex(("DEM104101F_PK.yml"))
-  pr <- ys_project(sp)
+  pr <- ys_project_file(file_spec_ex("DEM104101F_PK.yml"))
   expect_is(pr,"yproj")
-  yamlfile <- get_meta(pr)[["spec_file"]]
+  yamlfile <- ys_spec_file(pr)
   define_for_rmd(yamlfile,"pander_table")
 })

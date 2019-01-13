@@ -2,6 +2,8 @@ library(yspec)
 library(testthat)
 library(purrr)
 
+context("test-exspec")
+
 test_that("load_spec_ex", {
   expect_is(load_spec_ex(), "yspec")
   expect_is(ys_load(file_spec_ex()), "yspec")

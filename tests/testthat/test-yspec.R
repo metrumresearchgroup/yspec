@@ -5,6 +5,7 @@ library(purrr)
 .test_load <- yspec:::.test_load
 .test_spec <- yspec:::.test_spec
 
+context("test-yspec")
 
 spec <- load_spec_ex(file = "spec.yml")
 
@@ -12,12 +13,9 @@ spec <- load_spec_ex(file = "spec.yml")
 test_that("yspec object", {
   expect_is(spec, "yspec")
   expect_true(is.list(spec))
-
   cl <- map_chr(spec, class)
   expect_true(all(cl=="ycol"))
 })
-
-
 
 test_that("yspec methods", {
   expect_is(as.list(spec), "list")
@@ -37,7 +35,6 @@ test_that("spec object meta data", {
   expect_identical(meta[["spec_path"]], dirname(meta[["spec_file"]]))
   expect_identical(basename(meta[["spec_file"]]), "spec.yml")
 })
-
 
 test_that("testing input data", {
   expect_error(.test_load("foo"),
@@ -73,7 +70,6 @@ test_that("column data is not merged when lookup is false", {
   raw <- yspec:::try_yaml(file)
   mspec <- load_spec_ex(file = "test_lookup.yml")
   look <- yspec:::load_lookup_spec(mspec)
-  
 
   expect_null(raw$ALB$unit)
   expect_identical(mspec$BMI$unit, look$BMI$unit)

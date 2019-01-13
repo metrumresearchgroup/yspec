@@ -1,0 +1,11 @@
+SETUP__:
+  description: WT is listed twice.
+WT:
+  range: [10,100]
+SEX:
+  values: [0,1]
+  decode: [a,b,c]
+WT: 
+  short: comment character
+C:
+  short: comment characters

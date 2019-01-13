@@ -5,7 +5,7 @@
 \alias{render_fda_define.yproj}
 \alias{render_fda_define.character}
 \alias{render_fda_define.yspec}
-\title{Render a define document conforming to FDA standards}
+\title{Render a `define.pdf` document conforming to FDA standards}
 \usage{
 render_fda_define(x, ...)
 
@@ -22,7 +22,7 @@ render_fda_define(x, ...)
 \arguments{
 \item{x}{a yaml specification file name or a yproj object}
 
-\item{...}{passed to \code{rmarkdown::render}}
+\item{...}{passed to [rmarkdown::render]}
 
 \item{stem}{used to name the output document}
 
@@ -52,7 +52,7 @@ only be changed from default value of "." for testing purposes}
 \item{dots}{named list of arguments passed to object converter function}
 }
 \description{
-Render a define document conforming to FDA standards
+Render a `define.pdf` document conforming to FDA standards
 }
 \examples{
 proj_file <- file_proj_ex()

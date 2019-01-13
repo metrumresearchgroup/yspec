@@ -4,6 +4,7 @@ library(purrr)
 .test_load <- yspec:::.test_load
 .test_spec <- yspec:::.test_spec
 
+context("test-fda_define")
 
 test_that("fda_define", {
   sp <- load_spec_ex(("DEM104101F_PK.yml"))

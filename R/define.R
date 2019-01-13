@@ -174,6 +174,7 @@ render_spec.yspec <- function(x, stem = get_meta(x)[["name"]], ..., dots = list(
 ##' @param yamlfile a project file name
 ##' @param format a function or the name of a function to format the spec
 ##' contents
+##' @keywords internal
 ##' @export
 define_for_rmd <- function(yamlfile, format) {
   

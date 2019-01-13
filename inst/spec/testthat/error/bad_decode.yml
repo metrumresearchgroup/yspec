@@ -1,0 +1,9 @@
+SETUP__:
+  description: More decodes than values.
+WT:
+  range: [10,100]
+SEX:
+  values: [0,1]
+  decode: [a,b,c]
+C: 
+  short: comment character

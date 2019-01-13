@@ -1,0 +1,13 @@
+SETUP__:
+  description: The primary keys are not in the data set.
+  primary_key: [USUBJID,SEQ]
+WT:
+  range: [10,100]
+SEX:
+  values: [0,1]
+  decode: [a,b]
+C: 
+  short: comment character
+SEQ:
+  values: [0,1]
+

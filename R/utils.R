@@ -43,11 +43,14 @@ update_list <- function(left, right) {
   left
 }
 
+# nocov start
 parens <- function(x) paste0("(",x,")")
 
 brackets <- function(x) paste0("[",x,"]")
 
 backticks <- function(x) paste0("`",x,"`")
+
+# nocov end
 
 is_error <- function(x) inherits(x,"try-error")
 
@@ -111,8 +114,9 @@ scan_yml <- function(file,n) {
   suppressMessages(load_spec(.test_spec(...)))
 }
 
+# nocov start
 yspec_pdf_document <- function(...,template = NULL) {
-  
+
   template <- system.file("tex", "yspectemplate.tex",
                           package = "yspec")
   rmarkdown::pdf_document(..., template = template)
@@ -122,6 +126,7 @@ yspectemplate <- function() {
   system.file("tex", "yspectemplate.tex",
               package = "yspec")
 }
+# nocov end
 
 cata <- function(..., fill = TRUE, append = TRUE) {
   cat(..., fill = fill, append = append)  
@@ -171,6 +176,7 @@ yspec_select_chr <- function(.spec) {
 ##' For internal / testing use
 ##' 
 ##' @param x a list column specification data
+##' @keywords internal
 ##' @export
 test_spec_list <- function(x) {
   file <- tempfile()
@@ -178,6 +184,16 @@ test_spec_list <- function(x) {
   writeLines(con = file, y)
   yspec::load_spec(file)
 }
+
+test_spec_error <- function(x) {
+  error <- system.file(
+    "spec", "testthat", "error", 
+    x, 
+    package = "yspec"
+  )
+  ys_load(error)
+}
+
 
 make_sep <- function(width = 40) {
   line <- paste0(rep("-",width-1),collapse = "")

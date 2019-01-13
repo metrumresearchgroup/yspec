@@ -205,7 +205,7 @@ ys_project_file <- function(..., output = tempfile(fileext=".yml"),
     files <- file.path(where,files)
   }
   files <- normalizePath(files)
-  specs <- lapply(files, load_spec_file)
+  specs <- lapply(files, ys_load_file)
   dots[["output"]] <- output
   do.call(as_proj_spec, c(specs, dots))
 }

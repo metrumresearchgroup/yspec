@@ -1,0 +1,39 @@
+
+library(yspec)
+
+context("test-utils")
+
+test_that("double quoting", {
+  expect_identical('"a"', yspec:::db_quote("a"))
+})
+
+test_that("err_file", {
+  expect_error(
+    yspec:::err_file("foo.txt", "this is an error"), 
+    regexp = "this is an error"
+  )  
+})
+
+test_that("list operations", {
+  a <- list(a = 1, b = 2, c = 3)
+  b <- list(b = 4, d = 5)
+  
+  x <- yspec:::combine_list(a,b)
+  expect_equal(x, list(a=1,b=4,c=3,d=5))
+  
+  x <- yspec:::update_list(a,b)
+  expect_equal(x, list(a = 1, b = 4, c = 3))
+  
+  x <- yspec:::merge.list(a,b)
+  expect_equal(x,yspec:::update_list(a,b))
+})
+
+test_that("make_null", {
+  a <- list(list(x = 1, y = 2, z = 3))
+  b <- yspec:::make_null(a, "y")
+  expect_equal(b, list(list(x = 1, z = 3)))
+})
+
+test_that(".stop", {
+  expect_error(yspec:::.stop("abcde"), regexp="abcde")
+})

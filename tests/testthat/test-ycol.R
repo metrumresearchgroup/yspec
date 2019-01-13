@@ -1,6 +1,8 @@
 library(yspec)
 library(purrr)
 
+context("test-ycol")
+
 test_that("ycol", {
   sp <- load_spec_ex(("DEM104101F_PK.yml"))  
   txt <- capture.output(sp$WT)

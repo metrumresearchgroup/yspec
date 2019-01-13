@@ -105,9 +105,15 @@ print1 <- function(x,...) {
 get_meta <- function(x) {
   ans <- attr(x, "meta")
   if(is.null(ans)) {
-    .stop("this object is corrupted (no meta attribute)")
+    .stop("The object does not have a meta attribute.")
   }
   ans
+}
+
+##' @rdname get_meta
+##' @export
+ys_spec_file <- function(x) {
+  get_meta(x)[["spec_file"]]  
 }
 
 ##' Get the primary keys from a specification object

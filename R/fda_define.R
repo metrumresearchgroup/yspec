@@ -51,9 +51,8 @@ add.to.row$command <- command__
 ##' @param x a yspec object
 ##' @param file the full path to yaml specification file
 ##'
-##' @return Character vector of latex code for
-##' the content of an FDA define.pdf document.  It
-##' includes a table of contents as well as data spec
+##' @return Character vector of latex code for the content of an FDA 
+##' `define.pdf` document.  It includes a table of contents as well as data spec
 ##' tables for each dataset for a project.
 ##'
 ##' @examples
@@ -174,7 +173,7 @@ fda_define <- function(file, title="Datasets", ext=".xpt", loc=".",...) {
   c(main, contents, flatten_chr(specs))
 }
 
-##' Render a define document conforming to FDA standards
+##' Render a `define.pdf` document conforming to FDA standards
 ##'
 ##' @param x a yaml specification file name or a yproj object
 ##' @param stem used to name the output document
@@ -186,7 +185,7 @@ fda_define <- function(file, title="Datasets", ext=".xpt", loc=".",...) {
 ##' @param build_dir directory where the document is to be built
 ##' @inheritParams fda_define
 ##' @inheritParams rmarkdown::render 
-##' @param ... passed to \code{rmarkdown::render}
+##' @param ... passed to [rmarkdown::render]
 ##'
 ##' @examples
 ##' proj_file <- file_proj_ex()

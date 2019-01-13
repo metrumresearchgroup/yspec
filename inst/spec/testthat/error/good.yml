@@ -1,0 +1,9 @@
+SETUP__:
+  description: Not bad.
+WT:
+  range: [10,100]
+SEX:
+  values: [0,1]
+  decode: [a,b]
+C: 
+  short: comment character

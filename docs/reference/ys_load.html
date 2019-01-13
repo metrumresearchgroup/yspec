@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get meta data from a specification object — get_meta • yspec</title>
+<title>Load a data specification file — ys_load • yspec</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Get meta data from a specification object — get_meta" />
+<meta property="og:title" content="Load a data specification file — ys_load" />
 
-<meta property="og:description" content="Get meta data from a specification object" />
+<meta property="og:description" content="Load a data specification file" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -112,27 +112,41 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get meta data from a specification object</h1>
+    <h1>Load a data specification file</h1>
     
-    <div class="hidden name"><code>get_meta.Rd</code></div>
+    <div class="hidden name"><code>ys_load.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Get meta data from a specification object</p>
+    <p>Load a data specification file</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>get_meta</span>(<span class='no'>x</span>)
+    <pre class="usage"><span class='fu'>ys_load</span>(<span class='no'>file</span>, <span class='no'>...</span>)
 
-<span class='fu'>ys_spec_file</span>(<span class='no'>x</span>)</pre>
+<span class='fu'>ys_load_file</span>(<span class='no'>file</span>, <span class='kw'>data_path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data_stem</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+
+<span class='fu'>load_spec</span>(<span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>a yspec object</p></td>
+      <th>file</th>
+      <td><p>name of yaml file containing specification</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>other arguments to update `SETUP__`</p></td>
+    </tr>
+    <tr>
+      <th>data_path</th>
+      <td><p>optional path to data sets</p></td>
+    </tr>
+    <tr>
+      <th>data_stem</th>
+      <td><p>optional alternate stem for data files</p></td>
     </tr>
     </table>
     

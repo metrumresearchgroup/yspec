@@ -3,6 +3,8 @@ library(yspec)
 library(testthat)
 library(dplyr)
 
+context("test-check")
+
 data_loc <- system.file("test_data", package = "yspec")
 data1 <- readRDS(file.path(data_loc, "test1.RDS"))
 data2 <- readRDS(file.path(data_loc, "test2.RDS"))

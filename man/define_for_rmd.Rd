@@ -15,3 +15,4 @@ contents}
 \description{
 Generate code for a generic define document
 }
+\keyword{internal}
