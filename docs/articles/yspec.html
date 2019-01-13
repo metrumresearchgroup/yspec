@@ -106,6 +106,9 @@ Keep reading to see how it works.
 <a class="sourceLine" id="cb2-2" title="2"></a>
 <a class="sourceLine" id="cb2-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cat">cat</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/readLines">readLines</a></span>(specfile)[<span class="dv">1</span><span class="op">:</span><span class="dv">29</span>], <span class="dt">sep =</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</a></code></pre></div>
 <pre><code>  SETUP__:
+    projectnumber: MRG123
+    sponsor: demo
+    description: an example data set
     primary_key: [ID,EVID,SEQ]
     lookup_file: [_yspec_lookup.yml]
   C:
@@ -130,10 +133,7 @@ Keep reading to see how it works.
     long: dose amount
     range: [0,1000]
   II:
-    about: [II, hours]
-    long: interdose interval
-  CMT:
-    about: Compartment</code></pre>
+    about: [II, hours]</code></pre>
 <p>Once the data specification <code>yaml</code> file is written, it can be loaded in <code>R</code></p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">spec &lt;-<span class="st"> </span><span class="kw"><a href="../reference/load_spec.html">ys_load</a></span>(specfile)</a>
 <a class="sourceLine" id="cb4-2" title="2"></a>
@@ -223,12 +223,12 @@ Keep reading to see how it works.
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1">proj &lt;-<span class="st"> </span><span class="kw"><a href="../reference/as_proj_spec.html">ys_project</a></span>(spec,pdspec)</a>
 <a class="sourceLine" id="cb16-2" title="2"></a>
 <a class="sourceLine" id="cb16-3" title="3">proj</a></code></pre></div>
-<pre><code>## projectnumber:   
-## sponsor:         
+<pre><code>## projectnumber:  MRG123 
+## sponsor:        demo 
 ## --------------------------------------------
 ## datafiles: 
 ##  name            description                       data_stem      
-##  spec            [data set description]            spec           
+##  spec            an example data set               spec           
 ##  DEM104101F_PKPD Population PKPD analysis data set DEM104101F_PKPD</code></pre>
 </div>
 <div id="render-a-project-file" class="section level2">

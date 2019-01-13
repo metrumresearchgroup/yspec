@@ -239,5 +239,5 @@ Source.yspec <- function(x,default = '.',...) {
 yspec_yml_file <- function(x,...) UseMethod("yspec_yml_file")
 ##' @export
 yspec_yml_file.default <- function(x,...) {
-  get_meta(x)[["yml_file"]]  
+  get_meta(x)[["spec_file"]]  
 }

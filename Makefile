@@ -5,6 +5,9 @@ TARBALL=${PACKAGE}_${VERSION}.tar.gz
 PKGDIR=.
 CHKDIR=.
 
+covr: 
+	Rscript inst/script/covr.R
+
 pkgdown:
 	Rscript -e 'pkgdown::build_site()'
 	cp vignettes/*.pdf docs/articles

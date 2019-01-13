@@ -183,10 +183,7 @@ unpack_meta <- function(x,to_update) {
         names(x)
       ))
     if(!found_keys) {
-      .stop(
-        "invalid primary key in ",
-        basename(meta[["spec_file"]])
-      )
+      err_file(meta[["spec_file"]], "Invalid primary key.")
     }
   }
   meta <- update_list(meta,to_update)
@@ -313,7 +310,7 @@ ys_load_meta <- function(file) {
 ##' 
 ##' class(load_spec_any(file_spec_ex()))
 ##' 
-##' class(load_spec_any(proj_spec_ex()))
+##' class(load_spec_any(file_proj_ex()))
 ##' 
 ##' @export
 load_spec_any <- function(file,...) {

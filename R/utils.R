@@ -185,3 +185,12 @@ make_sep <- function(width = 40) {
 db_quote <- function(x) {
   paste0("\"", x, "\"")  
 }
+
+err_file <- function(file,...) {
+  message <- unlist(list(...),use.names=FALSE)
+  file <- basename(file)
+  file <- paste0("file ", file, " :\n")
+  message <- strwrap(message, width = 50)
+  message <- paste0(" ", message,collapse = "\n")
+  stop(file, message,call.=FALSE)
+}

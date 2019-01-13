@@ -237,12 +237,12 @@ render_fda_define.yproj <- function(x,
   yamlfile <- meta[["proj_file"]]
   
   if(!is.character(meta[["sponsor"]])) {
-    .stop("sponsor field is required in SETUP__")
+    .stop("sponsor field is required in YPROJ__")
   }
   sponsor <- meta[["sponsor"]]
   
   if(!is.character(meta[["projectnumber"]])) {
-    .stop("projectnumber field is required in SETUP__")
+    .stop("projectnumber field is required in YPROJ__")
   }
   projectnumber <- meta[["projectnumber"]]
   

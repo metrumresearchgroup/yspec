@@ -11,8 +11,8 @@
 ##'
 ##' @export
 load_spec_ex <- function(file = "spec.yml") {
- spec <- file_spec_ex(file)
- load_spec(spec)
+  spec <- file_spec_ex(file)
+  load_spec(spec)
 }
 
 ##' @rdname load_spec_ex
@@ -34,3 +34,12 @@ file_proj_ex <- function(file = "project.yml") {
   system.file("spec", file, package = "yspec")
 }
 
+# test_spec <- function(x) {
+#   ys_load(
+#     system.file(
+#       "spec", "testthat", 
+#       x, 
+#       package = "yspec"
+#     )
+#   )
+# }

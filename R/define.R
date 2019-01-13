@@ -80,12 +80,12 @@ render_define.yproj <- function(x,
   
   meta <- get_meta(x)
   
-  sponsor <- "[::sponsor::]]"
+  sponsor <- "[[sponsor]]"
   if(.has("sponsor", meta)) {
     sponsor <- meta[["sponsor"]]  
   }
   
-  projectnumber <- "[::projectnumber::]"
+  projectnumber <- "[projectnumber]"
   if(.has("projectnumber", meta)) {
     projectnumber <- meta[["projectnumber"]] 
   }

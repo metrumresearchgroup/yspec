@@ -22,5 +22,16 @@ EVID:
 WT:
   range: [2,4]
   type: numeric
+STUDYID: 
+  values: !decode:value
+    MRG101: 101
+    MRG201: 201
+    MRG301: 301
+SEX: 
+  values: !value:decode
+    1 : male
+    2 : female
+EGFR2: 
+  lookup: true
 
 

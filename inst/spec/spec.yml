@@ -1,4 +1,7 @@
 SETUP__:
+  projectnumber: MRG123
+  sponsor: demo
+  description: an example data set
   primary_key: [ID,EVID,SEQ]
   lookup_file: [_yspec_lookup.yml]
 C:

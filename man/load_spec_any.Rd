@@ -18,6 +18,6 @@ Load a specification file, guessing the type
 
 class(load_spec_any(file_spec_ex()))
 
-class(load_spec_any(proj_spec_ex()))
+class(load_spec_any(file_proj_ex()))
 
 }

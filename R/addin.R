@@ -1,5 +1,5 @@
 ##' @importFrom rstudioapi insertText
-
+# nocov start
 insertNUMERICAddin <- function() {
   insertText("NAME:\n")
   insertText("  short:\n")
@@ -16,4 +16,4 @@ insertCHARACTERAddin <- function() {
   insertText("    -\n")
   insertText("  type: character\n")
 }
-
+# nocov end
