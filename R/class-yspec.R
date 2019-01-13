@@ -125,7 +125,6 @@ primary_keys <- function(x) {
   get_meta(x)[["primary_key"]]
 }
 
-
 data_stem <- function(x) {
   m <- get_meta(x)
   file <- basename(m[["spec_file"]])
@@ -139,7 +138,6 @@ get_lookup_files <- function(x) {
   }
   return(character(0))
 }
-
 
 unit <- function(x,...) UseMethod("unit")
 ##' @export
