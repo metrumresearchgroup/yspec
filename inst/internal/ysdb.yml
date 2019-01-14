@@ -1,0 +1,55 @@
+C: 
+  short: comment character
+  values: [".", "C"]
+  decode: [analysis row, commented row]
+  type: character
+CMT:
+  short: compartment number
+  type: numeric
+EVID:
+  short: event ID
+  values: [observation: 0, dose: 1]
+AMT: 
+  short: dose amount
+  type: numeric
+RATE: 
+  short: infusion rate
+  type: numeric
+II: 
+  short: inter-dose interval
+  type: numeric
+SS: 
+  short: steady state indicator
+  values: [0,1]
+  decode:
+    - non-steady state indicator
+    - steady state indicator
+MDV:
+  values: [`non-missing`: 0, missing: 1]
+  type: numeric
+  long: missing DV indicator
+  comment: per NONMEM specifications
+DV: 
+  short: dependent variable
+  type: numeric
+WT:
+  short: weight
+  units: kg
+EGFR:
+  short: eGFR
+  long: estimated glomerular filtration rate
+  units: ml/min/1.73m2
+BMI:
+  long: body mass index
+  unit: m2/kg
+  type: numeric
+HT:
+  long: Height
+  about: [height, cm]
+  type: numeric
+ALB:
+  long: serum albumin
+  unit: g/dL
+  short: albumin
+  type: numeric
+

@@ -12,7 +12,7 @@ check_spec_input_col <- function(x, col, env, not_allowed = NULL, ...) {
     env$err[[col]] <- "no spec data was found"
     return(NULL)
   }
-
+  
   t1 <- all(names(x) %in% setdiff(VALID_SPEC_NAMES, not_allowed))
   if(!t1) {
     valid <- setdiff(VALID_SPEC_NAMES, not_allowed)
@@ -126,20 +126,21 @@ ys_load_file <- function(file, data_path = NULL, data_stem = NULL, ...) {
 load_spec <- function(...) ys_load(...)
 
 unpack_spec <- function(x) {
-
+  
   check_spec_input(x)
-
+  
   # defaults
   x[] <- imap(x,.f=col_initialize)
-
+  
   # for looking up column data
   lookup <- load_lookup_spec(x)
-
+  
   if(length(lookup) > 0) {
-    x[] <- map_if(.x = x,
-                  .p = ~.x$do_lookup,
-                  .f = merge_lookup_column,
-                  lookup = lookup
+    x[] <- map_if(
+      .x = x,
+      .p = ~.x$do_lookup,
+      .f = merge_lookup_column,
+      lookup = lookup
     )
   }
   x[] <- map(x, unpack_col)
@@ -265,16 +266,16 @@ sub_null <- function(x) {
 }
 
 col_initialize <- function(x, name) {
-
+  
   if(is.null(x)) x <- list(lookup = TRUE)
-
+  
   x[["col"]] <- name
   x[["do_lookup"]] <- NULL
-
+  
   if(is.character(x[["lookup"]])) {
     x[["do_lookup"]] <- TRUE
   }
-
+  
   if(is.logical(x[["lookup"]])) {
     x[["do_lookup"]] <- x[["lookup"]]
     if(x[["do_lookup"]]) {
@@ -283,12 +284,12 @@ col_initialize <- function(x, name) {
       x[["lookup"]] <- "<none>"
     }
   }
-
+  
   if(.no("do_lookup",x)) {
     x[["do_lookup"]] <- FALSE
     x[["lookup"]] <- "<none>"
   }
-
+  
   x
 }
 

@@ -1,4 +1,4 @@
-# coverage: 85.41%
+# coverage: 85.56%
 
 |file               | coverage|
 |:------------------|--------:|
@@ -11,7 +11,7 @@
 |R/col_factor.R     |    85.71|
 |R/class-ycol.R     |    91.67|
 |R/check_spec.R     |    92.44|
-|R/load_spec.R      |    97.11|
+|R/load_spec.R      |    97.13|
 |R/axis_data.R      |   100.00|
 |R/exspec.R         |   100.00|
 |R/mrgtemmplate.R   |   100.00|

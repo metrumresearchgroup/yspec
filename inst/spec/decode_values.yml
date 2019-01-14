@@ -1,0 +1,27 @@
+SETUP__:
+  description: Shows the different ways to code values with their decode.
+example1: 
+  short: natural yaml map 1
+  values: {a: 1, b: 2, c: 3}
+example2:
+  short: separate
+  values: [1,2,3]
+  decode: [a,b,c]
+example3:
+  short: natural yaml map 2
+  values:
+   a : 1
+   b : 2
+   c : 3
+example4: 
+  short: keys are values
+  values: !value:decode
+    1 : a
+    2 : b
+    3 : c
+example5:
+  short: multiple values per decode
+  values: !decode:value
+    a : [1,11,111]
+    b : [2,22,222]
+    c : [3,33,333]

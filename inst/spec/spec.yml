@@ -15,10 +15,8 @@ USUBJID:
   long: universal subject identifier
 ID:
   long: NONMEM ID number
-EVID:
-  lookup: true
-MDV:
-  lookup: true
+EVID: !look
+MDV: !look
 SEQ:
   long: record type indicators
   values: {concentration: 1, response: 2, other: 3}
