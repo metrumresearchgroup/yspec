@@ -28,17 +28,8 @@ get_lookup_files <- function(x) {
 }
 
 merge_lookup_column <- function(x,lookup) {
-  msg <- getOption("yspec.lookup.message", FALSE)
   lookup_name <- x[["lookup"]]
   if(.has(lookup_name,lookup)) {
-    if(msg) {
-      message(
-        "Merging ", 
-        formatC(lookup_name, width = 10, flag = "-"),
-        " from ", 
-        lookup[[lookup_name]][["lookup_source"]]
-      )
-    }
     x <- combine_list(lookup[[lookup_name]],x)
   } else {
     warning(
@@ -49,8 +40,16 @@ merge_lookup_column <- function(x,lookup) {
   x
 }
 
-
-
 lookup_ysdb_file <- function(do = TRUE) {
   file <- system.file("internal", "ysdb_internal.yml", package = "yspec")
+}
+
+##' Get column lookup source
+##' 
+##' @param x a yspec object
+##' @export
+ys_lookup_source <- function(x) {
+  home <- basename(get_meta(x)[["spec_file"]])
+  xx <- map_chr(x, "lookup_source", .default = home)
+  data_frame(col = names(x), lookup_source = xx)
 }

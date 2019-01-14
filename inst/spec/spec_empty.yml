@@ -1,0 +1,12 @@
+SETUP__:
+  description: foo
+  lookup_file: [_yspec_lookup.yml]
+C: !look
+CMT: !look
+WT: !look
+KLAVDIYA: !look
+EVID: !look
+AGE: !look
+FOO: 
+  short: bar
+
