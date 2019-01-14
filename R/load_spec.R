@@ -90,9 +90,7 @@ check_for_err <- function(x, .fun, ...) {
 }
 
 capture_file_info <- function(x,file,where = "SETUP__") {
-  #x[[where]][["yml_file"]] <- file
   x[[where]][["spec_file"]] <- file
-  #x[[where]][["path"]] <- normalizePath(dirname(file),mustWork=FALSE)
   x[[where]][["spec_path"]] <- normalizePath(dirname(file),mustWork=FALSE)
   x
 }
@@ -190,34 +188,6 @@ unpack_meta <- function(x,to_update) {
   meta <- update_list(meta,to_update)
   spec_validate_meta(meta)
   structure(x, meta = meta)
-}
-
-load_lookup_spec <- function(x) {
-  files <- get_lookup_files(x)
-  if(length(files)==0) {
-    return(list())
-  }
-  ans <- list()
-  for(f in files) {
-    this <- ys_load_file(f)
-    check_spec_input(this, context = "lookup spec", not_allowed = "lookup")
-    ans <- combine_list(ans,this)
-  }
-  ans
-}
-
-
-merge_lookup_column <- function(x,lookup) {
-  lookup_name <- x[["lookup"]]
-  if(.has(lookup_name,lookup)) {
-    x <- combine_list(
-      lookup[[lookup_name]],
-      x
-    )
-  } else {
-    warning("could not find lookup for column ", lookup_name)
-  }
-  x
 }
 
 

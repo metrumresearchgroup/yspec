@@ -116,7 +116,7 @@ scan_yml <- function(file,n) {
 
 # nocov start
 yspec_pdf_document <- function(...,template = NULL) {
-
+  
   template <- system.file("tex", "yspectemplate.tex",
                           package = "yspec")
   rmarkdown::pdf_document(..., template = template)
@@ -211,4 +211,13 @@ err_file <- function(file,...) {
   message <- strwrap(message, width = 50)
   message <- paste0(" ", message,collapse = "\n")
   stop(file, message,call.=FALSE)
+}
+
+warn_file <- function(file,...) {
+  message <- unlist(list(...),use.names=FALSE)
+  file <- basename(file)
+  file <- paste0("file ", file, " :\n")
+  message <- strwrap(message, width = 50)
+  message <- paste0(" ", message,collapse = "\n")
+  warning(file, message,call.=FALSE, immediate.=TRUE)
 }

@@ -3,6 +3,18 @@ C:
   values: [".", "C"]
   decode: [analysis row, commented row]
   type: character
+ID: 
+  short: subject identifier
+  type: numeric
+USUBJID:
+  short: universal subject identifier
+  type: character
+SUBJ:
+  short: subject identifier
+  type: character
+STUDYID:
+  short: study identifier
+  type: character
 CMT:
   short: compartment number
   type: numeric
@@ -25,7 +37,7 @@ SS:
     - non-steady state indicator
     - steady state indicator
 MDV:
-  values: [`non-missing`: 0, missing: 1]
+  values: [non-missing: 0, missing: 1]
   type: numeric
   long: missing DV indicator
   comment: per NONMEM specifications
@@ -34,22 +46,28 @@ DV:
   type: numeric
 WT:
   short: weight
-  units: kg
+  unit: kg
 EGFR:
   short: eGFR
   long: estimated glomerular filtration rate
-  units: ml/min/1.73m2
+  unit: ml/min/1.73m2
 BMI:
   long: body mass index
   unit: m2/kg
   type: numeric
 HT:
-  long: Height
   about: [height, cm]
+  long: Height
   type: numeric
 ALB:
   long: serum albumin
   unit: g/dL
   short: albumin
   type: numeric
-
+AGE:
+  about: [age,years]
+SEX: 
+  values: {male: 0, female: 1}
+NUM: 
+  short: record number
+  type: numeric

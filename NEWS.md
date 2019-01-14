@@ -1,4 +1,4 @@
-# 0.2.0.9000
+# yspec 0.2.0.9000
 - Fixed bug where column check error were assigned to the wrong column 
 name #7
 - Added `as_proj_spec` function that allows creation of a project
@@ -6,7 +6,7 @@ spec file from individual data set spec objects
 - Added more flexibility for specifying project and data set
 spec files in different locations #5
 
-# 0.1.0.9001
+# yspec 0.1.0.9001
 
 - `render_define` changed to generic function, with methods 
 for `yproj` and `character
@@ -18,5 +18,5 @@ so that they fit on our standard page (8.5 x 11 with 7 cm
 margins on the left and the right)
 
 
-# 0.1.0
+# yspec 0.1.0
 - Initial validated version

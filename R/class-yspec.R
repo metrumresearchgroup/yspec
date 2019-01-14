@@ -131,14 +131,6 @@ data_stem <- function(x) {
   gsub(".ya?ml$", "", file)
 }
 
-get_lookup_files <- function(x) {
-  ans <- get_meta(x)[["lookup_file"]]
-  if(is.character(ans)) {
-    return(ans)
-  }
-  return(character(0))
-}
-
 unit <- function(x,...) UseMethod("unit")
 ##' @export
 unit.ycol <- function(x, default = '.',...) {

@@ -31,6 +31,7 @@ Collate:
     'fda_define.R'
     'handlers.R'
     'load_spec.R'
+    'lookup.R'
     'md_outline.R'
     'mrgtemmplate.R'
     'old_render_spec.R'

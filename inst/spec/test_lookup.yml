@@ -1,7 +1,7 @@
 SETUP__:
   lookup_file: [_yspec_lookup.yml, _yspec_lookup_2.yml]
-  project: DEM104101F
-  client: ABC Pharmaceuticals, Inc
+  projectnumber: DEM104101F
+  sponsor: ABC Pharmaceuticals, Inc
 WT:
   lookup: true
 HT:
