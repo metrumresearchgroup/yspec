@@ -1,0 +1,7 @@
+SETUP__:
+  description: No data in the ALB column.
+WT:
+  range: [10,100]
+DATEANDTIME:
+  short: date 
+ALB:

@@ -14,16 +14,26 @@ check_spec_input_col <- function(x, col, env, not_allowed = NULL, ...) {
   #   env$err[[col]] <- "no spec data was found"
   #   return(NULL)
   # }
+  t0 <- nchar(col) <= getOption("ys.col.len",8)
+  if(!t0) {
+    err <- c(
+      err, 
+      paste0("column name greater than ",  getOption("ys.col.len",8), " characters: ", col)
+    )
+  }
   
+
   t1 <- all(names(x) %in% setdiff(VALID_SPEC_NAMES, not_allowed))
   if(!t1) {
     valid <- setdiff(VALID_SPEC_NAMES, not_allowed)
     inval <- setdiff(names(x), valid)
     inval <- paste(inval, collapse = ", ")
-    err <- c(err,
-             paste0(
-               "invalid column field(s): ", inval
-             ))
+    err <- c(
+      err,
+      paste0(
+        "invalid column field(s): ", inval
+      )
+    )
   }
   if(!is.list(x)) {
     err <- c(err, "item is not a list")

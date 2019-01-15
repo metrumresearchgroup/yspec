@@ -19,7 +19,8 @@
 ##' yspec_add_factors(data, spec, SEX, STUDY)
 ##' 
 ##' @export
-yspec_add_factors <- function(.data, .spec, ... , .suffix = "_f") {
+yspec_add_factors <- function(.data, .spec, ... , .suffix = 
+                                getOption("ys.fct.suffix","_f")) {
   
   assert_that(inherits(.spec, "yspec"))
   
