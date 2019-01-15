@@ -17,11 +17,37 @@ check_data_file(data, file)
 \item{verbose}{\code{logical}; if \code{TRUE}, extra messages
 are printed during the check}
 
-\item{output}{the name of a file or a connection 
+\item{output}{the name of a file or a connection
 for writing check results}
 
 \item{file}{the full path to a yaml specification file}
 }
 \description{
-Check a data set against its specification
+See the check details below.
+}
+\details{
+To pass the data check, all of the following must be true:
+\enumerate{
+\item The (column) names in the data set must be identical to the
+names in the spec object.
+\item For discrete data types (where \code{values} is set), the unique values
+in the data set column after removing missing values must be identical
+to or a subset of the values given in the spec object.
+\item For continuous data types where a \code{range} is given, all of the
+values in the data set column must be greater than the lower bound
+of the range and less than the upper bound of the range, inclusive,
+after removing missing values.
+}
+
+Other checks are implicit in the data specification object and are checked
+on load:
+\enumerate{
+\item All column names must be less than or equal to 8 characters by default.
+This maximum number of characters can be overridden by setting
+option \code{ys.col.len}.
+}
+
+Output can be directed to a file (see the \code{ouput} argument) and
+more verbose output can be requested as the check proceeds by the
+\code{verbose} argument.
 }

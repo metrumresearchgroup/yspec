@@ -112,17 +112,45 @@ check_data_names <- function(ndata,nspec,env,output) {
 
 
 ##' Check a data set against its specification
+##' 
+##' See the check details below.
 ##'
 ##' @param data a data frame
 ##' @param spec a yspec object
-##' @param verbose \code{logical}; if \code{TRUE}, extra messages
+##' @param verbose `logical`; if `TRUE`, extra messages
 ##' are printed during the check
 ##' @param output the name of a file or a connection 
 ##' for writing check results
 ##' @param file the full path to a yaml specification file
+##' 
+##' @details
+##' 
+##' To pass the data check, all of the following must be true:
+##' 
+##' 1. The (column) names in the data set must be identical to the 
+##'    names in the spec object.
+##' 1. For discrete data types (where `values` is set), the unique values
+##'    in the data set column after removing missing values must be identical
+##'    to or a subset of the values given in the spec object.
+##' 1. For continuous data types where a `range` is given, all of the 
+##'    values in the data set column must be greater than the lower bound
+##'    of the range and less than the upper bound of the range, inclusive, 
+##'    after removing missing values.
+##'    
+##' Other checks are implicit in the data specification object and are checked
+##' on load:
+##' 
+##' 1. All column names must be less than or equal to 8 characters by default.
+##'    This maximum number of characters can be overridden by setting
+##'    option `ys.col.len`.
+##'    
+##' Output can be directed to a file (see the `ouput` argument) and 
+##' more verbose output can be requested as the check proceeds by the 
+##' `verbose` argument.
+##' 
+##' @md
 ##' @export
-check_data <- function(data, spec, verbose = FALSE, 
-                       output = tempfile()) {
+check_data <- function(data, spec, verbose = FALSE, output = tempfile()) {
   env <- new.env()
   env$log <- character(0)
   env$error <- FALSE

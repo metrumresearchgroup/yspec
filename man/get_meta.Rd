@@ -2,12 +2,9 @@
 % Please edit documentation in R/class-yspec.R
 \name{get_meta}
 \alias{get_meta}
-\alias{ys_spec_file}
 \title{Get meta data from a specification object}
 \usage{
 get_meta(x)
-
-ys_spec_file(x)
 }
 \arguments{
 \item{x}{a yspec object}

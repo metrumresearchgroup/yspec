@@ -12,3 +12,7 @@ primary_keys(x)
 \description{
 Get the primary keys from a specification object
 }
+\examples{
+primary_keys(load_spec_ex())
+
+}

@@ -110,7 +110,16 @@ get_meta <- function(x) {
   ans
 }
 
-##' @rdname get_meta
+##' Get the file name for a yspec object
+##' 
+##' This read from the yspec object meta data via [get_meta].
+##' 
+##' @inheritParams get_meta
+##' 
+##' @examples
+##' spec <- load_spec_ex()
+##' ys_spec_file(spec)
+##' 
 ##' @export
 ys_spec_file <- function(x) {
   get_meta(x)[["spec_file"]]  
@@ -119,6 +128,9 @@ ys_spec_file <- function(x) {
 ##' Get the primary keys from a specification object
 ##'
 ##' @param x a yspec object
+##'
+##' @examples
+##' primary_keys(load_spec_ex())
 ##'
 ##' @export
 primary_keys <- function(x) {

@@ -13,6 +13,6 @@ define_for_rmd(yamlfile, format)
 contents}
 }
 \description{
-Generate code for a generic define document
+This function is for internal use by [render_define].
 }
 \keyword{internal}

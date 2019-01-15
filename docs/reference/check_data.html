@@ -32,7 +32,7 @@
 
 <meta property="og:title" content="Check a data set against its specification — check_data" />
 
-<meta property="og:description" content="Check a data set against its specification" />
+<meta property="og:description" content="See the check details below." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -125,7 +125,7 @@
 
     <div class="ref-description">
     
-    <p>Check a data set against its specification</p>
+    <p>See the check details below.</p>
     
     </div>
 
@@ -151,7 +151,7 @@ are printed during the check</p></td>
     </tr>
     <tr>
       <th>output</th>
-      <td><p>the name of a file or a connection 
+      <td><p>the name of a file or a connection
 for writing check results</p></td>
     </tr>
     <tr>
@@ -160,13 +160,38 @@ for writing check results</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>To pass the data check, all of the following must be true:</p><ol>
+<li><p>The (column) names in the data set must be identical to the
+names in the spec object.</p></li>
+<li><p>For discrete data types (where <code>values</code> is set), the unique values
+in the data set column after removing missing values must be identical
+to or a subset of the values given in the spec object.</p></li>
+<li><p>For continuous data types where a <code>range</code> is given, all of the
+values in the data set column must be greater than the lower bound
+of the range and less than the upper bound of the range, inclusive,
+after removing missing values.</p></li>
+</ol>
+    <p>Other checks are implicit in the data specification object and are checked
+on load:</p><ol>
+<li><p>All column names must be less than or equal to 8 characters by default.
+This maximum number of characters can be overridden by setting
+option <code>ys.col.len</code>.</p></li>
+</ol>
+    <p>Output can be directed to a file (see the <code>ouput</code> argument) and
+more verbose output can be requested as the check proceeds by the
+<code>verbose</code> argument.</p>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#details">Details</a></li>
+          </ul>
 
   </div>
 </div>
