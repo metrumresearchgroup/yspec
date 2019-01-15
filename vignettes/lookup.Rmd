@@ -1,0 +1,166 @@
+---
+title: "Project-wide column definitions"
+author: "STATUS: development"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette: 
+    keep_md: true
+vignette: >
+  %\VignetteIndexEntry{yspec}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Introduction
+This document shows how data set column definitions can be entered into 
+a lookup file which can be accessed by multiple data specification files 
+within a project. This document also discusses an internal lookup data base
+that is always available for individual data sets to look up standardized 
+column information for commonly used data items in our workflow.
+
+# Create two files
+
+## The lookup file
+
+The lookup file that is to be accessed by other data specification files
+is just another data specification file.  For example, create a file called
+`lookup.yml` and enter this information.
+
+```yaml
+# in file lookup.yml
+AMT: 
+  short: dose amount
+  unit: nM
+  type: numeric
+WT: 
+  short: patient weight
+  unit: lbs
+```
+
+This information must be valid yspec data specification format and (generally)
+valid yaml. 
+
+## The specification file
+
+This is just the standard data specification file
+
+```yaml
+SETUP__:
+  description: PKPD analysis data set
+  lookup_file: lookup.yml
+C: 
+  short: comment character
+AMT: !look
+```
+Notice two things about this file: we included a `lookup_file` section in the 
+`SETUP__` section and we referenced our `lookup.yml` file.  By default, 
+yspec expects that the lookup file is in the same directory as the 
+spec file.  Also, in the `AMT` column, we used the `!look` handler to 
+indicate that we wanted that data to be looked up. 
+
+Alternatively, we could just pass in empty data and yspec will assume that 
+you want to try to look up that data
+
+```yaml
+SETUP__:
+  description: PKPD analysis data set
+  lookup_file: lookup.yml
+C: 
+  short: comment character
+AMT:
+```
+
+
+# Internal lookup data base
+
+There is an internal data base of common data set columns that 
+yspec will attach by default.  So, with no lookup file defined, 
+we could write the following in our specification file
+
+```yaml
+SETUP__:
+  description: PKPD analysis data set
+C: 
+AMT:
+MDV:
+EVID: 
+WT:
+EGFR:
+ALB: !look
+ZIP_CODE: 
+  values: 55378
+```
+
+
+```{r,echo = FALSE}
+code <- '
+SETUP__:
+  description: PKPD analysis data set
+C: 
+AMT:
+MDV:
+EVID: 
+WT:
+EGFR:
+ALB: !look
+ZIP_CODE: 
+  values: 55378
+'
+
+writeLines(code, file <- file.path(tempdir(), 'spec.yml'))
+```
+
+We can read this data in and have the columns defined
+
+```{r,message=FALSE}
+library(yspec)
+library(dplyr)
+
+spec <- ys_load(file)
+
+spec
+```
+
+
+# Tracking the lookup status of each column
+
+This all can get confusing about where each column is coming from.  You can 
+audit the spec object and find you where a lookup event happened
+
+```{r}
+ys_lookup_source(spec)
+```
+
+
+Here, we can see that most of the columns came from the internal data base and 
+that the one column (`ZIP_CODE`) came by our own specification. 
+
+You can also re-create the lookup object (just a named list) for a 
+specification object.  Just click open the arrow to see the output.
+
+
+<details>
+
+```{r}
+ys_get_lookup(spec) %>% glimpse()
+```
+
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

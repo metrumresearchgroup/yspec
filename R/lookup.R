@@ -19,8 +19,9 @@ ys_lookup_source <- function(x) {
 ##' 
 ##' 
 ##' @export
-ys_get_lookup <- function(x,syst = TRUE) {
+ys_get_lookup <- function(x) {
   files <- get_lookup_files(x)
+  syst <- TRUE
   if(any(basename(files)=="skip_ysdb_internal")) {
     files <- files[basename(files) != "skip_ysdb_internal"]
     syst <- FALSE

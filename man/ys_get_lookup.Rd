@@ -4,7 +4,7 @@
 \alias{ys_get_lookup}
 \title{Generate lookup list}
 \usage{
-ys_get_lookup(x, syst = TRUE)
+ys_get_lookup(x)
 }
 \arguments{
 \item{x}{a yspec object}

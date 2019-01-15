@@ -1,3 +1,5 @@
+SETUP__:
+  description: internal column db
 C: 
   short: comment character
   values: [".", "C"]
