@@ -126,6 +126,26 @@
 <li>Fixed bug where column check error were assigned to the wrong column name #7</li>
 <li>Added <code>as_proj_spec</code> function that allows creation of a project spec file from individual data set spec objects</li>
 <li>Added more flexibility for specifying project and data set spec files in different locations #5</li>
+<li>Function <code>ys_load</code> preferred alias for <code>load_spec</code>
+</li>
+<li>Function <code>ys_load_file</code> preferred alias for <code>load_spec_file</code>
+</li>
+<li>Function <code>ys_project</code> preferred alias for <code>as_proj_spec</code>
+</li>
+<li>Function <code>ys_document</code> is a wrapper around both <code>render_define</code> and <code>render_fda_define</code>. Use the <code>type</code> argument to request a “working” document or a “regulatory” document</li>
+<li>Added internal lookup source (<code>ysdb_internal.yml</code>)</li>
+<li>It is no longer an error to put no data in a column specification; the <code>lookup</code> attribute will be added and yspec will attempt to look up the column in formation in one of the lookup tables</li>
+<li>
+<code>ys_get_lookup</code> will recreate the lookup list for a yspec object</li>
+<li>
+<code>ys_lookup_source</code> will report on the source of each column in an yspec object</li>
+<li>In general, we no longer write out a project file; use <code>ys_project</code> with a vector of files or yspec objects instead</li>
+<li>The table of contents for the regulatory document (<code>fda_content_table</code>) now links to the corresponding <code>.xpt</code> file; to facilitate testing, arguments <code>loc</code> and <code>ext</code> have been added so that the linking can be better tested (e.g. create a document that links to a <code>.csv</code> file, which should be easier to open on computers that don’t have SAS installed). #20</li>
+<li>Arguments <code>data_path</code> and <code>data_stem</code> have been added to <code>ys_load</code>
+</li>
+<li>Handler <code>!look</code> has been added to indicate that column data should be searched for in the lookup resources</li>
+<li>Handler <code>!value:decode</code> has been added so that maps can be created with the values on the left hand side (<code>- 0 : male</code>)</li>
+<li>Handler <code>!decode:value</code> has been added that recreates the default map handling, but also allows several values to be maped to the same decode</li>
 </ul>
 </div>
     <div id="yspec-0109001" class="section level1">
