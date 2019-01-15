@@ -1,5 +1,5 @@
 ---
-title: "Project Object and Define Document"
+title: "Project object and define document"
 author: "STATUS: development"
 date: "`r Sys.Date()`"
 output: 
