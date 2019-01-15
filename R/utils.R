@@ -187,7 +187,7 @@ test_spec_list <- function(x) {
 
 test_spec_error <- function(x) {
   error <- system.file(
-    "spec", "testthat", "error", 
+    "spec", "error", 
     x, 
     package = "yspec"
   )

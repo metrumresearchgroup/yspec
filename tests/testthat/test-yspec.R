@@ -60,7 +60,7 @@ file <- system.file("spec", "test_lookup.yml", package = "yspec")
 test_that("column data is merged when lookup is true", {
   raw <- yspec:::try_yaml(file)
   mspec <- load_spec_ex(file = "test_lookup.yml")
-  look <- yspec:::load_lookup_spec(mspec)
+  look <- yspec:::ys_get_lookup(mspec)
   
   expect_null(raw$BMI$unit)
   expect_identical(mspec$BMI$unit, look$BMI$unit)
@@ -69,7 +69,7 @@ test_that("column data is merged when lookup is true", {
 test_that("column data is not merged when lookup is false", {
   raw <- yspec:::try_yaml(file)
   mspec <- load_spec_ex(file = "test_lookup.yml")
-  look <- yspec:::load_lookup_spec(mspec)
+  look <- yspec:::ys_get_lookup(mspec)
 
   expect_null(raw$ALB$unit)
   expect_identical(mspec$BMI$unit, look$BMI$unit)

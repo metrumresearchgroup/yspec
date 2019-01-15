@@ -1,0 +1,10 @@
+B: 
+  values: 3
+C: 
+  short: lookup
+D: 
+  short: lookup
+F: 
+  short: F
+WT: 
+  short: wait

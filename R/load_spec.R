@@ -7,11 +7,13 @@ VALID_SPEC_NAMES <- c("type", "unit", "values", "decode",
 
 check_spec_input_col <- function(x, col, env, not_allowed = NULL, ...) {
   err <- c()
-  t0 <- !is.null(x)
-  if(!t0) {
-    env$err[[col]] <- "no spec data was found"
-    return(NULL)
-  }
+  if(is.null(x)) return()
+  # t0 <- !is.null(x)
+  # if(!t0) {
+  #   warning("No data for ", col)
+  #   env$err[[col]] <- "no spec data was found"
+  #   return(NULL)
+  # }
   
   t1 <- all(names(x) %in% setdiff(VALID_SPEC_NAMES, not_allowed))
   if(!t1) {
@@ -131,14 +133,15 @@ unpack_spec <- function(x) {
   x[] <- imap(x,.f=col_initialize)
   
   # for looking up column data
-  lookup <- load_lookup_spec(x)
+  lookup <- ys_get_lookup(x)
   
   if(length(lookup) > 0) {
     x[] <- map_if(
       .x = x,
       .p = ~.x$do_lookup,
       .f = merge_lookup_column,
-      lookup = lookup
+      lookup = lookup, 
+      file = get_meta(x)[["spec_file"]]
     )
   }
   x[] <- map(x, unpack_col)
@@ -205,6 +208,10 @@ unpack_about <- function(x) {
 }
 
 unpack_col <- function(x) {
+  
+  if(identical(x,NULL)) {
+    x <- list(short = x[["col"]], lookup=TRUE)
+  }
   
   if(.no("short",x)) {
     x[["short"]] <- x[["col"]]

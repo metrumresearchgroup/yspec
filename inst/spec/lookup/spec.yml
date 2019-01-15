@@ -1,0 +1,16 @@
+SETUP__:
+  description: Test spec for lookup.
+  lookup_file: [lookup.yml]
+A: 
+  values: 1
+B: 
+  values: 2
+C: !look
+D: 
+  lookup: true
+E: 
+  lookup: F
+AGE: 
+EVID: 
+  short: spec.yml
+WT: !look

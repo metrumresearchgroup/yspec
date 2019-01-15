@@ -1,6 +1,30 @@
+##' Get column lookup source
+##' 
+##' @param x a yspec object
+##' @export
+ys_lookup_source <- function(x) {
+  home <- basename(get_meta(x)[["spec_file"]])
+  xx <- map_chr(x, "lookup_source", .default = home)
+  data_frame(col = names(x), lookup_source = xx)
+}
 
-load_lookup_spec <- function(x,syst = TRUE) {
+##' Generate lookup list
+##' 
+##' @param x a yspec object 
+##' 
+##' @examples
+##' 
+##' spec <- load_spec_ex("DEM104101F_PK.yml")
+##' ys_get_lookup(spec)
+##' 
+##' 
+##' @export
+ys_get_lookup <- function(x,syst = TRUE) {
   files <- get_lookup_files(x)
+  if(any(basename(files)=="skip_ysdb_internal")) {
+    files <- files[basename(files) != "skip_ysdb_internal"]
+    syst <- FALSE
+  }
   if(syst) files <- c(files,lookup_ysdb_file())
   if(length(files)==0) {
     return(list())
@@ -27,14 +51,14 @@ get_lookup_files <- function(x) {
   return(character(0))
 }
 
-merge_lookup_column <- function(x,lookup) {
+merge_lookup_column <- function(x,lookup,file) {
   lookup_name <- x[["lookup"]]
   if(.has(lookup_name,lookup)) {
     x <- combine_list(lookup[[lookup_name]],x)
   } else {
     warning(
-      "Could not find lookup data for column ", 
-      lookup_name, ".", call.=FALSE
+      "Did not find lookup data for ", 
+      lookup_name, ", file: ", basename(file), call.=FALSE
     )
   }
   x
@@ -44,12 +68,3 @@ lookup_ysdb_file <- function(do = TRUE) {
   file <- system.file("internal", "ysdb_internal.yml", package = "yspec")
 }
 
-##' Get column lookup source
-##' 
-##' @param x a yspec object
-##' @export
-ys_lookup_source <- function(x) {
-  home <- basename(get_meta(x)[["spec_file"]])
-  xx <- map_chr(x, "lookup_source", .default = home)
-  data_frame(col = names(x), lookup_source = xx)
-}
