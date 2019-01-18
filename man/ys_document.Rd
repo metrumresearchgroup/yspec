@@ -11,21 +11,21 @@ ys_document(x, type = c("working", "regulatory"), ...)
 
 \item{type}{the document type}
 
-\item{...}{passed to [render_define] or [render_fda_define]}
+\item{...}{passed to \link{render_define} or \link{render_fda_define}}
 }
 \description{
-This function is a wrapper around [render_define] and [render_fda_define].
+This function is a wrapper around \link{render_define} and \link{render_fda_define}.
 }
 \details{
-Select `type` of "working` for a working document that contains more 
+Select \code{type} of "working` for a working document that contains more
 information in a less-compact layout.  This is a good format for a modeling
 and simulation scientist to use day-to-day and for sharing with a sponsor
-to review.  
+to review.
 
-Select `type` of "regulatory" for a define document that conforms to 
+Select \code{type} of "regulatory" for a define document that conforms to
 submission requirements set by regulatory authorities (e.g. FDA).
 
-Note that `x` is usually either a `yspec` object or a `yproj` object. 
+Note that \code{x} is usually either a \code{yspec} object or a \code{yproj} object.
 You can also pass in the full path to a specification document and
 yspec will guess which format it is and render accordingly.
 }
@@ -36,5 +36,4 @@ yspec will guess which format it is and render accordingly.
   ys_document(load_spec_ex(), type = "regulatory")
   ys_document(load_spec_ex(), type = "regulatory", build_dir = mrgtemplate())
 }
-
 }

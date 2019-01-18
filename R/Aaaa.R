@@ -14,13 +14,36 @@
 ##' @importFrom purrr walk walk2 iwalk
 ##' @importFrom purrr flatten flatten_chr modify
 ##' @importFrom glue glue
-##' @importFrom utils type.convert
+##' @importFrom utils type.convert read.csv
 ##' 
 ##' @include utils.R
 NULL
 
 globalVariables(c("decode", "unit", "source", "type", "value"))
 
-yspec_internal <- new.env()
+VALID_SPEC_NAMES <- c(
+  "type", "unit", "values", "decode",
+  "source", "comment",
+  "short", "long", "about", "dots",
+  "range", "longvalues", "lookup", 
+  "axis", "table"
+)
 
-yspec_internal$last_check <- ""
+.ys <- new.env()
+.onLoad <- function(libname, pkgname) {
+  file <- system.file("spec", "analysis1.yml", package = "yspec")
+  .ys[["file"]] <- file
+  .ys[["spec"]] <- function() {
+    ys_load(file)
+  }
+  .ys[["proj"]] <- function() {
+    load_proj_ex("project.yml")
+  }
+  .ys[["data"]] <- function() {
+    read.csv(
+      file=system.file("internal", "analysis1.csv", package = "yspec"),
+      na.strings = '.', as.is=TRUE, stringsAsFactors=FALSE
+    )    
+  }
+}
+

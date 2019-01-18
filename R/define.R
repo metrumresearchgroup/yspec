@@ -36,7 +36,7 @@ call_format_fun <- function(yamlfile,
 ##'   ys_document(load_spec_ex(), type = "regulatory")
 ##'   ys_document(load_spec_ex(), type = "regulatory", build_dir = mrgtemplate())
 ##' }
-##' 
+##' @md
 ##' @export
 ys_document <- function(x, type = c("working", "regulatory"), ...) {
   if(is.character(x)) {
@@ -49,8 +49,7 @@ ys_document <- function(x, type = c("working", "regulatory"), ...) {
 
 ##' Render a `define.pdf` document
 ##' 
-##' `render_spec` generates a define document from a single specification object
-##' or file name.
+##' `render_spec` is an alias to `render_define`.  See detils.
 ##'
 ##' @param x a `yproj` object or project specification file name
 ##' @param stem used to name the output file
@@ -72,6 +71,8 @@ ys_document <- function(x, type = c("working", "regulatory"), ...) {
 ##' @details
 ##' `stem` should not include a file extension, just
 ##' the file stem.
+##' 
+##' 
 ##'
 ##' @examples
 ##'
@@ -202,6 +203,7 @@ render_spec.yspec <- function(x, stem = get_meta(x)[["name"]], ..., dots = list(
 ##' @param format a function or the name of a function to format the spec
 ##' contents
 ##' @keywords internal
+##' @md
 ##' @export
 define_for_rmd <- function(yamlfile, format) {
   

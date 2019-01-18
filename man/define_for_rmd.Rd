@@ -13,6 +13,6 @@ define_for_rmd(yamlfile, format)
 contents}
 }
 \description{
-This function is for internal use by [render_define].
+This function is for internal use by \link{render_define}.
 }
 \keyword{internal}

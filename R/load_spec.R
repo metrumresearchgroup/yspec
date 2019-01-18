@@ -1,10 +1,5 @@
 
 
-VALID_SPEC_NAMES <- c("type", "unit", "values", "decode",
-                      "source", "comment",
-                      "short", "long", "about", "dots",
-                      "range", "longvalues",  "lookup", "axis")
-
 check_spec_input_col <- function(x, col, env, not_allowed = NULL, ...) {
   err <- c()
   if(is.null(x)) return()

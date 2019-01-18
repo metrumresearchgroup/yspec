@@ -30,6 +30,7 @@ Collate:
     'exspec.R'
     'fda_define.R'
     'handlers.R'
+    'help.R'
     'load_spec.R'
     'lookup.R'
     'md_outline.R'

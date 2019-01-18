@@ -61,8 +61,7 @@ document}
 \item{dots}{passed to object converter}
 }
 \description{
-\code{render_spec} generates a define document from a single specification object
-or file name.
+\code{render_spec} is an alias to \code{render_define}.  See detils.
 }
 \details{
 \code{stem} should not include a file extension, just
