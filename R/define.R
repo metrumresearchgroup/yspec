@@ -141,7 +141,7 @@ render_define.yproj <- function(x,
   env <- new.env()
   env[[ys_working_markup_]] <- define_for_rmd(yamlfile,format)
   
-  file <- paste0(stem, ".Rmd")
+  file <- normalizePath(paste0(stem, ".Rmd"))
   
   rmd <- system.file("rmd", "define.Rmd", package = "yspec")
   
@@ -154,12 +154,11 @@ render_define.yproj <- function(x,
   ans <- rmarkdown::render(
     file, 
     output_format = output_format, 
-    output_dir = output_dir,
     envir=env,
     ...
   )
   
-  if(copy_back) file.copy(ans, output_dir, overwrite = TRUE)
+  if(copy_back) file.copy(normalizePath(ans), output_dir, overwrite = TRUE)
 
   return(invisible(ans))
 }
