@@ -5,13 +5,14 @@ library(purrr)
 context("test-define")
 
 test_that("define", {
+  outdir <- normalizePath(tempdir())
   sp <- load_spec_ex(("DEM104101F_PK.yml"))
   expect_is(sp, "yspec")
   out <- ys_document(sp, type = "working",quiet=TRUE,
-                     output_dir = tempdir())
+                     output_dir = outdir)
   pr <- ys_project(sp)
   out <- ys_document(pr, type = "regulatory", build_dir = mrgtemplate(), 
-                     quiet=TRUE, output_dir = tempdir())
+                     quiet=TRUE, output_dir = outdir)
   
 })
 
