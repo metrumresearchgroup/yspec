@@ -9,7 +9,7 @@ ID:
   short: subject identifier
   type: numeric
 USUBJID:
-  short: universal subject identifier
+  short: unique subject identifier
   type: character
 SUBJ:
   short: subject identifier

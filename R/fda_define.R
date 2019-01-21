@@ -217,9 +217,8 @@ render_fda_define.yproj <- function(x,
   output_dir <- normalizePath(output_dir)
   build_dir <- normalizePath(build_dir)
   cwd <- normalizePath(getwd())
-  copy_back <- FALSE
+  copy_back <- !identical(build_dir, output_dir)
   if(cwd != build_dir) {
-    copy_back <- TRUE
     setwd(build_dir)
     on.exit(setwd(cwd))
   }

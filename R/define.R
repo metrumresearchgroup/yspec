@@ -126,12 +126,11 @@ render_define.yproj <- function(x,
   yamlfile <- normalizePath(proj)
   output_dir <- normalizePath(output_dir)
   build_dir <- normalizePath(build_dir)
-  copy_back <- FALSE
+  copy_back <- !identical(build_dir,output_dir)
   
   cwd <- normalizePath(getwd())
   if(cwd != build_dir) {
     setwd(build_dir)
-    copy_back <- TRUE
     on.exit(setwd(cwd))
   }
   
