@@ -154,6 +154,7 @@ render_define.yproj <- function(x,
   ans <- rmarkdown::render(
     file, 
     output_format = output_format, 
+    output_dir = output_dir,
     envir=env,
     ...
   )
