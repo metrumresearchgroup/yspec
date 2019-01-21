@@ -1,0 +1,61 @@
+SETUP__:
+  description: Example PopPK analysis data set.
+  sponsor: example-project
+  projectnumber: examp101F
+C:
+NUM:
+ID:
+SUBJ:
+TIME:
+  short: time after first dose
+  unit: hour
+SEQ: 
+  short: data type
+  values: {observation: 0, dose: 1}
+CMT:
+EVID:
+AMT: !look
+  unit: mg
+DV:
+AGE:
+WT:
+CRCL:
+  about: [creatinine clearance, ml/min]
+ALB:
+BMI:
+AAG:
+  short: alpha-1-acid glycoprotein
+  unit: mg/dL
+SCR: 
+  about: [serum creatinine, mg/dL]
+AST:
+  short: aspartate aminotransferase
+ALT: 
+  short: alanine aminotransferase
+HT:
+CP:
+  short: Child-Pugh score
+  values: {normal: 0, Pugh1: 1, Pugh2: 2, Pugh3: 3}
+TAFD:
+  short: time after first dose
+  unit: hours
+TAD:
+  about: [time after dose, hours]
+LDOS:
+  short: last dose amount
+  unit: mg
+MDV:
+BLQ:
+  short: below limit of quantification
+  values: 
+    - above QL: 1
+    - below Q: 0
+PHASE: 
+  short: study phase indicator
+  values: 1
+STUDY: 
+  short: study number
+  values: {SAD: 1, MAD: 2, Renal: 3, Hepatic: 4}
+RF: 
+  short: renal function stage
+  values: {Normal: norm, Mild: mild, Moderate: mod, Severe: sev}

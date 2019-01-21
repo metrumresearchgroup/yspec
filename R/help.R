@@ -56,8 +56,9 @@ ys_get_assets <- function(output,overwrite=FALSE) {
 ##' }
 ##' 
 ##' @export
-ys_view <- function(file = "analysis1.yml") {
-  file <- system.file("spec", file, package = "yspec")
+ys_view <- function(file = c("analysis1.yml", "ysdb_internal.yml")) {
+  file <- match.arg(file)
+  file <- system.file("internal", file, package = "yspec")
   tmp <- tempfile(pattern = "example", fileext=".yml")
   file.copy(file,tmp)
   if(requireNamespace("rstudioapi")) {

@@ -32,7 +32,7 @@
 
 <meta property="og:title" content="Render a document from one or more specification objects — ys_document" />
 
-<meta property="og:description" content="Render a document from one or more specification objects" />
+<meta property="og:description" content="This function is a wrapper around render_define and render_fda_define." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -97,6 +97,9 @@
     <li>
       <a href="../articles/reference.html">yspec yaml specification</a>
     </li>
+    <li>
+      <a href="../articles/ysdb_internal.html">Internal Column Lookup Database</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -125,7 +128,7 @@
 
     <div class="ref-description">
     
-    <p>Render a document from one or more specification objects</p>
+    <p>This function is a wrapper around <a href='render_define.html'>render_define</a> and <a href='render_fda_define.html'>render_fda_define</a>.</p>
     
     </div>
 
@@ -144,17 +147,40 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p>passed to [render_define] or [render_fda_define]</p></td>
+      <td><p>passed to <a href='render_define.html'>render_define</a> or <a href='render_fda_define.html'>render_fda_define</a></p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
+    <p>Select <code>type</code> of "working` for a working document that contains more
+information in a less-compact layout.  This is a good format for a modeling
+and simulation scientist to use day-to-day and for sharing with a sponsor
+to review.</p>
+<p>Select <code>type</code> of "regulatory" for a define document that conforms to
+submission requirements set by regulatory authorities (e.g. FDA).</p>
+<p>Note that <code>x</code> is usually either a <code>yspec</code> object or a <code>yproj</code> object.
+You can also pass in the full path to a specification document and
+yspec will guess which format it is and render accordingly.</p>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+</div><span class='co'># NOT RUN {</span>
+  <span class='fu'>ys_document</span>(<span class='fu'><a href='load_spec_ex.html'>load_spec_ex</a></span>())
+  <span class='fu'>ys_document</span>(<span class='fu'><a href='load_spec_ex.html'>load_spec_ex</a></span>(), <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"regulatory"</span>)
+  <span class='fu'>ys_document</span>(<span class='fu'><a href='load_spec_ex.html'>load_spec_ex</a></span>(), <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"regulatory"</span>, <span class='kw'>build_dir</span> <span class='kw'>=</span> <span class='fu'><a href='mrgtemplate.html'>mrgtemplate</a></span>())
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#details">Details</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

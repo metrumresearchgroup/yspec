@@ -8,3 +8,15 @@ Description: Inserts fields for character data column specification.
 Binding: insertCHARACTERAddin
 Interactive: false
 
+Name: View Internal Column Data Base
+Description: These columns are available for lookup from any specification 
+    document without explicitly naming a lookup file; located in 
+    inst/internal/ysb_internal.yml.
+Binding: addin_view_db
+Interactive: false
+
+Name: View Example File
+Description: Shows copy of analysis1.yml.
+Binding: addin_view_example
+Interactive: false
+

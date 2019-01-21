@@ -122,6 +122,7 @@ check_data_names <- function(ndata,nspec,env,output) {
 ##' @param output the name of a file or a connection 
 ##' for writing check results
 ##' @param file the full path to a yaml specification file
+##' @param ... arguments passed from alias function to preferred function name
 ##' 
 ##' @details
 ##' 
@@ -150,7 +151,16 @@ check_data_names <- function(ndata,nspec,env,output) {
 ##' 
 ##' @md
 ##' @export
-check_data <- function(data, spec, verbose = FALSE, output = tempfile()) {
+ys_check <- function(data, spec, verbose = FALSE, output = tempfile()) {
+  
+  if(!is.data.frame(data)) {
+    stop("'data' argument must be a data frame.", call.=FALSE)  
+  }
+  
+  if(!is_yspec(spec)) {
+    stop("'spec' argument must be a yspec object.", call.=FALSE)  
+  }
+  
   env <- new.env()
   env$log <- character(0)
   env$error <- FALSE
@@ -226,8 +236,18 @@ check_data <- function(data, spec, verbose = FALSE, output = tempfile()) {
   return(invisible(env$error))
 }
 
-##' @rdname check_data
+##' @rdname ys_check
 ##' @export
-check_data_file <- function(data, file) {
-  check_data(data, load_spec(file))
+ys_check_file <- function(data, file) {
+  ys_check(data, load_spec(file))
 }
+
+##' @rdname ys_check
+##' @export
+check_data <- function(...) ys_check(...)
+
+##' @rdname ys_check
+##' @export
+check_data_file <- function(...) ys_check_file(...)
+
+

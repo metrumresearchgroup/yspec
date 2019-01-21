@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Load a project-wide spec file — ys_load_proj • yspec</title>
+<title>Check a data set against its specification — ys_check • yspec</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Load a project-wide spec file — ys_load_proj" />
+<meta property="og:title" content="Check a data set against its specification — ys_check" />
 
-<meta property="og:description" content="Load a project-wide spec file" />
+<meta property="og:description" content="See the check details below." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -121,57 +121,88 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Load a project-wide spec file</h1>
+    <h1>Check a data set against its specification</h1>
     
-    <div class="hidden name"><code>ys_load_proj.Rd</code></div>
+    <div class="hidden name"><code>ys_check.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Load a project-wide spec file</p>
+    <p>See the check details below.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>ys_load_proj</span>(<span class='no'>file</span>)
+    <pre class="usage"><span class='fu'>ys_check</span>(<span class='no'>data</span>, <span class='no'>spec</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>output</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>())
 
-<span class='fu'>load_spec_proj</span>(<span class='no'>...</span>)</pre>
+<span class='fu'>ys_check_file</span>(<span class='no'>data</span>, <span class='no'>file</span>)
+
+<span class='fu'>check_data</span>(<span class='no'>...</span>)
+
+<span class='fu'>check_data_file</span>(<span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>data</th>
+      <td><p>a data frame</p></td>
+    </tr>
+    <tr>
+      <th>spec</th>
+      <td><p>a yspec object</p></td>
+    </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p><code>logical</code>; if <code>TRUE</code>, extra messages
+are printed during the check</p></td>
+    </tr>
+    <tr>
+      <th>output</th>
+      <td><p>the name of a file or a connection
+for writing check results</p></td>
+    </tr>
+    <tr>
       <th>file</th>
-      <td><p>file name</p></td>
+      <td><p>the full path to a yaml specification file</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>used for alias only</p></td>
+      <td><p>arguments passed from alias function to preferred function name</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='no'>file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='load_spec_ex.html'>file_proj_ex</a></span>()
+    <p>To pass the data check, all of the following must be true:</p><ol>
+<li><p>The (column) names in the data set must be identical to the
+names in the spec object.</p></li>
+<li><p>For discrete data types (where <code>values</code> is set), the unique values
+in the data set column after removing missing values must be identical
+to or a subset of the values given in the spec object.</p></li>
+<li><p>For continuous data types where a <code>range</code> is given, all of the
+values in the data set column must be greater than the lower bound
+of the range and less than the upper bound of the range, inclusive,
+after removing missing values.</p></li>
+</ol>
+    <p>Other checks are implicit in the data specification object and are checked
+on load:</p><ol>
+<li><p>All column names must be less than or equal to 8 characters by default.
+This maximum number of characters can be overridden by setting
+option <code>ys.col.len</code>.</p></li>
+</ol>
+    <p>Output can be directed to a file (see the <code>ouput</code> argument) and
+more verbose output can be requested as the check proceeds by the
+<code>verbose</code> argument.</p>
+    
 
-<span class='no'>spec</span> <span class='kw'>&lt;-</span> <span class='fu'>ys_load_proj</span>(<span class='no'>file</span>)
-
-<span class='no'>spec</span></div><div class='output co'>#&gt; projectnumber:  ABC101104F 
-#&gt; sponsor:        ABC-Pharma 
-#&gt; --------------------------------------------
-#&gt; datafiles: 
-#&gt;  name            description                       data_stem       
-#&gt;  DEM104101F_PK   Population PK analysis data set   DEM104101F_PK   
-#&gt;  DEM104101F_PKPD Population PKPD analysis data set DEM104101F_PKPD 
-#&gt;  DEM104101F_AE   AE analysis data set              DEM0104101F_AE_2</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+      
+      <li><a href="#details">Details</a></li>
+          </ul>
 
   </div>
 </div>

@@ -221,3 +221,9 @@ warn_file <- function(file,...) {
   message <- paste0(" ", message,collapse = "\n")
   warning(file, message,call.=FALSE, immediate.=TRUE)
 }
+
+temp_copy <- function(file,pattern,fileext=".yml") {
+  tmp <- tempfile(pattern=pattern,fileext=fileext)
+  x <- file.copy(file,tmp)
+  return(tmp)
+}

@@ -1,0 +1,32 @@
+---
+title: "Internal Column Lookup Database"
+author: "STATUS: development"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette: 
+    keep_md: true
+vignette: >
+  %\VignetteIndexEntry{yspec}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+This is an internal column definition data base that can be used for lookup
+without referencing a lookup file in the header.
+
+This file is located in `inst/internal/ysdb_internal.yml`.
+
+__CONTENTS__
+
+
+```{r, include = FALSE}
+file <- system.file("internal", "ysdb_internal.yml", package = "yspec")
+```
+
+
+```{yaml, code = readLines(file)}
+
+```
+
+

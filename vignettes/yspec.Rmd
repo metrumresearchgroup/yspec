@@ -67,6 +67,22 @@ or summarized
 summary(spec, WT, DV, EGFR)
 ```
 
+
+## Check a data set against the spec
+
+Use the `ys_check()` function, with the data frame as the first argument 
+and the spec object as the second argument
+
+```{r}
+sp <- ys_load(ys_demo$file)
+
+data <- readr::read_csv(ys_demo$csv, na = '.')
+
+ys_check(data,sp)
+
+```
+
+
 ## Example to render spec
 
 The specification object can be rendered to a specification file with the 
@@ -98,6 +114,7 @@ Now, we have two objects to work with:
 
 ```{r}
 head(spec)
+
 head(pdspec)
 ```
 

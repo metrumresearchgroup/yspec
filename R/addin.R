@@ -16,4 +16,16 @@ insertCHARACTERAddin <- function() {
   insertText("    -\n")
   insertText("  type: character\n")
 }
+addin_view_db <- function() {
+  file <- system.file("internal", "ysdb_internal.yml", package = "yspec")
+  rstudioapi::navigateToFile(
+    temp_copy(file, pattern = "ysdb", fileext=".yml")
+  )
+}
+addin_view_example <- function() {
+  file <- system.file("spec", "analysis1.yml", package = "yspec")
+  rstudioapi::navigateToFile(
+    temp_copy(file, pattern = "analysis1", fileext=".yml")
+  )
+}
 # nocov end

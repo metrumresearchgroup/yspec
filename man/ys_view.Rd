@@ -4,7 +4,7 @@
 \alias{ys_view}
 \title{View example specification file}
 \usage{
-ys_view(file = "analysis1.yml")
+ys_view(file = c("analysis1.yml", "ysdb_internal.yml"))
 }
 \arguments{
 \item{file}{the example specification file to view}
