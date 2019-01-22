@@ -14,3 +14,4 @@ Makefile
 ^\.Rproj\.user$
 vignettes
 dev
+docs/
