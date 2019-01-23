@@ -98,7 +98,7 @@ check_for_err <- function(x, .fun, ...) {
 
 capture_file_info <- function(x,file,where = "SETUP__") {
   x[[where]][["spec_file"]] <- file
-  x[[where]][["spec_path"]] <- normalizePath(dirname(file),mustWork=FALSE)
+  x[[where]][["spec_path"]] <- normalPath(dirname(file),mustWork=FALSE)
   x
 }
 
@@ -117,7 +117,7 @@ ys_load <- function(file, ...) {
 ##' @rdname ys_load
 ##' @export
 ys_load_file <- function(file, data_path = NULL, data_stem = NULL, ...) {
-  file <- normalizePath(file, mustWork = FALSE)
+  file <- normalPath(file, mustWork = FALSE)
   x <- try_yaml(file)
   x <- capture_file_info(x,file)
   incoming <- list(...)
@@ -168,7 +168,7 @@ unpack_meta <- function(x,to_update) {
   if(exists("lookup_file", meta)) {
     assert_that(is.character(meta[["lookup_file"]]))
     meta[["lookup_file"]] <- file.path(meta[["spec_path"]],meta[["lookup_file"]])
-    meta[["lookup_file"]] <- normalizePath(meta[["lookup_file"]],mustWork = FALSE)
+    meta[["lookup_file"]] <- normalPath(meta[["lookup_file"]],mustWork = FALSE)
   }
   if(.no("name", meta)) {
     meta[["name"]] <- basename(meta[["spec_file"]])
@@ -297,7 +297,7 @@ ys_load_meta <- function(file) {
 ##' 
 ##' @export
 load_spec_any <- function(file,...) {
-  file <- normalizePath(file,mustWork=FALSE)
+  file <- normalPath(file,mustWork=FALSE)
   if(is_yproj_file(file)) {
     return(ys_load_proj(file,...))
   }

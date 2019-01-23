@@ -25,7 +25,7 @@
 mrgtemplate <- function(root = tempdir()) {
   dir <- file.path(root, "mrgtemplate")
   if(!dir.exists(dir)) dir.create(dir)
-  dir <- normalizePath(dir)
+  dir <- normalPath(dir)
   templ_dir <- system.file(
     "mrgtemplate", package = "yspec"
   )

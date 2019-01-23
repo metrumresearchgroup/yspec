@@ -75,7 +75,8 @@ fda_table <- function(x) {
       xx, hline.after=c(-1,0,seq_len(nrow(xx)-1)),
       add.to.row = add.to.row, comment = FALSE,
       include.rownames = FALSE, table.placement = "H",
-      tabular.environment = "longtable", floating = FALSE
+      tabular.environment = "longtable", floating = FALSE, 
+      sanitize.text.function = getOption("ys.sanitize", ys_sanitize)
     )
   )
 }
@@ -214,9 +215,9 @@ render_fda_define.yproj <- function(x,
                                     ext = ".xpt", loc = '.', 
                                     ...) {
   
-  output_dir <- normalizePath(output_dir)
-  build_dir <- normalizePath(build_dir)
-  cwd <- normalizePath(getwd())
+  output_dir <- normalPath(output_dir)
+  build_dir <- normalPath(build_dir)
+  cwd <- normalPath(getwd())
   copy_back <- !identical(build_dir, output_dir)
   if(cwd != build_dir) {
     setwd(build_dir)

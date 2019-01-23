@@ -123,12 +123,12 @@ render_define.yproj <- function(x,
   
   proj <- meta[["spec_file"]]
   
-  yamlfile <- normalizePath(proj)
-  output_dir <- normalizePath(output_dir)
-  build_dir <- normalizePath(build_dir)
+  yamlfile <- normalPath(proj)
+  output_dir <- normalPath(output_dir)
+  build_dir <- normalPath(build_dir)
   copy_back <- !identical(build_dir,output_dir)
   
-  cwd <- normalizePath(getwd())
+  cwd <- normalPath(getwd())
   if(cwd != build_dir) {
     setwd(build_dir)
     on.exit(setwd(cwd))
@@ -141,7 +141,7 @@ render_define.yproj <- function(x,
   env <- new.env()
   env[[ys_working_markup_]] <- define_for_rmd(yamlfile,format)
   
-  file <- normalizePath(paste0(stem, ".Rmd"))
+  file <- normalPath(paste0(stem, ".Rmd"),mustWork=FALSE)
   
   rmd <- system.file("rmd", "define.Rmd", package = "yspec")
   
@@ -158,7 +158,7 @@ render_define.yproj <- function(x,
     ...
   )
   
-  if(copy_back) file.copy(normalizePath(ans), output_dir, overwrite = TRUE)
+  if(copy_back) file.copy(normalPath(ans), output_dir, overwrite = TRUE)
 
   return(invisible(ans))
 }

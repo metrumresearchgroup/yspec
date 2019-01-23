@@ -72,7 +72,7 @@ make_null <- function(x, name) {
 .stop <- function(...) stop(..., call. = FALSE)
 
 try_yaml <- function(file) {
-  file <- normalizePath(file,mustWork=FALSE)
+  file <- normalPath(file,mustWork=FALSE)
   if(!file.exists(file)) {
     .stop("the file ", basename(file) ,
           "\n  does not exist in directory\n  ",
@@ -226,4 +226,31 @@ temp_copy <- function(file,pattern,fileext=".yml") {
   tmp <- tempfile(pattern=pattern,fileext=fileext)
   x <- file.copy(file,tmp)
   return(tmp)
+}
+
+normalPath <- function(path, winslash = .Platform$file.sep, mustWork = NA) {
+  normalizePath(path=path, winslash=winslash, mustWork=mustWork)  
+}
+
+##' Default function to sanitize text for TeX documents
+##' 
+##' Based on [xtable::sanitize].  
+##' 
+##' @param x text to sanitize
+##' 
+##' @examples
+##' ys_sanitize("Concentration ($\\mu$g)")
+##' ys_sanitize("H&M")
+##' 
+##' @md
+##' @export
+ys_sanitize <- function(x) {
+  result <- x
+  result <- gsub("%", "\\%", result, fixed = TRUE)
+  result <- gsub("&", "\\&", result, fixed = TRUE)
+  result <- gsub("_", "\\_", result, fixed = TRUE)
+  result <- gsub("#", "\\#", result, fixed = TRUE)
+  result <- gsub("|", "$|$", result, fixed = TRUE)
+  result <- gsub("^", "\\verb|^|", result, fixed = TRUE)
+  result
 }

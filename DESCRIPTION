@@ -35,7 +35,6 @@ Collate:
     'lookup.R'
     'md_outline.R'
     'mrgtemmplate.R'
-    'old_render_spec.R'
     'pander_table.R'
     'spec_validate.R'
     'split_col.R'

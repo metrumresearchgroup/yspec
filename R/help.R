@@ -20,7 +20,7 @@
 ##' @md
 ##' @export
 ys_get_assets <- function(output,overwrite=FALSE) {
-  output <- normalizePath(output, mustWork=FALSE)
+  output <- normalPath(output, mustWork=FALSE)
   if(!overwrite) {
     if(dir.exists(output)) {
       stop(

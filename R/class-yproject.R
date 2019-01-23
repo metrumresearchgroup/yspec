@@ -161,7 +161,7 @@ ys_project <- function(..., output=tempfile(fileext=".yml"),
     dups <- paste0("  ", dups)
     stop("Duplicated spec names:\n", paste0(dups,collapse = "\n"))
   }
-  output <- normalizePath(output,mustWork=FALSE)
+  output <- normalPath(output,mustWork=FALSE)
   if(missing(sponsor)) {
     if(.has("sponsor", meta)) {
       sponsor <- meta$sponsor[1]  
@@ -204,7 +204,7 @@ ys_project_file <- function(..., output = tempfile(fileext=".yml"),
   if(is.character(where)) {
     files <- file.path(where,files)
   }
-  files <- normalizePath(files)
+  files <- normalPath(files)
   specs <- lapply(files, ys_load_file)
   dots[["output"]] <- output
   do.call(as_proj_spec, c(specs, dots))
@@ -240,7 +240,7 @@ unpack_meta_yproj <- function(x,...) {
 }
 
 is_yproj_file <- function(x) {
-  x <- normalizePath(x,mustWork=FALSE)
+  x <- normalPath(x,mustWork=FALSE)
   if(!file.exists(x)) return(FALSE)
   trimws(scan_yml(file=x,n=1))=="YPROJ__:"
 }
