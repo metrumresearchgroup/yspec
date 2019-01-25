@@ -11,6 +11,7 @@
 ##' - `analysis1.yml`: an example yaml file
 ##' - `analysis1.csv`: data set that works with `analysis1.yml`
 ##' - `ysdb_internal.yml`: the internal column lookup data base
+##' - `ys_example.Rmd`: contains testing code that utilizes other assets
 ##' - `ys_get_assets.md`: a listing of assets that is exported
 ##' 
 ##' @examples

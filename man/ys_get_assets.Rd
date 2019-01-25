@@ -20,6 +20,7 @@ the directory of your choosing.
 \item \code{analysis1.yml}: an example yaml file
 \item \code{analysis1.csv}: data set that works with \code{analysis1.yml}
 \item \code{ysdb_internal.yml}: the internal column lookup data base
+\item \code{ys_example.Rmd}: contains testing code that utilizes other assets
 \item \code{ys_get_assets.md}: a listing of assets that is exported
 }
 }
