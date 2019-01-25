@@ -1,6 +1,7 @@
 SETUP__:
   description: Test spec for lookup.
   lookup_file: [lookup.yml]
+  use_internal_db: true
 A: 
   values: 1
 B: 

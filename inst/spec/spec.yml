@@ -4,6 +4,7 @@ SETUP__:
   description: an example data set
   primary_key: [ID,EVID,SEQ]
   lookup_file: [_yspec_lookup.yml]
+  use_internal_db: true
   data_stem: example_data_set
 C:
   type: character

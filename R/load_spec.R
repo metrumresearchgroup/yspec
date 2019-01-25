@@ -3,12 +3,6 @@
 check_spec_input_col <- function(x, col, env, not_allowed = NULL, ...) {
   err <- c()
   if(is.null(x)) return()
-  # t0 <- !is.null(x)
-  # if(!t0) {
-  #   warning("No data for ", col)
-  #   env$err[[col]] <- "no spec data was found"
-  #   return(NULL)
-  # }
   t0 <- nchar(col) <= getOption("ys.col.len",8)
   if(!t0) {
     err <- c(
@@ -17,7 +11,7 @@ check_spec_input_col <- function(x, col, env, not_allowed = NULL, ...) {
     )
   }
   
-
+  
   t1 <- all(names(x) %in% setdiff(VALID_SPEC_NAMES, not_allowed))
   if(!t1) {
     valid <- setdiff(VALID_SPEC_NAMES, not_allowed)
@@ -107,30 +101,33 @@ capture_file_info <- function(x,file,where = "SETUP__") {
 ##' @param file name of yaml file containing specification
 ##' @param data_path optional path to data sets
 ##' @param data_stem optional alternate stem for data files
+##' @param .verbose `logical`; print information to the console as the file
+##' is processed
 ##' @param ... other arguments to update `SETUP__`
 ##' @export
-ys_load <- function(file, ...) {
-  x <- ys_load_file(file,...)
-  unpack_spec(x)
+ys_load <- function(file, .verbose=FALSE,  ...) {
+  x <- ys_load_file(file,.verbose=.verbose,...)
+  unpack_spec(x,.verbose=.verbose)
 }
 
 ##' @rdname ys_load
 ##' @export
-ys_load_file <- function(file, data_path = NULL, data_stem = NULL, ...) {
+ys_load_file <- function(file, data_path = NULL, data_stem = NULL, .verbose=FALSE, ...) {
   file <- normalPath(file, mustWork = FALSE)
+  if(.verbose) verb("~ working on", basename(file))
   x <- try_yaml(file)
   x <- capture_file_info(x,file)
   incoming <- list(...)
   incoming[["data_path"]] <- data_path
   incoming[["data_stem"]] <- data_stem
-  unpack_meta(x, to_update = incoming, ...)
+  unpack_meta(x, to_update = incoming,.verbose=.verbose)
 }
 
 ##' @rdname ys_load
 ##' @export
 load_spec <- function(...) ys_load(...)
 
-unpack_spec <- function(x) {
+unpack_spec <- function(x,.verbose=FALSE) {
   
   check_spec_input(x)
   
@@ -138,23 +135,25 @@ unpack_spec <- function(x) {
   x[] <- imap(x,.f=col_initialize)
   
   # for looking up column data
-  lookup <- ys_get_lookup(x)
+  lookup <- ys_get_lookup(x,.verbose=.verbose)
   
-  if(length(lookup) > 0) {
-    x[] <- map_if(
-      .x = x,
-      .p = ~.x$do_lookup,
-      .f = merge_lookup_column,
-      lookup = lookup, 
-      file = get_meta(x)[["spec_file"]]
-    )
+  if(length(lookup) > 0 & .verbose) {
+    verb(relapse(":",13), relapse(":",30))
   }
+  x[] <- map_if(
+    .x = x,
+    .p = ~.x$do_lookup,
+    .f = merge_lookup_column,
+    lookup = lookup, 
+    file = get_meta(x)[["spec_file"]], 
+    .verbose=.verbose
+  )
   x[] <- map(x, unpack_col)
   check_spec_cols(x)
   structure(x, class = "yspec")
 }
 
-unpack_meta <- function(x,to_update) {
+unpack_meta <- function(x,to_update, .verbose=FALSE, ...) {
   meta <- list()
   metai <- names(x) == "SETUP__"
   if(any(metai)) {
@@ -192,6 +191,11 @@ unpack_meta <- function(x,to_update) {
     if(!found_keys) {
       err_file(meta[["spec_file"]], "Invalid primary key.")
     }
+  }
+  if(.verbose) {
+    verb("  description", meta[["description"]])
+    if(.has("project", meta)) verb("  project", meta[["project"]])
+    if(.has("sponsor", meta)) verb("  sponsor", meta[["sponsor"]])
   }
   meta <- update_list(meta,to_update)
   spec_validate_meta(meta)

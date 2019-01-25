@@ -232,7 +232,7 @@ normalPath <- function(path, winslash = .Platform$file.sep, mustWork = NA) {
   normalizePath(path=path, winslash=winslash, mustWork=mustWork)  
 }
 
-##' Default function to sanitize text for TeX documents
+##' Functions to sanitize text for TeX documents
 ##' 
 ##' Based on [xtable::sanitize].  
 ##' 
@@ -251,6 +251,36 @@ ys_sanitize <- function(x) {
   result <- gsub("_", "\\_", result, fixed = TRUE)
   result <- gsub("#", "\\#", result, fixed = TRUE)
   result <- gsub("|", "$|$", result, fixed = TRUE)
+  result <- gsub("{", "\\{", result, fixed = TRUE)
+  result <- gsub("}", "\\}", result, fixed = TRUE)
   result <- gsub("^", "\\verb|^|", result, fixed = TRUE)
   result
 }
+
+##' @rdname ys_sanitize
+##' @export
+ys_dont_sanitize <- function(x) {
+  x
+}
+
+##' @rdname ys_sanitize
+##' @export
+ys_mild_sanitize <- function(x) {
+  result <- x
+  result <- gsub("%", "\\%", result, fixed = TRUE)
+  result <- gsub("&", "\\&", result, fixed = TRUE)
+  result <- gsub("#", "\\#", result, fixed = TRUE)
+  result <- gsub("|", "$|$", result, fixed = TRUE)
+  result <- gsub("{", "\\{", result, fixed = TRUE)
+  result <- gsub("}", "\\}", result, fixed = TRUE)
+  result  
+}
+
+
+verb <- function(left, right) {
+  left <- crayon::green(paste0(formatC(left, width = 14,flag="-"), crayon::black("... ")))
+  message(left,right)
+}
+
+relapse <- function(x,n) paste0(rep(x,n),collapse="")
+

@@ -2,15 +2,19 @@
 % Please edit documentation in R/help.R
 \name{ys_view}
 \alias{ys_view}
+\alias{ys_view_db}
 \title{View example specification file}
 \usage{
-ys_view(file = c("analysis1.yml", "ysdb_internal.yml"))
+ys_view(file = "analysis1.yml")
+
+ys_view_db()
 }
 \arguments{
 \item{file}{the example specification file to view}
 }
 \description{
-View example specification file
+Open up either an example data specification file or the `yspec`
+internal data base file.
 }
 \details{
 The specification file will be copied out of the yspec install 
@@ -21,6 +25,7 @@ for viewing using [file.show].
 \examples{
 \dontrun{
 ys_view()
+ys_view_db()
 }
 
 }

@@ -31,24 +31,28 @@ pander_table <- function(x, ...) {
 ##' @export
 x_table <- function(x,...) {
   assert_that(requireNamespace("xtable"))
-  ans <- pander_table_df(x)
+  tab <- pander_table_df(x)
   lengths <- c(0, 1, 0.65, 0.95, 2.4)
   align <- paste0("p{",lengths,"in}")
-  #align[1] <- paste0("|", align[1], "|")
   align[2] <- paste0("|", align[2], "|")
   align[4] <- paste0("|", align[4])
   align[5] <- paste0(align[5], "|")
-  hlines <- which(ans[,1] != "")-1
-  xx <- xtable(ans, align = align)
-  capture.output(
+  hlines <- which(tab[,1] != "")-1
+  xtab <- xtable(tab, align = align)
+  ans <- capture.output(
     print(
-      xx, hline.after=c(-1,hlines),
+      xtab, hline.after=c(-1,hlines),
       add.to.row = add.to.row, comment = FALSE,
       include.rownames = FALSE, table.placement = "H",
       tabular.environment = "longtable", floating = FALSE,
       sanitize.text.function = getOption("ys.sanitize", ys_sanitize)
     )
   )
+  glu <- get_meta(x)[["glue"]]
+  if(is.list(glu)) {
+    ans <- sapply(ans, glue, .envir = glu, .open = .glopen, .close = .glclose)
+  }
+  ans
 }
 
 ##' @rdname pander_table

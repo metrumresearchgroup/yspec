@@ -6,14 +6,18 @@
 \alias{load_spec}
 \title{Load a data specification file}
 \usage{
-ys_load(file, ...)
+ys_load(file, .verbose = FALSE, ...)
 
-ys_load_file(file, data_path = NULL, data_stem = NULL, ...)
+ys_load_file(file, data_path = NULL, data_stem = NULL,
+  .verbose = FALSE, ...)
 
 load_spec(...)
 }
 \arguments{
 \item{file}{name of yaml file containing specification}
+
+\item{.verbose}{`logical`; print information to the console as the file
+is processed}
 
 \item{...}{other arguments to update `SETUP__`}
 

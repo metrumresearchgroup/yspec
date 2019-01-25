@@ -1,4 +1,5 @@
 
+library(testthat)
 library(yspec)
 
 test_that("lookup with internal db", {
@@ -25,3 +26,5 @@ test_that("lookup without internal db", {
   expect_equal(spec$E$short,"F")
   expect_equal(spec$WT$short, "wait")
 })
+
+

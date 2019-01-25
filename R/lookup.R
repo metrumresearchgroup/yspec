@@ -11,6 +11,8 @@ ys_lookup_source <- function(x) {
 ##' Generate lookup list
 ##' 
 ##' @param x a yspec object 
+##' @param .verbose `logical`; print information to the console as the file
+##' is processed
 ##' 
 ##' @examples
 ##' 
@@ -19,21 +21,20 @@ ys_lookup_source <- function(x) {
 ##' 
 ##' 
 ##' @export
-ys_get_lookup <- function(x) {
+ys_get_lookup <- function(x,.verbose=FALSE) {
   files <- get_lookup_files(x)
-  syst <- TRUE
-  if(any(basename(files)=="skip_ysdb_internal")) {
-    files <- files[basename(files) != "skip_ysdb_internal"]
-    syst <- FALSE
+  m <- get_meta(x)
+  if(!is.null(m[["use_internal_db"]])) {
+    files <-  c(files, lookup_ysdb_file())
   }
-  if(syst) files <- c(files,lookup_ysdb_file())
-  if(length(files)==0) {
-    return(list())
+  if(length(files)==0) return(list())
+  if(.verbose) {
+    walk(basename(files),verb, left = "  lookup file")
   }
   ans <- list()
   files <- rev(files)
   for(.file in files) {
-    this <- ys_load_file(.file)
+    this <- ys_load_file(.file, .verbose = .verbose)
     check_spec_input(this, context = "lookup spec", not_allowed = "lookup")
     this <- map(this, function(x) {
       x[["lookup_source"]] <- basename(.file);
@@ -52,9 +53,15 @@ get_lookup_files <- function(x) {
   return(character(0))
 }
 
-merge_lookup_column <- function(x,lookup,file) {
+merge_lookup_column <- function(x,lookup,file,.verbose=FALSE) {
   lookup_name <- x[["lookup"]]
   if(.has(lookup_name,lookup)) {
+    if(.verbose) {
+      a <- lookup[[lookup_name]][["lookup_source"]]
+      b <- crayon::black(" ---> ")
+      c <- crayon::bold(crayon::red(lookup_name)) 
+      verb("~ looking up", c(a,b,c))
+    }
     x <- combine_list(lookup[[lookup_name]],x)
   } else {
     warning(
@@ -66,6 +73,6 @@ merge_lookup_column <- function(x,lookup,file) {
 }
 
 lookup_ysdb_file <- function(do = TRUE) {
-  file <- system.file("internal", "ysdb_internal.yml", package = "yspec")
+  system.file("internal", "ysdb_internal.yml", package = "yspec")
 }
 

@@ -1,5 +1,6 @@
 SETUP__:
   description: No data in the ALB column.
+  use_internal_db: true
 WT:
   range: [10,100]
 DATEANDTIME:

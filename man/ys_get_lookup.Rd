@@ -4,10 +4,13 @@
 \alias{ys_get_lookup}
 \title{Generate lookup list}
 \usage{
-ys_get_lookup(x)
+ys_get_lookup(x, .verbose = FALSE)
 }
 \arguments{
 \item{x}{a yspec object}
+
+\item{.verbose}{`logical`; print information to the console as the file
+is processed}
 }
 \description{
 Generate lookup list

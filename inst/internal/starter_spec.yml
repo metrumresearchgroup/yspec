@@ -2,6 +2,7 @@ SETUP__:
   description: Analysis data set specification.
   projectnumber: PROJECTNUMBER
   sponsor: SPONSORNAME
+  lookup_yspec_db: true
 C: 
   short: comment character
   values: [".", "C"]

@@ -1,0 +1,29 @@
+---
+title: ys_example.Rmd
+---
+
+```{r}
+library(yspec)
+
+spec <- ys_load("analysis1.yml", .verbose = TRUE)
+
+spec$STUDY
+
+spec$WT
+
+as.data.frame(spec)
+
+data <- read.csv("analysis1.csv", na.strings = '.', as.is=TRUE)
+
+ys_check(data,spec)
+
+```
+
+
+```{r, eval = FALSE}
+ys_document(spec)
+
+ys_document(spec, type = "regulatory")
+```
+
+

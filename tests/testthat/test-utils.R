@@ -37,3 +37,15 @@ test_that("make_null", {
 test_that(".stop", {
   expect_error(yspec:::.stop("abcde"), regexp="abcde")
 })
+
+test_that("sanitizers", {
+  x <- "a _ b & c % d ^"
+  ans <- ys_sanitize(x)
+  expect_identical(ans, "a \\_ b \\& c \\% d \\verb|^|")
+  
+  ans <- ys_dont_sanitize(x)
+  expect_identical(ans,x)
+
+  ans <- ys_mild_sanitize(x)
+  expect_identical(ans, "a _ b \\& c \\% d ^")
+})

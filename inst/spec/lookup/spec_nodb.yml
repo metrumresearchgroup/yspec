@@ -1,6 +1,6 @@
 SETUP__:
   description: Test spec for lookup.
-  lookup_file: [lookup.yml,skip_ysdb_internal]
+  lookup_file: [lookup.yml]
 A: 
   values: 1
 B: 

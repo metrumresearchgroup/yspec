@@ -65,20 +65,25 @@ fda_table <- function(x) {
   if(!is_yspec(x)) {
     .stop("x is not a yspec object")
   }
-  x <- as_fda_table(x)
+  tab <- as_fda_table(x)
   lengths <- c(0, 0.75, 1.85, 0.6, 1.8)
   align <- paste0("p{",lengths,"in}|")
   align[2] <- paste0("|", align[2])
-  xx <- xtable(x, align = align)
-  capture.output(
+  xtab <- xtable(tab, align = align)
+  ans <- capture.output(
     print(
-      xx, hline.after=c(-1,0,seq_len(nrow(xx)-1)),
+      xtab, hline.after=c(-1,0,seq_len(nrow(xtab)-1)),
       add.to.row = add.to.row, comment = FALSE,
       include.rownames = FALSE, table.placement = "H",
       tabular.environment = "longtable", floating = FALSE, 
       sanitize.text.function = getOption("ys.sanitize", ys_sanitize)
     )
   )
+  glu <- get_meta(x)[["glue"]]
+  if(is.list(glu)) {
+    ans <- sapply(ans, glue, .envir = glu, .open = .glopen, .close = .glclose)
+  }
+  ans
 }
 
 ##' Print a table of contents for FDA define document

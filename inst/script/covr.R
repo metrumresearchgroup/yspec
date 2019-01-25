@@ -8,7 +8,7 @@ df <- data.frame(file = names(y$filecoverage), coverage = y$filecoverage, row.na
 
 df <- df[order(as.numeric(df$coverage)),]
 
-outfile <- "inst/doc/coverage.md"
+outfile <- "inst/md/coverage.md"
 
 cat(file=outfile, "# coverage: ",y$totalcoverage, "%\n\n", sep="")
 

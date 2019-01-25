@@ -2,9 +2,15 @@
 % Please edit documentation in R/utils.R
 \name{ys_sanitize}
 \alias{ys_sanitize}
-\title{Default function to sanitize text for TeX documents}
+\alias{ys_dont_sanitize}
+\alias{ys_mild_sanitize}
+\title{Functions to sanitize text for TeX documents}
 \usage{
 ys_sanitize(x)
+
+ys_dont_sanitize(x)
+
+ys_mild_sanitize(x)
 }
 \arguments{
 \item{x}{text to sanitize}

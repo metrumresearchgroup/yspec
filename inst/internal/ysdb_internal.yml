@@ -1,5 +1,5 @@
 SETUP__:
-  description: internal column db
+  description: yspec internal column database
 C: 
   short: comment character
   values: [".", "C"]

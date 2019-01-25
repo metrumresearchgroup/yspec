@@ -30,22 +30,26 @@ as.list.yspec <- function(x,...) {
 
 ##' @export
 as.data.frame.yspec <- function(x,...) {
-  out <- data.frame(col = seq_along(x), name=names(x))
-  out$type <- map_chr(x, "type", .default = ".")
-  out$unit <- map_chr(x, "unit", .default = ".")
-  out$short <- map_chr(x, "short", .default = ".")
-  out
+  summary.yspec(x,...)
+}
+
+as_tibble.yspec <- function(x,...) {
+  imap(x, function(data,name) {
+    field <- names(data)
+    data <- unname(data)
+    tibble(col = name, field = field, value = data)  
+  }) 
 }
 
 ##' @export
 head.yspec <- function(x, n = 10, ...) {
-  ans <- as.data.frame.yspec(x)
+  ans <- summary.yspec(x)
   head(ans, n = n, ...)
 }
 
 ##' @export
 tail.yspec <- function(x, n = 10, ...) {
-  ans <- as.data.frame.yspec(x)
+  ans <- summary.yspec(x)
   tail(ans, n = n, ...)
 }
 
@@ -54,28 +58,27 @@ print.yspec <- function(x,i=0,...) {
   if(i==1) {
     return(print1(x,...))
   }
-  out <- as.data.frame(x)
+  out <- summary.yspec(x)
   print.data.frame(out, row.names=FALSE, right=FALSE)
+}
+
+yml_rm <- function(x) {
+  if(is.null(x)) return("")
+  gsub("\\.ya?ml$", "", x)
 }
 
 ##' @export
 summary.yspec <- function(object, ...) {
-  .vars <- quos(...)
-  vars <- select_vars(names(object),!!!.vars)
-  if(length(vars)==0) {
-    vars <- names(object)[seq_len(min(10,length(object)))]
-  }
-  for(v in vars) {
-    x <- object[[v]]
-    unit <- dplyr::if_else(is.null(x$unit), "no-unit", x$unit)
-    unit <-paste0( "(", unit, ")")
-    cat(paste0(x$short, " ", unit, "\n"))
-    cat(paste0("  type: ", x$type, "\n"))
-    if(is.numeric(x$range)) {
-      cat(paste0("  range: [",x$range[1], ', ', x$range[2], "]\n"))
-    }
-    cat("------\n")
-  }
+  out <- data.frame(col = seq_along(object), name=names(object))
+  type <- map_chr(object, "type", .default = ".")
+  out$c <- ifelse(type=="character", "+", "-")
+  dec <- map(object, "decode") %>% unname %>% map_int(length)
+  out$d <- ifelse(dec > 0, "+", "-")
+  out$unit <- map_chr(object, "unit", .default = ".")
+  out$short <- map_chr(object, "short", .default = ".")
+  out$source <- map_chr(object, "lookup_source", .default='.')
+  out$col <- NULL
+  out
 }
 
 print1 <- function(x,...) {
@@ -218,6 +221,7 @@ Range.yspec <- function(x, default = '.', ...) {
 }
 
 lookup <- function(x,...) UseMethod("lookup")
+
 ##' @export
 lookup.ycol <- function(x,...) {
   if(.has("lookup",x)) {
@@ -245,6 +249,7 @@ Source.yspec <- function(x,default = '.',...) {
 ##' @param ... not used
 ##' @export
 yspec_yml_file <- function(x,...) UseMethod("yspec_yml_file")
+
 ##' @export
 yspec_yml_file.default <- function(x,...) {
   get_meta(x)[["spec_file"]]  

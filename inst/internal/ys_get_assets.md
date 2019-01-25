@@ -4,3 +4,4 @@
 - analysis1.yml: an example yaml specification file
 - analysis1.csv: an example data set that can be checked against 
   analysis1.yml
+- ys_example.Rmd: an Rmd document that utilizes the assets listed above

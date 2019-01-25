@@ -2,6 +2,7 @@ SETUP__:
   description: Example PopPK analysis data set.
   sponsor: example-project
   projectnumber: examp101F
+  use_internal_db: true
 C:
 NUM:
 ID:
