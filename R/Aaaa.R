@@ -63,8 +63,7 @@ VALID_SETUP_NAMES <- c(
 #'   objects; this also can be rendered as a pdf file with [ys_document()]
 #' - Get help
 #'     - Use [ys_get_assets()] to export a folder of example material
-#'     - Use [ys_view()] to view an example yaml specification file
-#'     - Use [ys_view_db()] to view the internal column lookup data
+#'     - Use [ys_help] to get further help and documentation in your R session
 #'     
 #' @section Package-wide options:
 #' 

@@ -35,8 +35,7 @@ objects; this also can be rendered as a pdf file with \code{\link[=ys_document]{
 \item Get help
 \itemize{
 \item Use \code{\link[=ys_get_assets]{ys_get_assets()}} to export a folder of example material
-\item Use \code{\link[=ys_view]{ys_view()}} to view an example yaml specification file
-\item Use \code{\link[=ys_view_db]{ys_view_db()}} to view the internal column lookup data
+\item Use \link{ys_help} to get further help and documentation in your R session
 }
 }
 }

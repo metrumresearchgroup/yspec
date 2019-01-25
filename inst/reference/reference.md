@@ -1,11 +1,12 @@
 
 
-# yspec YAML specification
+# yspec data specification
 
 ## Data fields
 
 - `short`: a short name for the column; don't include units
 - `units`: the measurement unit
+- `type:` the data type; can be either `numeric` (default) or `character`
 - `lookup:`
     - could be logical `lookup: true`
     - could be the name of a lookup column to use: `lookup: ALTEGFR`
