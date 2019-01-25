@@ -6,7 +6,7 @@ output:
   rmarkdown::html_vignette: 
     keep_md: true
 vignette: >
-  %\VignetteIndexEntry{yspec}
+  %\VignetteIndexEntry{Vignette Title}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -74,9 +74,9 @@ Use the `ys_check()` function, with the data frame as the first argument
 and the spec object as the second argument
 
 ```{r}
-sp <- ys_load(ys_demo$file)
+sp <- ys_load(ys_help$file())
 
-data <- readr::read_csv(ys_demo$csv, na = '.')
+data <- readr::read_csv(ys_help$csv(), na = '.')
 
 ys_check(data,sp)
 

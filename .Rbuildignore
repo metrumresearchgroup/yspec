@@ -3,7 +3,6 @@ CONTRIBUTING.md
 mrglogo\.pdf
 ^README\.md$
 ^README\.Rmd$
-inst/doc
 inst/readme_docs
 .*\.tar\.gz$
 \.travis\.yml
@@ -12,6 +11,10 @@ Makefile
 ^test_.*\.R$
 ^.*\.Rproj$
 ^\.Rproj\.user$
-vignettes
 dev
-docs/
+^docs$
+vignettes/project\.Rmd
+vignettes/ysdb_internal\.Rmd
+vignettes/yspec\.Rmd
+vignettes/lookup\.Rmd
+vignettes/.*\.pdf

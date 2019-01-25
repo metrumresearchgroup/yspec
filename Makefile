@@ -15,9 +15,6 @@ pkgdown:
 readme:
 	Rscript -e 'rmarkdown::render("README.Rmd")'
 
-vignette:
-	Rscript -e 'rmarkdown::render("inst/doc/vignette.Rmd")'
-
 ec:
 	echo ${VERSION}
 
@@ -30,6 +27,13 @@ all:
 	make build
 	make install
 
+package: 
+	make data
+	make doc
+	make BUILD
+	make install
+
+
 test:
 	make install
 	Rscript -e 'testthat:::test_dir("tests")'
@@ -38,8 +42,11 @@ test:
 doc:
 	Rscript -e 'library(devtools); document()'
 
-build:
+BUILD:
 	R CMD build --md5 $(PKGDIR)
+
+build:
+	R CMD build --md5  --no-build-vignettes $(PKGDIR)
 
 install:
 	R CMD INSTALL --install-tests ${TARBALL}
@@ -50,7 +57,7 @@ install-build:
 check:
 	make data
 	make doc
-	make build
+	make BUILD
 	R CMD CHECK ${TARBALL} -o ${CHKDIR}
 
 travis:

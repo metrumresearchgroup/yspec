@@ -15,6 +15,7 @@ write out data definition documents.
 \itemize{
 \item Write your document in yaml format
 \itemize{
+\item Synax reference \href{../doc/reference.html}{here}
 \item Include a \code{SETUP__:} block at the top to include meta information
 \item Use \code{lookup}s from either the internal library or your own lookup file
 }

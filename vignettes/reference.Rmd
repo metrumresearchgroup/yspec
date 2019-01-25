@@ -1,10 +1,79 @@
 ---
-title: yspec yaml specification
+title: "yspec `yaml` specification"
+author: "Kyle Baron"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{yspec yaml specification}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
 ---
 
-- `about: [short-name, units]`
-  - This is a convenience structure.
-- `long: a longer name to describe the column`
+## Organization
+Save your data specification code in a file, typically with a `.yaml` 
+file extension.  
+
+At the top of the file, include a block called `SETUP__:`; this is where 
+the data set meta data is stored.  For example
+
+```{yaml}
+SETUP__:
+  description: PKPD analysis data set. 
+  use_internal_db: true
+  projectnumber: FOO123
+  sponsor: MetrumRG
+```
+
+See the details below for other files that can be included here.
+
+Next, list each data set column in order, with the data column name 
+starting in the first column and ending with a colon.  For example:
+
+```{yaml}
+WT:
+  short: weight
+  unit: kg
+  range: [50, 150]
+```
+
+This specifies a "short" name for this column as well as a unit and a range. 
+A complete listing is provided below. 
+
+You can see an fully worked example by running
+
+```{r, eval = FALSE}
+ys_help$analysis1()
+```
+
+See the `?ys_help` help topic for more information.
+
+Or, you can export a collection of package assets with this command
+
+```{r, eval = FALSE}
+ys_get_assets(output="assets")
+```
+
+See the `?ys_get_assets` for more information.  
+
+## `SETUP__` specification fields
+
+- `description`: `<character>`; a short descrption of the data set 
+- `projectnumber`: `<character>` the project reference number; may be 
+   incorporated into rendered define documents
+- `lookup_file`: `<character>`; a yaml array of other yaml files where 
+   yspec will look for column lookup inforomation
+- `use_internal_db`: `<logical> (true/false)`; if `true`, then yspec will 
+   load the internal column lookup database
+- `glue`: `<map>`; specify name/value pairs;  in the yaml data specification, 
+   use `<<name>>` in the text and `value` will glued into the text after
+   it has been sanitized; intended use is to allow LaTex code to evade the 
+   sanitizer
+
+## Data column specification fields
+- `short: short-name` 
+    - a short name for the column; don't include units here
+- `units: numeric` 
+    - the unit of measure
 - `range: [min-value, max-value]`
     - indicates continuous data
 - `values: [val1, val2, valn]`
@@ -27,6 +96,9 @@ title: yspec yaml specification
 - `source: ADSL.xpt`
     - Where the data came from
     - include both the sdtm domain and variable name
+- `about: [short-name, units]`
+  - This is a convenience structure.
+- `long: a longer name to describe the column`
 - `dots`: 
   - A named list of whatever you want to carry along in the object; the `dots` list
     isn't used by any rendering function in the yspec package, but might be used 
@@ -96,7 +168,7 @@ RACE:
   longvalues: true
 ```
 
-### Integer data with decode
+### Discrete data with decode
 
 __Method 1__
 
@@ -119,8 +191,8 @@ decode on the right
 ```yaml
 SEX: 
   values: !value:decode
-    - 0 : dude
-    - 1 : gal
+    0 : dude
+    1 : gal
 ```
 
 The default behavior can be achieved with
@@ -128,8 +200,8 @@ The default behavior can be achieved with
 ```yaml
 SEX: 
   values: !value:decode
-    - dude: 0
-    - gal: 1
+    dude: 0
+    gal: 1
 ```
 
 The handlers also allow associating multiple values with a single decode
@@ -180,4 +252,15 @@ CMT:
 ```yaml
 CMT: !look
 ```
+You can also give the column name to import
+
+```yaml
+HT: 
+  lookup: HT_INCHES
+```
+
+In this example, there would be a column called `HT_INCHES` in the 
+lookup file that would be imported under the name `HT`.
+
+
 

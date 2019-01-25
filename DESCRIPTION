@@ -14,6 +14,7 @@ LazyData: true
 Imports: yaml, dplyr, rmarkdown, knitr, xtable, 
     rlang, assertthat, purrr, glue, rstudioapi, crayon
 Suggests: pander, testthat
+VignetteBuilder: knitr
 RoxygenNote: 6.1.1
 Collate: 
     'utils.R'

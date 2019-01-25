@@ -1,23 +1,23 @@
-##' @importFrom yaml yaml.load_file as.yaml
-##' @importFrom dplyr filter %>% bind_rows data_frame select_vars
-##' @importFrom dplyr mutate if_else .data desc
-##' @importFrom dplyr tibble as_tibble
-##' @importFrom rmarkdown render pdf_document html_document
-##' @importFrom knitr kable
-##' @importFrom xtable xtable
-##' @importFrom utils capture.output head tail
-##' @importFrom rlang quos set_names
-##' @importFrom assertthat assert_that
-##' @importFrom purrr map map_chr map_df map_if map_lgl
-##' @importFrom purrr imap imap_chr map_int
-##' @importFrom purrr discard compact transpose
-##' @importFrom purrr walk walk2 iwalk 
-##' @importFrom purrr flatten flatten_chr modify
-##' @importFrom glue glue
-##' @importFrom utils type.convert read.csv
-##' @importFrom crayon red green black
-##' 
-##' @include utils.R
+#' @importFrom yaml yaml.load_file as.yaml
+#' @importFrom dplyr filter %>% bind_rows data_frame select_vars
+#' @importFrom dplyr mutate if_else .data desc
+#' @importFrom dplyr tibble as_tibble
+#' @importFrom rmarkdown render pdf_document html_document
+#' @importFrom knitr kable
+#' @importFrom xtable xtable
+#' @importFrom utils capture.output head tail
+#' @importFrom rlang quos set_names
+#' @importFrom assertthat assert_that
+#' @importFrom purrr map map_chr map_df map_if map_lgl
+#' @importFrom purrr imap imap_chr map_int
+#' @importFrom purrr discard compact transpose
+#' @importFrom purrr walk walk2 iwalk 
+#' @importFrom purrr flatten flatten_chr modify
+#' @importFrom glue glue
+#' @importFrom utils type.convert read.csv
+#' @importFrom crayon red green black
+#' 
+#' @include utils.R
 NULL
 
 globalVariables(c("decode", "unit", "source", "type", "value"))
@@ -49,6 +49,7 @@ VALID_SETUP_NAMES <- c(
 #' @section Workflow:
 #' 
 #' - Write your document in yaml format
+#'     - Synax reference [here](../doc/reference.html)
 #'     - Include a `SETUP__:` block at the top to include meta information
 #'     - Use `lookup`s from either the internal library or your own lookup file
 #' - Use [ys_load()] to read in the yaml file
@@ -77,36 +78,11 @@ VALID_SETUP_NAMES <- c(
 #' 
 #' 
 #' 
+#' 
+#' 
 #' @docType package
 #' @md
 #' @name yspec
 NULL
 
 
-##' Yaml specification reference
-##' 
-##' 
-##' @section SETUP__:
-##' Include this block at the top of the yaml file; this is where you 
-##' enter meta information about the data set. 
-##' 
-##' - `description`: `<character>`; a short descrption of the data set 
-##' - `projectnumber`: `<character>` the project reference number; may be 
-##'   incorporated into rendered define documents
-##' - `lookup_file`: `<character>`; a yaml array of other yaml files where \
-##'   yspec will look for column lookup inforomation
-##' - `use_internal_db`: `<logical> (true/false)`; if `true`, then yspec will 
-##'   load the internal column lookup database
-##' - `glue`: `<map>`; specify name/value pairs;  in the yaml data specification, 
-##'   use `<<name>>` in the text and `value` will glued into the text after
-##'   it has been sanitized; intended use is to allow LaTex code to evade the 
-##'   sanitizer
-##' 
-##' @section Column specification syntax
-##' 
-##' @rdname specification
-##' @name specification
-##' @aliases SETUP 
-##' @md
-##' 
-NULL
