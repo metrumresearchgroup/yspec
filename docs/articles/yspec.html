@@ -88,7 +88,7 @@
       <h1>yspec</h1>
                         <h4 class="author">STATUS: development</h4>
             
-            <h4 class="date">2019-01-21</h4>
+            <h4 class="date">2019-01-25</h4>
       
       
       <div class="hidden name"><code>yspec.Rmd</code></div>
@@ -120,6 +120,7 @@ Keep reading to see how it works.
     description: an example data set
     primary_key: [ID,EVID,SEQ]
     lookup_file: [_yspec_lookup.yml]
+    use_internal_db: true
     data_stem: example_data_set
   C:
     type: character
@@ -141,33 +142,32 @@ Keep reading to see how it works.
     long: dose amount
     range: [0,1000]
   II:
-    about: [II, hours]
-    long: interdose interval</code></pre>
+    about: [II, hours]</code></pre>
 <p>Once the data specification <code>yaml</code> file is written, it can be loaded in <code>R</code></p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">spec &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ys_load.html">ys_load</a></span>(specfile)</a>
 <a class="sourceLine" id="cb4-2" title="2"></a>
 <a class="sourceLine" id="cb4-3" title="3">spec</a></code></pre></div>
-<pre><code>   col name    type      unit          short                        
-    1  C       character .             commented row indicator      
-    2  USUBJID character .             USUBJID                      
-    3  ID      numeric   .             ID                           
-    4  EVID    numeric   .             event ID                     
-    5  MDV     numeric   .             MDV                          
-    6  SEQ     numeric   .             SEQ                          
-    7  AMT     numeric   mg            amount                       
-    8  II      numeric   hours         II                           
-    9  CMT     numeric   .             Compartment                  
-   10  TAFD    numeric   hours         TAFD                         
-   11  WT      numeric   kg            Weight                       
-   12  EGFR    numeric   ml/min/1.73m2 eGFR                         
-   13  STUDY   character .             Study                        
-   14  SEX     numeric   .             SEX                          
-   15  BQL     numeric   .             below limit of quantification
-   16  DV      numeric   ng/mL         DV                           
-   17  DV2     numeric   .             DV2                          
-   18  HAIR    character .             HAIR                         
-   19  CLCR    numeric   ml/min        creatinine clearance         
-   20  ALB     numeric   g/dL          adjusted albumin</code></pre>
+<pre><code>   name    c d unit          short                         source           
+   C       + - .             commented row indicator       _yspec_lookup.yml
+   USUBJID + - .             USUBJID                       .                
+   ID      - - .             ID                            .                
+   EVID    - - .             event ID                      _yspec_lookup.yml
+   MDV     - - .             MDV                           _yspec_lookup.yml
+   SEQ     - + .             SEQ                           .                
+   AMT     - - mg            amount                        .                
+   II      - - hours         II                            .                
+   CMT     - - .             Compartment                   .                
+   TAFD    - - hours         TAFD                          .                
+   WT      - - kg            Weight                        .                
+   EGFR    - - ml/min/1.73m2 eGFR                          _yspec_lookup.yml
+   STUDY   + + .             Study                         .                
+   SEX     - + .             SEX                           _yspec_lookup.yml
+   BQL     - + .             below limit of quantification .                
+   DV      - - ng/mL         DV                            .                
+   DV2     - - .             DV2                           .                
+   HAIR    + + .             HAIR                          .                
+   CLCR    - - ml/min        creatinine clearance          .                
+   ALB     - - g/dL          adjusted albumin              _yspec_lookup.yml</code></pre>
 <p>Data from specific columns can be printed</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">spec<span class="op">$</span>WT</a></code></pre></div>
 <pre><code>   name  value    
@@ -178,17 +178,48 @@ Keep reading to see how it works.
    range 40 to 100</code></pre>
 <p>or summarized</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(spec, WT, DV, EGFR)</a></code></pre></div>
-<pre><code>  Weight (kg)
-    type: numeric
-    range: [40, 100]
-  ------
-  DV (ng/mL)
-    type: numeric
-  ------
-  eGFR (ml/min/1.73m2)
-    type: numeric
-    range: [10, 300]
-  ------</code></pre>
+<pre><code>        name c d          unit                         short
+  1        C + -             .       commented row indicator
+  2  USUBJID + -             .                       USUBJID
+  3       ID - -             .                            ID
+  4     EVID - -             .                      event ID
+  5      MDV - -             .                           MDV
+  6      SEQ - +             .                           SEQ
+  7      AMT - -            mg                        amount
+  8       II - -         hours                            II
+  9      CMT - -             .                   Compartment
+  10    TAFD - -         hours                          TAFD
+  11      WT - -            kg                        Weight
+  12    EGFR - - ml/min/1.73m2                          eGFR
+  13   STUDY + +             .                         Study
+  14     SEX - +             .                           SEX
+  15     BQL - +             . below limit of quantification
+  16      DV - -         ng/mL                            DV
+  17     DV2 - -             .                           DV2
+  18    HAIR + +             .                          HAIR
+  19    CLCR - -        ml/min          creatinine clearance
+  20     ALB - -          g/dL              adjusted albumin
+                source
+  1  _yspec_lookup.yml
+  2                  .
+  3                  .
+  4  _yspec_lookup.yml
+  5  _yspec_lookup.yml
+  6                  .
+  7                  .
+  8                  .
+  9                  .
+  10                 .
+  11                 .
+  12 _yspec_lookup.yml
+  13                 .
+  14 _yspec_lookup.yml
+  15                 .
+  16                 .
+  17                 .
+  18                 .
+  19                 .
+  20 _yspec_lookup.yml</code></pre>
 </div>
 <div id="check-a-data-set-against-the-spec" class="section level2">
 <h2 class="hasAnchor">
@@ -222,29 +253,29 @@ Keep reading to see how it works.
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1">pdspec &lt;-<span class="st"> </span><span class="kw"><a href="../reference/load_spec_ex.html">load_spec_ex</a></span>(<span class="st">"DEM104101F_PKPD.yml"</span>)</a></code></pre></div>
 <p>Now, we have two objects to work with:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(spec)</a></code></pre></div>
-<pre><code>##    col    name      type  unit                   short
-## 1    1       C character     . commented row indicator
-## 2    2 USUBJID character     .                 USUBJID
-## 3    3      ID   numeric     .                      ID
-## 4    4    EVID   numeric     .                event ID
-## 5    5     MDV   numeric     .                     MDV
-## 6    6     SEQ   numeric     .                     SEQ
-## 7    7     AMT   numeric    mg                  amount
-## 8    8      II   numeric hours                      II
-## 9    9     CMT   numeric     .             Compartment
-## 10  10    TAFD   numeric hours                    TAFD</code></pre>
+<pre><code>##       name c d  unit                   short            source
+## 1        C + -     . commented row indicator _yspec_lookup.yml
+## 2  USUBJID + -     .                 USUBJID                 .
+## 3       ID - -     .                      ID                 .
+## 4     EVID - -     .                event ID _yspec_lookup.yml
+## 5      MDV - -     .                     MDV _yspec_lookup.yml
+## 6      SEQ - +     .                     SEQ                 .
+## 7      AMT - -    mg                  amount                 .
+## 8       II - - hours                      II                 .
+## 9      CMT - -     .             Compartment                 .
+## 10    TAFD - - hours                    TAFD                 .</code></pre>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(pdspec)</a></code></pre></div>
-<pre><code>##    col name      type           unit       short
-## 1    1    C character              .           C
-## 2    2  MDV   numeric              .         MDV
-## 3    3  SEQ   numeric              .         SEQ
-## 4    4  AMT   numeric             mg         AMT
-## 5    5   II   numeric          hours          II
-## 6    6  CMT   numeric              . Compartment
-## 7    7 TAFD   numeric          hours        TAFD
-## 8    8   WT   numeric             kg      Weight
-## 9    9 EGFR   numeric ml/min/1.73 m2        eGFR
-## 10  10  SEX   numeric              .         SEX</code></pre>
+<pre><code>##    name c d           unit       short source
+## 1     C + -              .           C      .
+## 2   MDV - -              .         MDV      .
+## 3   SEQ - +              .         SEQ      .
+## 4   AMT - -             mg         AMT      .
+## 5    II - -          hours          II      .
+## 6   CMT - -              . Compartment      .
+## 7  TAFD - -          hours        TAFD      .
+## 8    WT - -             kg      Weight      .
+## 9  EGFR - - ml/min/1.73 m2        eGFR      .
+## 10  SEX - +              .         SEX      .</code></pre>
 <p>We can create a project object from both objects</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1">proj &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ys_project.html">ys_project</a></span>(spec,pdspec)</a>
 <a class="sourceLine" id="cb21-2" title="2"></a>

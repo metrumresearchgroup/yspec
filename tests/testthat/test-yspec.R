@@ -26,6 +26,17 @@ test_that("yspec methods", {
   expect_is(head(spec), "data.frame")
 })
 
+test_that("ycol accessors", {
+  expect_identical("kg", yspec:::unit(spec$WT))
+  expect_identical("10 to 300", yspec:::Range(spec$EGFR))
+  expect_identical("character", yspec:::type(spec$HAIR))
+  expect_identical("dependent variable", yspec:::long(spec$DV))
+  expect_identical("Compartment", yspec:::short(spec$CMT))
+  expect_identical("per NONMEM specifications", yspec:::comment(spec$EVID))
+  expect_identical("C", yspec:::lookup(spec$C))
+  expect_identical("<none>", yspec:::lookup(spec$DV))
+})
+
 
 test_that("spec object meta data", {
   meta <- get_meta(spec)

@@ -4,11 +4,44 @@
 \name{yspec}
 \alias{yspec}
 \alias{yspec-package}
-\title{yspec: data specification documents from yaml.}
+\title{yspec: data specification documents from yaml}
 \description{
-yspec: data specification documents from yaml.
+After writing data specification details in yaml format, read in as an
+object in R, query data set details, check / validate data sets, and
+write out data definition documents.
 }
-\section{Options}{
+\section{Workflow}{
+
+\itemize{
+\item Write your document in yaml format
+\itemize{
+\item Include a \code{SETUP__:} block at the top to include meta information
+\item Use \code{lookup}s from either the internal library or your own lookup file
+}
+\item Use \code{\link[=ys_load]{ys_load()}} to read in the yaml file
+\itemize{
+\item Use the \code{.verbose} to see more information while this is in progress
+}
+\item Once the \code{spec} object is loaded
+\itemize{
+\item \code{spec$col} to see the definition of \code{col}
+\item \code{summary(spec)} to see a summary
+\item \code{\link[=yspec_add_factors]{yspec_add_factors()}} to create factors in the data set
+}
+\item Use \code{\link[=ys_check]{ys_check()}} to check a data frame against the spec
+\item Use \code{\link[=ys_document]{ys_document()}} to render the specification object as a pdf file
+\item Use \code{\link[=ys_project]{ys_project()}} to create a collection of individual data specification
+objects; this also can be rendered as a pdf file with \code{\link[=ys_document]{ys_document()}}
+\item Get help
+\itemize{
+\item Use \code{\link[=ys_get_assets]{ys_get_assets()}} to export a folder of example material
+\item Use \code{\link[=ys_view]{ys_view()}} to view an example yaml specification file
+\item Use \code{\link[=ys_view_db]{ys_view_db()}} to view the internal column lookup data
+}
+}
+}
+
+\section{Package-wide options}{
 
 \itemize{
 \item \code{ys.sanitize} a function to use for sanitizing text before processing wiht

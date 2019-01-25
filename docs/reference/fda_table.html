@@ -158,27 +158,27 @@ tables for each dataset for a project.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>spec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='load_spec_ex.html'>load_spec_ex</a></span>()
-<span class='no'>spec</span></div><div class='output co'>#&gt;  col name    type      unit          short                        
-#&gt;   1  C       character .             commented row indicator      
-#&gt;   2  USUBJID character .             USUBJID                      
-#&gt;   3  ID      numeric   .             ID                           
-#&gt;   4  EVID    numeric   .             event ID                     
-#&gt;   5  MDV     numeric   .             MDV                          
-#&gt;   6  SEQ     numeric   .             SEQ                          
-#&gt;   7  AMT     numeric   mg            amount                       
-#&gt;   8  II      numeric   hours         II                           
-#&gt;   9  CMT     numeric   .             Compartment                  
-#&gt;  10  TAFD    numeric   hours         TAFD                         
-#&gt;  11  WT      numeric   kg            Weight                       
-#&gt;  12  EGFR    numeric   ml/min/1.73m2 eGFR                         
-#&gt;  13  STUDY   character .             Study                        
-#&gt;  14  SEX     numeric   .             SEX                          
-#&gt;  15  BQL     numeric   .             below limit of quantification
-#&gt;  16  DV      numeric   ng/mL         DV                           
-#&gt;  17  DV2     numeric   .             DV2                          
-#&gt;  18  HAIR    character .             HAIR                         
-#&gt;  19  CLCR    numeric   ml/min        creatinine clearance         
-#&gt;  20  ALB     numeric   g/dL          adjusted albumin             </div><div class='input'><span class='fu'>fda_table</span>(<span class='no'>spec</span>)</div><div class='output co'>#&gt;  [1] "\\begin{longtable}{|p{0.75in}|p{1.85in}|p{0.6in}|p{1.8in}|}"                                                                                                                                                                                                
+<span class='no'>spec</span></div><div class='output co'>#&gt;  name    c d unit          short                         source           
+#&gt;  C       + - .             commented row indicator       _yspec_lookup.yml
+#&gt;  USUBJID + - .             USUBJID                       .                
+#&gt;  ID      - - .             ID                            .                
+#&gt;  EVID    - - .             event ID                      _yspec_lookup.yml
+#&gt;  MDV     - - .             MDV                           _yspec_lookup.yml
+#&gt;  SEQ     - + .             SEQ                           .                
+#&gt;  AMT     - - mg            amount                        .                
+#&gt;  II      - - hours         II                            .                
+#&gt;  CMT     - - .             Compartment                   .                
+#&gt;  TAFD    - - hours         TAFD                          .                
+#&gt;  WT      - - kg            Weight                        .                
+#&gt;  EGFR    - - ml/min/1.73m2 eGFR                          _yspec_lookup.yml
+#&gt;  STUDY   + + .             Study                         .                
+#&gt;  SEX     - + .             SEX                           _yspec_lookup.yml
+#&gt;  BQL     - + .             below limit of quantification .                
+#&gt;  DV      - - ng/mL         DV                            .                
+#&gt;  DV2     - - .             DV2                           .                
+#&gt;  HAIR    + + .             HAIR                          .                
+#&gt;  CLCR    - - ml/min        creatinine clearance          .                
+#&gt;  ALB     - - g/dL          adjusted albumin              _yspec_lookup.yml</div><div class='input'><span class='fu'>fda_table</span>(<span class='no'>spec</span>)</div><div class='output co'>#&gt;  [1] "\\begin{longtable}{|p{0.75in}|p{1.85in}|p{0.6in}|p{1.8in}|}"                                                                                                                                                                                                
 #&gt;  [2] "  \\hline"                                                                                                                                                                                                                                                  
 #&gt;  [3] "VARIABLE &amp; LABEL &amp; TYPE &amp; CODES \\\\ "                                                                                                                                                                                                                      
 #&gt;  [4] "  \\hline"                                                                                                                                                                                                                                                  

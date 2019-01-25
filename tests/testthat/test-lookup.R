@@ -2,6 +2,8 @@
 library(testthat)
 library(yspec)
 
+context("test-lookup")
+
 test_that("lookup with internal db", {
   file <- system.file("spec", "lookup", "spec.yml",package = "yspec")
   spec <- ys_load(file)

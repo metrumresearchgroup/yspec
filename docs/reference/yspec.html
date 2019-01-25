@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generate an example specification object — load_spec_ex • yspec</title>
+<title>yspec: data specification documents from yaml — yspec • yspec</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,11 @@
 
 
 
-<meta property="og:title" content="Generate an example specification object — load_spec_ex" />
+<meta property="og:title" content="yspec: data specification documents from yaml — yspec" />
 
-<meta property="og:description" content="Generate an example specification object" />
+<meta property="og:description" content="After writing data specification details in yaml format, read in as an
+object in R, query data set details, check / validate data sets, and
+write out data definition documents." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -121,74 +123,65 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generate an example specification object</h1>
+    <h1>yspec: data specification documents from yaml</h1>
     
-    <div class="hidden name"><code>load_spec_ex.Rd</code></div>
+    <div class="hidden name"><code>yspec.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Generate an example specification object</p>
+    <p>After writing data specification details in yaml format, read in as an
+object in R, query data set details, check / validate data sets, and
+write out data definition documents.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>load_spec_ex</span>(<span class='kw'>file</span> <span class='kw'>=</span> <span class='st'>"spec.yml"</span>)
+        
+    <h2 class="hasAnchor" id="workflow"><a class="anchor" href="#workflow"></a>Workflow</h2>
 
-<span class='fu'>load_proj_ex</span>(<span class='kw'>file</span> <span class='kw'>=</span> <span class='st'>"project.yml"</span>)
-
-<span class='fu'>file_spec_ex</span>(<span class='kw'>file</span> <span class='kw'>=</span> <span class='st'>"spec.yml"</span>)
-
-<span class='fu'>file_proj_ex</span>(<span class='kw'>file</span> <span class='kw'>=</span> <span class='st'>"project.yml"</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>file</th>
-      <td><p>an example spec file name</p></td>
-    </tr>
-    </table>
+    <ul>
+<li><p>Write your document in yaml format</p><ul>
+<li><p>Include a <code>SETUP__:</code> block at the top to include meta information</p></li>
+<li><p>Use <code>lookup</code>s from either the internal library or your own lookup file</p></li>
+</ul></li>
+<li><p>Use <code><a href='ys_load.html'>ys_load()</a></code> to read in the yaml file</p><ul>
+<li><p>Use the <code>.verbose</code> to see more information while this is in progress</p></li>
+</ul></li>
+<li><p>Once the <code>spec</code> object is loaded</p><ul>
+<li><p><code>spec$col</code> to see the definition of <code>col</code></p></li>
+<li><p><code><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary(spec)</a></code> to see a summary</p></li>
+<li><p><code><a href='yspec_add_factors.html'>yspec_add_factors()</a></code> to create factors in the data set</p></li>
+</ul></li>
+<li><p>Use <code><a href='ys_check.html'>ys_check()</a></code> to check a data frame against the spec</p></li>
+<li><p>Use <code><a href='ys_document.html'>ys_document()</a></code> to render the specification object as a pdf file</p></li>
+<li><p>Use <code><a href='ys_project.html'>ys_project()</a></code> to create a collection of individual data specification
+objects; this also can be rendered as a pdf file with <code><a href='ys_document.html'>ys_document()</a></code></p></li>
+</ul>
+    
+    <h2 class="hasAnchor" id="package-wide-options"><a class="anchor" href="#package-wide-options"></a>Package-wide options</h2>
+
+    
+    <ul>
+<li><p><code>ys.sanitize</code> a function to use for sanitizing text before processing wiht
+latex; see <code><a href='pander_table.html'>yspec::pander_table()</a></code></p></li>
+<li><p><code>ys.col.length</code> the maximum number of characters in a data frame column
+name; this defaults to 8 so that columns with 9 or more characters will
+generate an error on load.</p></li>
+<li><p><code>ys.fct.suffix</code> the suffix to add to a column name, used by
+<code><a href='yspec_add_factors.html'>yspec::yspec_add_factors()</a></code></p></li>
+</ul>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='fu'>load_spec_ex</span>()</div><div class='output co'>#&gt;  name    c d unit          short                         source           
-#&gt;  C       + - .             commented row indicator       _yspec_lookup.yml
-#&gt;  USUBJID + - .             USUBJID                       .                
-#&gt;  ID      - - .             ID                            .                
-#&gt;  EVID    - - .             event ID                      _yspec_lookup.yml
-#&gt;  MDV     - - .             MDV                           _yspec_lookup.yml
-#&gt;  SEQ     - + .             SEQ                           .                
-#&gt;  AMT     - - mg            amount                        .                
-#&gt;  II      - - hours         II                            .                
-#&gt;  CMT     - - .             Compartment                   .                
-#&gt;  TAFD    - - hours         TAFD                          .                
-#&gt;  WT      - - kg            Weight                        .                
-#&gt;  EGFR    - - ml/min/1.73m2 eGFR                          _yspec_lookup.yml
-#&gt;  STUDY   + + .             Study                         .                
-#&gt;  SEX     - + .             SEX                           _yspec_lookup.yml
-#&gt;  BQL     - + .             below limit of quantification .                
-#&gt;  DV      - - ng/mL         DV                            .                
-#&gt;  DV2     - - .             DV2                           .                
-#&gt;  HAIR    + + .             HAIR                          .                
-#&gt;  CLCR    - - ml/min        creatinine clearance          .                
-#&gt;  ALB     - - g/dL          adjusted albumin              _yspec_lookup.yml</div><div class='input'><span class='fu'>load_proj_ex</span>()</div><div class='output co'>#&gt; projectnumber:  ABC101104F 
-#&gt; sponsor:        ABC-Pharma 
-#&gt; --------------------------------------------
-#&gt; datafiles: 
-#&gt;  name            description                       data_stem       
-#&gt;  DEM104101F_PK   Population PK analysis data set   DEM104101F_PK   
-#&gt;  DEM104101F_PKPD Population PKPD analysis data set DEM104101F_PKPD 
-#&gt;  DEM104101F_AE   AE analysis data set              DEM0104101F_AE_2</div><div class='input'><span class='fu'>file_spec_ex</span>()</div><div class='output co'>#&gt; [1] "/Users/kyleb/ghe/software/yspec/inst/spec/spec.yml"</div><div class='input'><span class='fu'>file_proj_ex</span>()</div><div class='output co'>#&gt; [1] "/Users/kyleb/ghe/software/yspec/inst/spec/project.yml"</div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-            
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+      
+      <li><a href="#workflow">Workflow</a></li>
+
+      <li><a href="#package-wide-options">Package-wide options</a></li>
+          </ul>
 
   </div>
 </div>

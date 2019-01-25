@@ -1,33 +1,19 @@
-##' Render a spec as a pandoc table
-##'
-##' @param x a spec object
-##' @param ... passed to other functions
-##'
+
+
+##' Format specification output with xtable
+##' 
+##' Requires the xtable package to be installed.  [pander_table_df] actually
+##' formats the table. 
+##' 
+##' @param x a `yspec` object
+##' @param ... not used
+##' 
 ##' @examples
 ##' spec <- load_spec_ex()
 ##'
-##' pander_table_df(spec)
+##' x_table(spec)
 ##'
-##' pander_table(spec)
-##'
-##' @export
-pander_table <- function(x, ...) {
-  
-  assert_that(requireNamespace("pander"))
-  
-  ans <- pander_table_df(x)
-  
-  pander::pandoc.table.return(
-    ans,
-    justify = c("left", "left", "left", "left"),
-    split.tables = 80,
-    split.cells = c("22%","15%","22%","41%"),
-    style = "multiline"
-  )
-  
-}
-
-##' @rdname pander_table
+##' @md
 ##' @export
 x_table <- function(x,...) {
   assert_that(requireNamespace("xtable"))
@@ -52,6 +38,46 @@ x_table <- function(x,...) {
   if(is.list(glu)) {
     ans <- sapply(ans, glue, .envir = glu, .open = .glopen, .close = .glclose)
   }
+  ans
+}
+
+
+##' Render a spec as a pandoc table
+##' 
+##' Requires the pander package to be installed.  [pander_table_df] actually
+##' formats the table. 
+##'
+##' @param x a spec object
+##' @param ... passed to other functions
+##'
+##' @examples
+##' spec <- load_spec_ex()
+##'
+##' pander_table_df(spec)
+##'
+##' pander_table(spec)
+##' 
+##' @md
+##' @export
+pander_table <- function(x, ...) {
+  
+  assert_that(requireNamespace("pander"))
+  
+  ans <- pander_table_df(x)
+  
+  ans <- pander::pandoc.table.return(
+    ans,
+    justify = c("left", "left", "left", "left"),
+    split.tables = 80,
+    split.cells = c("22%","15%","22%","41%"),
+    style = "multiline"
+  )
+  glu <- get_meta(x)[["glue"]]
+  
+  if(is.list(glu)) {
+    ans <- sapply(ans, glue, .envir = glu, .open = .glopen, .close = .glclose)
+  }
+  
   ans
 }
 

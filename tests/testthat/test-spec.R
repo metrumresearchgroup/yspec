@@ -1,6 +1,8 @@
 library(yspec)
 library(purrr)
 
+context("text-spec")
+
 test_that("yspec", {
   sp <- load_spec_ex(("DEM104101F_PK.yml"))  
   expect_is(as.list(sp),"list")

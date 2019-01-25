@@ -88,7 +88,7 @@
       <h1>Project-wide column definitions</h1>
                         <h4 class="author">STATUS: development</h4>
             
-            <h4 class="date">2019-01-21</h4>
+            <h4 class="date">2019-01-25</h4>
       
       
       <div class="hidden name"><code>lookup.Rmd</code></div>
@@ -158,137 +158,45 @@
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(yspec)</a>
 <a class="sourceLine" id="cb5-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)</a>
 <a class="sourceLine" id="cb5-3" title="3"></a>
-<a class="sourceLine" id="cb5-4" title="4">spec &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ys_load.html">ys_load</a></span>(file)</a>
-<a class="sourceLine" id="cb5-5" title="5"></a>
-<a class="sourceLine" id="cb5-6" title="6">spec</a></code></pre></div>
-<pre><code>##  col name     type      unit          short            
-##  1   C        character .             comment character
-##  2   AMT      numeric   .             dose amount      
-##  3   MDV      numeric   .             MDV              
-##  4   EVID     numeric   .             event ID         
-##  5   WT       numeric   kg            weight           
-##  6   EGFR     numeric   ml/min/1.73m2 eGFR             
-##  7   ALB      numeric   g/dL          albumin          
-##  8   ZIP_CODE numeric   .             ZIP_CODE</code></pre>
+<a class="sourceLine" id="cb5-4" title="4">spec &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ys_load.html">ys_load</a></span>(file)</a></code></pre></div>
+<pre><code>## Warning: Did not find lookup data for C, file: spec.yml</code></pre>
+<pre><code>## Warning: Did not find lookup data for AMT, file: spec.yml</code></pre>
+<pre><code>## Warning: Did not find lookup data for MDV, file: spec.yml</code></pre>
+<pre><code>## Warning: Did not find lookup data for EVID, file: spec.yml</code></pre>
+<pre><code>## Warning: Did not find lookup data for WT, file: spec.yml</code></pre>
+<pre><code>## Warning: Did not find lookup data for EGFR, file: spec.yml</code></pre>
+<pre><code>## Warning: Did not find lookup data for ALB, file: spec.yml</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1">spec</a></code></pre></div>
+<pre><code>##  name     c d unit short    source
+##  C        - - .    C        .     
+##  AMT      - - .    AMT      .     
+##  MDV      - - .    MDV      .     
+##  EVID     - - .    EVID     .     
+##  WT       - - .    WT       .     
+##  EGFR     - - .    EGFR     .     
+##  ALB      - - .    ALB      .     
+##  ZIP_CODE - - .    ZIP_CODE .</code></pre>
 </div>
 <div id="tracking-the-lookup-status-of-each-column" class="section level1">
 <h1 class="hasAnchor">
 <a href="#tracking-the-lookup-status-of-each-column" class="anchor"></a>Tracking the lookup status of each column</h1>
 <p>This all can get confusing about where each column is coming from. You can audit the spec object and find you where a lookup event happened</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw"><a href="../reference/ys_lookup_source.html">ys_lookup_source</a></span>(spec)</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="kw"><a href="../reference/ys_lookup_source.html">ys_lookup_source</a></span>(spec)</a></code></pre></div>
 <pre><code>## # A tibble: 8 x 2
-##   col      lookup_source    
-##   &lt;chr&gt;    &lt;chr&gt;            
-## 1 C        ysdb_internal.yml
-## 2 AMT      ysdb_internal.yml
-## 3 MDV      ysdb_internal.yml
-## 4 EVID     ysdb_internal.yml
-## 5 WT       ysdb_internal.yml
-## 6 EGFR     ysdb_internal.yml
-## 7 ALB      ysdb_internal.yml
+##   col      lookup_source
+##   &lt;chr&gt;    &lt;chr&gt;        
+## 1 C        spec.yml     
+## 2 AMT      spec.yml     
+## 3 MDV      spec.yml     
+## 4 EVID     spec.yml     
+## 5 WT       spec.yml     
+## 6 EGFR     spec.yml     
+## 7 ALB      spec.yml     
 ## 8 ZIP_CODE spec.yml</code></pre>
 <p>Here, we can see that most of the columns came from the internal data base and that the one column (<code>ZIP_CODE</code>) came by our own specification.</p>
 <p>You can also re-create the lookup object (just a named list) for a specification object. Just click open the arrow to see the output.</p>
-<details><div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="../reference/ys_get_lookup.html">ys_get_lookup</a></span>(spec) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>()</a></code></pre></div>
-<pre><code>## List of 21
-##  $ C      :List of 5
-##   ..$ short        : chr "comment character"
-##   ..$ values       : chr [1:2] "." "C"
-##   ..$ decode       : chr [1:2] "analysis row" "commented row"
-##   ..$ type         : chr "character"
-##   ..$ lookup_source: chr "ysdb_internal.yml"
-##  $ ID     :List of 3
-##   ..$ short        : chr "subject identifier"
-##   ..$ type         : chr "numeric"
-##   ..$ lookup_source: chr "ysdb_internal.yml"
-##  $ USUBJID:List of 3
-##   ..$ short        : chr "universal subject identifier"
-##   ..$ type         : chr "character"
-##   ..$ lookup_source: chr "ysdb_internal.yml"
-##  $ SUBJ   :List of 3
-##   ..$ short        : chr "subject identifier"
-##   ..$ type         : chr "character"
-##   ..$ lookup_source: chr "ysdb_internal.yml"
-##  $ STUDYID:List of 3
-##   ..$ short        : chr "study identifier"
-##   ..$ type         : chr "character"
-##   ..$ lookup_source: chr "ysdb_internal.yml"
-##  $ CMT    :List of 3
-##   ..$ short        : chr "compartment number"
-##   ..$ type         : chr "numeric"
-##   ..$ lookup_source: chr "ysdb_internal.yml"
-##  $ EVID   :List of 3
-##   ..$ short        : chr "event ID"
-##   ..$ values       :List of 2
-##   .. ..$ :List of 1
-##   .. ..$ :List of 1
-##   ..$ lookup_source: chr "ysdb_internal.yml"
-##  $ AMT    :List of 3
-##   ..$ short        : chr "dose amount"
-##   ..$ type         : chr "numeric"
-##   ..$ lookup_source: chr "ysdb_internal.yml"
-##  $ RATE   :List of 3
-##   ..$ short        : chr "infusion rate"
-##   ..$ type         : chr "numeric"
-##   ..$ lookup_source: chr "ysdb_internal.yml"
-##  $ II     :List of 3
-##   ..$ short        : chr "inter-dose interval"
-##   ..$ type         : chr "numeric"
-##   ..$ lookup_source: chr "ysdb_internal.yml"
-##  $ SS     :List of 4
-##   ..$ short        : chr "steady state indicator"
-##   ..$ values       : int [1:2] 0 1
-##   ..$ decode       : chr [1:2] "non-steady state indicator" "steady state indicator"
-##   ..$ lookup_source: chr "ysdb_internal.yml"
-##  $ MDV    :List of 5
-##   ..$ values       :List of 2
-##   .. ..$ :List of 1
-##   .. ..$ :List of 1
-##   ..$ type         : chr "numeric"
-##   ..$ long         : chr "missing DV indicator"
-##   ..$ comment      : chr "per NONMEM specifications"
-##   ..$ lookup_source: chr "ysdb_internal.yml"
-##  $ DV     :List of 3
-##   ..$ short        : chr "dependent variable"
-##   ..$ type         : chr "numeric"
-##   ..$ lookup_source: chr "ysdb_internal.yml"
-##  $ WT     :List of 3
-##   ..$ short        : chr "weight"
-##   ..$ unit         : chr "kg"
-##   ..$ lookup_source: chr "ysdb_internal.yml"
-##  $ EGFR   :List of 4
-##   ..$ short        : chr "eGFR"
-##   ..$ long         : chr "estimated glomerular filtration rate"
-##   ..$ unit         : chr "ml/min/1.73m2"
-##   ..$ lookup_source: chr "ysdb_internal.yml"
-##  $ BMI    :List of 4
-##   ..$ long         : chr "body mass index"
-##   ..$ unit         : chr "m2/kg"
-##   ..$ type         : chr "numeric"
-##   ..$ lookup_source: chr "ysdb_internal.yml"
-##  $ HT     :List of 4
-##   ..$ about        : chr [1:2] "height" "cm"
-##   ..$ long         : chr "Height"
-##   ..$ type         : chr "numeric"
-##   ..$ lookup_source: chr "ysdb_internal.yml"
-##  $ ALB    :List of 5
-##   ..$ long         : chr "serum albumin"
-##   ..$ unit         : chr "g/dL"
-##   ..$ short        : chr "albumin"
-##   ..$ type         : chr "numeric"
-##   ..$ lookup_source: chr "ysdb_internal.yml"
-##  $ AGE    :List of 2
-##   ..$ about        : chr [1:2] "age" "years"
-##   ..$ lookup_source: chr "ysdb_internal.yml"
-##  $ SEX    :List of 2
-##   ..$ values       :List of 2
-##   .. ..$ male  : int 0
-##   .. ..$ female: int 1
-##   ..$ lookup_source: chr "ysdb_internal.yml"
-##  $ NUM    :List of 3
-##   ..$ short        : chr "record number"
-##   ..$ type         : chr "numeric"
-##   ..$ lookup_source: chr "ysdb_internal.yml"</code></pre>
+<details><div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="kw"><a href="../reference/ys_get_lookup.html">ys_get_lookup</a></span>(spec) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>()</a></code></pre></div>
+<pre><code>##  list()</code></pre>
 </details>
 </div>
   </div>

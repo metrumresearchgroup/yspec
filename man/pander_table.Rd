@@ -2,13 +2,10 @@
 % Please edit documentation in R/pander_table.R
 \name{pander_table}
 \alias{pander_table}
-\alias{x_table}
 \alias{pander_table_df}
 \title{Render a spec as a pandoc table}
 \usage{
 pander_table(x, ...)
-
-x_table(x, ...)
 
 pander_table_df(x)
 }
@@ -18,7 +15,8 @@ pander_table_df(x)
 \item{...}{passed to other functions}
 }
 \description{
-Render a spec as a pandoc table
+Requires the pander package to be installed.  \link{pander_table_df} actually
+formats the table.
 }
 \examples{
 spec <- load_spec_ex()

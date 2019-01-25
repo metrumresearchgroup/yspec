@@ -24,7 +24,7 @@ ys_lookup_source <- function(x) {
 ys_get_lookup <- function(x,.verbose=FALSE) {
   files <- get_lookup_files(x)
   m <- get_meta(x)
-  if(!is.null(m[["use_internal_db"]])) {
+  if(isTRUE(m[["use_internal_db"]])) {
     files <-  c(files, lookup_ysdb_file())
   }
   if(length(files)==0) return(list())

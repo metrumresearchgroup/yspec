@@ -39,7 +39,10 @@ ys_get_assets <- function(output,overwrite=FALSE) {
   c <- cp("internal", "ys_get_assets.md")
   d <- cp("internal", "analysis1.csv")
   e <- cp("internal", "ys_example.Rmd")
-  return(a&b&c&d&e)  
+  if(!all(a,b,c,d,e)) {
+    warning("Some assets were not exported.", call.=FALSE)  
+  }
+  return(invisible(output))
 }
 
 ##' View example specification file
