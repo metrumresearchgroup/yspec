@@ -56,13 +56,16 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="../articles/index.html">yspec vignettes</a>
+    </li>
+    <li>
       <a href="../articles/lookup.html">Project-wide column definitions</a>
     </li>
     <li>
       <a href="../articles/project.html">Project object and define document</a>
     </li>
     <li>
-      <a href="../articles/reference.html">yspec yaml specification</a>
+      <a href="../articles/reference.html">yspec `yaml` specification</a>
     </li>
     <li>
       <a href="../articles/ysdb_internal.html">Internal Column Lookup Database</a>
@@ -103,7 +106,7 @@
 <p>The <code>yspec</code> package will read you data specification file when it is written in a specific <code>yaml</code> format.</p>
 <p>For each data set in your project that needs documentation, create a yaml file that lists the columns in the data set along with details about the data in that column. This yaml file can be loaded into your R session into an object that you can work with. This is referred to as a <code>spec</code> object. The term <code>spec</code> refers to a single documented data object / data file.</p>
 <p>Once all of your data sets have been documented with their own yaml file, you can create another object called a <code>yproj</code> objects. This is used to template the rendering of a single integrated data definitions file for your entire project.</p>
-Keep reading to see how it works.
+<p>Keep reading the vignette to see how it works.</p>
 <hr>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(yspec)</a></code></pre></div>
 </div>
@@ -225,9 +228,9 @@ Keep reading to see how it works.
 <h2 class="hasAnchor">
 <a href="#check-a-data-set-against-the-spec" class="anchor"></a>Check a data set against the spec</h2>
 <p>Use the <code><a href="../reference/ys_check.html">ys_check()</a></code> function, with the data frame as the first argument and the spec object as the second argument</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">sp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ys_load.html">ys_load</a></span>(ys_demo<span class="op">$</span>file)</a>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">sp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ys_load.html">ys_load</a></span>(ys_help<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/connections">file</a></span>())</a>
 <a class="sourceLine" id="cb10-2" title="2"></a>
-<a class="sourceLine" id="cb10-3" title="3">data &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span>(ys_demo<span class="op">$</span>csv, <span class="dt">na =</span> <span class="st">'.'</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb10-3" title="3">data &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span>(ys_help<span class="op">$</span><span class="kw">csv</span>(), <span class="dt">na =</span> <span class="st">'.'</span>)</a></code></pre></div>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   .default = col_double(),

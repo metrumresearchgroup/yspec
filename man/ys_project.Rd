@@ -22,12 +22,11 @@ as_proj_spec(...)
 
 \item{data_path}{optional data path}
 
-\item{dots}{used to update `SETUP__` block data items}
+\item{dots}{used to update \code{SETUP__} block data items}
 
 \item{sponsor}{optional project sponsor}
 
-\item{projectnumber}{optional project number
-in `...`}
+\item{projectnumber}{optional project number in \code{...}}
 
 \item{where}{directory containing the specification files if listed}
 }
@@ -36,4 +35,21 @@ an object of class yproj
 }
 \description{
 Create a project object from data spec objects
+}
+\details{
+Note that \code{sponsor} and \code{projectnumber} can be updated upon creating the
+project object.  Other document-specific attributes (like \strong{title},
+\strong{author}, \strong{date}) can be specified through \link{ys_document}.
+}
+\examples{
+where <- system.file("spec", package = "yspec")
+
+files <- file.path(where, c("DEM104101F_PK.yml", "DEM104101F_AE.yml"))
+
+proj <- ys_project(ys_load(files[1]),ys_load(files[2]), sponsor="CompanyX")
+
+proj <- ys_project_file(files[1], files[2], dots = list(projectnumber = "ZZZzzz"))
+
+proj
+
 }

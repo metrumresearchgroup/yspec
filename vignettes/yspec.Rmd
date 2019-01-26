@@ -30,7 +30,8 @@ you can create another object called a `yproj` objects.  This is used to
 template the rendering of a single integrated data definitions file for 
 your entire project. 
 
-Keep reading to see how it works.
+Keep reading the vignette to see how it works.
+
 <hr>
 
 ```{r "library"}

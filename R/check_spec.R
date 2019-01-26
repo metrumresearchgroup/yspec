@@ -149,6 +149,13 @@ check_data_names <- function(ndata,nspec,env,output) {
 ##' more verbose output can be requested as the check proceeds by the 
 ##' `verbose` argument.
 ##' 
+##' @examples
+##' 
+##' data <- ys_help$data()
+##' spec <- ys_help$spec()
+##' 
+##' ys_check(data,spec)
+##' 
 ##' @md
 ##' @export
 ys_check <- function(data, spec, verbose = FALSE, output = tempfile()) {

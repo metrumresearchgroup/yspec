@@ -89,13 +89,16 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/index.html">yspec vignettes</a>
+    </li>
+    <li>
       <a href="../articles/lookup.html">Project-wide column definitions</a>
     </li>
     <li>
       <a href="../articles/project.html">Project object and define document</a>
     </li>
     <li>
-      <a href="../articles/reference.html">yspec yaml specification</a>
+      <a href="../articles/reference.html">yspec `yaml` specification</a>
     </li>
     <li>
       <a href="../articles/ysdb_internal.html">Internal Column Lookup Database</a>
@@ -166,12 +169,50 @@ is processed</p></td>
     </table>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='no'>sp</span> <span class='kw'>&lt;-</span> <span class='fu'>ys_load</span>(<span class='no'>ys_help</span>$<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/connections'>file</a></span>())
+<span class='no'>sp</span></div><div class='output co'>#&gt;  name  c d unit   short                         source           
+#&gt;  C     + + .      comment character             ysdb_internal.yml
+#&gt;  NUM   - - .      record number                 ysdb_internal.yml
+#&gt;  ID    - - .      subject identifier            ysdb_internal.yml
+#&gt;  SUBJ  + - .      subject identifier            ysdb_internal.yml
+#&gt;  TIME  - - hour   time after first dose         .                
+#&gt;  SEQ   - + .      data type                     .                
+#&gt;  CMT   - - .      compartment number            ysdb_internal.yml
+#&gt;  EVID  - - .      event ID                      ysdb_internal.yml
+#&gt;  AMT   - - .      dose amount                   ysdb_internal.yml
+#&gt;  DV    - - .      dependent variable            ysdb_internal.yml
+#&gt;  AGE   - - years  age                           ysdb_internal.yml
+#&gt;  WT    - - kg     weight                        ysdb_internal.yml
+#&gt;  CRCL  - - ml/min creatinine clearance          .                
+#&gt;  ALB   - - g/dL   albumin                       ysdb_internal.yml
+#&gt;  BMI   - - m2/kg  BMI                           ysdb_internal.yml
+#&gt;  AAG   - - mg/dL  alpha-1-acid glycoprotein     .                
+#&gt;  SCR   - - mg/dL  serum creatinine              .                
+#&gt;  AST   - - .      aspartate aminotransferase    .                
+#&gt;  ALT   - - .      alanine aminotransferase      .                
+#&gt;  HT    - - cm     height                        ysdb_internal.yml
+#&gt;  CP    - + .      Child-Pugh score              .                
+#&gt;  TAFD  - - hours  time after first dose         .                
+#&gt;  TAD   - - hours  time after dose               .                
+#&gt;  LDOS  - - mg     last dose amount              .                
+#&gt;  MDV   - - .      MDV                           ysdb_internal.yml
+#&gt;  BLQ   - - .      below limit of quantification .                
+#&gt;  PHASE - - .      study phase indicator         .                
+#&gt;  STUDY - + .      study number                  .                
+#&gt;  RF    + + .      renal function stage          .                </div><div class='input'>
+<span class='no'>sp</span> <span class='kw'>&lt;-</span> <span class='fu'>ys_load</span>(<span class='no'>ys_help</span>$<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/connections'>file</a></span>(), <span class='kw'>.verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>~ working on  </span><span style='color: #000000;'>... </span><span>analysis1.yml</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>  description </span><span style='color: #000000;'>... </span><span>Example PopPK analysis data set.</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>  sponsor     </span><span style='color: #000000;'>... </span><span>example-project</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>  lookup file </span><span style='color: #000000;'>... </span><span>ysdb_internal.yml</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>~ working on  </span><span style='color: #000000;'>... </span><span>ysdb_internal.yml</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>  description </span><span style='color: #000000;'>... </span><span>yspec internal column database</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>::::::::::::: </span><span style='color: #000000;'>... </span><span>::::::::::::::::::::::::::::::</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>~ looking up  </span><span style='color: #000000;'>... </span><span>ysdb_internal.yml</span><span style='color: #000000;'> ---&gt; </span><span style='color: #BB0000;font-weight: bold;'>C</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>~ looking up  </span><span style='color: #000000;'>... </span><span>ysdb_internal.yml</span><span style='color: #000000;'> ---&gt; </span><span style='color: #BB0000;font-weight: bold;'>NUM</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>~ looking up  </span><span style='color: #000000;'>... </span><span>ysdb_internal.yml</span><span style='color: #000000;'> ---&gt; </span><span style='color: #BB0000;font-weight: bold;'>ID</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>~ looking up  </span><span style='color: #000000;'>... </span><span>ysdb_internal.yml</span><span style='color: #000000;'> ---&gt; </span><span style='color: #BB0000;font-weight: bold;'>SUBJ</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>~ looking up  </span><span style='color: #000000;'>... </span><span>ysdb_internal.yml</span><span style='color: #000000;'> ---&gt; </span><span style='color: #BB0000;font-weight: bold;'>CMT</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>~ looking up  </span><span style='color: #000000;'>... </span><span>ysdb_internal.yml</span><span style='color: #000000;'> ---&gt; </span><span style='color: #BB0000;font-weight: bold;'>EVID</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>~ looking up  </span><span style='color: #000000;'>... </span><span>ysdb_internal.yml</span><span style='color: #000000;'> ---&gt; </span><span style='color: #BB0000;font-weight: bold;'>AMT</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>~ looking up  </span><span style='color: #000000;'>... </span><span>ysdb_internal.yml</span><span style='color: #000000;'> ---&gt; </span><span style='color: #BB0000;font-weight: bold;'>DV</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>~ looking up  </span><span style='color: #000000;'>... </span><span>ysdb_internal.yml</span><span style='color: #000000;'> ---&gt; </span><span style='color: #BB0000;font-weight: bold;'>AGE</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>~ looking up  </span><span style='color: #000000;'>... </span><span>ysdb_internal.yml</span><span style='color: #000000;'> ---&gt; </span><span style='color: #BB0000;font-weight: bold;'>WT</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>~ looking up  </span><span style='color: #000000;'>... </span><span>ysdb_internal.yml</span><span style='color: #000000;'> ---&gt; </span><span style='color: #BB0000;font-weight: bold;'>ALB</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>~ looking up  </span><span style='color: #000000;'>... </span><span>ysdb_internal.yml</span><span style='color: #000000;'> ---&gt; </span><span style='color: #BB0000;font-weight: bold;'>BMI</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>~ looking up  </span><span style='color: #000000;'>... </span><span>ysdb_internal.yml</span><span style='color: #000000;'> ---&gt; </span><span style='color: #BB0000;font-weight: bold;'>HT</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>~ looking up  </span><span style='color: #000000;'>... </span><span>ysdb_internal.yml</span><span style='color: #000000;'> ---&gt; </span><span style='color: #BB0000;font-weight: bold;'>MDV</span><span></span></div><div class='input'>
+
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+            
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

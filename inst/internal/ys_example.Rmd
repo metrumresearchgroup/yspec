@@ -5,7 +5,7 @@ title: ys_example.Rmd
 ```{r}
 library(yspec)
 
-spec <- ys_load("analysis1.yml", .verbose = TRUE)
+spec <- ys_load(ys_help$file(), .verbose = TRUE)
 
 spec$STUDY
 
@@ -13,7 +13,7 @@ spec$WT
 
 as.data.frame(spec)
 
-data <- read.csv("analysis1.csv", na.strings = '.', as.is=TRUE)
+data <- read.csv(ys_help$csv(), na.strings = '.', as.is=TRUE)
 
 ys_check(data,spec)
 

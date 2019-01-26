@@ -15,7 +15,7 @@
 #' @importFrom purrr flatten flatten_chr modify
 #' @importFrom glue glue
 #' @importFrom utils type.convert read.csv
-#' @importFrom crayon red green black
+#' @importFrom crayon red green black blue bold
 #' 
 #' @include utils.R
 NULL
@@ -37,21 +37,23 @@ VALID_SETUP_NAMES <- c(
   "spec_path", "glue", "use_internal_db"
 )
 
-.glopen <- "<<"
-.glclose <- ">>"
+.glopen <- "<"
+.glclose <- ">"
 
 #' yspec: data specification documents from yaml
 #' 
 #' After writing data specification details in yaml format, read in as an 
 #' object in R, query data set details, check / validate data sets, and 
-#' write out data definition documents.
+#' write out data definition documents.  To get started, check out the 
+#' [vignettes](../doc/index.html).
 #' 
 #' @section Workflow:
 #' 
 #' - Write your document in yaml format
-#'     - Synax reference [here](../doc/reference.html)
 #'     - Include a `SETUP__:` block at the top to include meta information
 #'     - Use `lookup`s from either the internal library or your own lookup file
+#'     - Syntax reference [here](../doc/reference.html)
+#'     - Use [ys_help] to access examples
 #' - Use [ys_load()] to read in the yaml file
 #'     - Use the `.verbose` to see more information while this is in progress
 #' - Once the `spec` object is loaded
@@ -62,9 +64,8 @@ VALID_SETUP_NAMES <- c(
 #' - Use [ys_document()] to render the specification object as a pdf file
 #' - Use [ys_project()] to create a collection of individual data specification
 #'   objects; this also can be rendered as a pdf file with [ys_document()]
-#' - Get help
-#'     - Use [ys_get_assets()] to export a folder of example material
-#'     - Use [ys_help] to get further help and documentation in your R session
+#' - Get help: Use [ys_help] to get further help and documentation in your R 
+#'   session
 #'     
 #' @section Package-wide options:
 #' 
@@ -75,10 +76,6 @@ VALID_SETUP_NAMES <- c(
 #'   generate an error on load. 
 #' - `ys.fct.suffix` the suffix to add to a column name, used by 
 #'   [yspec::yspec_add_factors()]
-#' 
-#' 
-#' 
-#' 
 #' 
 #' @docType package
 #' @md

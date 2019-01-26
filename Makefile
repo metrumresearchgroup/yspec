@@ -5,6 +5,10 @@ TARBALL=${PACKAGE}_${VERSION}.tar.gz
 PKGDIR=.
 CHKDIR=.
 
+.PHONY: vignettes
+vignettes:
+	Rscript --vanilla inst/script/vignettes.R
+
 covr: 
 	Rscript inst/script/covr.R
 
@@ -30,10 +34,10 @@ all:
 package: 
 	make data
 	make doc
-	make BUILD
+	make vignettes
+	make build
 	make install
-
-
+	
 test:
 	make install
 	Rscript -e 'testthat:::test_dir("tests")'
@@ -41,9 +45,6 @@ test:
 .PHONY: doc
 doc:
 	Rscript -e 'library(devtools); document()'
-
-BUILD:
-	R CMD build --md5 $(PKGDIR)
 
 build:
 	R CMD build --md5  --no-build-vignettes $(PKGDIR)
@@ -56,8 +57,7 @@ install-build:
 
 check:
 	make data
-	make doc
-	make BUILD
+	make build
 	R CMD CHECK ${TARBALL} -o ${CHKDIR}
 
 travis:

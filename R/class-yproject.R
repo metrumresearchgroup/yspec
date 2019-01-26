@@ -135,9 +135,26 @@ csv_file_name <- function(data_path, data_stem, ext = ".csv", ...) {
 ##' @param data_path optional data path
 ##' @param dots used to update `SETUP__` block data items
 ##' @param sponsor optional project sponsor
-##' @param projectnumber optional project number
-##' in `...`
+##' @param projectnumber optional project number in `...`
 ##' @return an object of class yproj
+##' 
+##' @details
+##' Note that `sponsor` and `projectnumber` can be updated upon creating the 
+##' project object.  Other document-specific attributes (like **title**, 
+##' **author**, **date**) can be specified through [ys_document].
+##' 
+##' @examples
+##' where <- system.file("spec", package = "yspec")
+##' 
+##' files <- file.path(where, c("DEM104101F_PK.yml", "DEM104101F_AE.yml"))
+##' 
+##' proj <- ys_project(ys_load(files[1]),ys_load(files[2]), sponsor="CompanyX")
+##' 
+##' proj <- ys_project_file(files[1], files[2], dots = list(projectnumber = "ZZZzzz"))
+##' 
+##' proj
+##' 
+##' @md
 ##' @export
 ys_project <- function(..., output=tempfile(fileext=".yml"), 
                        data_path = NULL, dots = list(),

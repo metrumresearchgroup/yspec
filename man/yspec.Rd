@@ -8,16 +8,18 @@
 \description{
 After writing data specification details in yaml format, read in as an
 object in R, query data set details, check / validate data sets, and
-write out data definition documents.
+write out data definition documents.  To get started, check out the
+\href{../doc/index.html}{vignettes}.
 }
 \section{Workflow}{
 
 \itemize{
 \item Write your document in yaml format
 \itemize{
-\item Synax reference \href{../doc/reference.html}{here}
 \item Include a \code{SETUP__:} block at the top to include meta information
 \item Use \code{lookup}s from either the internal library or your own lookup file
+\item Syntax reference \href{../doc/reference.html}{here}
+\item Use \link{ys_help} to access examples
 }
 \item Use \code{\link[=ys_load]{ys_load()}} to read in the yaml file
 \itemize{
@@ -33,11 +35,8 @@ write out data definition documents.
 \item Use \code{\link[=ys_document]{ys_document()}} to render the specification object as a pdf file
 \item Use \code{\link[=ys_project]{ys_project()}} to create a collection of individual data specification
 objects; this also can be rendered as a pdf file with \code{\link[=ys_document]{ys_document()}}
-\item Get help
-\itemize{
-\item Use \code{\link[=ys_get_assets]{ys_get_assets()}} to export a folder of example material
-\item Use \link{ys_help} to get further help and documentation in your R session
-}
+\item Get help: Use \link{ys_help} to get further help and documentation in your R
+session
 }
 }
 

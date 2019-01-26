@@ -28,3 +28,12 @@ is processed}
 \description{
 Load a data specification file
 }
+\examples{
+
+sp <- ys_load(ys_help$file())
+sp
+
+sp <- ys_load(ys_help$file(), .verbose = TRUE)
+
+
+}

@@ -59,3 +59,11 @@ Output can be directed to a file (see the \code{ouput} argument) and
 more verbose output can be requested as the check proceeds by the
 \code{verbose} argument.
 }
+\examples{
+
+data <- ys_help$data()
+spec <- ys_help$spec()
+
+ys_check(data,spec)
+
+}

@@ -13,7 +13,9 @@ call_format_fun <- function(yamlfile,
 ##' 
 ##' @param x a spec or project object
 ##' @param type the document type
-##' @param ... passed to [render_define] or [render_fda_define]
+##' @param ... passed to [render_define] or [render_fda_define]; it is important
+##' to review these help topics to see what other aspects of the document 
+##' can be specified; see also `details` here.
 ##' 
 ##' @details
 ##' 
@@ -29,13 +31,21 @@ call_format_fun <- function(yamlfile,
 ##' You can also pass in the full path to a specification document and
 ##' yspec will guess which format it is and render accordingly.  
 ##' 
+##' Because `...` are passed to [render_define] and [render_fda_define], 
+##' it is important to review arguments to those functions as well.  Specifically, 
+##' please note that the document **title**, **author**, and **date** can 
+##' be set, along with the name of the output document, the working document 
+##' build directory, and several other aspects of the document can be set
+##' in the call to [ys_document]. 
+##' 
 ##' @examples
 ##' 
 ##' \dontrun{
-##'   ys_document(load_spec_ex())
-##'   ys_document(load_spec_ex(), type = "regulatory")
-##'   ys_document(load_spec_ex(), type = "regulatory", build_dir = mrgtemplate())
+##'   ys_document(ys_help$spec())
+##'   ys_document(ys_help$spec(), type = "regulatory")
+##'   ys_document(ys_help$spec(), type = "regulatory", build_dir = mrgtemplate())
 ##' }
+##' @seealso [render_define], [render_fda_define]
 ##' @md
 ##' @export
 ys_document <- function(x, type = c("working", "regulatory"), ...) {
@@ -76,7 +86,7 @@ ys_document <- function(x, type = c("working", "regulatory"), ...) {
 ##'
 ##' @examples
 ##'
-##' file <- file_proj_ex()
+##' file <- ys_help$file()
 ##'
 ##' file
 ##' 

@@ -13,8 +13,5 @@ Makefile
 ^\.Rproj\.user$
 dev
 ^docs$
-vignettes/project\.Rmd
-vignettes/ysdb_internal\.Rmd
-vignettes/yspec\.Rmd
-vignettes/lookup\.Rmd
-vignettes/.*\.pdf
+vignettes/.*
+

@@ -1,0 +1,17 @@
+---
+title: "yspec vignettes"
+author: ""
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{yspec vignettes}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+- [Get started](../../../library/yspec/doc/yspec.html)
+- [Specification syntax reference](../../../library/yspec/doc/reference.html)
+- [lookup column information](../../../library/yspec/doc/lookup.html)
+- [yspec internal data base](../../../library/yspec/doc/ysdb_internal.html)
+- [yspec project objects](../../../library/yspec/doc/project.html)

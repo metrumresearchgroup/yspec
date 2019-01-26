@@ -69,7 +69,7 @@ the file stem.
 }
 \examples{
 
-file <- file_proj_ex()
+file <- ys_help$file()
 
 file
 

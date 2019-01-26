@@ -104,6 +104,15 @@ capture_file_info <- function(x,file,where = "SETUP__") {
 ##' @param .verbose `logical`; print information to the console as the file
 ##' is processed
 ##' @param ... other arguments to update `SETUP__`
+##' 
+##' @examples
+##' 
+##' sp <- ys_load(ys_help$file())
+##' sp
+##' 
+##' sp <- ys_load(ys_help$file(), .verbose = TRUE)
+##' 
+##' 
 ##' @export
 ys_load <- function(file, .verbose=FALSE,  ...) {
   x <- ys_load_file(file,.verbose=.verbose,...)
