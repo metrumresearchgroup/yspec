@@ -266,4 +266,23 @@ is_yproj <- function(x) {
   inherits(x, "yproj")
 }
 
+##' @export
+update.yproj <- function(object, projectnumber=NULL, sponsor=NULL, ...) {
+  
+  non_null <- c(projectnumber,sponsor)
+  
+  if(is.null(non_null)) return(object)
+  
+  m <- get_meta(object)
+  
+  if(is.character(projectnumber)) {
+    m[["projectnumber"]] <- projectnumber  
+  }
+  
+  if(is.character(sponsor)) {
+    m[["sponsor"]] <- sponsor  
+  }
+  
+  structure(object, meta = m)
 
+}
