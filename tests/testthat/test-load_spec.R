@@ -44,12 +44,12 @@ test_that("duplicate map key", {
   )
 })
 
-# test_that("column with no data", {
-#   expect_error(
-#     ld("no_data.yml"), 
-#     "ALB\n *- no spec data was found"
-#   )
-# })
+test_that("invalid type value", {
+  expect_error(
+    yspec::test_spec_list(list(A = list(type = "factor"))), 
+    "'type' must be 'numeric' or 'character' \\('factor'\\)"
+  )
+})
 
 test_that("primary keys not in the data set", {
   expect_error(
