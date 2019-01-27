@@ -18,7 +18,6 @@ install.packages("yspec", repos = unique(repos), type = "source", destdir = NULL
 News can be found [here](news.md)
 
 ## Vignettes
-- [Index](https://ghe.metrumrg.com/pages/software/yspec/articles/index.html)
 - [Get started](https://ghe.metrumrg.com/pages/software/yspec/articles/yspec.html)
 - [Specification syntax reference](https://ghe.metrumrg.com/pages/software/yspec/articles/reference.html)
 - [Project template file for define documents](https://ghe.metrumrg.com/pages/software/yspec/articles/project.html)

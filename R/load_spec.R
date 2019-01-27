@@ -65,6 +65,12 @@ check_this_col <- function(x,col,env,...) {
       )
     }
   }
+  if(!(x[["type"]] %in% c("numeric", "character"))) {
+    err <- c(
+      err, 
+      paste0("'type' must be 'numeric' or 'character' ('", x[["type"]], "')")
+    )
+  }
   env$err[[col]] <- err
 }
 
