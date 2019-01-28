@@ -5,6 +5,13 @@ TARBALL=${PACKAGE}_${VERSION}.tar.gz
 PKGDIR=.
 CHKDIR=.
 
+testing:
+	make doc
+	make build
+	cp ${TARBALL} ../../qualification/yspec_qualification/testing/${TARBALL}
+	cd ../../qualification/yspec_qualification/testing/ && git commit -am "testing update" && git push
+
+
 .PHONY: vignettes
 vignettes:
 	Rscript --vanilla inst/script/vignettes.R

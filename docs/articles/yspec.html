@@ -114,138 +114,127 @@
 <h2 class="hasAnchor">
 <a href="#example-spec-file" class="anchor"></a>Example spec file</h2>
 <p>An example specification file looks like:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">specfile &lt;-<span class="st"> </span>yspec<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/yspec/topics/load_spec_ex">file_spec_ex</a></span>()</a>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">specfile &lt;-<span class="st"> </span>ys_help<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/connections">file</a></span>()</a>
 <a class="sourceLine" id="cb2-2" title="2"></a>
 <a class="sourceLine" id="cb2-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cat">cat</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/readLines">readLines</a></span>(specfile)[<span class="dv">1</span><span class="op">:</span><span class="dv">29</span>], <span class="dt">sep =</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</a></code></pre></div>
 <pre><code>  SETUP__:
-    projectnumber: MRG123
-    sponsor: demo
-    description: an example data set
-    primary_key: [ID,EVID,SEQ]
-    lookup_file: [_yspec_lookup.yml]
+    description: Example PopPK analysis data set.
+    sponsor: example-project
+    projectnumber: examp101F
     use_internal_db: true
-    data_stem: example_data_set
+    glue: 
+      mugL: "$\\mu$g/L"
   C:
-    type: character
-    long: commented rows
-    values: [".",C]
-    lookup: true
-  USUBJID:
-    type: character
-    long: universal subject identifier
+  NUM:
   ID:
-    long: NONMEM ID number
-  EVID: !look
-  MDV: !look
-  SEQ:
-    long: record type indicators
-    values: {concentration: 1, response: 2, other: 3}
-  AMT:
-    about: [amount, mg]
-    long: dose amount
-    range: [0,1000]
-  II:
-    about: [II, hours]</code></pre>
+  SUBJ: !look
+  TIME:
+    short: time after first dose
+    unit: hour
+  SEQ: 
+    short: data type
+    values: {observation: 0, dose: 1}
+  CMT:
+  EVID:
+  AMT: !look
+    unit: mg
+  DV:  !look
+    unit: "&lt;&lt;mugL&gt;&gt;"
+  AGE:
+  WT:
+  CRCL:
+    about: [creatinine clearance, ml/min]
+  ALB:
+  BMI:</code></pre>
 <p>Once the data specification <code>yaml</code> file is written, it can be loaded in <code>R</code></p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">spec &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ys_load.html">ys_load</a></span>(specfile)</a>
 <a class="sourceLine" id="cb4-2" title="2"></a>
 <a class="sourceLine" id="cb4-3" title="3">spec</a></code></pre></div>
-<pre><code>   name    c d unit          short                         source           
-   C       + - .             commented row indicator       _yspec_lookup.yml
-   USUBJID + - .             USUBJID                       .                
-   ID      - - .             ID                            .                
-   EVID    - - .             event ID                      _yspec_lookup.yml
-   MDV     - - .             MDV                           _yspec_lookup.yml
-   SEQ     - + .             SEQ                           .                
-   AMT     - - mg            amount                        .                
-   II      - - hours         II                            .                
-   CMT     - - .             Compartment                   .                
-   TAFD    - - hours         TAFD                          .                
-   WT      - - kg            Weight                        .                
-   EGFR    - - ml/min/1.73m2 eGFR                          _yspec_lookup.yml
-   STUDY   + + .             Study                         .                
-   SEX     - + .             SEX                           _yspec_lookup.yml
-   BQL     - + .             below limit of quantification .                
-   DV      - - ng/mL         DV                            .                
-   DV2     - - .             DV2                           .                
-   HAIR    + + .             HAIR                          .                
-   CLCR    - - ml/min        creatinine clearance          .                
-   ALB     - - g/dL          adjusted albumin              _yspec_lookup.yml</code></pre>
+<pre><code>   name  c d unit     short                         source           
+   C     + + .        comment character             ysdb_internal.yml
+   NUM   - - .        record number                 ysdb_internal.yml
+   ID    - - .        subject identifier            ysdb_internal.yml
+   SUBJ  + - .        subject identifier            ysdb_internal.yml
+   TIME  - - hour     time after first dose         .                
+   SEQ   - + .        data type                     .                
+   CMT   - - .        compartment number            ysdb_internal.yml
+   EVID  - - .        event ID                      ysdb_internal.yml
+   AMT   - - mg       dose amount                   ysdb_internal.yml
+   DV    - - &lt;&lt;mugL&gt;&gt; dependent variable            ysdb_internal.yml
+   AGE   - - years    age                           ysdb_internal.yml
+   WT    - - kg       weight                        ysdb_internal.yml
+   CRCL  - - ml/min   creatinine clearance          .                
+   ALB   - - g/dL     albumin                       ysdb_internal.yml
+   BMI   - - m2/kg    BMI                           ysdb_internal.yml
+   AAG   - - mg/dL    alpha-1-acid glycoprotein     .                
+   SCR   - - mg/dL    serum creatinine              .                
+   AST   - - .        aspartate aminotransferase    .                
+   ALT   - - .        alanine aminotransferase      .                
+   HT    - - cm       height                        ysdb_internal.yml
+   CP    - + .        Child-Pugh score              .                
+   TAFD  - - hours    time after first dose         .                
+   TAD   - - hours    time after dose               .                
+   LDOS  - - mg       last dose amount              .                
+   MDV   - - .        MDV                           ysdb_internal.yml
+   BLQ   - - .        below limit of quantification .                
+   PHASE - - .        study phase indicator         .                
+   STUDY - + .        study number                  .                
+   RF    + + .        renal function stage          .</code></pre>
 <p>Data from specific columns can be printed</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">spec<span class="op">$</span>WT</a></code></pre></div>
-<pre><code>   name  value    
-   col   WT       
-   type  numeric  
-   short Weight   
-   unit  kg       
-   range 40 to 100</code></pre>
+<pre><code>   name  value  
+   col   WT     
+   type  numeric
+   short weight 
+   unit  kg     
+   range .</code></pre>
 <p>or summarized</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(spec, WT, DV, EGFR)</a></code></pre></div>
-<pre><code>        name c d          unit                         short
-  1        C + -             .       commented row indicator
-  2  USUBJID + -             .                       USUBJID
-  3       ID - -             .                            ID
-  4     EVID - -             .                      event ID
-  5      MDV - -             .                           MDV
-  6      SEQ - +             .                           SEQ
-  7      AMT - -            mg                        amount
-  8       II - -         hours                            II
-  9      CMT - -             .                   Compartment
-  10    TAFD - -         hours                          TAFD
-  11      WT - -            kg                        Weight
-  12    EGFR - - ml/min/1.73m2                          eGFR
-  13   STUDY + +             .                         Study
-  14     SEX - +             .                           SEX
-  15     BQL - +             . below limit of quantification
-  16      DV - -         ng/mL                            DV
-  17     DV2 - -             .                           DV2
-  18    HAIR + +             .                          HAIR
-  19    CLCR - -        ml/min          creatinine clearance
-  20     ALB - -          g/dL              adjusted albumin
-                source
-  1  _yspec_lookup.yml
-  2                  .
-  3                  .
-  4  _yspec_lookup.yml
-  5  _yspec_lookup.yml
-  6                  .
-  7                  .
-  8                  .
-  9                  .
-  10                 .
-  11                 .
-  12 _yspec_lookup.yml
-  13                 .
-  14 _yspec_lookup.yml
-  15                 .
-  16                 .
-  17                 .
-  18                 .
-  19                 .
-  20 _yspec_lookup.yml</code></pre>
+<pre><code>      name c d     unit                         short            source
+  1      C + +        .             comment character ysdb_internal.yml
+  2    NUM - -        .                 record number ysdb_internal.yml
+  3     ID - -        .            subject identifier ysdb_internal.yml
+  4   SUBJ + -        .            subject identifier ysdb_internal.yml
+  5   TIME - -     hour         time after first dose                 .
+  6    SEQ - +        .                     data type                 .
+  7    CMT - -        .            compartment number ysdb_internal.yml
+  8   EVID - -        .                      event ID ysdb_internal.yml
+  9    AMT - -       mg                   dose amount ysdb_internal.yml
+  10    DV - - &lt;&lt;mugL&gt;&gt;            dependent variable ysdb_internal.yml
+  11   AGE - -    years                           age ysdb_internal.yml
+  12    WT - -       kg                        weight ysdb_internal.yml
+  13  CRCL - -   ml/min          creatinine clearance                 .
+  14   ALB - -     g/dL                       albumin ysdb_internal.yml
+  15   BMI - -    m2/kg                           BMI ysdb_internal.yml
+  16   AAG - -    mg/dL     alpha-1-acid glycoprotein                 .
+  17   SCR - -    mg/dL              serum creatinine                 .
+  18   AST - -        .    aspartate aminotransferase                 .
+  19   ALT - -        .      alanine aminotransferase                 .
+  20    HT - -       cm                        height ysdb_internal.yml
+  21    CP - +        .              Child-Pugh score                 .
+  22  TAFD - -    hours         time after first dose                 .
+  23   TAD - -    hours               time after dose                 .
+  24  LDOS - -       mg              last dose amount                 .
+  25   MDV - -        .                           MDV ysdb_internal.yml
+  26   BLQ - -        . below limit of quantification                 .
+  27 PHASE - -        .         study phase indicator                 .
+  28 STUDY - +        .                  study number                 .
+  29    RF + +        .          renal function stage                 .</code></pre>
 </div>
 <div id="check-a-data-set-against-the-spec" class="section level2">
 <h2 class="hasAnchor">
 <a href="#check-a-data-set-against-the-spec" class="anchor"></a>Check a data set against the spec</h2>
 <p>Use the <code><a href="../reference/ys_check.html">ys_check()</a></code> function, with the data frame as the first argument and the spec object as the second argument</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">sp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ys_load.html">ys_load</a></span>(ys_help<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/connections">file</a></span>())</a>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">data &lt;-<span class="st"> </span>ys_help<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>()</a>
 <a class="sourceLine" id="cb10-2" title="2"></a>
-<a class="sourceLine" id="cb10-3" title="3">data &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span>(ys_help<span class="op">$</span><span class="kw">csv</span>(), <span class="dt">na =</span> <span class="st">'.'</span>)</a></code></pre></div>
-<pre><code>## Parsed with column specification:
-## cols(
-##   .default = col_double(),
-##   C = col_logical(),
-##   RF = col_character()
-## )</code></pre>
-<pre><code>## See spec(...) for full column specifications.</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw"><a href="../reference/ys_check.html">ys_check</a></span>(data,sp)</a></code></pre></div>
+<a class="sourceLine" id="cb10-3" title="3"><span class="kw"><a href="../reference/ys_check.html">ys_check</a></span>(data,spec)</a></code></pre></div>
 <pre><code>## The data set passed all checks.</code></pre>
 </div>
 <div id="example-to-render-spec" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example-to-render-spec" class="anchor"></a>Example to render spec</h2>
 <p>The specification object can be rendered to a specification file with the <code>ys_document</code> function</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="kw"><a href="../reference/ys_document.html">ys_document</a></span>(spec, <span class="dt">stem =</span> <span class="st">"working_document"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw"><a href="../reference/ys_document.html">ys_document</a></span>(spec, <span class="dt">stem =</span> <span class="st">"working_document"</span>)</a></code></pre></div>
 <p>With output <a href="working_document.pdf">here</a>.</p>
 <p><code>ys_document</code> will pass along arguments to <code><a href="https://www.rdocumentation.org/packages/rmarkdown/topics/render">rmarkdown::render</a></code> so that you can control those aspects of how the document is rendered. You can also create custom output formats to get the data table to render in the way that you like.</p>
 </div>
@@ -253,21 +242,21 @@
 <h2 class="hasAnchor">
 <a href="#example-project-object" class="anchor"></a>Example project object</h2>
 <p>To create an project-wide listing of documented data sets, we create a <code>yproj</code> or project object. We create this from the spec objects that we read about in the previous section. Let’s load another object to use along with the object loaded in the previous section.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1">pdspec &lt;-<span class="st"> </span><span class="kw"><a href="../reference/load_spec_ex.html">load_spec_ex</a></span>(<span class="st">"DEM104101F_PKPD.yml"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1">pdspec &lt;-<span class="st"> </span><span class="kw"><a href="../reference/load_spec_ex.html">load_spec_ex</a></span>(<span class="st">"DEM104101F_PKPD.yml"</span>)</a></code></pre></div>
 <p>Now, we have two objects to work with:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(spec)</a></code></pre></div>
-<pre><code>##       name c d  unit                   short            source
-## 1        C + -     . commented row indicator _yspec_lookup.yml
-## 2  USUBJID + -     .                 USUBJID                 .
-## 3       ID - -     .                      ID                 .
-## 4     EVID - -     .                event ID _yspec_lookup.yml
-## 5      MDV - -     .                     MDV _yspec_lookup.yml
-## 6      SEQ - +     .                     SEQ                 .
-## 7      AMT - -    mg                  amount                 .
-## 8       II - - hours                      II                 .
-## 9      CMT - -     .             Compartment                 .
-## 10    TAFD - - hours                    TAFD                 .</code></pre>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(pdspec)</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(spec)</a></code></pre></div>
+<pre><code>##    name c d     unit                 short            source
+## 1     C + +        .     comment character ysdb_internal.yml
+## 2   NUM - -        .         record number ysdb_internal.yml
+## 3    ID - -        .    subject identifier ysdb_internal.yml
+## 4  SUBJ + -        .    subject identifier ysdb_internal.yml
+## 5  TIME - -     hour time after first dose                 .
+## 6   SEQ - +        .             data type                 .
+## 7   CMT - -        .    compartment number ysdb_internal.yml
+## 8  EVID - -        .              event ID ysdb_internal.yml
+## 9   AMT - -       mg           dose amount ysdb_internal.yml
+## 10   DV - - &lt;&lt;mugL&gt;&gt;    dependent variable ysdb_internal.yml</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(pdspec)</a></code></pre></div>
 <pre><code>##    name c d           unit       short source
 ## 1     C + -              .           C      .
 ## 2   MDV - -              .         MDV      .
@@ -280,15 +269,15 @@
 ## 9  EGFR - - ml/min/1.73 m2        eGFR      .
 ## 10  SEX - +              .         SEX      .</code></pre>
 <p>We can create a project object from both objects</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1">proj &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ys_project.html">ys_project</a></span>(spec,pdspec)</a>
-<a class="sourceLine" id="cb21-2" title="2"></a>
-<a class="sourceLine" id="cb21-3" title="3">proj</a></code></pre></div>
-<pre><code>## projectnumber:  MRG123 
-## sponsor:        demo 
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1">proj &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ys_project.html">ys_project</a></span>(spec,pdspec)</a>
+<a class="sourceLine" id="cb18-2" title="2"></a>
+<a class="sourceLine" id="cb18-3" title="3">proj</a></code></pre></div>
+<pre><code>## projectnumber:  examp101F 
+## sponsor:        example-project 
 ## --------------------------------------------
 ## datafiles: 
-##  name            description                       data_stem       
-##  spec            an example data set               example_data_set
+##  name            description                       data_stem      
+##  analysis1       Example PopPK analysis data set.  analysis1      
 ##  DEM104101F_PKPD Population PKPD analysis data set DEM104101F_PKPD</code></pre>
 </div>
 <div id="render-a-project-file" class="section level2">
@@ -299,13 +288,13 @@
 <a href="#working-document" class="anchor"></a>Working document</h3>
 <p>To render the project file we’ll use the same <code><a href="../reference/ys_document.html">ys_document()</a></code> function.<br>
 This time, we’ll add some extra (optional) arguments that will help us get the document to look the way we want:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1"><span class="kw"><a href="../reference/ys_document.html">ys_document</a></span>(</a>
-<a class="sourceLine" id="cb23-2" title="2">  proj, </a>
-<a class="sourceLine" id="cb23-3" title="3">  <span class="dt">stem =</span> <span class="st">"project_document"</span>, </a>
-<a class="sourceLine" id="cb23-4" title="4">  <span class="dt">build_dir =</span> <span class="kw"><a href="../reference/mrgtemplate.html">mrgtemplate</a></span>(),</a>
-<a class="sourceLine" id="cb23-5" title="5">  <span class="dt">author =</span> <span class="st">"Michelle Johnson"</span>, </a>
-<a class="sourceLine" id="cb23-6" title="6">  <span class="dt">title =</span> <span class="st">"Analysis data specification"</span></a>
-<a class="sourceLine" id="cb23-7" title="7">)</a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="kw"><a href="../reference/ys_document.html">ys_document</a></span>(</a>
+<a class="sourceLine" id="cb20-2" title="2">  proj, </a>
+<a class="sourceLine" id="cb20-3" title="3">  <span class="dt">stem =</span> <span class="st">"project_document"</span>, </a>
+<a class="sourceLine" id="cb20-4" title="4">  <span class="dt">build_dir =</span> <span class="kw"><a href="../reference/mrgtemplate.html">mrgtemplate</a></span>(),</a>
+<a class="sourceLine" id="cb20-5" title="5">  <span class="dt">author =</span> <span class="st">"Michelle Johnson"</span>, </a>
+<a class="sourceLine" id="cb20-6" title="6">  <span class="dt">title =</span> <span class="st">"Analysis data specification"</span></a>
+<a class="sourceLine" id="cb20-7" title="7">)</a></code></pre></div>
 <p>With output <a href="project_document.pdf">here</a>.</p>
 <p>Using the <code>build_dir</code> argument gets us the document rendered with Metrum Research Group branding. Also, <code>author</code> and <code>title</code> are passed into the configuration fields for this document.</p>
 </div>
@@ -313,14 +302,14 @@ This time, we’ll add some extra (optional) arguments that will help us get the
 <h3 class="hasAnchor">
 <a href="#regulatory-document" class="anchor"></a>Regulatory document</h3>
 <p>To get a document that is formatted according to FDA requirements, use:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1"><span class="kw"><a href="../reference/ys_document.html">ys_document</a></span>(</a>
-<a class="sourceLine" id="cb24-2" title="2">  proj, </a>
-<a class="sourceLine" id="cb24-3" title="3">  <span class="dt">type =</span> <span class="st">"regulatory"</span>,</a>
-<a class="sourceLine" id="cb24-4" title="4">  <span class="dt">stem =</span> <span class="st">"fda_document"</span>, </a>
-<a class="sourceLine" id="cb24-5" title="5">  <span class="dt">build_dir =</span> <span class="kw"><a href="../reference/mrgtemplate.html">mrgtemplate</a></span>(),</a>
-<a class="sourceLine" id="cb24-6" title="6">  <span class="dt">author =</span> <span class="st">"Michelle Johnson"</span>, </a>
-<a class="sourceLine" id="cb24-7" title="7">  <span class="dt">title =</span> <span class="st">"Analysis data specification"</span></a>
-<a class="sourceLine" id="cb24-8" title="8">)</a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="kw"><a href="../reference/ys_document.html">ys_document</a></span>(</a>
+<a class="sourceLine" id="cb21-2" title="2">  proj, </a>
+<a class="sourceLine" id="cb21-3" title="3">  <span class="dt">type =</span> <span class="st">"regulatory"</span>,</a>
+<a class="sourceLine" id="cb21-4" title="4">  <span class="dt">stem =</span> <span class="st">"fda_document"</span>, </a>
+<a class="sourceLine" id="cb21-5" title="5">  <span class="dt">build_dir =</span> <span class="kw"><a href="../reference/mrgtemplate.html">mrgtemplate</a></span>(),</a>
+<a class="sourceLine" id="cb21-6" title="6">  <span class="dt">author =</span> <span class="st">"Michelle Johnson"</span>, </a>
+<a class="sourceLine" id="cb21-7" title="7">  <span class="dt">title =</span> <span class="st">"Analysis data specification"</span></a>
+<a class="sourceLine" id="cb21-8" title="8">)</a></code></pre></div>
 <p>With output <a href="fda_document.pdf">here</a>.</p>
 </div>
 </div>

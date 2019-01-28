@@ -43,7 +43,7 @@ library(yspec)
 An example specification file looks like:
 
 ```{r "specfile", comment = " "}
-specfile <- yspec::file_spec_ex()
+specfile <- ys_help$file()
 
 cat(readLines(specfile)[1:29], sep = "\n")
 ```
@@ -64,7 +64,7 @@ spec$WT
 ```
 
 or summarized
-```{r "column_summary", comment = ' '}
+```{r "column_summary", comment = ' ', out.width = 120}
 summary(spec, WT, DV, EGFR)
 ```
 
@@ -75,11 +75,10 @@ Use the `ys_check()` function, with the data frame as the first argument
 and the spec object as the second argument
 
 ```{r}
-sp <- ys_load(ys_help$file())
 
-data <- readr::read_csv(ys_help$csv(), na = '.')
+data <- ys_help$data()
 
-ys_check(data,sp)
+ys_check(data,spec)
 
 ```
 
