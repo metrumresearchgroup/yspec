@@ -45,7 +45,20 @@ test_that("sanitizers", {
   
   ans <- ys_dont_sanitize(x)
   expect_identical(ans,x)
-
+  
   ans <- ys_mild_sanitize(x)
   expect_identical(ans, "a _ b \\& c \\% d ^")
 })
+
+
+test_that("yspec_select", {
+  spec <- ys_help$spec()
+  x <- yspec_select_discrete(spec)
+  expect_identical(
+    names(x), 
+    c("C","SUBJ", "SEQ", "EVID", "CP", "MDV", "BLQ", "PHASE", "STUDY", "RF")
+  )
+  x <- yspec_select_chr(spec)
+  expect_identical(names(x), c("C", "SUBJ", "RF"))
+})
+

@@ -248,7 +248,7 @@ unpack_col <- function(x) {
   if(x$continuous) {
     x$range <- unlist(x$range, use.names=FALSE)
   }
-  x$discrete <- .has("values",x)
+  x$discrete <- .has("values",x) | x[["type"]]=="character"
   if(.no("longvalues",x)) {
     x[["longvalues"]] <- FALSE
   }

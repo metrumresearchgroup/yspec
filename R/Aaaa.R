@@ -15,7 +15,7 @@
 #' @importFrom purrr flatten flatten_chr modify
 #' @importFrom glue glue
 #' @importFrom utils type.convert read.csv
-#' @importFrom crayon red green black blue bold
+#' @importFrom crayon red green black blue bold italic
 #' 
 #' @include utils.R
 NULL
@@ -37,8 +37,8 @@ VALID_SETUP_NAMES <- c(
   "spec_path", "glue", "use_internal_db"
 )
 
-.glopen <- "<"
-.glclose <- ">"
+.glopen <- "<<"
+.glclose <- ">>"
 
 #' yspec: data specification documents from yaml
 #' 

@@ -178,11 +178,12 @@ yspec_select_chr <- function(.spec) {
 ##' @param x a list column specification data
 ##' @keywords internal
 ##' @export
-test_spec_list <- function(x) {
+test_spec_list <- function(x,setup=list()) {
   file <- tempfile()
-  y <- yaml::as.yaml(x)
+  set <- list(SETUP__=setup)
+  y <- yaml::as.yaml(c(set,x))
   writeLines(con = file, y)
-  yspec::load_spec(file)
+  yspec::ys_load(file)
 }
 
 test_spec_error <- function(x) {
@@ -278,8 +279,8 @@ ys_mild_sanitize <- function(x) {
 
 
 verb <- function(left, right) {
-  left <- crayon::green(paste0(formatC(left, width = 14,flag="-"), crayon::black("... ")))
-  message(left,right)
+  left <- paste0(crayon::green(formatC(left, width = 14,flag="-")), "... ")
+  cat(left,right,"\n")
 }
 
 relapse <- function(x,n) paste0(rep(x,n),collapse="")

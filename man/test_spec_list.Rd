@@ -4,7 +4,7 @@
 \alias{test_spec_list}
 \title{Test specification code}
 \usage{
-test_spec_list(x)
+test_spec_list(x, setup = list())
 }
 \arguments{
 \item{x}{a list column specification data}

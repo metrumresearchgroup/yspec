@@ -32,12 +32,17 @@ ys_view_impl <- function(dir,file) {
   tmp <- file.path(tempdir(),paste0("view_",basename(file)))
   file.copy(file,tmp)
   if(requireNamespace("rstudioapi")) {
-    rstudioapi::navigateToFile(tmp)
+    if(rstudioapi::isAvailable()) {
+      rstudioapi::navigateToFile(tmp)
+    } else {
+      cat(readLines(tmp),sep="\n")
+    }
   } else {
     file.show(file)  
   }
 }
 
+# nocov start
 ys_help_setup <- function(libname, pkgname) {
   spec <- function() {
     ys_load(file())
@@ -52,51 +57,44 @@ ys_help_setup <- function(libname, pkgname) {
   csv  <- function() system.file("internal", "analysis1.csv", package = "yspec")
   proj <- function() load_proj_ex("project.yml")
   yaml <- function() {
-    if(rstudioapi::isAvailable()) {
-      ys_view_impl("internal", "analysis1.yml")  
-    }
+    ys_view_impl("internal", "analysis1.yml")  
   }
-  ref <- function() {
-    if(rstudioapi::isAvailable()) {
-      ys_view_impl("reference", "reference.md")  
-    }
+  ref <- function()  {
+    ys_view_impl("reference", "reference.md") 
   }
   db <- function() {
-    if(rstudioapi::isAvailable()) {
-      ys_view_impl("internal", "ysdb_internal.yml")    
-    }
+    ys_view_impl("internal", "ysdb_internal.yml")    
   }
   example <- function() {
-    if(rstudioapi::isAvailable()) {
-      ys_view_impl("internal", "ys_example.Rmd") 
-    }
+    ys_view_impl("internal", "ys_example.Rmd") 
   }
   export <- function(path,...) {
     ys_export_impl(path,...)  
   }
   return(structure(environment(),class="yhelp"))
 }
-
-fmt <- function(x,n=22,flag="-") {
-  formatC(x,width=n,flag=flag)
-}
+# nocov end
 
 ##' @inheritParams base::print
 ##' @rdname ys_help
 ##' @export
 print.yhelp <- function(...) {
+  fmt <- function(x,n=22,flag="-") {
+    formatC(x,width=n,flag=flag)
+  }
+  rhs <- green $ italic
   cat("\n")
-  message(blue(fmt("CODE:")),blue("# DESCRIPTION:"))
-  message(black(fmt("ys_help$spec()")),green("# analysis1 yspec object"))
-  message(black(fmt("ys_help$file()")),green("# analysis1.yml file path"))
-  message(black(fmt("ys_help$data()")),green("# analysis1 example data set"))  
-  message(black(fmt("ys_help$csv()")),green("# analysis1.csv file path"))
-  message(black(fmt("ys_help$proj()")),green("# example project object"))
-  message(black(fmt("ys_help$yaml()")),green("# view analysis1 yaml file"))
-  message(black(fmt("ys_help$ref()")),green("# view syntax reference for yaml file"))
-  message(black(fmt("ys_help$db()")),green("# view internal lookup databases"))
-  message(black(fmt("ys_help$example()")),green("# view Rmd file with yspec workflow"))
-  message(black(fmt("ys_help$export('out')")),green("# export example package assets"))
+  cat(blue(fmt("CODE:")),blue("# DESCRIPTION:"),"\n")
+  cat((fmt("ys_help$spec()")),rhs("# analysis1 yspec object"),"\n")
+  cat((fmt("ys_help$file()")),rhs("# analysis1.yml file path"),"\n")
+  cat((fmt("ys_help$data()")),rhs("# analysis1 example data set"),"\n")  
+  cat((fmt("ys_help$csv()")),rhs("# analysis1.csv file path"),"\n")
+  cat((fmt("ys_help$proj()")),rhs("# example project object"),"\n")
+  cat((fmt("ys_help$yaml()")),rhs("# view analysis1 yaml file"),"\n")
+  cat((fmt("ys_help$ref()")),rhs("# view syntax reference for yaml file"),"\n")
+  cat((fmt("ys_help$db()")),green("# view internal lookup databases"),"\n")
+  cat((fmt("ys_help$example()")),rhs("# view Rmd file with yspec workflow"),"\n")
+  cat((fmt("ys_help$export('out')")),rhs("# export example package assets"),"\n")
   cat("\n")
   return(invisible(NULL))
 }

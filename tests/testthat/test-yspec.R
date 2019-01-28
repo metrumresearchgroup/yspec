@@ -9,7 +9,6 @@ context("test-yspec")
 
 spec <- load_spec_ex(file = "spec.yml")
 
-
 test_that("yspec object", {
   expect_is(spec, "yspec")
   expect_true(is.list(spec))
@@ -21,9 +20,20 @@ test_that("yspec methods", {
   expect_is(as.list(spec), "list")
   expect_is(spec$WT, "ycol")
   expect_identical(spec$WT$col, "WT")
+  expect_identical(spec$WT,spec[["WT"]])
   expect_equal(spec$EGFR$range, c(10,300))
   expect_is(as.data.frame(spec), "data.frame")
+  expect_identical(as.data.frame(spec), summary(spec))
   expect_is(head(spec), "data.frame")
+  expect_is(tail(spec), "data.frame")
+  pr <- capture.output(print(spec))
+  expect_true(grepl("^ STUDY", pr[14]))
+})
+
+test_that("misc helpers", {
+  expect_equal(yspec:::yml_rm("foo.yml"), "foo")
+  expect_equal(yspec:::yml_rm("foo.yaml"), "foo")
+  expect_equal(yspec:::yml_rm("foo.txt"), "foo.txt")
 })
 
 test_that("ycol accessors", {
@@ -36,7 +46,6 @@ test_that("ycol accessors", {
   expect_identical("C", yspec:::lookup(spec$C))
   expect_identical("<none>", yspec:::lookup(spec$DV))
 })
-
 
 test_that("spec object meta data", {
   meta <- get_meta(spec)
@@ -63,7 +72,6 @@ test_that("testing input columns", {
   expect_error(.test_load("foo", values = c(1,2,3),
                           decode = c("a","b")),
                regexp = "the length of values is not equal to the length of decode")
-
 })
 
 file <- system.file("spec", "test_lookup.yml", package = "yspec")
@@ -81,9 +89,7 @@ test_that("column data is not merged when lookup is false", {
   raw <- yspec:::try_yaml(file)
   mspec <- load_spec_ex(file = "test_lookup.yml")
   look <- yspec:::ys_get_lookup(mspec)
-
   expect_null(raw$ALB$unit)
   expect_identical(mspec$BMI$unit, look$BMI$unit)
-
 })
 

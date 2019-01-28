@@ -33,14 +33,6 @@ as.data.frame.yspec <- function(x,...) {
   summary.yspec(x,...)
 }
 
-as_tibble.yspec <- function(x,...) {
-  imap(x, function(data,name) {
-    field <- names(data)
-    data <- unname(data)
-    tibble(col = name, field = field, value = data)  
-  }) 
-}
-
 ##' @export
 head.yspec <- function(x, n = 10, ...) {
   ans <- summary.yspec(x)
@@ -55,9 +47,9 @@ tail.yspec <- function(x, n = 10, ...) {
 
 ##' @export
 print.yspec <- function(x,i=0,...) {
-  if(i==1) {
-    return(print1(x,...))
-  }
+  # if(i==1) {
+  #   return(print1(x,...))
+  # }
   out <- summary.yspec(x)
   print.data.frame(out, row.names=FALSE, right=FALSE)
 }
@@ -80,25 +72,25 @@ summary.yspec <- function(object, ...) {
   out$col <- NULL
   out
 }
-
-print1 <- function(x,...) {
-  out <- lapply(x, function(xx) {
-    decode <- '.'
-    values <- '.'
-    unit <- '.'
-    if(.has("decode",xx)) decode <- xx$decode
-    if(.has("values",xx)) values <- xx$values
-    if(.has("unit",xx)) unit <- xx$unit
-    data.frame(col=xx$col,
-               unit=unit,
-               value=values,
-               decode=decode,
-               stringsAsFactors=FALSE)
-  })
-  out <- as.data.frame(do.call('rbind',out),stringsAsFactors=FALSE)
-  rownames(out) <- NULL
-  return(out)
-}
+# 
+# print1 <- function(x,...) {
+#   out <- lapply(x, function(xx) {
+#     decode <- '.'
+#     values <- '.'
+#     unit <- '.'
+#     if(.has("decode",xx)) decode <- xx$decode
+#     if(.has("values",xx)) values <- xx$values
+#     if(.has("unit",xx)) unit <- xx$unit
+#     data.frame(col=xx$col,
+#                unit=unit,
+#                value=values,
+#                decode=decode,
+#                stringsAsFactors=FALSE)
+#   })
+#   out <- as.data.frame(do.call('rbind',out),stringsAsFactors=FALSE)
+#   rownames(out) <- NULL
+#   return(out)
+# }
 
 ##' Get meta data from a specification object
 ##'

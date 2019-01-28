@@ -58,8 +58,8 @@ merge_lookup_column <- function(x,lookup,file,.verbose=FALSE) {
   if(.has(lookup_name,lookup)) {
     if(.verbose) {
       a <- lookup[[lookup_name]][["lookup_source"]]
-      b <- crayon::black(" ---> ")
-      c <- crayon::bold(crayon::red(lookup_name)) 
+      b <- " ---> "
+      c <- crayon::bold(crayon::blue(lookup_name)) 
       verb("~ looking up", c(a,b,c))
     }
     x <- combine_list(lookup[[lookup_name]],x)
