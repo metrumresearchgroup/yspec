@@ -56,7 +56,7 @@ test_that("yspec_select", {
   x <- yspec_select_discrete(spec)
   expect_identical(
     names(x), 
-    c("C","SUBJ", "SEQ", "EVID", "CP", "MDV", "BLQ", "PHASE", "STUDY", "RF")
+    c("C", "SEQ", "EVID", "CP", "MDV", "BLQ", "PHASE", "STUDY", "RF")
   )
   x <- yspec_select_chr(spec)
   expect_identical(names(x), c("C", "SUBJ", "RF"))
