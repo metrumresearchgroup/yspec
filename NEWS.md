@@ -35,6 +35,22 @@ handling, but also allows several values to be maped to the same decode
 - An error is generated if the number of characters in a column name 
 is greater than 8.  Set the `ys.col.len` option to control the max allowable
 characters.
+- Added `verbose` argument to print information to the console while processing
+a yaml file
+- Added `ys_help` object that includes example / demo materials, including a 
+function that will export a folder of assets that will work out of the box
+- Revised package vignettes
+- Expanded the `?yspec` help topic to outline the suggested workflow and 
+point to other locations for help
+- Added custom sanitizer `ys_sanitize` that can be changed through the 
+`ys.sanitize` option
+- Added a `glue` field for `SETUP__`, where a yaml map can be used to connect
+value with a name; when the name is inserted in to yaml code as `<<name>>`, 
+the value will be substituted in with `glue`; this is the proper way to evade
+the sanitizer when including TeX code in the document
+- Only "numeric" or "character" will be accepted in the `type` field; and error
+is generated if anything else appears there
+
 
 # yspec 0.1.0.9001
 

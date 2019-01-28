@@ -6,17 +6,17 @@
 \alias{load_spec}
 \title{Load a data specification file}
 \usage{
-ys_load(file, .verbose = FALSE, ...)
+ys_load(file, verbose = FALSE, ...)
 
 ys_load_file(file, data_path = NULL, data_stem = NULL,
-  .verbose = FALSE, ...)
+  verbose = FALSE, ...)
 
 load_spec(...)
 }
 \arguments{
 \item{file}{name of yaml file containing specification}
 
-\item{.verbose}{`logical`; print information to the console as the file
+\item{verbose}{`logical`; print information to the console as the file
 is processed}
 
 \item{...}{other arguments to update `SETUP__`}
@@ -33,7 +33,7 @@ Load a data specification file
 sp <- ys_load(ys_help$file())
 sp
 
-sp <- ys_load(ys_help$file(), .verbose = TRUE)
+sp <- ys_load(ys_help$file(), verbose = TRUE)
 
 
 }

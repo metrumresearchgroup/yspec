@@ -268,4 +268,48 @@ In this example, there would be a column called `HT_INCHES` in the
 lookup file that would be imported under the name `HT`.
 
 
+### Include TeX in data specification document
+
+Most define documents get rendered via `xtable` and the text gets processed
+by a sanitize function.  yspec implements a custom sanitize function
+called `ys_sanitize`, which is similar to `xtable::sanitize`, but whitelists
+some symbols so they do not get sanitized.  
+
+To protect TeX code from the sanitizer, first create a field in `SETUP_`
+called `glue` with a map between a name and some corresponding TeX code.  In 
+the following example, we with to write $\mu$g/L, so we create a name 
+called `mugL` and map it to `$\\mu$g/L`:
+
+```{yaml}
+SETUP__:
+  glue: {mugL: "$\\mu$g/L"}
+```
+
+Once the map is in place, we can write the data set column definiton like 
+this:
+
+```{yaml}
+DV: 
+  unit: "<<mugL>>"
+```
+
+When the table for the define document is rendered, first the sanitizer will 
+run, but it won't find anything in the `unit` field for the `DV` column.  Then 
+yspec will call `glue()` and replace `<<mugL>>` with `$\\mu%g/L`.  
+
+Notice that we put all of the values in quotes;  this is good practice to ensure
+that yaml will parse the value as a character data item when reading in the 
+spec. 
+
+
+
+
+
+
+
+
+
+
+
+
 

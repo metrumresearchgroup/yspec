@@ -17,7 +17,9 @@ handlrs[["decode:value"]] <- function(x) {
 }
 
 handlrs[["look"]] <- function(x) {
-  list(lookup = TRUE)  
+  if(!is.list(x)) return(list(lookup=TRUE))
+  x[["lookup"]] <- TRUE
+  x 
 }
 
 

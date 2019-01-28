@@ -107,7 +107,7 @@ capture_file_info <- function(x,file,where = "SETUP__") {
 ##' @param file name of yaml file containing specification
 ##' @param data_path optional path to data sets
 ##' @param data_stem optional alternate stem for data files
-##' @param .verbose `logical`; print information to the console as the file
+##' @param verbose `logical`; print information to the console as the file
 ##' is processed
 ##' @param ... other arguments to update `SETUP__`
 ##' 
@@ -116,33 +116,33 @@ capture_file_info <- function(x,file,where = "SETUP__") {
 ##' sp <- ys_load(ys_help$file())
 ##' sp
 ##' 
-##' sp <- ys_load(ys_help$file(), .verbose = TRUE)
+##' sp <- ys_load(ys_help$file(), verbose = TRUE)
 ##' 
 ##' 
 ##' @export
-ys_load <- function(file, .verbose=FALSE,  ...) {
-  x <- ys_load_file(file,.verbose=.verbose,...)
-  unpack_spec(x,.verbose=.verbose)
+ys_load <- function(file, verbose=FALSE,  ...) {
+  x <- ys_load_file(file, verbose=verbose,...)
+  unpack_spec(x,verbose=verbose)
 }
 
 ##' @rdname ys_load
 ##' @export
-ys_load_file <- function(file, data_path = NULL, data_stem = NULL, .verbose=FALSE, ...) {
+ys_load_file <- function(file, data_path = NULL, data_stem = NULL, verbose=FALSE, ...) {
   file <- normalPath(file, mustWork = FALSE)
-  if(.verbose) verb("~ working on", basename(file))
+  if(verbose) verb("~ working on", basename(file))
   x <- try_yaml(file)
   x <- capture_file_info(x,file)
   incoming <- list(...)
   incoming[["data_path"]] <- data_path
   incoming[["data_stem"]] <- data_stem
-  unpack_meta(x, to_update = incoming,.verbose=.verbose)
+  unpack_meta(x, to_update = incoming,verbose=verbose)
 }
 
 ##' @rdname ys_load
 ##' @export
 load_spec <- function(...) ys_load(...)
 
-unpack_spec <- function(x,.verbose=FALSE) {
+unpack_spec <- function(x,verbose=FALSE) {
   
   check_spec_input(x)
   
@@ -150,9 +150,9 @@ unpack_spec <- function(x,.verbose=FALSE) {
   x[] <- imap(x,.f=col_initialize)
   
   # for looking up column data
-  lookup <- ys_get_lookup(x,.verbose=.verbose)
+  lookup <- ys_get_lookup(x,verbose=verbose)
   
-  if(length(lookup) > 0 & .verbose) {
+  if(length(lookup) > 0 & verbose) {
     verb(relapse(":",13), relapse(":",30))
   }
   x[] <- map_if(
@@ -161,14 +161,14 @@ unpack_spec <- function(x,.verbose=FALSE) {
     .f = merge_lookup_column,
     lookup = lookup, 
     file = get_meta(x)[["spec_file"]], 
-    .verbose=.verbose
+    verbose=verbose
   )
   x[] <- map(x, unpack_col)
   check_spec_cols(x)
   structure(x, class = "yspec")
 }
 
-unpack_meta <- function(x,to_update, .verbose=FALSE, ...) {
+unpack_meta <- function(x,to_update, verbose=FALSE, ...) {
   meta <- list()
   metai <- names(x) == "SETUP__"
   if(any(metai)) {
@@ -207,7 +207,7 @@ unpack_meta <- function(x,to_update, .verbose=FALSE, ...) {
       err_file(meta[["spec_file"]], "Invalid primary key.")
     }
   }
-  if(.verbose) {
+  if(verbose) {
     verb("  description", meta[["description"]])
     if(.has("project", meta)) verb("  project", meta[["project"]])
     if(.has("sponsor", meta)) verb("  sponsor", meta[["sponsor"]])
@@ -248,7 +248,7 @@ unpack_col <- function(x) {
   if(x$continuous) {
     x$range <- unlist(x$range, use.names=FALSE)
   }
-  x$discrete <- .has("values",x) | x[["type"]]=="character"
+  x$discrete <- .has("values",x) 
   if(.no("longvalues",x)) {
     x[["longvalues"]] <- FALSE
   }

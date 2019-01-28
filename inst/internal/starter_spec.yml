@@ -3,6 +3,8 @@ SETUP__:
   projectnumber: PROJECTNUMBER
   sponsor: SPONSORNAME
   lookup_yspec_db: true
+  glue: 
+    mugL: "$\\mu$g/L"
 C: 
   short: comment character
   values: [".", "C"]

@@ -179,7 +179,7 @@ fda_define <- function(file, title="Datasets", ext=".xpt", loc=".",...) {
   c(main, contents, flatten_chr(specs))
 }
 
-##' Render a `define.pdf` document conforming to FDA standards
+##' Render a define.pdf document conforming to FDA standards
 ##'
 ##' @param x a yaml specification file name or a yproj object
 ##' @param stem used to name the output document

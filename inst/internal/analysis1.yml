@@ -3,10 +3,12 @@ SETUP__:
   sponsor: example-project
   projectnumber: examp101F
   use_internal_db: true
+  glue: 
+    mugL: "$\\mu$g/L"
 C:
 NUM:
 ID:
-SUBJ:
+SUBJ: !look
 TIME:
   short: time after first dose
   unit: hour
@@ -17,7 +19,8 @@ CMT:
 EVID:
 AMT: !look
   unit: mg
-DV:
+DV:  !look
+  unit: "<<mugL>>"
 AGE:
 WT:
 CRCL:
