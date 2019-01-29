@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">yspec</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -43,7 +43,7 @@
   </a>
 </li>
 <li>
-  <a href="../articles/yspec.html">Get started</a>
+  <a href="../articles/yspec.html">Get Started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -56,7 +56,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/index.html">yspec vignettes</a>
+      <a href="../articles/analysis1.html">Example specification document</a>
     </li>
     <li>
       <a href="../articles/lookup.html">Project-wide column definitions</a>
@@ -91,7 +91,7 @@
       <h1>yspec <code>yaml</code> specification</h1>
                         <h4 class="author">Kyle Baron</h4>
             
-            <h4 class="date">2019-01-28</h4>
+            <h4 class="date">2019-01-29</h4>
       
       
       <div class="hidden name"><code>reference.Rmd</code></div>
@@ -153,7 +153,7 @@
 </ul>
 </li>
 <li>
-<code>units: numeric</code>
+<code>unit: numeric</code>
 <ul>
 <li>the unit of measure</li>
 </ul>
@@ -237,6 +237,14 @@
 <li>Logical; if <code>true</code> then the definition for the column is looked up in the <code>lookup_files</code> (specificed in <code>SETUP__:</code>)</li>
 <li>Use the <code>!look</code> handler to indicate lookup</li>
 </ul>
+</li>
+</ul>
+</div>
+<div id="defaults" class="section level2">
+<h2 class="hasAnchor">
+<a href="#defaults" class="anchor"></a>Defaults</h2>
+<ul>
+<li>If <code>type</code> is not given, then it will default to <code>numeric</code>
 </li>
 </ul>
 </div>
@@ -359,6 +367,7 @@
 <li><a href="#organization">Organization</a></li>
       <li><a href="#setup__-specification-fields"><code>SETUP__</code> specification fields</a></li>
       <li><a href="#data-column-specification-fields">Data column specification fields</a></li>
+      <li><a href="#defaults">Defaults</a></li>
       <li><a href="#examples">Examples</a></li>
       </ul>
 </div>

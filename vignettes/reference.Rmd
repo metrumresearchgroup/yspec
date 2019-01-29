@@ -75,9 +75,10 @@ See the [ys_help] topic for more information.
    sanitizer
 
 ## Data column specification fields
+
 - `short: short-name` 
     - a short name for the column; don't include units here
-- `units: numeric` 
+- `unit: numeric` 
     - the unit of measure
 - `range: [min-value, max-value]`
     - indicates continuous data
@@ -122,6 +123,11 @@ See the [ys_help] topic for more information.
   the `lookup_files` (specificed in `SETUP__:`)
   - Use the `!look` handler to indicate lookup
   
+
+## Defaults
+
+- If `type` is not given, then it will default to `numeric`
+
 ## Examples
 
 ### Continuous values

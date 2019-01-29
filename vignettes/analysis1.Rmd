@@ -1,0 +1,33 @@
+---
+title: "Example specification document"
+author: "STATUS: development"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette: 
+    keep_md: true
+vignette: >
+  %\VignetteIndexEntry{yspec}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+This is an example data specification document.  See the [ys_help]
+topic for help browsing this document and for other example assets with which
+you can practice. 
+
+This file is located in `inst/internal/analysis1.yml`.
+
+__CONTENTS__
+
+
+```{r, include = FALSE}
+file <- system.file("internal", "analysis1.yml", package = "yspec")
+```
+
+
+```{yaml, eval=FALSE, code = readLines(file)}
+
+```
+
+
