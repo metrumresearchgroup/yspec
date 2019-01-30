@@ -1,6 +1,6 @@
 
 check_values <- function(x,values,verbose=FALSE, con = NULL) {
-  if(is.null(values)) return(TRUE)
+  if(is.null(values)  | is.null(x)) return(TRUE)
   x <- x[!is.na(x)]
   x <- unlist(unique(x),use.names = FALSE)
   
@@ -19,7 +19,7 @@ check_values <- function(x,values,verbose=FALSE, con = NULL) {
 }
 
 check_range <- function(x,range,verbose=FALSE, con = NULL) {
-  if(is.null(range)) return(TRUE)
+  if(is.null(range) | is.null(x)) return(TRUE)
   if(length(range) !=2) return(FALSE)
   x <- x[!is.na(x)]
   if(length(x)==0) return(TRUE)
@@ -195,15 +195,16 @@ ys_check <- function(data, spec, verbose = FALSE, output = tempfile()) {
   for(i in seq_along(spec)) {
     x <- spec[[i]]
     y <- data[[x$col]]
+    if(is.null(y)) next 
     cata("  * column: ", x$col, file = output)
-    val <- check_values(y,x$values,verbose = FALSE, con=output)
+    val <- check_values(y,x[["values"]],verbose = FALSE, con=output)
     if(!val) {
       add_log(env, "discrete value out of range:", x$col)
       add_error(env)
     }
-    range <- check_range(y,x$range,verbose=FALSE,con = output)
+    range <- check_range(y,x[["range"]],verbose=FALSE,con = output)
     if(!range) {
-      range <- paste0(x$range,collapse = ",")
+      range <- paste0(x[["range"]],collapse = ",")
       range <- paste0("[",range,"]")
       add_log(env, "continuous value out of range:", x$col, range)
       add_error(env)

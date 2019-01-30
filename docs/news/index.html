@@ -160,6 +160,7 @@
 <li>Added custom sanitizer <code>ys_sanitize</code> that can be changed through the <code>ys.sanitize</code> option</li>
 <li>Added a <code>glue</code> field for <code>SETUP__</code>, where a yaml map can be used to connect value with a name; when the name is inserted in to yaml code as <code>&lt;&lt;name&gt;&gt;</code>, the value will be substituted in with <code>glue</code>; this is the proper way to evade the sanitizer when including TeX code in the document</li>
 <li>Only “numeric” or “character” will be accepted in the <code>type</code> field; and error is generated if anything else appears there</li>
+<li>Added <code>c</code> method to combine two yspec objects together</li>
 </ul>
 </div>
     <div id="yspec-0109001" class="section level1">

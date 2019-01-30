@@ -5,6 +5,7 @@ is_yspec <- function(x) inherits(x, "yspec")
 #' 
 #' @param x a `yspec` object
 #' @param y a `yspec` object
+#' @param ... not used
 #' 
 #' 
 #' 

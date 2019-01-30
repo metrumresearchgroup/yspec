@@ -50,7 +50,7 @@ the value will be substituted in with `glue`; this is the proper way to evade
 the sanitizer when including TeX code in the document
 - Only "numeric" or "character" will be accepted in the `type` field; and error
 is generated if anything else appears there
-
+- Added `c` method to combine two yspec objects together
 
 # yspec 0.1.0.9001
 

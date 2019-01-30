@@ -10,6 +10,8 @@
 \item{x}{a `yspec` object}
 
 \item{y}{a `yspec` object}
+
+\item{...}{not used}
 }
 \description{
 Add extra column elements to a yspec object

@@ -15,6 +15,5 @@ test_that("decode_values", {
   expect_equivalent(sp[["example1"]][["values"]],sp[["example2"]][["values"]])
   expect_equivalent(sp[["example1"]][["values"]],sp[["example3"]][["values"]])
   expect_equivalent(sp[["example1"]][["values"]],sp[["example4"]][["values"]])
-  
 })
 
