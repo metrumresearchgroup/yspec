@@ -1,6 +1,23 @@
 
 is_yspec <- function(x) inherits(x, "yspec")
 
+#' Add extra column elements to a yspec object
+#' 
+#' @param x a `yspec` object
+#' @param y a `yspec` object
+#' 
+#' 
+#' 
+#' @export
+c.yspec <- function(x,y,...) {
+  assert_that(is_yspec(y))
+  new_cols <- setdiff(names(y),names(x))
+  if(!identical(new_cols, names(y))) {
+    stop("'x' and 'y' cannot share any names.")  
+  }
+  structure(c(as.list(x),as.list(y)), meta = get_meta(x), class="yspec")
+}
+
 ##' @export
 `$.yspec` <- function(x, name, ...) {
   if(!exists(name,x)) {

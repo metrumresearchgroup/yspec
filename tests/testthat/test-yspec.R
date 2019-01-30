@@ -93,3 +93,10 @@ test_that("column data is not merged when lookup is false", {
   expect_identical(mspec$BMI$unit, look$BMI$unit)
 })
 
+test_that("combine two specs", {
+  dat <- ys_help$spec()
+  intn <- system.file("internal", "post.yml", package = "yspec")
+  post <- ys_load(intn)
+  spec <- c(dat,post)
+  expect_identical(names(spec), c(names(dat),names(post)))
+})

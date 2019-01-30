@@ -43,7 +43,7 @@ session
 \section{Package-wide options}{
 
 \itemize{
-\item \code{ys.sanitize} a function to use for sanitizing text before processing wiht
+\item \code{ys.sanitize} a function to use for sanitizing text before processing with
 latex; see \code{\link[yspec:pander_table]{yspec::pander_table()}}
 \item \code{ys.col.length} the maximum number of characters in a data frame column
 name; this defaults to 8 so that columns with 9 or more characters will
