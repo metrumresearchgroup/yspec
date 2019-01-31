@@ -1,6 +1,30 @@
 
 is_yspec <- function(x) inherits(x, "yspec")
 
+
+
+##' @export
+update.yspec <- function(object, projectnumber=NULL, sponsor=NULL, ...) {
+  
+  non_null <- c(projectnumber,sponsor)
+  
+  if(is.null(non_null)) return(object)
+  
+  m <- get_meta(object)
+  
+  if(is.character(projectnumber)) {
+    m[["projectnumber"]] <- projectnumber  
+  }
+  
+  if(is.character(sponsor)) {
+    m[["sponsor"]] <- sponsor  
+  }
+  
+  structure(object, meta = m)
+  
+}
+
+
 #' Add extra column elements to a yspec object
 #' 
 #' @param x a `yspec` object
