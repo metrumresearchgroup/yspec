@@ -11,6 +11,9 @@ testing:
 	cp ${TARBALL} ../../qualification/yspec_qualification/testing/${TARBALL}
 	cd ../../qualification/yspec_qualification/testing/ && git commit -am "testing update" && git push
 
+spelling:
+	make doc
+	Rscript -e "spelling::spell_check_package('.')"
 
 .PHONY: vignettes
 vignettes:
