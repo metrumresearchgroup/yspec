@@ -47,7 +47,7 @@ test_that("duplicate map key", {
 test_that("invalid type value", {
   expect_error(
     yspec::test_spec_list(list(A = list(type = "factor"))), 
-    "'type' must be 'numeric' or 'character' \\('factor'\\)"
+    "'type' must be 'numeric', 'character' or 'integer' \\('factor'\\)"
   )
 })
 

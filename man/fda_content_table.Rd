@@ -10,7 +10,7 @@ fda_content_table(x, ext = ".xpt", loc = ".")
 \item{x}{a spec define object}
 
 \item{ext}{data set file extension to include; this should only 
-be changed from default value of ".xpt" for testing puroses}
+be changed from default value of ".xpt" for testing purposes}
 
 \item{loc}{location to use for data set files; this should 
 only be changed from default value of "." for testing purposes}

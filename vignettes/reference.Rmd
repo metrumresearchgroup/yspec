@@ -9,6 +9,12 @@ vignette: >
   \usepackage[utf8]{inputenc}
 ---
 
+
+## Syntax
+
+yspec uses standard [yaml]() syntax to state the data set column definitions.
+
+
 ## Organization
 Save your data specification code in a file, typically with a `.yaml` 
 file extension.  
@@ -57,7 +63,7 @@ See the [ys_help] topic for more information.
 
 ## `SETUP__` specification fields
 
-- `description`: `<character>`; a short descrption of the data set 
+- `description`: `<character>`; a short description of the data set 
 - `projectnumber`: `<character>` the project reference number; may be 
    incorporated into rendered define documents; when the project number is 
    given in the first yspec object in a project object, that project number 
@@ -66,12 +72,12 @@ See the [ys_help] topic for more information.
    given in the first yspec object in a project object, that project sponsor 
    name will be rendered in the project-wide define document 
 - `lookup_file`: `<character>`; a yaml array of other yaml files where 
-   yspec will look for column lookup inforomation
+   yspec will look for column lookup information
 - `use_internal_db`: `<logical> (true/false)`; if `true`, then yspec will 
    load the internal column lookup database
 - `glue`: `<map>`; specify name/value pairs;  in the yaml data specification, 
    use `<<name>>` in the text and `value` will glued into the text after
-   it has been sanitized; intended use is to allow LaTex code to evade the 
+   it has been sanitized; intended use is to allow LaTeX code to evade the 
    sanitizer
 
 ## Data column specification fields
@@ -291,7 +297,7 @@ SETUP__:
   glue: {mugL: "$\\mu$g/L"}
 ```
 
-Once the map is in place, we can write the data set column definiton like 
+Once the map is in place, we can write the data set column definition like 
 this:
 
 ```{yaml}

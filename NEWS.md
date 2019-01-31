@@ -31,7 +31,7 @@ searched for in the lookup resources
 - Handler `!value:decode` has been added so that maps can be created with the 
 values on the left hand side (`- 0 : male`)
 - Handler `!decode:value` has been added that recreates the default map 
-handling, but also allows several values to be maped to the same decode
+handling, but also allows several values to be mapped to the same decode
 - An error is generated if the number of characters in a column name 
 is greater than 8.  Set the `ys.col.len` option to control the max allowable
 characters.
