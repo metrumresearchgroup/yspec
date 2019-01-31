@@ -83,21 +83,27 @@ check_data_names <- function(ndata,nspec,env,output) {
   
   # In the spec but not in the data
   diff <- setdiff(nspec,ndata)
-  pos <- match(diff,nspec)
-  dfs <- data.frame(position = pos, col_name = diff,col_source = "spec",stringsAsFactors=FALSE)
-  diff <- paste0(diff, collapse = ", ")
-  diff <- crayon::black(strwrap(diff, width = 60))
-  add_log(env, "names in spec but not in data:")
-  append_log(env,diff,.bullet = FALSE)
+  dfs <- data.frame()
+  if(length(diff) > 0) {
+    pos <- match(diff,nspec)
+    dfs <- data.frame(position = pos, col_name = diff,col_source = "spec",stringsAsFactors=FALSE)
+    diff <- paste0(diff, collapse = ", ")
+    diff <- crayon::black(strwrap(diff, width = 50))
+    add_log(env, "names in spec but not in data:")
+    append_log(env,diff,.bullet = FALSE)
+  }
   
   # In the data but not in the spec
   diff <- setdiff(ndata,nspec)
-  pos <- match(diff,ndata)
-  dfd <- data.frame(position = pos, col_name = diff,col_source = "data",stringsAsFactors=FALSE)
-  diff <- paste0(diff, collapse = ", ")
-  diff <- crayon::black(strwrap(diff, width = 60))
-  add_log(env, "names in data but not in spec:")
-  append_log(env,diff,.bullet = FALSE)
+  dfd <- data.frame()
+  if(length(diff) > 0) {
+    pos <- match(diff,ndata)
+    dfd <- data.frame(position = pos, col_name = diff,col_source = "data",stringsAsFactors=FALSE)
+    diff <- paste0(diff, collapse = ", ")
+    diff <- crayon::black(strwrap(diff, width = 50))
+    add_log(env, "names in data but not in spec:")
+    append_log(env,diff,.bullet = FALSE)
+  }
   
   dff <- dplyr::bind_rows(dfs,dfd)
   dff <- dplyr::arrange(dff,.data[["position"]], desc(.data[["col_source"]]))
