@@ -106,18 +106,18 @@
 <p>yspec uses standard <a href="https://en.wikipedia.org/wiki/YAML">yaml</a> syntax to state the data set column definitions.</p>
 <p><strong>NOTES</strong></p>
 <ul>
-<li>Use double-quotes around anything you want to be a string</li>
+<li>Use double-quotes around any value you want to be a string</li>
 <li>
-<code>true</code> and <code>yes</code> by themselves will be rendered as <code>TRUE</code>; use <code>"yes"</code> if you need that word by itself</li>
+<code>true</code> and <code>yes</code> by themselves will be rendered as <code>TRUE</code>; use <code>"yes"</code> if you need that word by itself as a value for a field</li>
 <li>
-<code>false</code> and <code>no</code> by themselves will be returned as <code>FALSE</code>; use <code>"no"</code> if you need that word by itself</li>
-<li>If a string starts with a piece of punctuation, make sure to put it in quotes
+<code>false</code> and <code>no</code> by themselves will be returned as <code>FALSE</code>; use <code>"no"</code> if you need that word by itself as a value for a field</li>
+<li>If a string starts with a piece of punctuation, make sure to put the entire string in double quotes
 <ul>
-<li>Use <code>"&gt; QL"</code> not <code>&gt; QL</code>
+<li>Use <code>short: "&gt; QL"</code> not <code>short: &gt; QL</code>
 </li>
-<li>Use <code>"."</code> not <code>.</code>
+<li>Use <code>values: [".", C]</code> not <code>values: [.,C]</code>
 </li>
-<li>Use <code>"123 Main St."</code> not <code>123 Main St.</code>
+<li>Use <code>address: "123 Main St."</code> not <code>address: 123 Main St.</code>
 </li>
 </ul>
 </li>

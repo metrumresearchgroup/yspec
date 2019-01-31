@@ -309,14 +309,14 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <p>yspec uses standard <a href="https://en.wikipedia.org/wiki/YAML">yaml</a> syntax to state the data set column definitions.</p>
 <p><strong>NOTES</strong></p>
 <ul>
-<li>Use double-quotes around anything you want to be a string</li>
-<li><code>true</code> and <code>yes</code> by themselves will be rendered as <code>TRUE</code>; use <code>&quot;yes&quot;</code> if you need that word by itself</li>
-<li><code>false</code> and <code>no</code> by themselves will be returned as <code>FALSE</code>; use <code>&quot;no&quot;</code> if you need that word by itself</li>
-<li>If a string starts with a piece of punctuation, make sure to put it in quotes
+<li>Use double-quotes around any value you want to be a string</li>
+<li><code>true</code> and <code>yes</code> by themselves will be rendered as <code>TRUE</code>; use <code>&quot;yes&quot;</code> if you need that word by itself as a value for a field</li>
+<li><code>false</code> and <code>no</code> by themselves will be returned as <code>FALSE</code>; use <code>&quot;no&quot;</code> if you need that word by itself as a value for a field</li>
+<li>If a string starts with a piece of punctuation, make sure to put the entire string in double quotes
 <ul>
-<li>Use <code>&quot;&gt; QL&quot;</code> not <code>&gt; QL</code></li>
-<li>Use <code>&quot;.&quot;</code> not <code>.</code></li>
-<li>Use <code>&quot;123 Main St.&quot;</code> not <code>123 Main St.</code></li>
+<li>Use <code>short: &quot;&gt; QL&quot;</code> not <code>short: &gt; QL</code></li>
+<li>Use <code>values: [&quot;.&quot;, C]</code> not <code>values: [.,C]</code></li>
+<li>Use <code>address: &quot;123 Main St.&quot;</code> not <code>address: 123 Main St.</code></li>
 </ul></li>
 </ul>
 <p>Instructions for including TeX in the yaml specification code are provided in a section below.</p>

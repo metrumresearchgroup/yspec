@@ -16,15 +16,16 @@ the data set column definitions.
 
 __NOTES__
 
-- Use double-quotes around anything you want to be a string
+- Use double-quotes around any value you want to be a string
 - `true` and `yes` by themselves will be rendered as `TRUE`; use `"yes"` if you 
-  need that word by itself
+  need that word by itself as a value for a field
 - `false` and `no` by themselves will be returned as `FALSE`; use `"no"` if you
-  need that word by itself
-- If a string starts with a piece of punctuation, make sure to put it in quotes
-    - Use `"> QL"` not `> QL`
-    - Use `"."` not `.`
-    - Use `"123 Main St."` not `123 Main St.`
+  need that word by itself as a value for a field
+- If a string starts with a piece of punctuation, make sure to put the entire 
+  string in double quotes
+    - Use `short: "> QL"` not `short: > QL`
+    - Use `values: [".", C]` not `values: [.,C]`
+    - Use `address: "123 Main St."` not `address: 123 Main St.`
 
 Instructions for including TeX in the yaml specification code are provided
 in a section below. 
