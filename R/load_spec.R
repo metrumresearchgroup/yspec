@@ -7,7 +7,7 @@ check_spec_input_col <- function(x, col, env, not_allowed = NULL, ...) {
   if(!t0) {
     err <- c(
       err, 
-      paste0("column name greater than ",  getOption("ys.col.len",8), " characters: ", col)
+      paste0("column name more than ",  getOption("ys.col.len",8), " characters long")
     )
   }
   
