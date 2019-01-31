@@ -306,7 +306,20 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 <div id="syntax" class="section level2">
 <h2>Syntax</h2>
-<p>yspec uses standard <a href>yaml</a> syntax to state the data set column definitions.</p>
+<p>yspec uses standard <a href="https://en.wikipedia.org/wiki/YAML">yaml</a> syntax to state the data set column definitions.</p>
+<p><strong>NOTES</strong></p>
+<ul>
+<li>Use double-quotes around anything you want to be a string</li>
+<li><code>true</code> and <code>yes</code> by themselves will be rendered as <code>TRUE</code>; use <code>&quot;yes&quot;</code> if you need that word by itself</li>
+<li><code>false</code> and <code>no</code> by themselves will be returned as <code>FALSE</code>; use <code>&quot;no&quot;</code> if you need that word by itself</li>
+<li>If a string starts with a piece of punctuation, make sure to put it in quotes
+<ul>
+<li>Use <code>&quot;&gt; QL&quot;</code> not <code>&gt; QL</code></li>
+<li>Use <code>&quot;.&quot;</code> not <code>.</code></li>
+<li>Use <code>&quot;123 Main St.&quot;</code> not <code>123 Main St.</code></li>
+</ul></li>
+</ul>
+<p>Instructions for including TeX in the yaml specification code are provided in a section below.</p>
 </div>
 <div id="organization" class="section level2">
 <h2>Organization</h2>
@@ -400,8 +413,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </ul></li>
 <li><code>type</code>:
 <ul>
-<li>Can be <code>numeric</code> or <code>character</code></li>
-<li>This is optional; the default is <code>character</code></li>
+<li>Can be <code>numeric</code>, <code>character</code>, or <code>integer</code></li>
+<li>This is optional; the default is <code>numeric</code></li>
 </ul></li>
 <li><code>lookup</code>:
 <ul>

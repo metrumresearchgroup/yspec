@@ -9,11 +9,25 @@ vignette: >
   \usepackage[utf8]{inputenc}
 ---
 
-
 ## Syntax
 
-yspec uses standard [yaml]() syntax to state the data set column definitions.
+yspec uses standard [yaml](https://en.wikipedia.org/wiki/YAML) syntax to state 
+the data set column definitions.
 
+__NOTES__
+
+- Use double-quotes around anything you want to be a string
+- `true` and `yes` by themselves will be rendered as `TRUE`; use `"yes"` if you 
+  need that word by itself
+- `false` and `no` by themselves will be returned as `FALSE`; use `"no"` if you
+  need that word by itself
+- If a string starts with a piece of punctuation, make sure to put it in quotes
+    - Use `"> QL"` not `> QL`
+    - Use `"."` not `.`
+    - Use `"123 Main St."` not `123 Main St.`
+
+Instructions for including TeX in the yaml specification code are provided
+in a section below. 
 
 ## Organization
 Save your data specification code in a file, typically with a `.yaml` 
@@ -122,8 +136,8 @@ See the [ys_help] topic for more information.
   - If `short` will work for your axis title (as it is ... with no 
     modification), yspec will use that if no `axis` field is used
 - `type`:
-  - Can be `numeric` or `character`
-  - This is optional; the default is `character`
+  - Can be `numeric`, `character`, or `integer`
+  - This is optional; the default is `numeric`
 - `lookup`:
   - Logical; if `true` then the definition for the column is looked up in 
   the `lookup_files` (specified in `SETUP__:`)
