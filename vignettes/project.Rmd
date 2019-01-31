@@ -21,7 +21,7 @@ object to render a project-wide define document.
 library(yspec)
 ```
 
-# Load specifiation objects for all data sets
+# Load specification objects for all data sets
 
 If my project had 3 analysis data sets, one for PK, one for PKPD, and one for 
 AEs, we create a specification object for each one.  Here, we're using 

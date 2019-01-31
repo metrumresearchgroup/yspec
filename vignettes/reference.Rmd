@@ -1,5 +1,5 @@
 ---
-title: "yspec `yaml` specification"
+title: "YAML specification"
 author: "Kyle Baron"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -126,7 +126,7 @@ See the [ys_help] topic for more information.
   - This is optional; the default is `character`
 - `lookup`:
   - Logical; if `true` then the definition for the column is looked up in 
-  the `lookup_files` (specificed in `SETUP__:`)
+  the `lookup_files` (specified in `SETUP__:`)
   - Use the `!look` handler to indicate lookup
   
 
