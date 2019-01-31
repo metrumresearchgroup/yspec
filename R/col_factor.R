@@ -8,6 +8,9 @@
 ##' @param values a vector of values to convert to a factor
 ##' @param x a ycol object
 ##' 
+##' @details
+##' Note that `.suffix` can be chosen using option `ys.fct.suffix`.
+##' 
 ##' @examples
 ##' 
 ##' spec <- load_spec_ex()
@@ -36,12 +39,11 @@ yspec_add_factors <- function(.data, .spec, ... , .suffix =
 ##' @rdname yspec_add_factors
 ##' @export
 yspec_make_factor <- function(values,x) {
-
   if(is.null(x[["values"]])) {
-    stop("Column: ", x$col, " - values field is not found", call. = FALSE)
+    stop("Column: ", x[["col"]], " - values field is not found", call. = FALSE)
   }
   if(!x[["discrete"]]) {
-    stop("Column: ", x$col, " is not discrete", call. = FALSE)
+    stop("Column: ", x[["col"]], " is not discrete", call. = FALSE)
   }
   if(is.null(x[["decode"]])) {
     decode <- x[["values"]]

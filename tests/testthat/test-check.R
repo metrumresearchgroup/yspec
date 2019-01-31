@@ -40,7 +40,7 @@ test_that("column with wrong name", {
 
 test_that("column with wrong name", {
   names(spec) <- paste0(names(spec),names(spec))
-  expect_error(check_data(data, spec), 
+  expect_error(check_data(data1, spec), 
                regexp = "Please review messages and re-check")
 })
 

@@ -26,6 +26,9 @@ yspec_make_factor(values, x)
 \description{
 Add factors to data set based on spec information
 }
+\details{
+Note that `.suffix` can be chosen using option `ys.fct.suffix`.
+}
 \examples{
 
 spec <- load_spec_ex()

@@ -149,9 +149,9 @@ check_data_names <- function(ndata,nspec,env,output) {
 ##' 
 ##' 1. All column names must be less than or equal to 8 characters by default.
 ##'    This maximum number of characters can be overridden by setting
-##'    option `ys.col.len`.
+##'    option `ys.col.len` equal to the desired maximum.
 ##'    
-##' Output can be directed to a file (see the `ouput` argument) and 
+##' Output can be directed to a file (see the `output` argument) and 
 ##' more verbose output can be requested as the check proceeds by the 
 ##' `verbose` argument.
 ##' 
@@ -159,6 +159,9 @@ check_data_names <- function(ndata,nspec,env,output) {
 ##' 
 ##' data <- ys_help$data()
 ##' spec <- ys_help$spec()
+##' 
+##' # Recommend running this at the end of data assembly
+##' data <- dplyr::select(data,names(spec))
 ##' 
 ##' ys_check(data,spec)
 ##' 
