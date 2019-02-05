@@ -80,6 +80,7 @@ we could write the following in our specification file
 ```yaml
 SETUP__:
   description: PKPD analysis data set
+  use_internal_db: true
 C: 
 AMT:
 MDV:
@@ -96,6 +97,7 @@ ZIP_CODE:
 code <- '
 SETUP__:
   description: PKPD analysis data set
+  use_internal_db: true
 C: 
 AMT:
 MDV:
