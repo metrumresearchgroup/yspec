@@ -1,3 +1,7 @@
+inst/WORDLIST
+Untitled\.R
+\_pkgdown\.yml
+yspec\.Rcheck
 CONTRIBUTING.md
 ^spec.*\.pdf$
 mrglogo\.pdf
@@ -13,5 +17,12 @@ Makefile
 ^\.Rproj\.user$
 dev
 ^docs$
-vignettes/.*
-
+^vignettes$
+vignettes/index\.Rmd
+vignettes/project\.Rmd
+vignettes/ysdb_internal\.Rmd
+vignettes/yspec\.Rmd
+vignettes/reference\.Rmd
+vignettes/lookup\.Rmd
+vignettes/_index\.Rmd
+vignettes/analysis1\.Rmd

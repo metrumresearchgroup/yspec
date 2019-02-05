@@ -1,6 +1,6 @@
 
 check_values <- function(x,values,verbose=FALSE, con = NULL) {
-  if(is.null(values)) return(TRUE)
+  if(is.null(values)  | is.null(x)) return(TRUE)
   x <- x[!is.na(x)]
   x <- unlist(unique(x),use.names = FALSE)
   
@@ -19,7 +19,7 @@ check_values <- function(x,values,verbose=FALSE, con = NULL) {
 }
 
 check_range <- function(x,range,verbose=FALSE, con = NULL) {
-  if(is.null(range)) return(TRUE)
+  if(is.null(range) | is.null(x)) return(TRUE)
   if(length(range) !=2) return(FALSE)
   x <- x[!is.na(x)]
   if(length(x)==0) return(TRUE)
@@ -83,21 +83,27 @@ check_data_names <- function(ndata,nspec,env,output) {
   
   # In the spec but not in the data
   diff <- setdiff(nspec,ndata)
-  pos <- match(diff,nspec)
-  dfs <- data.frame(position = pos, col_name = diff,col_source = "spec",stringsAsFactors=FALSE)
-  diff <- paste0(diff, collapse = ", ")
-  diff <- crayon::black(strwrap(diff, width = 60))
-  add_log(env, "names in spec but not in data:")
-  append_log(env,diff,.bullet = FALSE)
+  dfs <- data.frame()
+  if(length(diff) > 0) {
+    pos <- match(diff,nspec)
+    dfs <- data.frame(position = pos, col_name = diff,col_source = "spec",stringsAsFactors=FALSE)
+    diff <- paste0(diff, collapse = ", ")
+    diff <- crayon::black(strwrap(diff, width = 50))
+    add_log(env, "names in spec but not in data:")
+    append_log(env,diff,.bullet = FALSE)
+  }
   
   # In the data but not in the spec
   diff <- setdiff(ndata,nspec)
-  pos <- match(diff,ndata)
-  dfd <- data.frame(position = pos, col_name = diff,col_source = "data",stringsAsFactors=FALSE)
-  diff <- paste0(diff, collapse = ", ")
-  diff <- crayon::black(strwrap(diff, width = 60))
-  add_log(env, "names in data but not in spec:")
-  append_log(env,diff,.bullet = FALSE)
+  dfd <- data.frame()
+  if(length(diff) > 0) {
+    pos <- match(diff,ndata)
+    dfd <- data.frame(position = pos, col_name = diff,col_source = "data",stringsAsFactors=FALSE)
+    diff <- paste0(diff, collapse = ", ")
+    diff <- crayon::black(strwrap(diff, width = 50))
+    add_log(env, "names in data but not in spec:")
+    append_log(env,diff,.bullet = FALSE)
+  }
   
   dff <- dplyr::bind_rows(dfs,dfd)
   dff <- dplyr::arrange(dff,.data[["position"]], desc(.data[["col_source"]]))
@@ -143,9 +149,9 @@ check_data_names <- function(ndata,nspec,env,output) {
 ##' 
 ##' 1. All column names must be less than or equal to 8 characters by default.
 ##'    This maximum number of characters can be overridden by setting
-##'    option `ys.col.len`.
+##'    option `ys.col.len` equal to the desired maximum.
 ##'    
-##' Output can be directed to a file (see the `ouput` argument) and 
+##' Output can be directed to a file (see the `output` argument) and 
 ##' more verbose output can be requested as the check proceeds by the 
 ##' `verbose` argument.
 ##' 
@@ -153,6 +159,9 @@ check_data_names <- function(ndata,nspec,env,output) {
 ##' 
 ##' data <- ys_help$data()
 ##' spec <- ys_help$spec()
+##' 
+##' # Recommend running this at the end of data assembly
+##' data <- dplyr::select(data,names(spec))
 ##' 
 ##' ys_check(data,spec)
 ##' 
@@ -195,15 +204,16 @@ ys_check <- function(data, spec, verbose = FALSE, output = tempfile()) {
   for(i in seq_along(spec)) {
     x <- spec[[i]]
     y <- data[[x$col]]
+    if(is.null(y)) next 
     cata("  * column: ", x$col, file = output)
-    val <- check_values(y,x$values,verbose = FALSE, con=output)
+    val <- check_values(y,x[["values"]],verbose = FALSE, con=output)
     if(!val) {
       add_log(env, "discrete value out of range:", x$col)
       add_error(env)
     }
-    range <- check_range(y,x$range,verbose=FALSE,con = output)
+    range <- check_range(y,x[["range"]],verbose=FALSE,con = output)
     if(!range) {
-      range <- paste0(x$range,collapse = ",")
+      range <- paste0(x[["range"]],collapse = ",")
       range <- paste0("[",range,"]")
       add_log(env, "continuous value out of range:", x$col, range)
       add_error(env)

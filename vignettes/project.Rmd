@@ -21,7 +21,7 @@ object to render a project-wide define document.
 library(yspec)
 ```
 
-# Load specifiation objects for all data sets
+# Load specification objects for all data sets
 
 If my project had 3 analysis data sets, one for PK, one for PKPD, and one for 
 AEs, we create a specification object for each one.  Here, we're using 
@@ -76,7 +76,7 @@ object (`sp1`) looks like this:
 In the `YPROJ__` block, we included a description; this is required to make a 
 project object from data objects. There also is a `name` that defaults to the 
 stem of the data specification file.  We also optionally included `projectnumber` 
-and `sponsor`.  These will get inserted into the define documentwhen the 
+and `sponsor`.  These will get inserted into the define document when the 
 MetrumRG Rmarkdown template is used.
 
 # Render a define file

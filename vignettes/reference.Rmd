@@ -1,5 +1,5 @@
 ---
-title: "yspec `yaml` specification"
+title: "YAML specification"
 author: "Kyle Baron"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -8,6 +8,27 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
+
+## Syntax
+
+yspec uses standard [yaml](https://en.wikipedia.org/wiki/YAML) syntax to state 
+the data set column definitions.
+
+__NOTES__
+
+- Use double-quotes around any value you want to be a string
+- `true` and `yes` by themselves will be rendered as `TRUE`; use `"yes"` if you 
+  need that word by itself as a value for a field
+- `false` and `no` by themselves will be returned as `FALSE`; use `"no"` if you
+  need that word by itself as a value for a field
+- If a string starts with a piece of punctuation, make sure to put the entire 
+  string in double quotes
+    - Use `short: "> QL"` not `short: > QL`
+    - Use `values: [".", C]` not `values: [.,C]`
+    - Use `address: "123 Main St."` not `address: 123 Main St.`
+
+Instructions for including TeX in the yaml specification code are provided
+in a section below. 
 
 ## Organization
 Save your data specification code in a file, typically with a `.yaml` 
@@ -57,7 +78,7 @@ See the [ys_help] topic for more information.
 
 ## `SETUP__` specification fields
 
-- `description`: `<character>`; a short descrption of the data set 
+- `description`: `<character>`; a short description of the data set 
 - `projectnumber`: `<character>` the project reference number; may be 
    incorporated into rendered define documents; when the project number is 
    given in the first yspec object in a project object, that project number 
@@ -66,18 +87,19 @@ See the [ys_help] topic for more information.
    given in the first yspec object in a project object, that project sponsor 
    name will be rendered in the project-wide define document 
 - `lookup_file`: `<character>`; a yaml array of other yaml files where 
-   yspec will look for column lookup inforomation
+   yspec will look for column lookup information
 - `use_internal_db`: `<logical> (true/false)`; if `true`, then yspec will 
    load the internal column lookup database
 - `glue`: `<map>`; specify name/value pairs;  in the yaml data specification, 
    use `<<name>>` in the text and `value` will glued into the text after
-   it has been sanitized; intended use is to allow LaTex code to evade the 
+   it has been sanitized; intended use is to allow LaTeX code to evade the 
    sanitizer
 
 ## Data column specification fields
+
 - `short: short-name` 
     - a short name for the column; don't include units here
-- `units: numeric` 
+- `unit: numeric` 
     - the unit of measure
 - `range: [min-value, max-value]`
     - indicates continuous data
@@ -115,13 +137,18 @@ See the [ys_help] topic for more information.
   - If `short` will work for your axis title (as it is ... with no 
     modification), yspec will use that if no `axis` field is used
 - `type`:
-  - Can be `numeric` or `character`
-  - This is optional; the default is `character`
+  - Can be `numeric`, `character`, or `integer`
+  - This is optional; the default is `numeric`
 - `lookup`:
   - Logical; if `true` then the definition for the column is looked up in 
-  the `lookup_files` (specificed in `SETUP__:`)
+  the `lookup_files` (specified in `SETUP__:`)
   - Use the `!look` handler to indicate lookup
   
+
+## Defaults
+
+- If `type` is not given, then it will default to `numeric`
+
 ## Examples
 
 ### Continuous values
@@ -285,7 +312,7 @@ SETUP__:
   glue: {mugL: "$\\mu$g/L"}
 ```
 
-Once the map is in place, we can write the data set column definiton like 
+Once the map is in place, we can write the data set column definition like 
 this:
 
 ```{yaml}

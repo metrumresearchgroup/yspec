@@ -22,38 +22,44 @@ test_that("check with missing values", {
 
 test_that("missing column", {
   data <- dplyr::select(data1, -WT, -STUDY)
-  expect_error(check_data(data, spec))
+  expect_error(check_data(data, spec), 
+               regexp = "Please review messages and re-check")
 })
 
 test_that("extra column", {
   data <- mutate(data1, FOOO = 1)
-  expect_error(check_data(data, spec))
+  expect_error(check_data(data, spec), 
+               regexp = "Please review messages and re-check")
 })
 
 test_that("column with wrong name", {
   data <- dplyr::rename(data1, WEIGHT = WT)
-  expect_error(check_data(data, spec))
+  expect_error(check_data(data, spec), 
+               regexp = "Please review messages and re-check")
 })
 
 test_that("column with wrong name", {
   names(spec) <- paste0(names(spec),names(spec))
-  expect_error(check_data(data, spec))
+  expect_error(check_data(data1, spec), 
+               regexp = "Please review messages and re-check")
 })
-
 
 test_that("extra column", {
   data <- mutate(data1, FOOO = 1)
-  expect_error(check_data(data, spec))
+  expect_error(check_data(data, spec), 
+               regexp = "Please review messages and re-check")
 })
 
 test_that("continuous out of range", {
   data <- mutate(data1, WT = 1E6)
-  expect_error(check_data(data, spec))
+  expect_error(check_data(data, spec), 
+               regexp = "Please review messages and re-check")
 })
 
 test_that("categorical out of range", {
   data <- mutate(data1, STUDY = "A")
-  expect_error(check_data(data, spec))
+  expect_error(check_data(data, spec), 
+               regexp = "Please review messages and re-check")
 })
 
 test_that("all NA returns success", {
@@ -71,6 +77,5 @@ test_that("all NA returns success", {
   data$SEX[3] <- 1
   expect_message(check_data(data,spec),
                  regexp = "The data set passed all checks.")
-  
 })
 

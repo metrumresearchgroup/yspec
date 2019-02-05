@@ -47,7 +47,7 @@ test_that("duplicate map key", {
 test_that("invalid type value", {
   expect_error(
     yspec::test_spec_list(list(A = list(type = "factor"))), 
-    "'type' must be 'numeric' or 'character' \\('factor'\\)"
+    "'type' must be 'numeric', 'character' or 'integer' \\('factor'\\)"
   )
 })
 
@@ -59,7 +59,7 @@ test_that("primary keys not in the data set", {
 })
 
 test_that("error if column name is greater than 8 characters", {
-  expect_error(ld("long_column.yml"), "greater than 8 characters: DATEANDTIME")
+  expect_error(ld("long_column.yml"), "more than 8 characters long")
   options(ys.col.len = 100)
   expect_is(ld("long_column.yml"),"yspec")
   options(ys.col.len = NULL)

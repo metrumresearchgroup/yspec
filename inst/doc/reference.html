@@ -12,9 +12,9 @@
 
 <meta name="author" content="Kyle Baron" />
 
-<meta name="date" content="2019-01-28" />
+<meta name="date" content="2019-01-31" />
 
-<title>yspec yaml specification</title>
+<title>YAML specification</title>
 
 
 
@@ -298,12 +298,29 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 
 
-<h1 class="title toc-ignore">yspec <code>yaml</code> specification</h1>
+<h1 class="title toc-ignore">YAML specification</h1>
 <h4 class="author"><em>Kyle Baron</em></h4>
-<h4 class="date"><em>2019-01-28</em></h4>
+<h4 class="date"><em>2019-01-31</em></h4>
 
 
 
+<div id="syntax" class="section level2">
+<h2>Syntax</h2>
+<p>yspec uses standard <a href="https://en.wikipedia.org/wiki/YAML">yaml</a> syntax to state the data set column definitions.</p>
+<p><strong>NOTES</strong></p>
+<ul>
+<li>Use double-quotes around any value you want to be a string</li>
+<li><code>true</code> and <code>yes</code> by themselves will be rendered as <code>TRUE</code>; use <code>&quot;yes&quot;</code> if you need that word by itself as a value for a field</li>
+<li><code>false</code> and <code>no</code> by themselves will be returned as <code>FALSE</code>; use <code>&quot;no&quot;</code> if you need that word by itself as a value for a field</li>
+<li>If a string starts with a piece of punctuation, make sure to put the entire string in double quotes
+<ul>
+<li>Use <code>short: &quot;&gt; QL&quot;</code> not <code>short: &gt; QL</code></li>
+<li>Use <code>values: [&quot;.&quot;, C]</code> not <code>values: [.,C]</code></li>
+<li>Use <code>address: &quot;123 Main St.&quot;</code> not <code>address: 123 Main St.</code></li>
+</ul></li>
+</ul>
+<p>Instructions for including TeX in the yaml specification code are provided in a section below.</p>
+</div>
 <div id="organization" class="section level2">
 <h2>Organization</h2>
 <p>Save your data specification code in a file, typically with a <code>.yaml</code> file extension.</p>
@@ -330,12 +347,12 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <div id="setup__-specification-fields" class="section level2">
 <h2><code>SETUP__</code> specification fields</h2>
 <ul>
-<li><code>description</code>: <code>&lt;character&gt;</code>; a short descrption of the data set</li>
+<li><code>description</code>: <code>&lt;character&gt;</code>; a short description of the data set</li>
 <li><code>projectnumber</code>: <code>&lt;character&gt;</code> the project reference number; may be incorporated into rendered define documents; when the project number is given in the first yspec object in a project object, that project number will be rendered in the project-wide define document</li>
 <li><code>sponsor</code>: <code>&lt;character&gt;</code> the project sponsor; when the project sponsor is given in the first yspec object in a project object, that project sponsor name will be rendered in the project-wide define document</li>
-<li><code>lookup_file</code>: <code>&lt;character&gt;</code>; a yaml array of other yaml files where yspec will look for column lookup inforomation</li>
+<li><code>lookup_file</code>: <code>&lt;character&gt;</code>; a yaml array of other yaml files where yspec will look for column lookup information</li>
 <li><code>use_internal_db</code>: <code>&lt;logical&gt; (true/false)</code>; if <code>true</code>, then yspec will load the internal column lookup database</li>
-<li><code>glue</code>: <code>&lt;map&gt;</code>; specify name/value pairs; in the yaml data specification, use <code>&lt;&lt;name&gt;&gt;</code> in the text and <code>value</code> will glued into the text after it has been sanitized; intended use is to allow LaTex code to evade the sanitizer</li>
+<li><code>glue</code>: <code>&lt;map&gt;</code>; specify name/value pairs; in the yaml data specification, use <code>&lt;&lt;name&gt;&gt;</code> in the text and <code>value</code> will glued into the text after it has been sanitized; intended use is to allow LaTeX code to evade the sanitizer</li>
 </ul>
 </div>
 <div id="data-column-specification-fields" class="section level2">
@@ -345,7 +362,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <ul>
 <li>a short name for the column; don’t include units here</li>
 </ul></li>
-<li><code>units: numeric</code>
+<li><code>unit: numeric</code>
 <ul>
 <li>the unit of measure</li>
 </ul></li>
@@ -396,14 +413,20 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </ul></li>
 <li><code>type</code>:
 <ul>
-<li>Can be <code>numeric</code> or <code>character</code></li>
-<li>This is optional; the default is <code>character</code></li>
+<li>Can be <code>numeric</code>, <code>character</code>, or <code>integer</code></li>
+<li>This is optional; the default is <code>numeric</code></li>
 </ul></li>
 <li><code>lookup</code>:
 <ul>
-<li>Logical; if <code>true</code> then the definition for the column is looked up in the <code>lookup_files</code> (specificed in <code>SETUP__:</code>)</li>
+<li>Logical; if <code>true</code> then the definition for the column is looked up in the <code>lookup_files</code> (specified in <code>SETUP__:</code>)</li>
 <li>Use the <code>!look</code> handler to indicate lookup</li>
 </ul></li>
+</ul>
+</div>
+<div id="defaults" class="section level2">
+<h2>Defaults</h2>
+<ul>
+<li>If <code>type</code> is not given, then it will default to <code>numeric</code></li>
 </ul>
 </div>
 <div id="examples" class="section level2">
@@ -502,7 +525,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <p>To protect TeX code from the sanitizer, first create a field in <code>SETUP_</code> called <code>glue</code> with a map between a name and some corresponding TeX code. In the following example, we with to write <span class="math inline">\(\mu\)</span>g/L, so we create a name called <code>mugL</code> and map it to <code>$\\mu$g/L</code>:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb19-1" title="1"><span class="fu">SETUP__:</span></a>
 <a class="sourceLine" id="cb19-2" title="2">  <span class="fu">glue:</span><span class="at"> </span><span class="kw">{</span><span class="fu">mugL:</span><span class="at"> </span><span class="st">&quot;$</span><span class="sc">\\</span><span class="st">mu$g/L&quot;</span><span class="kw">}</span></a></code></pre></div>
-<p>Once the map is in place, we can write the data set column definiton like this:</p>
+<p>Once the map is in place, we can write the data set column definition like this:</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb20-1" title="1"><span class="fu">DV:</span><span class="at"> </span></a>
 <a class="sourceLine" id="cb20-2" title="2">  <span class="fu">unit:</span><span class="at"> </span><span class="st">&quot;&lt;&lt;mugL&gt;&gt;&quot;</span></a></code></pre></div>
 <p>When the table for the define document is rendered, first the sanitizer will run, but it won’t find anything in the <code>unit</code> field for the <code>DV</code> column. Then yspec will call <code>glue()</code> and replace <code>&lt;&lt;mugL&gt;&gt;</code> with <code>$\\mu%g/L</code>.</p>

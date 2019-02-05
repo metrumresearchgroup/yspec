@@ -55,7 +55,13 @@ ys_help_setup <- function(libname, pkgname) {
     )
   }
   csv  <- function() system.file("internal", "analysis1.csv", package = "yspec")
-  proj <- function() load_proj_ex("project.yml")
+  proj <- function() {
+    ys_project(
+      load_spec_ex("DEM104101F_PK.yml"), 
+      load_spec_ex("DEM104101F_PKPD.yml"),
+      load_spec_ex("DEM104101F_AE.yml")
+    )
+  }
   yaml <- function() {
     ys_view_impl("internal", "analysis1.yml")  
   }

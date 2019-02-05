@@ -69,9 +69,9 @@ VALID_SETUP_NAMES <- c(
 #'     
 #' @section Package-wide options:
 #' 
-#' - `ys.sanitize` a function to use for sanitizing text before processing wiht 
+#' - `ys.sanitize` a function to use for sanitizing text before processing with 
 #'   latex; see [yspec::pander_table()]
-#' - `ys.col.length` the maximum number of characters in a data frame column 
+#' - `ys.col.len` the maximum number of characters in a data frame column 
 #'   name; this defaults to 8 so that columns with 9 or more characters will
 #'   generate an error on load. 
 #' - `ys.fct.suffix` the suffix to add to a column name, used by 

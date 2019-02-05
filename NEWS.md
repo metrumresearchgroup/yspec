@@ -31,7 +31,7 @@ searched for in the lookup resources
 - Handler `!value:decode` has been added so that maps can be created with the 
 values on the left hand side (`- 0 : male`)
 - Handler `!decode:value` has been added that recreates the default map 
-handling, but also allows several values to be maped to the same decode
+handling, but also allows several values to be mapped to the same decode
 - An error is generated if the number of characters in a column name 
 is greater than 8.  Set the `ys.col.len` option to control the max allowable
 characters.
@@ -50,7 +50,7 @@ the value will be substituted in with `glue`; this is the proper way to evade
 the sanitizer when including TeX code in the document
 - Only "numeric" or "character" will be accepted in the `type` field; and error
 is generated if anything else appears there
-
+- Added `c` method to combine two yspec objects together
 
 # yspec 0.1.0.9001
 

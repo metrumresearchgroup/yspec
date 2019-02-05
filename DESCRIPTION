@@ -1,10 +1,10 @@
 Package: yspec
 Type: Package
 Title: Data Specification for Pharmacometrics
-Version: 0.2.0.9000
+Version: 0.3.0
 Authors@R: c(
-       person("Kyle T", "Baron", "", "kyleb@metrumrg.com", c("aut", "cre")),
-       person("Metrum Research Group LLC", role =  c("cph"))
+       person("Kyle T", "Baron", "", "kyleb@metrumrg.com", c("aut", "cre"), comment=c(ORCID="0000-0001-7252-5656")),
+       person("Metrum Research Group", role =  c("cph"))
        )
 Maintainer: Kyle Baron <kyleb@metrumrg.com>
 Description: Generate Define.pdf from yaml specification.

@@ -1,6 +1,48 @@
 
 is_yspec <- function(x) inherits(x, "yspec")
 
+
+
+##' @export
+update.yspec <- function(object, projectnumber=NULL, sponsor=NULL, ...) {
+  
+  non_null <- c(projectnumber,sponsor)
+  
+  if(is.null(non_null)) return(object)
+  
+  m <- get_meta(object)
+  
+  if(is.character(projectnumber)) {
+    m[["projectnumber"]] <- projectnumber  
+  }
+  
+  if(is.character(sponsor)) {
+    m[["sponsor"]] <- sponsor  
+  }
+  
+  structure(object, meta = m)
+  
+}
+
+
+#' Add extra column elements to a yspec object
+#' 
+#' @param x a `yspec` object
+#' @param y a `yspec` object
+#' @param ... not used
+#' 
+#' 
+#' 
+#' @export
+c.yspec <- function(x,y,...) {
+  assert_that(is_yspec(y))
+  new_cols <- setdiff(names(y),names(x))
+  if(!identical(new_cols, names(y))) {
+    stop("'x' and 'y' cannot share any names.")  
+  }
+  structure(c(as.list(x),as.list(y)), meta = get_meta(x), class="yspec")
+}
+
 ##' @export
 `$.yspec` <- function(x, name, ...) {
   if(!exists(name,x)) {

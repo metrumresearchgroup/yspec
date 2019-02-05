@@ -1,3 +1,4 @@
+yspec\.Rcheck
 vignettes/*.html
 vignettes/*.md
 \.DS_Store

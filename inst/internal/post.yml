@@ -1,0 +1,10 @@
+SETUP__:
+  description: Extra columns for plotting data set.
+CWRES:
+  short: CWRES
+WRES:
+  short: WRES
+IPRED:
+  short: individual predicted
+PRED:
+  short: population predicted

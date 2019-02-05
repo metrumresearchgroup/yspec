@@ -2,7 +2,8 @@ pandoc: '2.5'
 pkgdown: 1.3.0
 pkgdown_sha: ~
 articles:
-  index: index.html
+  _index: _index.html
+  analysis1: analysis1.html
   lookup: lookup.html
   project: project.html
   reference: reference.html

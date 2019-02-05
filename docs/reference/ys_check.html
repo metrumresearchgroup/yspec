@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">yspec</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -76,7 +76,7 @@
   </a>
 </li>
 <li>
-  <a href="../articles/yspec.html">Get started</a>
+  <a href="../articles/yspec.html">Get Started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -89,7 +89,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/index.html">yspec vignettes</a>
+      <a href="../articles/analysis1.html">Example specification document</a>
     </li>
     <li>
       <a href="../articles/lookup.html">Project-wide column definitions</a>
@@ -98,7 +98,7 @@
       <a href="../articles/project.html">Project object and define document</a>
     </li>
     <li>
-      <a href="../articles/reference.html">yspec `yaml` specification</a>
+      <a href="../articles/reference.html">YAML specification</a>
     </li>
     <li>
       <a href="../articles/ysdb_internal.html">Internal Column Lookup Database</a>
@@ -191,9 +191,9 @@ after removing missing values.</p></li>
 on load:</p><ol>
 <li><p>All column names must be less than or equal to 8 characters by default.
 This maximum number of characters can be overridden by setting
-option <code>ys.col.len</code>.</p></li>
+option <code>ys.col.len</code> equal to the desired maximum.</p></li>
 </ol>
-    <p>Output can be directed to a file (see the <code>ouput</code> argument) and
+    <p>Output can be directed to a file (see the <code>output</code> argument) and
 more verbose output can be requested as the check proceeds by the
 <code>verbose</code> argument.</p>
     
@@ -202,6 +202,9 @@ more verbose output can be requested as the check proceeds by the
     <pre class="examples"><div class='input'>
 <span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='no'>ys_help</span>$<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>()
 <span class='no'>spec</span> <span class='kw'>&lt;-</span> <span class='no'>ys_help</span>$<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/spectrum'>spec</a></span>()
+
+<span class='co'># Recommend running this at the end of data assembly</span>
+<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span>(<span class='no'>data</span>,<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='no'>spec</span>))
 
 <span class='fu'>ys_check</span>(<span class='no'>data</span>,<span class='no'>spec</span>)</div><div class='output co'>#&gt; <span class='message'>The data set passed all checks.</span></div><div class='input'>
 </div></pre>

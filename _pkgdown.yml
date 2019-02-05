@@ -1,0 +1,18 @@
+navbar:
+  components:
+    intro: 
+      text: Get Started
+      href: articles/yspec.html
+    articles:
+      text: Articles
+      menu:
+      - text: Yaml specification reference
+        href: articles/reference.html
+      - text: Example yaml specification file
+        href: articles/analys1.html
+      - text: Using lookup files
+        href: articles/lookup.html
+      - text: yspec internal data base
+        href: articles/ysdb_internal.html
+      - text: Project objects
+        href: articles/project.html

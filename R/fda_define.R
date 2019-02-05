@@ -142,7 +142,7 @@ fda_content_table_loc <- function(data_file,loc) {
 ##' @param file full path to define yaml file
 ##' @param title used in yaml front matter
 ##' @param ext data set file extension to include; this should only 
-##' be changed from default value of ".xpt" for testing puroses
+##' be changed from default value of ".xpt" for testing purposes
 ##' @param loc location to use for data set files; this should 
 ##' only be changed from default value of "." for testing purposes
 ##' @param ... arguments passed to rendering functions; see

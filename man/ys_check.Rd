@@ -52,10 +52,10 @@ on load:
 \enumerate{
 \item All column names must be less than or equal to 8 characters by default.
 This maximum number of characters can be overridden by setting
-option \code{ys.col.len}.
+option \code{ys.col.len} equal to the desired maximum.
 }
 
-Output can be directed to a file (see the \code{ouput} argument) and
+Output can be directed to a file (see the \code{output} argument) and
 more verbose output can be requested as the check proceeds by the
 \code{verbose} argument.
 }
@@ -63,6 +63,9 @@ more verbose output can be requested as the check proceeds by the
 
 data <- ys_help$data()
 spec <- ys_help$spec()
+
+# Recommend running this at the end of data assembly
+data <- dplyr::select(data,names(spec))
 
 ys_check(data,spec)
 

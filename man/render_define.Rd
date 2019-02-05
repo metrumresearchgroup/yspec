@@ -38,7 +38,7 @@ render_spec(x, ...)
 
 \item{stem}{used to name the output file}
 
-\item{format}{the name of a function that will genrate code formatting
+\item{format}{the name of a function that will generate code formatting
 the data specification information}
 
 \item{output_format}{passed to \link[rmarkdown:render]{rmarkdown::render}}
@@ -61,7 +61,7 @@ document}
 \item{dots}{passed to object converter}
 }
 \description{
-\code{render_spec} is an alias to \code{render_define}.  See detils.
+\code{render_spec} is an alias to \code{render_define}.  See details.
 }
 \details{
 \code{stem} should not include a file extension, just

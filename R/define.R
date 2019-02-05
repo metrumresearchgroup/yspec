@@ -59,11 +59,11 @@ ys_document <- function(x, type = c("working", "regulatory"), ...) {
 
 ##' Render a `define.pdf` document
 ##' 
-##' `render_spec` is an alias to `render_define`.  See detils.
+##' `render_spec` is an alias to `render_define`.  See details.
 ##'
 ##' @param x a `yproj` object or project specification file name
 ##' @param stem used to name the output file
-##' @param format the name of a function that will genrate code formatting
+##' @param format the name of a function that will generate code formatting
 ##' the data specification information
 ##' @param output_format passed to [rmarkdown::render]
 ##' @param output_dir passed to [rmarkdown::render]

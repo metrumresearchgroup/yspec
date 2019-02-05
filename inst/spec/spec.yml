@@ -77,6 +77,8 @@ HAIR:
   values: [0,1,2]
   decode: [brown, blonde, black]
   axis: Hair color
+  table: hair col
+  dots: {mrgtable: foo bar}
 CLCR:
   about: [creatinine clearance, ml/min]
   range: [40, 180]

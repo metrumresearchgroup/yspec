@@ -60,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">yspec</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -73,7 +73,7 @@
   </a>
 </li>
 <li>
-  <a href="../articles/yspec.html">Get started</a>
+  <a href="../articles/yspec.html">Get Started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -86,7 +86,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/index.html">yspec vignettes</a>
+      <a href="../articles/analysis1.html">Example specification document</a>
     </li>
     <li>
       <a href="../articles/lookup.html">Project-wide column definitions</a>
@@ -95,7 +95,7 @@
       <a href="../articles/project.html">Project object and define document</a>
     </li>
     <li>
-      <a href="../articles/reference.html">yspec `yaml` specification</a>
+      <a href="../articles/reference.html">YAML specification</a>
     </li>
     <li>
       <a href="../articles/ysdb_internal.html">Internal Column Lookup Database</a>
@@ -151,7 +151,7 @@
 </li>
 <li>Handler <code>!look</code> has been added to indicate that column data should be searched for in the lookup resources</li>
 <li>Handler <code>!value:decode</code> has been added so that maps can be created with the values on the left hand side (<code>- 0 : male</code>)</li>
-<li>Handler <code>!decode:value</code> has been added that recreates the default map handling, but also allows several values to be maped to the same decode</li>
+<li>Handler <code>!decode:value</code> has been added that recreates the default map handling, but also allows several values to be mapped to the same decode</li>
 <li>An error is generated if the number of characters in a column name is greater than 8. Set the <code>ys.col.len</code> option to control the max allowable characters.</li>
 <li>Added <code>verbose</code> argument to print information to the console while processing a yaml file</li>
 <li>Added <code>ys_help</code> object that includes example / demo materials, including a function that will export a folder of assets that will work out of the box</li>
@@ -160,6 +160,7 @@
 <li>Added custom sanitizer <code>ys_sanitize</code> that can be changed through the <code>ys.sanitize</code> option</li>
 <li>Added a <code>glue</code> field for <code>SETUP__</code>, where a yaml map can be used to connect value with a name; when the name is inserted in to yaml code as <code>&lt;&lt;name&gt;&gt;</code>, the value will be substituted in with <code>glue</code>; this is the proper way to evade the sanitizer when including TeX code in the document</li>
 <li>Only “numeric” or “character” will be accepted in the <code>type</code> field; and error is generated if anything else appears there</li>
+<li>Added <code>c</code> method to combine two yspec objects together</li>
 </ul>
 </div>
     <div id="yspec-0109001" class="section level1">

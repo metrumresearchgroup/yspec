@@ -7,7 +7,7 @@ check_spec_input_col <- function(x, col, env, not_allowed = NULL, ...) {
   if(!t0) {
     err <- c(
       err, 
-      paste0("column name greater than ",  getOption("ys.col.len",8), " characters: ", col)
+      paste0("column name more than ",  getOption("ys.col.len",8), " characters long")
     )
   }
   
@@ -65,10 +65,10 @@ check_this_col <- function(x,col,env,...) {
       )
     }
   }
-  if(!(x[["type"]] %in% c("numeric", "character"))) {
+  if(!(x[["type"]] %in% c("numeric", "character", "integer"))) {
     err <- c(
       err, 
-      paste0("'type' must be 'numeric' or 'character' ('", x[["type"]], "')")
+      paste0("'type' must be 'numeric', 'character' or 'integer' ('", x[["type"]], "')")
     )
   }
   env$err[[col]] <- err
