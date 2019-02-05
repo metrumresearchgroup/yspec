@@ -1,6 +1,6 @@
 ---
 title: "Internal Column Lookup Database"
-author: "STATUS: development"
+author: ""
 date: "`r Sys.Date()`"
 output: 
   rmarkdown::html_vignette: 

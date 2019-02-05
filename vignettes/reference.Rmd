@@ -1,6 +1,6 @@
 ---
 title: "YAML specification"
-author: "Kyle Baron"
+author: ""
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >

@@ -1,6 +1,6 @@
 ---
 title: "Project-wide column definitions"
-author: "STATUS: development"
+author: ""
 date: "`r Sys.Date()`"
 output: 
   rmarkdown::html_vignette: 
