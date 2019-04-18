@@ -1,3 +1,12 @@
+# yspec 0.3.9000
+
+- Added minimum version numbers for dependency packages
+- Added `long` argument to `pander_table` to create longer tables
+
+# yspec 0.3.0
+
+- Released into production
+
 # yspec 0.2.0.9000
 - Fixed bug where column check error were assigned to the wrong column 
 name #7

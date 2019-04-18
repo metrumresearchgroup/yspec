@@ -11,8 +11,18 @@ Description: Generate Define.pdf from yaml specification.
 License: GPL (>=2)
 Encoding: UTF-8
 LazyData: true
-Imports: yaml, dplyr, rmarkdown, knitr, xtable, 
-    rlang, assertthat, purrr, glue, rstudioapi, crayon
+Imports: 
+    yaml (>= 2.2),
+    dplyr (>= 0.8.0),
+    rmarkdown (>= 1.12),
+    knitr (>= 1.22),
+    xtable (>= 1.8),
+    rlang (>= 0.3.4),
+    assertthat, 
+    purrr (>= 0.3.2),
+    glue (>= 1.3.1),
+    rstudioapi,
+    crayon (>= 1.3.4)
 Suggests: pander, testthat
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1

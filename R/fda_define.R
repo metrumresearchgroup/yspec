@@ -46,6 +46,19 @@ command__ <- paste0(
 )
 add.to.row$command <- command__
 
+add.to.row_long <- list(pos = list(0), command = NULL)
+command__ <- paste0(
+  "\\hline\n\\endhead\n",
+  "\\hline\n",
+  "\\multicolumn{3}{l}",
+  "{\\footnotesize Continued on next page}\n",
+  "\\endfoot\n",
+  "\\endlastfoot\n"
+)
+add.to.row_long$command <- command__
+
+
+
 ##' Generate a table for FDA define.pdf document
 ##'
 ##' @param x a yspec object
