@@ -27,7 +27,14 @@ yspec_add_factors <- function(.data, .spec, ... , .suffix =
   
   assert_that(inherits(.spec, "yspec"))
   
-  vars <- select_vars(names(.data), !!!quos(...))
+  what <- exprs(...)
+  
+  if(identical(unname(map_chr(what,as_string)), ".all_vars")) {
+    dis <- map_lgl(.spec, ~!is.null(.x[["values"]]))
+    vars <- select_vars(names(.data), names(which(dis)))
+  } else {
+    vars <- select_vars(names(.data), !!!what)
+  }
   
   for(v in vars) {
     newcol <- paste0(v, .suffix)
