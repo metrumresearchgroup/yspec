@@ -36,7 +36,7 @@ test_that("make factor from .all_vars", {
   has_values <- c("C", "SEQ", "EVID", "CP", "MDV", "BLQ", "PHASE", "STUDY", "RF")
   
   before <- names(dat)
-  dat <- yspec_add_factors(dat, sp, .all_vars)
+  dat <- yspec_add_factors(dat, sp, .all=TRUE)
   after <- names(dat)
   diff <- setdiff(after,before)
   expect_identical(diff, paste0(has_values,"_f"))

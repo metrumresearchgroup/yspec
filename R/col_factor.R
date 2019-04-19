@@ -22,20 +22,20 @@
 ##' yspec_add_factors(data, spec, SEX, STUDY)
 ##' 
 ##' @export
-yspec_add_factors <- function(.data, .spec, ... , .suffix = 
+yspec_add_factors <- function(.data, .spec, ... , .all=TRUE, .suffix = 
                                 getOption("ys.fct.suffix","_f")) {
   
   assert_that(inherits(.spec, "yspec"))
   
   what <- exprs(...)
-  
-  if(identical(unname(map_chr(what,as_string)), ".all_vars")) {
+  what <- map_chr(what,as_string)
+  if(length(what)==0 & isTRUE(.all)) {
     dis <- map_lgl(.spec, ~!is.null(.x[["values"]]))
     vars <- select_vars(names(.data), names(which(dis)))
   } else {
-    vars <- select_vars(names(.data), !!!what)
+    vars <- select_vars(names(.data),what)  
   }
-  
+
   for(v in vars) {
     newcol <- paste0(v, .suffix)
     .data[[newcol]] <- yspec_make_factor(.data[[v]],.spec[[v]])

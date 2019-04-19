@@ -5,8 +5,8 @@
 \alias{yspec_make_factor}
 \title{Add factors to data set based on spec information}
 \usage{
-yspec_add_factors(.data, .spec, ..., .suffix = getOption("ys.fct.suffix",
-  "_f"))
+yspec_add_factors(.data, .spec, ..., .all = TRUE,
+  .suffix = getOption("ys.fct.suffix", "_f"))
 
 yspec_make_factor(values, x)
 }
