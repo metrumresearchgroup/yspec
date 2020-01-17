@@ -6,12 +6,21 @@
 \alias{as_proj_spec}
 \title{Create a project object from data spec objects}
 \usage{
-ys_project(..., output = tempfile(fileext = ".yml"), data_path = NULL,
-  dots = list(), sponsor = "[sponsor]",
-  projectnumber = "[projectnumber]")
+ys_project(
+  ...,
+  output = tempfile(fileext = ".yml"),
+  data_path = NULL,
+  dots = list(),
+  sponsor = "[sponsor]",
+  projectnumber = "[projectnumber]"
+)
 
-ys_project_file(..., output = tempfile(fileext = ".yml"), where = NULL,
-  dots = list())
+ys_project_file(
+  ...,
+  output = tempfile(fileext = ".yml"),
+  where = NULL,
+  dots = list()
+)
 
 as_proj_spec(...)
 }

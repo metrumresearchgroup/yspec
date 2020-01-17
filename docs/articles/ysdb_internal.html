@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Internal Column Lookup Database • yspec</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Internal Column Lookup Database">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
@@ -30,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">yspec</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0.9000</span>
       </span>
     </div>
 
@@ -38,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -56,19 +57,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/analysis1.html">Example specification document</a>
+      <a href="../articles/reference.html">Yaml specification reference</a>
     </li>
     <li>
-      <a href="../articles/lookup.html">Project-wide column definitions</a>
+      <a href="../articles/analys1.html">Example yaml specification file</a>
     </li>
     <li>
-      <a href="../articles/project.html">Project object and define document</a>
+      <a href="../articles/lookup.html">Using lookup files</a>
     </li>
     <li>
-      <a href="../articles/reference.html">YAML specification</a>
+      <a href="../articles/ysdb_internal.html">yspec internal data base</a>
     </li>
     <li>
-      <a href="../articles/ysdb_internal.html">Internal Column Lookup Database</a>
+      <a href="../articles/project.html">Project objects</a>
     </li>
   </ul>
 </li>
@@ -85,12 +86,13 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Internal Column Lookup Database</h1>
             
-            <h4 class="date">2019-02-05</h4>
+            <h4 class="date">2019-10-13</h4>
       
       
       <div class="hidden name"><code>ysdb_internal.Rmd</code></div>
@@ -106,8 +108,8 @@
 <a class="sourceLine" id="cb1-2" title="2">  <span class="fu">description:</span><span class="at"> yspec internal column database</span></a>
 <a class="sourceLine" id="cb1-3" title="3"><span class="fu">C:</span><span class="at"> </span></a>
 <a class="sourceLine" id="cb1-4" title="4">  <span class="fu">short:</span><span class="at"> comment character</span></a>
-<a class="sourceLine" id="cb1-5" title="5">  <span class="fu">values:</span><span class="at"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Extract">[</a></span><span class="st">"."</span><span class="kw">,</span> <span class="st">"C"</span><span class="kw">]</span></a>
-<a class="sourceLine" id="cb1-6" title="6">  <span class="fu">decode:</span><span class="at"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Extract">[</a></span>analysis row<span class="kw">,</span> commented row<span class="kw">]</span></a>
+<a class="sourceLine" id="cb1-5" title="5">  <span class="fu">values:</span><span class="at"> </span><span class="kw"><a href="https://rdrr.io/r/base/Extract.html">[</a></span><span class="st">"."</span><span class="kw">,</span> <span class="st">"C"</span><span class="kw">]</span></a>
+<a class="sourceLine" id="cb1-6" title="6">  <span class="fu">decode:</span><span class="at"> </span><span class="kw"><a href="https://rdrr.io/r/base/Extract.html">[</a></span>analysis row<span class="kw">,</span> commented row<span class="kw">]</span></a>
 <a class="sourceLine" id="cb1-7" title="7">  <span class="fu">type:</span><span class="at"> character</span></a>
 <a class="sourceLine" id="cb1-8" title="8"><span class="fu">ID:</span><span class="at"> </span></a>
 <a class="sourceLine" id="cb1-9" title="9">  <span class="fu">short:</span><span class="at"> subject identifier</span></a>
@@ -126,7 +128,7 @@
 <a class="sourceLine" id="cb1-22" title="22">  <span class="fu">type:</span><span class="at"> numeric</span></a>
 <a class="sourceLine" id="cb1-23" title="23"><span class="fu">EVID:</span></a>
 <a class="sourceLine" id="cb1-24" title="24">  <span class="fu">short:</span><span class="at"> event ID</span></a>
-<a class="sourceLine" id="cb1-25" title="25">  <span class="fu">values:</span><span class="at"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Extract">[</a></span><span class="fu">observation:</span><span class="at"> </span><span class="dv">0</span><span class="kw">,</span> <span class="fu">dose:</span><span class="at"> </span><span class="dv">1</span><span class="kw">]</span></a>
+<a class="sourceLine" id="cb1-25" title="25">  <span class="fu">values:</span><span class="at"> </span><span class="kw"><a href="https://rdrr.io/r/base/Extract.html">[</a></span><span class="fu">observation:</span><span class="at"> </span><span class="dv">0</span><span class="kw">,</span> <span class="fu">dose:</span><span class="at"> </span><span class="dv">1</span><span class="kw">]</span></a>
 <a class="sourceLine" id="cb1-26" title="26"><span class="fu">AMT:</span><span class="at"> </span></a>
 <a class="sourceLine" id="cb1-27" title="27">  <span class="fu">short:</span><span class="at"> dose amount</span></a>
 <a class="sourceLine" id="cb1-28" title="28">  <span class="fu">type:</span><span class="at"> numeric</span></a>
@@ -138,12 +140,12 @@
 <a class="sourceLine" id="cb1-34" title="34">  <span class="fu">type:</span><span class="at"> numeric</span></a>
 <a class="sourceLine" id="cb1-35" title="35"><span class="fu">SS:</span><span class="at"> </span></a>
 <a class="sourceLine" id="cb1-36" title="36">  <span class="fu">short:</span><span class="at"> steady state indicator</span></a>
-<a class="sourceLine" id="cb1-37" title="37">  <span class="fu">values:</span><span class="at"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Extract">[</a></span><span class="dv">0</span><span class="kw">,</span><span class="dv">1</span><span class="kw">]</span></a>
+<a class="sourceLine" id="cb1-37" title="37">  <span class="fu">values:</span><span class="at"> </span><span class="kw"><a href="https://rdrr.io/r/base/Extract.html">[</a></span><span class="dv">0</span><span class="kw">,</span><span class="dv">1</span><span class="kw">]</span></a>
 <a class="sourceLine" id="cb1-38" title="38">  <span class="fu">decode:</span></a>
-<a class="sourceLine" id="cb1-39" title="39">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> non-steady state indicator</a>
-<a class="sourceLine" id="cb1-40" title="40">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> steady state indicator</a>
+<a class="sourceLine" id="cb1-39" title="39">    <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> non-steady state indicator</a>
+<a class="sourceLine" id="cb1-40" title="40">    <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> steady state indicator</a>
 <a class="sourceLine" id="cb1-41" title="41"><span class="fu">MDV:</span></a>
-<a class="sourceLine" id="cb1-42" title="42">  <span class="fu">values:</span><span class="at"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Extract">[</a></span><span class="fu">non-missing:</span><span class="at"> </span><span class="dv">0</span><span class="kw">,</span> <span class="fu">missing:</span><span class="at"> </span><span class="dv">1</span><span class="kw">]</span></a>
+<a class="sourceLine" id="cb1-42" title="42">  <span class="fu">values:</span><span class="at"> </span><span class="kw"><a href="https://rdrr.io/r/base/Extract.html">[</a></span><span class="fu">non-missing:</span><span class="at"> </span><span class="dv">0</span><span class="kw">,</span> <span class="fu">missing:</span><span class="at"> </span><span class="dv">1</span><span class="kw">]</span></a>
 <a class="sourceLine" id="cb1-43" title="43">  <span class="fu">type:</span><span class="at"> numeric</span></a>
 <a class="sourceLine" id="cb1-44" title="44">  <span class="fu">long:</span><span class="at"> missing DV indicator</span></a>
 <a class="sourceLine" id="cb1-45" title="45">  <span class="fu">comment:</span><span class="at"> per NONMEM specifications</span></a>
@@ -162,7 +164,7 @@
 <a class="sourceLine" id="cb1-58" title="58">  <span class="fu">unit:</span><span class="at"> m2/kg</span></a>
 <a class="sourceLine" id="cb1-59" title="59">  <span class="fu">type:</span><span class="at"> numeric</span></a>
 <a class="sourceLine" id="cb1-60" title="60"><span class="fu">HT:</span></a>
-<a class="sourceLine" id="cb1-61" title="61">  <span class="fu">about:</span><span class="at"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Extract">[</a></span>height<span class="kw">,</span> cm<span class="kw">]</span></a>
+<a class="sourceLine" id="cb1-61" title="61">  <span class="fu">about:</span><span class="at"> </span><span class="kw"><a href="https://rdrr.io/r/base/Extract.html">[</a></span>height<span class="kw">,</span> cm<span class="kw">]</span></a>
 <a class="sourceLine" id="cb1-62" title="62">  <span class="fu">long:</span><span class="at"> Height</span></a>
 <a class="sourceLine" id="cb1-63" title="63">  <span class="fu">type:</span><span class="at"> numeric</span></a>
 <a class="sourceLine" id="cb1-64" title="64"><span class="fu">ALB:</span></a>
@@ -171,18 +173,20 @@
 <a class="sourceLine" id="cb1-67" title="67">  <span class="fu">short:</span><span class="at"> albumin</span></a>
 <a class="sourceLine" id="cb1-68" title="68">  <span class="fu">type:</span><span class="at"> numeric</span></a>
 <a class="sourceLine" id="cb1-69" title="69"><span class="fu">AGE:</span></a>
-<a class="sourceLine" id="cb1-70" title="70">  <span class="fu">about:</span><span class="at"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Extract">[</a></span>age<span class="kw">,</span>years<span class="kw">]</span></a>
+<a class="sourceLine" id="cb1-70" title="70">  <span class="fu">about:</span><span class="at"> </span><span class="kw"><a href="https://rdrr.io/r/base/Extract.html">[</a></span>age<span class="kw">,</span>years<span class="kw">]</span></a>
 <a class="sourceLine" id="cb1-71" title="71"><span class="fu">SEX:</span><span class="at"> </span></a>
-<a class="sourceLine" id="cb1-72" title="72">  <span class="fu">values:</span><span class="at"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Paren">{</a></span><span class="fu">male:</span><span class="at"> </span><span class="dv">0</span><span class="kw">,</span> <span class="fu">female:</span><span class="at"> </span><span class="dv">1</span><span class="kw">}</span></a>
+<a class="sourceLine" id="cb1-72" title="72">  <span class="fu">values:</span><span class="at"> </span><span class="kw"><a href="https://rdrr.io/r/base/Paren.html">{</a></span><span class="fu">male:</span><span class="at"> </span><span class="dv">0</span><span class="kw">,</span> <span class="fu">female:</span><span class="at"> </span><span class="dv">1</span><span class="kw">}</span></a>
 <a class="sourceLine" id="cb1-73" title="73"><span class="fu">NUM:</span><span class="at"> </span></a>
 <a class="sourceLine" id="cb1-74" title="74">  <span class="fu">short:</span><span class="at"> record number</span></a>
 <a class="sourceLine" id="cb1-75" title="75">  <span class="fu">type:</span><span class="at"> numeric</span></a></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
       </div>
 
 </div>
+
 
 
       <footer><div class="copyright">
@@ -190,12 +194,14 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.0.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

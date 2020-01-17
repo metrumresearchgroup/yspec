@@ -12,12 +12,20 @@
 \usage{
 render_define(x, ...)
 
-\method{render_define}{yproj}(x, stem = "define_working",
+\method{render_define}{yproj}(
+  x,
+  stem = "define_working",
   format = c("x_table", "x_table_long", "pander_table", "md_outline"),
-  output_format = "pdf_document", output_dir = getwd(),
-  build_dir = tempdir(), title = "Data Specification",
-  author = "MetrumRG", toc = "yes", number_sections = "yes",
-  date = format(Sys.time()), ...)
+  output_format = "pdf_document",
+  output_dir = getwd(),
+  build_dir = tempdir(),
+  title = "Data Specification",
+  author = "MetrumRG",
+  toc = "yes",
+  number_sections = "yes",
+  date = format(Sys.time()),
+  ...
+)
 
 \method{render_define}{character}(x, ..., dots = list())
 
@@ -25,11 +33,9 @@ render_define(x, ...)
 
 render_spec(x, ...)
 
-\method{render_spec}{character}(x, stem = basename(x), ...,
-  dots = list())
+\method{render_spec}{character}(x, stem = basename(x), ..., dots = list())
 
-\method{render_spec}{yspec}(x, stem = get_meta(x)[["name"]], ...,
-  dots = list())
+\method{render_spec}{yspec}(x, stem = get_meta(x)[["name"]], ..., dots = list())
 }
 \arguments{
 \item{x}{a \code{yproj} object or project specification file name}

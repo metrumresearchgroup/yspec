@@ -8,21 +8,25 @@
 
 <title>yspec help object — print.yhelp • yspec</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,14 +34,15 @@
 
 
 
-<meta property="og:title" content="yspec help object — print.yhelp" />
 
+<meta property="og:title" content="yspec help object — print.yhelp" />
 <meta property="og:description" content="ys_help is an environment containing functions that can be called to
 provide information and examples for how yspec works.  specification(),
 internal_db() and analysis1() will open up markdown or yaml files
 using rstudioapi::navigateToFile if that package is installed and
 file.show in case it is not." />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -49,6 +54,7 @@ file.show in case it is not." />
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 
 
   </head>
@@ -67,7 +73,7 @@ file.show in case it is not." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">yspec</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0.9000</span>
       </span>
     </div>
 
@@ -75,7 +81,7 @@ file.show in case it is not." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -93,19 +99,19 @@ file.show in case it is not." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/analysis1.html">Example specification document</a>
+      <a href="../articles/reference.html">Yaml specification reference</a>
     </li>
     <li>
-      <a href="../articles/lookup.html">Project-wide column definitions</a>
+      <a href="../articles/analys1.html">Example yaml specification file</a>
     </li>
     <li>
-      <a href="../articles/project.html">Project object and define document</a>
+      <a href="../articles/lookup.html">Using lookup files</a>
     </li>
     <li>
-      <a href="../articles/reference.html">YAML specification</a>
+      <a href="../articles/ysdb_internal.html">yspec internal data base</a>
     </li>
     <li>
-      <a href="../articles/ysdb_internal.html">Internal Column Lookup Database</a>
+      <a href="../articles/project.html">Project objects</a>
     </li>
   </ul>
 </li>
@@ -113,7 +119,6 @@ file.show in case it is not." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -123,6 +128,7 @@ file.show in case it is not." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -134,20 +140,18 @@ file.show in case it is not." />
     </div>
 
     <div class="ref-description">
-    
     <p><code>ys_help</code> is an environment containing functions that can be called to
 provide information and examples for how yspec works.  <code>specification()</code>,
 <code>internal_db()</code> and <code>analysis1()</code> will open up markdown or yaml files
-using <a href='https://www.rdocumentation.org/packages/rstudioapi/topics/navigateToFile'>rstudioapi::navigateToFile</a> if that package is installed and
-<a href='https://www.rdocumentation.org/packages/base/topics/file.show'>file.show</a> in case it is not.</p>
-    
+using <a href='https://rdrr.io/pkg/rstudioapi/man/navigateToFile.html'>rstudioapi::navigateToFile</a> if that package is installed and
+<a href='https://rdrr.io/r/base/file.show.html'>file.show</a> in case it is not.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for yhelp</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>...</span>)
 
 <span class='no'>ys_help</span></pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -156,66 +160,65 @@ using <a href='https://www.rdocumentation.org/packages/rstudioapi/topics/navigat
       <td><p>further arguments passed to or from other methods.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
     <p>An object of class <code>yhelp</code> of length 12.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <ul>
-<li><p><code><a href='https://www.rdocumentation.org/packages/stats/topics/spectrum'>spec()</a></code> generates the analysis1 yspec object</p></li>
-<li><p><code><a href='https://www.rdocumentation.org/packages/base/topics/connections'>file()</a></code> the file name and path of an example yspec file</p></li>
-<li><p><code><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data()</a></code> is a function that generates a data set that can be checked
-against <code><a href='https://www.rdocumentation.org/packages/stats/topics/spectrum'>spec()</a></code></p></li>
-<li><p><code>csv()</code> is the file name (and path) to the data set generated by <code><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data()</a></code></p></li>
-<li><p><code><a href='https://www.rdocumentation.org/packages/stats/topics/proj'>proj()</a></code> generates a project object that can be rendered into a document</p></li>
+    
+<ul>
+<li><p><code><a href='https://rdrr.io/r/stats/spectrum.html'>spec()</a></code> generates the analysis1 yspec object</p></li>
+<li><p><code><a href='https://rdrr.io/r/base/connections.html'>file()</a></code> the file name and path of an example yspec file</p></li>
+<li><p><code><a href='https://rdrr.io/r/utils/data.html'>data()</a></code> is a function that generates a data set that can be checked
+against <code><a href='https://rdrr.io/r/stats/spectrum.html'>spec()</a></code></p></li>
+<li><p><code>csv()</code> is the file name (and path) to the data set generated by <code><a href='https://rdrr.io/r/utils/data.html'>data()</a></code></p></li>
+<li><p><code><a href='https://rdrr.io/r/stats/proj.html'>proj()</a></code> generates a project object that can be rendered into a document</p></li>
 <li><p><code>yaml()</code> shows the analysis1 yaml file</p></li>
 <li><p><code>ref()</code> shows the syntax reference for yaml file</p></li>
 <li><p><code>db()</code> shows the internal column lookup data base</p></li>
-<li><p><code><a href='https://www.rdocumentation.org/packages/utils/topics/example'>example()</a></code> shows and Rmd file showing yspec workflow</p></li>
+<li><p><code><a href='https://rdrr.io/r/utils/example.html'>example()</a></code> shows and Rmd file showing yspec workflow</p></li>
 <li><p><code>export(path)</code> export internal assets that can be used for exploration
 in the local filesystem; you must supply the location (<code>path</code>) to
 where the content is to be exported; there is also an <code>overwrite</code> argument
 that will allow overwriting an existing folder (use with care!)</p></li>
 </ul>
-    
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>spec</span> <span class='kw'>&lt;-</span> <span class='no'>ys_help</span>$<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/spectrum'>spec</a></span>()
+    <pre class="examples"><div class='input'><span class='no'>spec</span> <span class='kw'>&lt;-</span> <span class='no'>ys_help</span>$<span class='fu'><a href='https://rdrr.io/r/stats/spectrum.html'>spec</a></span>()
 
-<span class='no'>file</span> <span class='kw'>&lt;-</span> <span class='no'>ys_help</span>$<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/connections'>file</a></span>()
+<span class='no'>file</span> <span class='kw'>&lt;-</span> <span class='no'>ys_help</span>$<span class='fu'><a href='https://rdrr.io/r/base/connections.html'>file</a></span>()
 
-<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='no'>ys_help</span>$<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>()
+<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='no'>ys_help</span>$<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>()
 
-<span class='no'>csv</span>  <span class='kw'>&lt;-</span> <span class='no'>ys_help</span>$<span class='fu'>csv</span>()</div><span class='co'># NOT RUN {</span>
-<span class='no'>proj</span> <span class='kw'>&lt;-</span> <span class='no'>ys_help</span>$<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/proj'>proj</a></span>()
+<span class='no'>csv</span>  <span class='kw'>&lt;-</span> <span class='no'>ys_help</span>$<span class='fu'>csv</span>()
+
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='no'>proj</span> <span class='kw'>&lt;-</span> <span class='no'>ys_help</span>$<span class='fu'><a href='https://rdrr.io/r/stats/proj.html'>proj</a></span>()
 
 <span class='no'>ref</span> <span class='kw'>&lt;-</span> <span class='no'>ys_help</span>$<span class='fu'>ref</span>()
 
 <span class='no'>db</span> <span class='kw'>&lt;-</span> <span class='no'>ys_help</span>$<span class='fu'>db</span>()
 
-<span class='no'>ex</span> <span class='kw'>&lt;-</span> <span class='no'>ys_help</span>$<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/example'>example</a></span>()
+<span class='no'>ex</span> <span class='kw'>&lt;-</span> <span class='no'>ys_help</span>$<span class='fu'><a href='https://rdrr.io/r/utils/example.html'>example</a></span>()
 
 <span class='no'>path</span> <span class='kw'>&lt;-</span> <span class='no'>ys_help</span>$<span class='fu'>export</span>(<span class='st'>"expath"</span>)
 
-<span class='co'># }</span><div class='input'>
-</div></pre>
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#format">Format</a></li>
-
       <li><a href="#details">Details</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -223,13 +226,16 @@ that will allow overwriting an existing folder (use with care!)</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.0.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
