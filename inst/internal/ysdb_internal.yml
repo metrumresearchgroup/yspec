@@ -49,6 +49,7 @@ DV:
 WT:
   short: weight
   unit: kg
+  type: numeric
 EGFR:
   short: eGFR
   long: estimated glomerular filtration rate
@@ -68,6 +69,7 @@ ALB:
   type: numeric
 AGE:
   about: [age,years]
+  type: numeric
 SEX: 
   values: {male: 0, female: 1}
 NUM: 
