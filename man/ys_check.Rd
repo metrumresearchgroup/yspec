@@ -64,7 +64,8 @@ more verbose output can be requested as the check proceeds by the
 data <- ys_help$data()
 spec <- ys_help$spec()
 
-# Recommend running this at the end of data assembly
+# Recommend running this at the end of data assembly and will fix an error
+# stating that the data cols are not sorted according to the spec
 data <- dplyr::select(data,names(spec))
 
 ys_check(data,spec)

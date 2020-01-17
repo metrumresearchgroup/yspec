@@ -74,11 +74,16 @@ check_data_names <- function(ndata,nspec,env,output) {
   
   add_error(env)
   
+  if(identical(sort(nspec),sort(ndata))) {
+    add_log(env, "data cols are not sorted according to the spec")
+    return(invisible(FALSE))
+  }
+  
   if(length(nspec) > length(ndata)) {
-    add_log(env, "spec has more items that data")
+    add_log(env, "spec has more items that cols in the data")
   }
   if(length(nspec) < length(ndata)) {
-    add_log(env, "data has more items that spec")
+    add_log(env, "data has more cols than items in the spec")
   }
   
   # In the spec but not in the data
@@ -117,56 +122,57 @@ check_data_names <- function(ndata,nspec,env,output) {
 
 
 
-##' Check a data set against its specification
-##' 
-##' See the check details below.
-##'
-##' @param data a data frame
-##' @param spec a yspec object
-##' @param verbose `logical`; if `TRUE`, extra messages
-##' are printed during the check
-##' @param output the name of a file or a connection 
-##' for writing check results
-##' @param file the full path to a yaml specification file
-##' @param ... arguments passed from alias function to preferred function name
-##' 
-##' @details
-##' 
-##' To pass the data check, all of the following must be true:
-##' 
-##' 1. The (column) names in the data set must be identical to the 
-##'    names in the spec object.
-##' 1. For discrete data types (where `values` is set), the unique values
-##'    in the data set column after removing missing values must be identical
-##'    to or a subset of the values given in the spec object.
-##' 1. For continuous data types where a `range` is given, all of the 
-##'    values in the data set column must be greater than the lower bound
-##'    of the range and less than the upper bound of the range, inclusive, 
-##'    after removing missing values.
-##'    
-##' Other checks are implicit in the data specification object and are checked
-##' on load:
-##' 
-##' 1. All column names must be less than or equal to 8 characters by default.
-##'    This maximum number of characters can be overridden by setting
-##'    option `ys.col.len` equal to the desired maximum.
-##'    
-##' Output can be directed to a file (see the `output` argument) and 
-##' more verbose output can be requested as the check proceeds by the 
-##' `verbose` argument.
-##' 
-##' @examples
-##' 
-##' data <- ys_help$data()
-##' spec <- ys_help$spec()
-##' 
-##' # Recommend running this at the end of data assembly
-##' data <- dplyr::select(data,names(spec))
-##' 
-##' ys_check(data,spec)
-##' 
-##' @md
-##' @export
+#' Check a data set against its specification
+#' 
+#' See the check details below.
+#'
+#' @param data a data frame
+#' @param spec a yspec object
+#' @param verbose `logical`; if `TRUE`, extra messages
+#' are printed during the check
+#' @param output the name of a file or a connection 
+#' for writing check results
+#' @param file the full path to a yaml specification file
+#' @param ... arguments passed from alias function to preferred function name
+#' 
+#' @details
+#' 
+#' To pass the data check, all of the following must be true:
+#' 
+#' 1. The (column) names in the data set must be identical to the 
+#'    names in the spec object.
+#' 1. For discrete data types (where `values` is set), the unique values
+#'    in the data set column after removing missing values must be identical
+#'    to or a subset of the values given in the spec object.
+#' 1. For continuous data types where a `range` is given, all of the 
+#'    values in the data set column must be greater than the lower bound
+#'    of the range and less than the upper bound of the range, inclusive, 
+#'    after removing missing values.
+#'    
+#' Other checks are implicit in the data specification object and are checked
+#' on load:
+#' 
+#' 1. All column names must be less than or equal to 8 characters by default.
+#'    This maximum number of characters can be overridden by setting
+#'    option `ys.col.len` equal to the desired maximum.
+#'    
+#' Output can be directed to a file (see the `output` argument) and 
+#' more verbose output can be requested as the check proceeds by the 
+#' `verbose` argument.
+#' 
+#' @examples
+#' 
+#' data <- ys_help$data()
+#' spec <- ys_help$spec()
+#' 
+#' # Recommend running this at the end of data assembly and will fix an error
+#' # stating that the data cols are not sorted according to the spec
+#' data <- dplyr::select(data,names(spec))
+#' 
+#' ys_check(data,spec)
+#' 
+#' @md
+#' @export
 ys_check <- function(data, spec, verbose = FALSE, output = tempfile()) {
   
   if(!is.data.frame(data)) {
@@ -253,18 +259,18 @@ ys_check <- function(data, spec, verbose = FALSE, output = tempfile()) {
   return(invisible(env$error))
 }
 
-##' @rdname ys_check
-##' @export
+#' @rdname ys_check
+#' @export
 ys_check_file <- function(data, file) {
   ys_check(data, load_spec(file))
 }
 
-##' @rdname ys_check
-##' @export
+#' @rdname ys_check
+#' @export
 check_data <- function(...) ys_check(...)
 
-##' @rdname ys_check
-##' @export
+#' @rdname ys_check
+#' @export
 check_data_file <- function(...) ys_check_file(...)
 
 
