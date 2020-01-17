@@ -22,6 +22,9 @@ yspec_make_factor(values, x)
 
 \item{...}{unquoted column names for modification}
 
+\item{.all}{if `TRUE` then any column with a `values` attribute will be 
+added as a factor}
+
 \item{.suffix}{used to make the column name for the factors}
 
 \item{values}{a vector of values to convert to a factor}

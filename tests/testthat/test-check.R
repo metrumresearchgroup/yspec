@@ -50,6 +50,12 @@ test_that("extra column", {
                regexp = "Please review messages and re-check")
 })
 
+test_that("cols not sorted issue-54", {
+  data <- dplyr::select(data1, sort(names(data)))
+  expect_error(ys_check(data,spec), 
+               regexp = "Please review messages and re-check")
+})
+
 test_that("continuous out of range", {
   data <- mutate(data1, WT = 1E6)
   expect_error(check_data(data, spec), 
