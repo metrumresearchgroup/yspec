@@ -98,7 +98,7 @@ See the [ys_help] topic for more information.
 ## Data column specification fields
 
 - `short: short-name` 
-    - a short name for the column; don't include units here
+    - a short name for the column; don't include unit here
 - `unit: numeric` 
     - the unit of measure
 - `range: [min-value, max-value]`
@@ -123,7 +123,7 @@ See the [ys_help] topic for more information.
 - `source: ADSL.xpt`
     - Where the data came from
     - include both the sdtm domain and variable name
-- `about: [short-name, units]`
+- `about: [short-name, unit]`
   - This is a convenience structure.
 - `long: a longer name to describe the column`
 - `dots`: 
@@ -132,7 +132,7 @@ See the [ys_help] topic for more information.
     by a custom rendering function 
 - `axis`:
   - A short-ish name that can be used for axis titles for plots
-  - Generally, don't include units; yspec helpers will add that 
+  - Generally, don't include unit; yspec helpers will add that 
     automatically by default
   - If `short` will work for your axis title (as it is ... with no 
     modification), yspec will use that if no `axis` field is used
@@ -153,7 +153,7 @@ See the [ys_help] topic for more information.
 
 ### Continuous values
 
-- The `about` array provides a short name and units
+- The `about` array provides a short name and unit
 - Any time `range` is given, the data is assumed to be continuous
 
 ```yaml
@@ -167,7 +167,7 @@ This is equivalent to
 ```yaml
 WT:
   short: Weight
-  units: kg
+  unit: kg
   range: [5,300]
 ```
 
