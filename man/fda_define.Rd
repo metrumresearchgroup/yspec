@@ -31,7 +31,7 @@ Generate content for FDA define document
 \examples{
 proj <- file_proj_ex()
 
-cat(readLines(proj), sep = "\\n")
+cat(readLines(proj), sep = "\n")
 
 \dontrun{
   fda_define(proj)

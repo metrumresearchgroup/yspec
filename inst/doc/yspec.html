@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <meta name="author" content />
 
-<meta name="date" content="2019-02-05" />
+<meta name="date" content="2020-01-16" />
 
 <title>yspec</title>
 
@@ -96,7 +96,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -291,6 +291,9 @@ code > span.al { color: #ff0000; font-weight: bold; }
 code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
 
+
+
+
 </head>
 
 <body>
@@ -299,7 +302,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 
 <h1 class="title toc-ignore">yspec</h1>
-<h4 class="date"><em>2019-02-05</em></h4>
+<h4 class="date">2020-01-16</h4>
 
 
 
@@ -434,15 +437,42 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <h2>Example to render spec</h2>
 <p>The specification object can be rendered to a specification file with the <code>ys_document</code> function</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">ys_document</span>(spec, <span class="dt">stem =</span> <span class="st">&quot;working_document&quot;</span>)</a></code></pre></div>
+<pre><code>## Warning: Package microtype Warning: I cannot find a protrusion list for font
+## (microtype)                `OML/mdput/m/it/12&#39;. Switching off
+## (microtype)                protrusion for this font on input line 83.
+## Package microtype Warning: I cannot find a protrusion list for font
+## (microtype)                `OML/mdput/m/it/8&#39;. Switching off
+## (microtype)                protrusion for this font on input line 83.
+## Package microtype Warning: I cannot find a protrusion list for font
+## (microtype)                `OMS/mdput/m/n/12&#39;. Switching off
+## (microtype)                protrusion for this font on input line 83.
+## Package microtype Warning: I cannot find a protrusion list for font
+## (microtype)                `OMS/mdput/m/n/8&#39;. Switching off
+## (microtype)                protrusion for this font on input line 83.
+## Package microtype Warning: I cannot find a protrusion list for font
+## (microtype)                `OML/mdput/m/n/12&#39;. Switching off
+## (microtype)                protrusion for this font on input line 83.
+## Package microtype Warning: I cannot find a protrusion list for font
+## (microtype)                `OML/mdput/m/n/8&#39;. Switching off
+## (microtype)                protrusion for this font on input line 83.
+## Package microtype Warning: I cannot find a protrusion list for font
+## (microtype)                `OML/mdput/m/it/10&#39;. Switching off
+## (microtype)                protrusion for this font on input line 123.
+## Package microtype Warning: I cannot find a protrusion list for font
+## (microtype)                `OMS/mdput/m/n/10&#39;. Switching off
+## (microtype)                protrusion for this font on input line 123.
+## Package microtype Warning: I cannot find a protrusion list for font
+## (microtype)                `OML/mdput/m/n/10&#39;. Switching off
+## (microtype)                protrusion for this font on input line 123.</code></pre>
 <p>With output <a href="working_document.pdf">here</a>.</p>
 <p><code>ys_document</code> will pass along arguments to <code>rmarkdown::render</code> so that you can control those aspects of how the document is rendered. You can also create custom output formats to get the data table to render in the way that you like.</p>
 </div>
 <div id="example-project-object" class="section level2">
 <h2>Example project object</h2>
 <p>To create an project-wide listing of documented data sets, we create a <code>yproj</code> or project object. We create this from the spec objects that we read about in the previous section. Let’s load another object to use along with the object loaded in the previous section.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1">pdspec &lt;-<span class="st"> </span><span class="kw">load_spec_ex</span>(<span class="st">&quot;DEM104101F_PKPD.yml&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1">pdspec &lt;-<span class="st"> </span><span class="kw">load_spec_ex</span>(<span class="st">&quot;DEM104101F_PKPD.yml&quot;</span>)</a></code></pre></div>
 <p>Now, we have two objects to work with:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="kw">head</span>(spec)</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="kw">head</span>(spec)</a></code></pre></div>
 <pre><code>##    name c d     unit                 short            source
 ## 1     C + +        .     comment character ysdb_internal.yml
 ## 2   NUM - -        .         record number ysdb_internal.yml
@@ -454,7 +484,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## 8  EVID - -        .              event ID ysdb_internal.yml
 ## 9   AMT - -       mg           dose amount ysdb_internal.yml
 ## 10   DV - - &lt;&lt;mugL&gt;&gt;    dependent variable ysdb_internal.yml</code></pre>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw">head</span>(pdspec)</a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="kw">head</span>(pdspec)</a></code></pre></div>
 <pre><code>##    name c d           unit       short source
 ## 1     C + -              .           C      .
 ## 2   MDV - -              .         MDV      .
@@ -467,9 +497,9 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## 9  EGFR - - ml/min/1.73 m2        eGFR      .
 ## 10  SEX - +              .         SEX      .</code></pre>
 <p>We can create a project object from both objects</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1">proj &lt;-<span class="st"> </span><span class="kw">ys_project</span>(spec,pdspec)</a>
-<a class="sourceLine" id="cb18-2" title="2"></a>
-<a class="sourceLine" id="cb18-3" title="3">proj</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1">proj &lt;-<span class="st"> </span><span class="kw">ys_project</span>(spec,pdspec)</a>
+<a class="sourceLine" id="cb19-2" title="2"></a>
+<a class="sourceLine" id="cb19-3" title="3">proj</a></code></pre></div>
 <pre><code>## projectnumber:  examp101F 
 ## sponsor:        example-project 
 ## --------------------------------------------
@@ -484,31 +514,80 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <h3>Working document</h3>
 <p>To render the project file we’ll use the same <code>ys_document()</code> function.<br />
 This time, we’ll add some extra (optional) arguments that will help us get the document to look the way we want:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="kw">ys_document</span>(</a>
-<a class="sourceLine" id="cb20-2" title="2">  proj, </a>
-<a class="sourceLine" id="cb20-3" title="3">  <span class="dt">stem =</span> <span class="st">&quot;project_document&quot;</span>, </a>
-<a class="sourceLine" id="cb20-4" title="4">  <span class="dt">build_dir =</span> <span class="kw">mrgtemplate</span>(),</a>
-<a class="sourceLine" id="cb20-5" title="5">  <span class="dt">author =</span> <span class="st">&quot;Michelle Johnson&quot;</span>, </a>
-<a class="sourceLine" id="cb20-6" title="6">  <span class="dt">title =</span> <span class="st">&quot;Analysis data specification&quot;</span></a>
-<a class="sourceLine" id="cb20-7" title="7">)</a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="kw">ys_document</span>(</a>
+<a class="sourceLine" id="cb21-2" title="2">  proj, </a>
+<a class="sourceLine" id="cb21-3" title="3">  <span class="dt">stem =</span> <span class="st">&quot;project_document&quot;</span>, </a>
+<a class="sourceLine" id="cb21-4" title="4">  <span class="dt">build_dir =</span> <span class="kw">mrgtemplate</span>(),</a>
+<a class="sourceLine" id="cb21-5" title="5">  <span class="dt">author =</span> <span class="st">&quot;Michelle Johnson&quot;</span>, </a>
+<a class="sourceLine" id="cb21-6" title="6">  <span class="dt">title =</span> <span class="st">&quot;Analysis data specification&quot;</span></a>
+<a class="sourceLine" id="cb21-7" title="7">)</a></code></pre></div>
+<pre><code>## Warning: Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+##  Make it at least 22.66415pt.
+##  We now make it that large for the rest of the document.
+##  This may cause the page layout to be inconsistent, however.
+## Package microtype Warning: I cannot find a protrusion list for font
+## (microtype)                `OML/mdput/m/it/10&#39;. Switching off
+## (microtype)                protrusion for this font on input line 236.
+## Package microtype Warning: I cannot find a protrusion list for font
+## (microtype)                `OMS/mdput/m/n/10&#39;. Switching off
+## (microtype)                protrusion for this font on input line 236.
+## Package microtype Warning: I cannot find a protrusion list for font
+## (microtype)                `OML/mdput/m/n/10&#39;. Switching off
+## (microtype)                protrusion for this font on input line 236.
+## Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+##  Make it at least 22.66415pt.
+##  We now make it that large for the rest of the document.
+##  This may cause the page layout to be inconsistent, however.
+## Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+##  Make it at least 22.66415pt.
+##  We now make it that large for the rest of the document.
+##  This may cause the page layout to be inconsistent, however.
+## Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+##  Make it at least 22.66415pt.
+##  We now make it that large for the rest of the document.
+##  This may cause the page layout to be inconsistent, however.</code></pre>
 <p>With output <a href="project_document.pdf">here</a>.</p>
 <p>Using the <code>build_dir</code> argument gets us the document rendered with Metrum Research Group branding. Also, <code>author</code> and <code>title</code> are passed into the configuration fields for this document.</p>
 </div>
 <div id="regulatory-document" class="section level3">
 <h3>Regulatory document</h3>
 <p>To get a document that is formatted according to FDA requirements, use:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="kw">ys_document</span>(</a>
-<a class="sourceLine" id="cb21-2" title="2">  proj, </a>
-<a class="sourceLine" id="cb21-3" title="3">  <span class="dt">type =</span> <span class="st">&quot;regulatory&quot;</span>,</a>
-<a class="sourceLine" id="cb21-4" title="4">  <span class="dt">stem =</span> <span class="st">&quot;fda_document&quot;</span>, </a>
-<a class="sourceLine" id="cb21-5" title="5">  <span class="dt">build_dir =</span> <span class="kw">mrgtemplate</span>(),</a>
-<a class="sourceLine" id="cb21-6" title="6">  <span class="dt">author =</span> <span class="st">&quot;Michelle Johnson&quot;</span>, </a>
-<a class="sourceLine" id="cb21-7" title="7">  <span class="dt">title =</span> <span class="st">&quot;Analysis data specification&quot;</span></a>
-<a class="sourceLine" id="cb21-8" title="8">)</a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1"><span class="kw">ys_document</span>(</a>
+<a class="sourceLine" id="cb23-2" title="2">  proj, </a>
+<a class="sourceLine" id="cb23-3" title="3">  <span class="dt">type =</span> <span class="st">&quot;regulatory&quot;</span>,</a>
+<a class="sourceLine" id="cb23-4" title="4">  <span class="dt">stem =</span> <span class="st">&quot;fda_document&quot;</span>, </a>
+<a class="sourceLine" id="cb23-5" title="5">  <span class="dt">build_dir =</span> <span class="kw">mrgtemplate</span>(),</a>
+<a class="sourceLine" id="cb23-6" title="6">  <span class="dt">author =</span> <span class="st">&quot;Michelle Johnson&quot;</span>, </a>
+<a class="sourceLine" id="cb23-7" title="7">  <span class="dt">title =</span> <span class="st">&quot;Analysis data specification&quot;</span></a>
+<a class="sourceLine" id="cb23-8" title="8">)</a></code></pre></div>
+<pre><code>## Warning: Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+##  Make it at least 22.66415pt.
+##  We now make it that large for the rest of the document.
+##  This may cause the page layout to be inconsistent, however.
+## Package microtype Warning: I cannot find a protrusion list for font
+## (microtype)                `OML/mdput/m/it/10&#39;. Switching off
+## (microtype)                protrusion for this font on input line 194.
+## Package microtype Warning: I cannot find a protrusion list for font
+## (microtype)                `OMS/mdput/m/n/10&#39;. Switching off
+## (microtype)                protrusion for this font on input line 194.
+## Package microtype Warning: I cannot find a protrusion list for font
+## (microtype)                `OML/mdput/m/n/10&#39;. Switching off
+## (microtype)                protrusion for this font on input line 194.
+## Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+##  Make it at least 22.66415pt.
+##  We now make it that large for the rest of the document.
+##  This may cause the page layout to be inconsistent, however.
+## Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+##  Make it at least 22.66415pt.
+##  We now make it that large for the rest of the document.
+##  This may cause the page layout to be inconsistent, however.</code></pre>
 <p>With output <a href="fda_document.pdf">here</a>.</p>
 </div>
 </div>
 
+
+
+<!-- code folding -->
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->

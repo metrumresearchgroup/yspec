@@ -3,7 +3,6 @@
 \docType{package}
 \name{yspec}
 \alias{yspec}
-\alias{yspec-package}
 \title{yspec: data specification documents from yaml}
 \description{
 After writing data specification details in yaml format, read in as an
@@ -16,7 +15,7 @@ write out data definition documents.  To get started, check out the
 \itemize{
 \item Write your document in yaml format
 \itemize{
-\item Include a \code{SETUP__:} block at the top to include meta information
+\item Include a \verb{SETUP__:} block at the top to include meta information
 \item Use \code{lookup}s from either the internal library or your own lookup file
 \item Syntax reference \href{../doc/reference.html}{here}
 \item Use \link{ys_help} to access examples

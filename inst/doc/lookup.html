@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <meta name="author" content />
 
-<meta name="date" content="2019-02-05" />
+<meta name="date" content="2020-01-16" />
 
 <title>Project-wide column definitions</title>
 
@@ -96,7 +96,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -291,6 +291,9 @@ code > span.al { color: #ff0000; font-weight: bold; }
 code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
 
+
+
+
 </head>
 
 <body>
@@ -299,7 +302,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 
 <h1 class="title toc-ignore">Project-wide column definitions</h1>
-<h4 class="date"><em>2019-02-05</em></h4>
+<h4 class="date">2020-01-16</h4>
 
 
 
@@ -346,61 +349,157 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <p>There is an internal data base of common data set columns that yspec will attach by default. So, with no lookup file defined, we could write the following in our specification file</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb4-1" title="1"><span class="fu">SETUP__:</span></a>
 <a class="sourceLine" id="cb4-2" title="2">  <span class="fu">description:</span><span class="at"> PKPD analysis data set</span></a>
-<a class="sourceLine" id="cb4-3" title="3"><span class="fu">C:</span><span class="at"> </span></a>
-<a class="sourceLine" id="cb4-4" title="4"><span class="fu">AMT:</span></a>
-<a class="sourceLine" id="cb4-5" title="5"><span class="fu">MDV:</span></a>
-<a class="sourceLine" id="cb4-6" title="6"><span class="fu">EVID:</span><span class="at"> </span></a>
-<a class="sourceLine" id="cb4-7" title="7"><span class="fu">WT:</span></a>
-<a class="sourceLine" id="cb4-8" title="8"><span class="fu">EGFR:</span></a>
-<a class="sourceLine" id="cb4-9" title="9"><span class="fu">ALB:</span><span class="at"> !look</span></a>
-<a class="sourceLine" id="cb4-10" title="10"><span class="fu">ZIP_CODE:</span><span class="at"> </span></a>
-<a class="sourceLine" id="cb4-11" title="11">  <span class="fu">values:</span><span class="at"> </span><span class="dv">55378</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-3" title="3">  <span class="fu">use_internal_db:</span><span class="at"> </span><span class="ch">true</span></a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="fu">C:</span><span class="at"> </span></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="fu">AMT:</span></a>
+<a class="sourceLine" id="cb4-6" title="6"><span class="fu">MDV:</span></a>
+<a class="sourceLine" id="cb4-7" title="7"><span class="fu">EVID:</span><span class="at"> </span></a>
+<a class="sourceLine" id="cb4-8" title="8"><span class="fu">WT:</span></a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="fu">EGFR:</span></a>
+<a class="sourceLine" id="cb4-10" title="10"><span class="fu">ALB:</span><span class="at"> !look</span></a>
+<a class="sourceLine" id="cb4-11" title="11"><span class="fu">ZIP_CODE:</span><span class="at"> </span></a>
+<a class="sourceLine" id="cb4-12" title="12">  <span class="fu">values:</span><span class="at"> </span><span class="dv">55378</span></a></code></pre></div>
 <p>We can read this data in and have the columns defined</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">library</span>(yspec)</a>
 <a class="sourceLine" id="cb5-2" title="2"><span class="kw">library</span>(dplyr)</a>
 <a class="sourceLine" id="cb5-3" title="3"></a>
-<a class="sourceLine" id="cb5-4" title="4">spec &lt;-<span class="st"> </span><span class="kw">ys_load</span>(file)</a></code></pre></div>
-<pre><code>## Warning: Did not find lookup data for C, file: spec.yml</code></pre>
-<pre><code>## Warning: Did not find lookup data for AMT, file: spec.yml</code></pre>
-<pre><code>## Warning: Did not find lookup data for MDV, file: spec.yml</code></pre>
-<pre><code>## Warning: Did not find lookup data for EVID, file: spec.yml</code></pre>
-<pre><code>## Warning: Did not find lookup data for WT, file: spec.yml</code></pre>
-<pre><code>## Warning: Did not find lookup data for EGFR, file: spec.yml</code></pre>
-<pre><code>## Warning: Did not find lookup data for ALB, file: spec.yml</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1">spec</a></code></pre></div>
-<pre><code>##  name     c d unit short    source
-##  C        - - .    C        .     
-##  AMT      - - .    AMT      .     
-##  MDV      - - .    MDV      .     
-##  EVID     - - .    EVID     .     
-##  WT       - - .    WT       .     
-##  EGFR     - - .    EGFR     .     
-##  ALB      - - .    ALB      .     
-##  ZIP_CODE - - .    ZIP_CODE .</code></pre>
+<a class="sourceLine" id="cb5-4" title="4">spec &lt;-<span class="st"> </span><span class="kw">ys_load</span>(file)</a>
+<a class="sourceLine" id="cb5-5" title="5"></a>
+<a class="sourceLine" id="cb5-6" title="6">spec</a></code></pre></div>
+<pre><code>##  name     c d unit          short             source           
+##  C        + + .             comment character ysdb_internal.yml
+##  AMT      - - .             dose amount       ysdb_internal.yml
+##  MDV      - - .             MDV               ysdb_internal.yml
+##  EVID     - - .             event ID          ysdb_internal.yml
+##  WT       - - kg            weight            ysdb_internal.yml
+##  EGFR     - - ml/min/1.73m2 eGFR              ysdb_internal.yml
+##  ALB      - - g/dL          albumin           ysdb_internal.yml
+##  ZIP_CODE - - .             ZIP_CODE          .</code></pre>
 </div>
 <div id="tracking-the-lookup-status-of-each-column" class="section level1">
 <h1>Tracking the lookup status of each column</h1>
 <p>This all can get confusing about where each column is coming from. You can audit the spec object and find you where a lookup event happened</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="kw">ys_lookup_source</span>(spec)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">ys_lookup_source</span>(spec)</a></code></pre></div>
 <pre><code>## # A tibble: 8 x 2
-##   col      lookup_source
-##   &lt;chr&gt;    &lt;chr&gt;        
-## 1 C        spec.yml     
-## 2 AMT      spec.yml     
-## 3 MDV      spec.yml     
-## 4 EVID     spec.yml     
-## 5 WT       spec.yml     
-## 6 EGFR     spec.yml     
-## 7 ALB      spec.yml     
+##   col      lookup_source    
+##   &lt;chr&gt;    &lt;chr&gt;            
+## 1 C        ysdb_internal.yml
+## 2 AMT      ysdb_internal.yml
+## 3 MDV      ysdb_internal.yml
+## 4 EVID     ysdb_internal.yml
+## 5 WT       ysdb_internal.yml
+## 6 EGFR     ysdb_internal.yml
+## 7 ALB      ysdb_internal.yml
 ## 8 ZIP_CODE spec.yml</code></pre>
 <p>Here, we can see that most of the columns came from the internal data base and that the one column (<code>ZIP_CODE</code>) came by our own specification.</p>
 <p>You can also re-create the lookup object (just a named list) for a specification object. Just click open the arrow to see the output.</p>
 <details>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="kw">ys_get_lookup</span>(spec) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">glimpse</span>()</a></code></pre></div>
-<pre><code>##  list()</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">ys_get_lookup</span>(spec) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">glimpse</span>()</a></code></pre></div>
+<pre><code>## List of 21
+##  $ C      :List of 5
+##   ..$ short        : chr &quot;comment character&quot;
+##   ..$ values       : chr [1:2] &quot;.&quot; &quot;C&quot;
+##   ..$ decode       : chr [1:2] &quot;analysis row&quot; &quot;commented row&quot;
+##   ..$ type         : chr &quot;character&quot;
+##   ..$ lookup_source: chr &quot;ysdb_internal.yml&quot;
+##  $ ID     :List of 3
+##   ..$ short        : chr &quot;subject identifier&quot;
+##   ..$ type         : chr &quot;numeric&quot;
+##   ..$ lookup_source: chr &quot;ysdb_internal.yml&quot;
+##  $ USUBJID:List of 3
+##   ..$ short        : chr &quot;unique subject identifier&quot;
+##   ..$ type         : chr &quot;character&quot;
+##   ..$ lookup_source: chr &quot;ysdb_internal.yml&quot;
+##  $ SUBJ   :List of 3
+##   ..$ short        : chr &quot;subject identifier&quot;
+##   ..$ type         : chr &quot;character&quot;
+##   ..$ lookup_source: chr &quot;ysdb_internal.yml&quot;
+##  $ STUDYID:List of 3
+##   ..$ short        : chr &quot;study identifier&quot;
+##   ..$ type         : chr &quot;character&quot;
+##   ..$ lookup_source: chr &quot;ysdb_internal.yml&quot;
+##  $ CMT    :List of 3
+##   ..$ short        : chr &quot;compartment number&quot;
+##   ..$ type         : chr &quot;numeric&quot;
+##   ..$ lookup_source: chr &quot;ysdb_internal.yml&quot;
+##  $ EVID   :List of 3
+##   ..$ short        : chr &quot;event ID&quot;
+##   ..$ values       :List of 2
+##   .. ..$ :List of 1
+##   .. ..$ :List of 1
+##   ..$ lookup_source: chr &quot;ysdb_internal.yml&quot;
+##  $ AMT    :List of 3
+##   ..$ short        : chr &quot;dose amount&quot;
+##   ..$ type         : chr &quot;numeric&quot;
+##   ..$ lookup_source: chr &quot;ysdb_internal.yml&quot;
+##  $ RATE   :List of 3
+##   ..$ short        : chr &quot;infusion rate&quot;
+##   ..$ type         : chr &quot;numeric&quot;
+##   ..$ lookup_source: chr &quot;ysdb_internal.yml&quot;
+##  $ II     :List of 3
+##   ..$ short        : chr &quot;inter-dose interval&quot;
+##   ..$ type         : chr &quot;numeric&quot;
+##   ..$ lookup_source: chr &quot;ysdb_internal.yml&quot;
+##  $ SS     :List of 4
+##   ..$ short        : chr &quot;steady state indicator&quot;
+##   ..$ values       : int [1:2] 0 1
+##   ..$ decode       : chr [1:2] &quot;non-steady state indicator&quot; &quot;steady state indicator&quot;
+##   ..$ lookup_source: chr &quot;ysdb_internal.yml&quot;
+##  $ MDV    :List of 5
+##   ..$ values       :List of 2
+##   .. ..$ :List of 1
+##   .. ..$ :List of 1
+##   ..$ type         : chr &quot;numeric&quot;
+##   ..$ long         : chr &quot;missing DV indicator&quot;
+##   ..$ comment      : chr &quot;per NONMEM specifications&quot;
+##   ..$ lookup_source: chr &quot;ysdb_internal.yml&quot;
+##  $ DV     :List of 3
+##   ..$ short        : chr &quot;dependent variable&quot;
+##   ..$ type         : chr &quot;numeric&quot;
+##   ..$ lookup_source: chr &quot;ysdb_internal.yml&quot;
+##  $ WT     :List of 3
+##   ..$ short        : chr &quot;weight&quot;
+##   ..$ unit         : chr &quot;kg&quot;
+##   ..$ lookup_source: chr &quot;ysdb_internal.yml&quot;
+##  $ EGFR   :List of 4
+##   ..$ short        : chr &quot;eGFR&quot;
+##   ..$ long         : chr &quot;estimated glomerular filtration rate&quot;
+##   ..$ unit         : chr &quot;ml/min/1.73m2&quot;
+##   ..$ lookup_source: chr &quot;ysdb_internal.yml&quot;
+##  $ BMI    :List of 4
+##   ..$ long         : chr &quot;body mass index&quot;
+##   ..$ unit         : chr &quot;m2/kg&quot;
+##   ..$ type         : chr &quot;numeric&quot;
+##   ..$ lookup_source: chr &quot;ysdb_internal.yml&quot;
+##  $ HT     :List of 4
+##   ..$ about        : chr [1:2] &quot;height&quot; &quot;cm&quot;
+##   ..$ long         : chr &quot;Height&quot;
+##   ..$ type         : chr &quot;numeric&quot;
+##   ..$ lookup_source: chr &quot;ysdb_internal.yml&quot;
+##  $ ALB    :List of 5
+##   ..$ long         : chr &quot;serum albumin&quot;
+##   ..$ unit         : chr &quot;g/dL&quot;
+##   ..$ short        : chr &quot;albumin&quot;
+##   ..$ type         : chr &quot;numeric&quot;
+##   ..$ lookup_source: chr &quot;ysdb_internal.yml&quot;
+##  $ AGE    :List of 2
+##   ..$ about        : chr [1:2] &quot;age&quot; &quot;years&quot;
+##   ..$ lookup_source: chr &quot;ysdb_internal.yml&quot;
+##  $ SEX    :List of 2
+##   ..$ values       :List of 2
+##   .. ..$ male  : int 0
+##   .. ..$ female: int 1
+##   ..$ lookup_source: chr &quot;ysdb_internal.yml&quot;
+##  $ NUM    :List of 3
+##   ..$ short        : chr &quot;record number&quot;
+##   ..$ type         : chr &quot;numeric&quot;
+##   ..$ lookup_source: chr &quot;ysdb_internal.yml&quot;</code></pre>
 </details>
 </div>
 
+
+
+<!-- code folding -->
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
