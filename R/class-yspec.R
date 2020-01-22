@@ -208,7 +208,7 @@ long.yspec <- function(x, default = '.', ...) {
 
 label <- function(x,...) UseMethod("label")
 #' @export
-label.ycol <- function(x, default = '.', ...) {
+label.ycol <- function(x, default = 'short', ...) {
   if(.has("label",x)) return(x[["label"]])
   if(is.null(x[["long"]])) {
     return(x[[default]])  
