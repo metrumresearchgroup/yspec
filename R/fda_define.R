@@ -18,11 +18,10 @@ pack_codes <- function(x) {
 
 as_fda_table_row <- function(x) {
   variable <- x[["col"]]
-  label <- long(x, default = x[["short"]])
+  label <- label(x, default = "short")
   if(.has("unit", x)) {
     label <- paste0(label, " (unit: ", x$unit, ")")
   }
-  
   data_frame(
     VARIABLE = x[["col"]],
     LABEL = label,

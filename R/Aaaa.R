@@ -27,7 +27,7 @@ VALID_SPEC_NAMES <- c(
   "source", "comment",
   "short", "long", "about", "dots",
   "range", "longvalues", "lookup", 
-  "axis", "table"
+  "axis", "table", "label"
 )
 
 VALID_SETUP_NAMES <- c(

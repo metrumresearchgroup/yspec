@@ -206,6 +206,20 @@ long.yspec <- function(x, default = '.', ...) {
   map_chr(x,"long", .default = default)
 }
 
+label <- function(x,...) UseMethod("label")
+#' @export
+label.ycol <- function(x, default = '.', ...) {
+  if(.has("label",x)) return(x[["label"]])
+  if(is.null(x[["long"]])) {
+    return(x[[default]])  
+  }
+  x[["long"]]
+}
+#' @export
+label.yspec <- function(x,default="short",...) {
+  map_chr(x,label.ycol, default = default)  
+}
+
 type <- function(x,...) UseMethod("type")
 ##' @export
 type.ycol <- function(x, default = "numeric", ... ) {
