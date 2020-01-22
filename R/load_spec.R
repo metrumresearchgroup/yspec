@@ -259,6 +259,15 @@ unpack_col <- function(x) {
     x$values <- sapply(x$values, sub_null, USE.NAMES=FALSE)
     if(is.character(x$values)) x$type <- "character"
   }
+  if(.has("source", x)) {
+    x$source <- paste0(x$source, collapse = " ")  
+  }
+  if(.has("comment", x)) {
+    x$comment <- paste0(x$comment, collapse = " ")  
+  }
+  if(.has("long", x)) {
+    x$long <- paste0(x$long, collapse = " ")
+  }
   structure(x, class = "ycol")
 }
 

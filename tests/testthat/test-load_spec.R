@@ -65,4 +65,12 @@ test_that("error if column name is greater than 8 characters", {
   options(ys.col.len = NULL)
 })
 
+test_that("collapse source, comment, long issue-46", {
+  x <- yspec:::test_spec_test("issue-46.yml") 
+  x <- as.list(x)
+  expect_equal(x$FOO$comment, "first line second line third line")
+  expect_equal(x$FOO$source, "line one line two line 3")
+  expect_equal(x$FOO$long, "a b c")
+})
+
 

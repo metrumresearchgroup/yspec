@@ -1,0 +1,10 @@
+FOO:
+  comment: 
+    - first line
+    - second line
+    - third line
+  source:
+    - line one
+    - line two
+    - line 3
+  long: [a, b, c]
