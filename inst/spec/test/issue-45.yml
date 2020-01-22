@@ -1,0 +1,3 @@
+FOO:
+  unit: [mg, l]
+  type: [character, integer]
