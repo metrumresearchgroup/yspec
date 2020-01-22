@@ -11,7 +11,6 @@ check_spec_input_col <- function(x, col, env, not_allowed = NULL, ...) {
     )
   }
   
-  
   t1 <- all(names(x) %in% setdiff(VALID_SPEC_NAMES, not_allowed))
   if(!t1) {
     valid <- setdiff(VALID_SPEC_NAMES, not_allowed)
@@ -65,10 +64,20 @@ check_this_col <- function(x,col,env,...) {
       )
     }
   }
-  if(!(x[["type"]] %in% c("numeric", "character", "integer"))) {
+  if(length(x$unit) > 1) {
+    err <- c(err, "the 'unit' field should not be more than length 1")  
+  }
+  if(length(x$type) > 1) {
+    err <- c(err, "the 'type' field should not be more than length 1")  
+  }
+  if(length(x$short) > 1) {
+    err <- c(err, "the 'short' field should not be more than length 1")  
+  }
+  if(! all(x[["type"]] %in% c("numeric", "character", "integer"))) {
+    bad <- setdiff(x[["type"]],c("numeric", "character", "integer"))
     err <- c(
       err, 
-      paste0("'type' must be 'numeric', 'character' or 'integer' ('", x[["type"]], "')")
+      paste0("'type' must be 'numeric', 'character' or 'integer' ('", bad, "')")
     )
   }
   env$err[[col]] <- err

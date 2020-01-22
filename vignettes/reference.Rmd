@@ -63,7 +63,7 @@ A complete listing is provided below.
 You can see an fully worked example by running
 
 ```{r, eval = FALSE}
-ys_help$analysis1()
+ys_help$yaml()
 ```
 
 See the `?ys_help` help topic for more information.
