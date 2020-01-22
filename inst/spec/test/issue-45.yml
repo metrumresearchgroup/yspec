@@ -1,3 +1,9 @@
+SETUP__:
+  description: includes unit and type with multiple entries
 FOO:
   unit: [mg, l]
   type: [character, integer]
+  short:
+    - I 
+    - DONT
+    - KNOW
