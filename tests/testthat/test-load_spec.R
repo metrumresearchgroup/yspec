@@ -70,6 +70,12 @@ test_that("error if unit, type, or short are gt length 1 issue-45", {
                regexp="should not be more than length 1") 
 })
 
+test_that("error if label greater than 40 characters", {
+  expect_error(test_spec_err("long_label.yml")) 
+})
+
+
+
 test_that("collapse source, comment, long issue-46", {
   x <- yspec:::test_spec_test("issue-46.yml") 
   x <- as.list(x)

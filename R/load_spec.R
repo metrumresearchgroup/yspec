@@ -64,6 +64,9 @@ check_this_col <- function(x,col,env,...) {
       )
     }
   }
+  if(length(x$label) > 40) {
+    err <- c(err, "the 'label' field cannot be longer than 40 characters")  
+  }
   if(length(x$unit) > 1) {
     err <- c(err, "the 'unit' field should not be more than length 1")  
   }
