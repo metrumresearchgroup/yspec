@@ -114,25 +114,6 @@ summary.yspec <- function(object, ...) {
   out$col <- NULL
   out
 }
-# 
-# print1 <- function(x,...) {
-#   out <- lapply(x, function(xx) {
-#     decode <- '.'
-#     values <- '.'
-#     unit <- '.'
-#     if(.has("decode",xx)) decode <- xx$decode
-#     if(.has("values",xx)) values <- xx$values
-#     if(.has("unit",xx)) unit <- xx$unit
-#     data.frame(col=xx$col,
-#                unit=unit,
-#                value=values,
-#                decode=decode,
-#                stringsAsFactors=FALSE)
-#   })
-#   out <- as.data.frame(do.call('rbind',out),stringsAsFactors=FALSE)
-#   rownames(out) <- NULL
-#   return(out)
-# }
 
 ##' Get meta data from a specification object
 ##'
@@ -204,6 +185,22 @@ long.ycol <- function(x, default = '.', ... ) {
 ##' @export
 long.yspec <- function(x, default = '.', ...) {
   map_chr(x,"long", .default = default)
+}
+
+label <- function(x,...) UseMethod("label")
+#' @export
+label.ycol <- function(x, default = 'short', ...) {
+  if(.has("label",x)) return(x[["label"]])
+  if(.has("long",x)) {
+    if(nchar(x[["long"]]) <= 40) {
+      return(x[["long"]])  
+    }
+  }
+  return(x[[default]])
+}
+#' @export
+label.yspec <- function(x,default="short",...) {
+  map_chr(x,label.ycol, default = default)  
 }
 
 type <- function(x,...) UseMethod("type")

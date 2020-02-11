@@ -66,9 +66,28 @@ test_that("error if column name is greater than 8 characters", {
 })
 
 test_that("error if unit, type, or short are gt length 1 issue-45", {
-  expect_error(test_spec_test("issue-45.yml"), 
+  expect_error(yspec:::test_spec_test("issue-45.yml"), 
                regexp="should not be more than length 1") 
 })
+
+test_that("access label", {
+  x <- yspec:::test_spec_test("issue-60.yml") 
+  expect_equal(yspec:::label.ycol(x$A), "the label for column A")
+  expect_equal(yspec:::label.ycol(x$B), "the label (long) for column B")
+  expect_equal(yspec:::label.ycol(x$C), "the label (short) for column C")
+  ans <- c(yspec:::label(x$A),yspec:::label(x$B),yspec:::label(x$C,"short"))
+  lab <- yspec:::label(x)
+  expect_identical(names(lab), c("A", "B", "C"))
+  expect_identical(unname(lab), ans)
+})
+
+test_that("error if label greater than 40 characters", {
+  expect_error(yspec:::test_spec_error("long_label.yml"),
+               regexp = "should not be longer than 40 characters") 
+})
+
+
+
 
 test_that("collapse source, comment, long issue-46", {
   x <- yspec:::test_spec_test("issue-46.yml") 

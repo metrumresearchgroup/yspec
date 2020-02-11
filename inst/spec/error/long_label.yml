@@ -1,0 +1,7 @@
+SETUP__:
+  description: Label is too long.
+WT:
+  range: [10,100]
+ALB:
+  label: the serum albumin measured in the current patient
+
