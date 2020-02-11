@@ -10,7 +10,7 @@ ys_spec_file(x)
 \item{x}{a yspec object}
 }
 \description{
-This read from the yspec object meta data via [get_meta].
+This read from the yspec object meta data via \link{get_meta}.
 }
 \examples{
 spec <- load_spec_ex()

@@ -7,21 +7,21 @@
 ys_add_labels(data, spec, fun = label.ycol)
 }
 \arguments{
-\item{data}{a `data.frame` to label}
+\item{data}{a \code{data.frame} to label}
 
-\item{spec}{yspec object for `data`}
+\item{spec}{yspec object for \code{data}}
 
-\item{fun}{the function to use for forming `label`}
+\item{fun}{the function to use for forming \code{label}}
 }
 \description{
 Add label attribute to data set columns
 }
 \details{
-An error is generated if the names of `data` are not identical to names 
-of `spec`. 
+An error is generated if the names of \code{data} are not identical to names
+of \code{spec}.
 
-If the user passes `fun` to generate a custom label, the function must take
-a single argument, the column `ycol` object, and must return the label for 
+If the user passes \code{fun} to generate a custom label, the function must take
+a single argument, the column \code{ycol} object, and must return the label for
 that column as a character vector of length one.
 }
 \examples{

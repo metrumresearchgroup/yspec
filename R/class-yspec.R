@@ -32,7 +32,7 @@ update.yspec <- function(object, projectnumber=NULL, sponsor=NULL, ...) {
 #' @param ... not used
 #' 
 #' 
-#' 
+#' @md
 #' @export
 c.yspec <- function(x,y,...) {
   assert_that(is_yspec(y))
@@ -138,6 +138,7 @@ get_meta <- function(x) {
 ##' spec <- load_spec_ex()
 ##' ys_spec_file(spec)
 ##' 
+##' @md
 ##' @export
 ys_spec_file <- function(x) {
   get_meta(x)[["spec_file"]]  
@@ -312,6 +313,7 @@ yspec_yml_file.default <- function(x,...) {
 #' 
 #' str(data[,1:5])
 #' 
+#' @md
 #' @export
 ys_add_labels <- function(data,spec,fun=label.ycol) {
   assert_that(inherits(data,"data.frame"))
