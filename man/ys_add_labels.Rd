@@ -24,3 +24,15 @@ If the user passes `fun` to generate a custom label, the function must take
 a single argument, the column `ycol` object, and must return the label for 
 that column as a character vector of length one.
 }
+\examples{
+spec <- ys_help$spec()
+
+data <- ys_help$data()
+
+data <- ys_add_labels(data,spec)
+
+sapply(data,attr,"label")
+
+str(data[,1:5])
+
+}

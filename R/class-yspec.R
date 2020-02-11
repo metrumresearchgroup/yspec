@@ -301,6 +301,17 @@ yspec_yml_file.default <- function(x,...) {
 #' a single argument, the column `ycol` object, and must return the label for 
 #' that column as a character vector of length one.
 #' 
+#' @examples
+#' spec <- ys_help$spec()
+#' 
+#' data <- ys_help$data()
+#' 
+#' data <- ys_add_labels(data,spec)
+#' 
+#' sapply(data,attr,"label")
+#' 
+#' str(data[,1:5])
+#' 
 #' @export
 ys_add_labels <- function(data,spec,fun=label.ycol) {
   assert_that(inherits(data,"data.frame"))
