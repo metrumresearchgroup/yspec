@@ -50,3 +50,4 @@ Collate:
     'pander_table.R'
     'spec_validate.R'
     'split_col.R'
+    'ys_add_label.R'

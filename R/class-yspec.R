@@ -285,3 +285,30 @@ yspec_yml_file <- function(x,...) UseMethod("yspec_yml_file")
 yspec_yml_file.default <- function(x,...) {
   get_meta(x)[["spec_file"]]  
 }
+
+#' Add label attribute to data set columns
+#' 
+#' 
+#' @param data a `data.frame` to label
+#' @param spec yspec object for `data`
+#' @param fun the function to use for forming `label`
+#' 
+#' @details
+#' An error is generated if the names of `data` are not identical to names 
+#' of `spec`. 
+#' 
+#' If the user passes `fun` to generate a custom label, the function must take
+#' a single argument, the column `ycol` object, and must return the label for 
+#' that column as a character vector of length one.
+#' 
+#' @export
+ys_add_labels <- function(data,spec,fun=label.ycol) {
+  assert_that(inherits(data,"data.frame"))
+  assert_that(inherits(spec,"yspec"))
+  assert_that(identical(names(data),names(spec)))
+  col_labels <- map_chr(spec,fun)
+  for(i in seq_len(ncol(data))) {
+    attr(data[[i]],"label") <- col_labels[[i]]
+  }
+  data
+}
