@@ -319,7 +319,7 @@ ys_add_labels <- function(data,spec,fun=label.ycol) {
   assert_that(inherits(spec,"yspec"))
   assert_that(identical(names(data),names(spec)))
   col_labels <- map_chr(spec,fun)
-  for(i in seq_len(ncol(data))) {
+  for(i in seq_along(data)) {
     attr(data[[i]],"label") <- col_labels[[i]]
   }
   data
