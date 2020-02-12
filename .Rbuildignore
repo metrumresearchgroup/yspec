@@ -26,3 +26,4 @@ vignettes/reference\.Rmd
 vignettes/lookup\.Rmd
 vignettes/_index\.Rmd
 vignettes/analysis1\.Rmd
+.drone.yml

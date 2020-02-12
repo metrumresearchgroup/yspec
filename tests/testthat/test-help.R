@@ -10,7 +10,7 @@ test_that("assets are exported", {
   fi <- list.files(where)
   chk <- c("ys_example.Rmd", "ysdb_internal.yml","analysis1.yml", 
            "analysis1.csv", "ys_get_assets.md")
-  expect(identical(sort(fi),sort(chk)))
+  expect_true(identical(sort(fi),sort(chk)))
 })
 
 test_that("help object printing", {
