@@ -24,7 +24,6 @@ update.yspec <- function(object, projectnumber=NULL, sponsor=NULL, ...) {
   
 }
 
-
 #' Add extra column elements to a yspec object
 #' 
 #' @param x a `yspec` object
