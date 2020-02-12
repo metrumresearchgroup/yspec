@@ -5,7 +5,7 @@
 ys_lookup_source <- function(x) {
   home <- basename(get_meta(x)[["spec_file"]])
   xx <- map_chr(x, "lookup_source", .default = home)
-  data_frame(col = names(x), lookup_source = xx)
+  tibble(col = names(x), lookup_source = xx)
 }
 
 ##' Generate lookup list

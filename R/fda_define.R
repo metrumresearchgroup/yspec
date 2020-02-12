@@ -22,7 +22,7 @@ as_fda_table_row <- function(x) {
   if(.has("unit", x)) {
     label <- paste0(label, " (unit: ", x$unit, ")")
   }
-  data_frame(
+  tibble(
     VARIABLE = x[["col"]],
     LABEL = label,
     TYPE = type(x, " "),
@@ -137,7 +137,7 @@ fda_content_table_row <- function(.x, ext, loc) {
   data_file <- paste0(.x[["data_stem"]], ext)
   desc <- fda_content_table_ref(.x[["name"]],.x[["description"]])
   location <-  fda_content_table_loc(data_file,loc)
-  data_frame(Description  = desc, Location = location)
+  tibble(Description  = desc, Location = location)
 }
 
 fda_content_table_ref <- function(name, desc) {
