@@ -1,5 +1,6 @@
 #' @importFrom yaml yaml.load_file as.yaml
-#' @importFrom dplyr filter %>% bind_rows select_vars
+#' @importFrom dplyr filter %>% bind_rows
+#' @importFrom tidyselect vars_select
 #' @importFrom tibble tibble as_tibble
 #' @importFrom dplyr mutate if_else .data desc
 #' @importFrom rmarkdown render pdf_document html_document

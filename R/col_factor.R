@@ -33,9 +33,9 @@ yspec_add_factors <- function(.data, .spec, ... , .all=TRUE, .suffix =
   what <- map_chr(what,as_string)
   if(length(what)==0 & isTRUE(.all)) {
     dis <- map_lgl(.spec, ~!is.null(.x[["values"]]))
-    vars <- select_vars(names(.data), names(which(dis)))
+    vars <- vars_select(names(.data), names(which(dis)))
   } else {
-    vars <- select_vars(names(.data),what)  
+    vars <- vars_select(names(.data),what)  
   }
 
   for(v in vars) {
