@@ -78,7 +78,7 @@ fda_table <- function(x) {
     .stop("x is not a yspec object")
   }
   tab <- as_fda_table(x)
-  lengths <- c(0, 0.75, 1.85, 0.6, 1.8)
+  lengths <- c(0, 0.75, 2.1, 0.6, 2.2)
   align <- paste0("p{",lengths,"in}|")
   align[2] <- paste0("|", align[2])
   xtab <- xtable(tab, align = align)
@@ -95,7 +95,7 @@ fda_table <- function(x) {
   if(is.list(glu)) {
     ans <- sapply(ans, glue, .envir = glu, .open = .glopen, .close = .glclose)
   }
-  ans
+  unname(ans)
 }
 
 ##' Print a table of contents for FDA define document
@@ -118,12 +118,13 @@ fda_content_table <- function(x, ext=".xpt", loc=".") {
   }
   loc <- gsub("/$", "", loc)
   contents <- map_df(x, fda_content_table_row, ext=ext, loc=loc)
-  kable(
+  ans <- kable(
     contents,
     format = "latex",
-    align = c("|p{2.85in}", "p{2.55in}|"),
-    escape = FALSE
+    align = c("|p{2.85in}", "p{3.15in}|"),
+    escape = FALSE, longtable=TRUE
   )
+  ans
 }
 
 ##' @rdname fda_table
