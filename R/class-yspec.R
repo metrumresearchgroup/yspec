@@ -324,3 +324,13 @@ ys_add_labels <- function(data,spec,fun=label.ycol) {
   }
   data
 }
+
+as_spec_list <- function(...) {
+  x <- list(...)
+  names(x) <- map_chr(map(x,get_meta),"name")
+  cl <- purrr::map_lgl(x, inherits, "yspec")
+  assert_that(all(cl))
+  structure(x,class="spec_list")
+}
+
+is.spec_list <- function(x) inherits(x,"spec_list")

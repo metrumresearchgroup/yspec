@@ -23,7 +23,8 @@ render_define(x, ...)
   author = "MetrumRG",
   toc = "yes",
   number_sections = "yes",
-  date = format(Sys.time()),
+  rmd_template = NULL,
+  date = base::format(Sys.time()),
   ...
 )
 
@@ -61,6 +62,9 @@ document}
 \item{toc}{used in yaml front matter}
 
 \item{number_sections}{used in yaml front matter}
+
+\item{rmd_template}{full path to rmarkdown file to be used to template the
+data specification document}
 
 \item{date}{used in yaml front matter}
 
