@@ -146,9 +146,7 @@ render_define.yproj <- function(x,
     setwd(build_dir)
     on.exit(setwd(cwd))
   }
-  
-  format <- match.arg(format)
-  
+
   ys_working_markup_ <- basename(tempfile(fileext="aeiou"))
   
   env <- new.env()
