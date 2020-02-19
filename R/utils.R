@@ -141,7 +141,7 @@ yspec_is_character <- function(x) {
 }
 
 yspec_select <- function(.spec, ...) {
-  vars <- select_vars(names(.spec), !!!quos(...))
+  vars <- vars_select(names(.spec), !!!quos(...))
   .spec[vars]
 }
 
