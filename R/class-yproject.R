@@ -49,7 +49,7 @@ ys_load_proj <- function(file) {
     x[["name"]] <- stem
     add_path <- FALSE  
     if(.no("data_file", x)) {
-      x[["data_file"]] <- paste0(stem, ".xpt")
+      x[["data_file"]] <- paste0(x[["data_stem"]], ".xpt")
     }
     if(.no("data_path",x)) {
       x[["data_path"]] <- path
