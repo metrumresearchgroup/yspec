@@ -12,7 +12,7 @@
 ##' 
 ##' @export
 axis_labs <- function(.spec, ..., .fun = axis_label) {
-  vars <- select_vars(names(.spec), !!!quos(...))
+  vars <- vars_select(names(.spec), !!!quos(...))
   map_chr(.spec[vars], .fun)
 }
 
