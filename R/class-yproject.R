@@ -136,6 +136,8 @@ csv_file_name <- function(data_path, data_stem, ext = ".csv", ...) {
 ##' @param dots used to update `SETUP__` block data items
 ##' @param sponsor optional project sponsor
 ##' @param projectnumber optional project number in `...`
+##' @param keep_spec_data if `TRUE`, then the specification data is saved in the 
+##' meta space of the project object
 ##' @return an object of class yproj
 ##' 
 ##' @details

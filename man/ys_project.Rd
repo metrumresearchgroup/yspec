@@ -38,6 +38,9 @@ as_proj_spec(...)
 
 \item{projectnumber}{optional project number in \code{...}}
 
+\item{keep_spec_data}{if \code{TRUE}, then the specification data is saved in the
+meta space of the project object}
+
 \item{where}{directory containing the specification files if listed}
 }
 \value{

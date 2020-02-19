@@ -63,6 +63,9 @@ document}
 
 \item{number_sections}{used in yaml front matter}
 
+\item{rmd_template}{full path to rmarkdown file to be used to template the
+data specification document}
+
 \item{date}{used in yaml front matter}
 
 \item{dots}{passed to object converter}

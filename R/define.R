@@ -73,6 +73,8 @@ ys_document <- function(x, type = c("working", "regulatory"), ...) {
 ##' @param author used in yaml front matter
 ##' @param toc used in yaml front matter
 ##' @param number_sections used in yaml front matter
+##' @param rmd_template full path to rmarkdown file to be used to template the 
+##' data specification document
 ##' @param date used in yaml front matter
 ##' @param dots passed to object converter
 ##' @param ... passed to [rmarkdown::render]
@@ -211,9 +213,11 @@ render_spec.yspec <- function(x, stem = get_meta(x)[["name"]], ..., dots = list(
 ##' 
 ##' This function is for internal use by [render_define].  
 ##'
-##' @param yamlfile a project file name
-##' @param format a function or the name of a function to format the spec
+##' @param x a project file name
+##' @param form_ a function or the name of a function to format the spec
 ##' contents
+##' @param proj a project object from which to render
+##' @param meta meta data list 
 ##' @keywords internal
 ##' @md
 ##' @export
@@ -235,7 +239,8 @@ define_for_rmd <- function(x,form_,proj=NULL,meta=NULL) {
   if(is.null(meta)) {
     meta <- get_meta(proj)  
   }
-  if(.has("data", meta)) {
+  
+  if(.has("data", meta) & getOption("yspec.use.kept.data",FALSE)) {
     warning(
       "using spec data found in yproject object, not from the source yaml file.",
       call.=FALSE

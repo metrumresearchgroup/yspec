@@ -7,10 +7,14 @@
 define_for_rmd(x, form_, proj = NULL, meta = NULL)
 }
 \arguments{
-\item{yamlfile}{a project file name}
+\item{x}{a project file name}
 
-\item{format}{a function or the name of a function to format the spec
+\item{form_}{a function or the name of a function to format the spec
 contents}
+
+\item{proj}{a project object from which to render}
+
+\item{meta}{meta data list}
 }
 \description{
 This function is for internal use by \link{render_define}.
