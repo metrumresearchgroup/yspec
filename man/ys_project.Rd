@@ -12,7 +12,8 @@ ys_project(
   data_path = NULL,
   dots = list(),
   sponsor = "[sponsor]",
-  projectnumber = "[projectnumber]"
+  projectnumber = "[projectnumber]",
+  keep_spec_data = FALSE
 )
 
 ys_project_file(

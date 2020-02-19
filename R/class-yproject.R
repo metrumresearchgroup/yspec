@@ -158,7 +158,8 @@ csv_file_name <- function(data_path, data_stem, ext = ".csv", ...) {
 ##' @export
 ys_project <- function(..., output=tempfile(fileext=".yml"), 
                        data_path = NULL, dots = list(),
-                       sponsor = "[sponsor]", projectnumber = "[projectnumber]") {
+                       sponsor = "[sponsor]", projectnumber = "[projectnumber]", 
+                       keep_spec_data = FALSE) {
   lst <- list(...)
   proj <- map(lst, assemble_proj_info)
   meta <- map(proj, "meta")
@@ -197,6 +198,7 @@ ys_project <- function(..., output=tempfile(fileext=".yml"),
     path = dirname(output), 
     class = "yproj"
   )
+  if(keep_spec_data) meta[["data"]] <- do.call(as_spec_list,lst)
   meta <- update_list(meta,dots)
   txt <- yaml::as.yaml(c(list(YPROJ__ = meta),proj))
   if(dirname(output)==tempdir()) {

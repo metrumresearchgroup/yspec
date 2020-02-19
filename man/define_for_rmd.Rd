@@ -4,7 +4,7 @@
 \alias{define_for_rmd}
 \title{Generate code for a generic define document}
 \usage{
-define_for_rmd(yamlfile, format)
+define_for_rmd(x, form_, proj = NULL, meta = NULL)
 }
 \arguments{
 \item{yamlfile}{a project file name}

@@ -23,7 +23,8 @@ render_define(x, ...)
   author = "MetrumRG",
   toc = "yes",
   number_sections = "yes",
-  date = format(Sys.time()),
+  rmd_template = NULL,
+  date = base::format(Sys.time()),
   ...
 )
 
