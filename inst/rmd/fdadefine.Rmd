@@ -4,7 +4,7 @@ date: <date>
 sponsor: <sponsor>
 projectnumber: <projectnumber>
 author: <author>
-geometry: "left=3.5cm,right=3.5cm,top=3cm,bottom=3cm"
+geometry: "left=2.54cm,right=2.54cm,top=3cm,bottom=3cm"
 linkcolor: magenta
 output:
   pdf_document:
