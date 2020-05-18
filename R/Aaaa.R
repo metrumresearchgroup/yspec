@@ -17,6 +17,7 @@
 #' @importFrom glue glue
 #' @importFrom utils type.convert read.csv
 #' @importFrom crayon red green black blue bold italic
+#' @importFrom fs path_rel
 #' 
 #' @include utils.R
 NULL
@@ -35,7 +36,8 @@ VALID_SETUP_NAMES <- c(
   "primary_key", "lookup_file", 
   "description", "sponsor", "projectnumber", 
   "data_path", "data_stem", "name", "spec_file", 
-  "spec_path", "glue", "use_internal_db"
+  "spec_path", "glue", "use_internal_db", 
+  "import"
 )
 
 .glopen <- "<<"

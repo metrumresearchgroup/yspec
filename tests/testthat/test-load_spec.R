@@ -54,7 +54,7 @@ test_that("invalid type value", {
 test_that("primary keys not in the data set", {
   expect_error(
     ld("bad_keys.yml"), 
-    "Invalid primary key."
+    "invalid primary key."
   )
 })
 
