@@ -154,7 +154,7 @@ ys_load_file <- function(file, data_path = NULL, data_stem = NULL, verbose=FALSE
   incoming <- list(...)
   incoming[["data_path"]] <- data_path
   incoming[["data_stem"]] <- data_stem
-  unpack_meta(x, to_update = incoming,verbose=verbose)
+  unpack_meta(x,to_update=incoming,verbose=verbose)
 }
 
 ##' @rdname ys_load
@@ -184,7 +184,12 @@ unpack_spec <- function(x,verbose=FALSE) {
   )
   x[] <- map(x, unpack_col)
   check_spec_cols(x)
-  structure(x, class = "yspec")
+  ans <- structure(x, class = "yspec")
+  if(.has("import", get_meta(x))) {
+    import <- ys_load(get_meta(x)[["import"]])
+    ans <- c(import,ans)
+  }
+  ans
 }
 
 unpack_meta <- function(x,to_update, verbose=FALSE, ...) {
@@ -223,7 +228,7 @@ unpack_meta <- function(x,to_update, verbose=FALSE, ...) {
         names(x)
       ))
     if(!found_keys) {
-      err_file(meta[["spec_file"]], "Invalid primary key.")
+      err_file(meta[["spec_file"]], "invalid primary key.")
     }
   }
   if(verbose) {
@@ -232,6 +237,9 @@ unpack_meta <- function(x,to_update, verbose=FALSE, ...) {
     if(.has("sponsor", meta)) verb("  sponsor", meta[["sponsor"]])
   }
   meta <- update_list(meta,to_update)
+  if(exists("import", meta)) {
+    meta[["import"]] <- fs::path_abs(meta[["import"]],meta[["spec_path"]])  
+  }
   spec_validate_meta(meta)
   structure(x, meta = meta)
 }

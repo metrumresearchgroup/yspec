@@ -39,7 +39,7 @@ c.yspec <- function(x,y,...) {
   if(!identical(new_cols, names(y))) {
     stop("'x' and 'y' cannot share any names.")  
   }
-  structure(c(as.list(x),as.list(y)), meta = get_meta(x), class="yspec")
+  structure(c(unclass(x),unclass(y)), meta = get_meta(x), class="yspec")
 }
 
 ##' @export
