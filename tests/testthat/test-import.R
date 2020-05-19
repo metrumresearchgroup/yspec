@@ -4,19 +4,17 @@ library(testthat)
 
 context("test-import")
 
-loc1 <- system.file("spec","import-example.yml",package="yspec")
-loc2 <- system.file("spec","DEM104101F_PKPD.yml",package="yspec")
-loc3 <- system.file("spec","import-example-add.yml",package="yspec")
+.sp <- yspec:::test_spec_test
 
 test_that("import - identical spec", {
-  a <- ys_load(loc1)
-  b <- ys_load(loc2)
+  a <- .sp("import-issue-84.yml")
+  b <- .sp("DEM104101F_PKPD.yml")
   expect_identical(a,b)
 })
 
 test_that("import - identical spec with additional column", {
-  a <- ys_load(loc1)
-  b <- ys_load(loc3)
+  a <- .sp("import-issue-84.yml")
+  b <- .sp("import-add-issue-84.yml")
   expect_identical(
     c(names(a),"ADD"),
     names(b)

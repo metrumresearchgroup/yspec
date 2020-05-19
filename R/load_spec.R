@@ -189,6 +189,12 @@ unpack_spec <- function(x,verbose=FALSE) {
     import <- ys_load(get_meta(x)[["import"]])
     ans <- c(import,ans)
   }
+  if(isTRUE(get_meta(x)[["character_last"]])) {
+    type <- map_chr(ans, "type")
+    chr <- type=="character"
+    comment <- names(ans) %in% get_meta(x)[["comment_col"]]
+    ans <- c(ans[(!chr) | comment],ans[chr & (!comment)])
+  }
   ans
 }
 

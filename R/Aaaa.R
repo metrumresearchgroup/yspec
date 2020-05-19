@@ -37,7 +37,7 @@ VALID_SETUP_NAMES <- c(
   "description", "sponsor", "projectnumber", 
   "data_path", "data_stem", "name", "spec_file", 
   "spec_path", "glue", "use_internal_db", 
-  "import"
+  "import", "character_last","comment_col"
 )
 
 .glopen <- "<<"
