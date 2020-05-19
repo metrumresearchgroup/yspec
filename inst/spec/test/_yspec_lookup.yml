@@ -1,0 +1,41 @@
+WT:
+  long: patient weight
+  about: [Weight, kg]
+  range: [50, 120]
+  type: numeric
+EGFR:
+  long: estimated glomerular filtration rate
+  about: [eGFR, ml/min/1.73m2]
+  range: [40,170]
+  type: numeric
+EGFR2:
+  range: [10,60]
+SEX:
+  values: [0,1]
+  decode: [male, female]
+  type: numeric
+RACE:
+  values:
+    white: 1
+    black: 2
+    other: 3
+CMT:
+  short: compartment - from_lookup
+  long: compartment number per NONMEM
+C:
+  short: commented row indicator
+EVID:
+  type: numeric
+  short: event ID
+  long: event ID indicator
+  comment: per NONMEM specifications
+MDV:
+  type: numeric
+  long: missing DV indicator
+  comment: per NONMEM specifications
+ALB2:
+  type: numeric
+  short: adjusted albumin
+  unit: g/dL
+  comment: in the lookup document as ALB2
+  range: [1,5]

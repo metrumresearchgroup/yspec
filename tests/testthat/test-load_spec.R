@@ -86,9 +86,6 @@ test_that("error if label greater than 40 characters", {
                regexp = "should not be longer than 40 characters") 
 })
 
-
-
-
 test_that("collapse source, comment, long issue-46", {
   x <- yspec:::test_spec_test("issue-46.yml") 
   x <- as.list(x)
@@ -96,5 +93,3 @@ test_that("collapse source, comment, long issue-46", {
   expect_equal(x$FOO$source, "line one line two line 3")
   expect_equal(x$FOO$long, "a b c")
 })
-
-
