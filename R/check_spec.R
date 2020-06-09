@@ -80,8 +80,9 @@ check_data_names <- function(ndata,nspec,env,output) {
   }
   
   if(length(nspec) > length(ndata)) {
-    add_log(env, "spec has more items that cols in the data")
+    add_log(env, "spec has more items than cols in the data")
   }
+  
   if(length(nspec) < length(ndata)) {
     add_log(env, "data has more cols than items in the spec")
   }
