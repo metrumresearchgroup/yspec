@@ -114,17 +114,40 @@ summary.yspec <- function(object, ...) {
   out
 }
 
-##' Get meta data from a specification object
-##'
-##' @param x a yspec object
-##'
-##' @export
+#' Get meta data from a specification object
+#'
+#' @param x a yspec object
+#' 
+#' @examples
+#' spec <- ys_help$spec()
+#' 
+#' ans <- get_meta(spec)
+#' 
+#' @export
 get_meta <- function(x) {
   ans <- attr(x, "meta")
   if(is.null(ans)) {
-    .stop("The object does not have a meta attribute.")
+    .stop("the object does not have a meta attribute.")
   }
   ans
+}
+
+#' Pull a single item from the meta data object
+#' 
+#' @param x a yspec object
+#' @param what character name of item in meta
+#' 
+#' @examples
+#' 
+#' spec <- ys_help$spec()
+#' 
+#' pull_meta(spec, "description")
+#' 
+#' @export
+pull_meta <- function(x,what) {
+  ans <- attr(x, "meta")
+  assert_that(exists(what,ans))
+  ans[[what]]
 }
 
 ##' Get the file name for a yspec object
