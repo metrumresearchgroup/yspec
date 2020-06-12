@@ -227,7 +227,7 @@ define_for_rmd <- function(x,form_,proj=NULL,meta=NULL) {
     format_fun <- form_
   }
   
-  assert_that(is.function(format_fun))
+  assertthat::assert_that(is.function(format_fun))
   
   environment(format_fun) <- parent.frame()
   

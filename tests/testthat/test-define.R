@@ -21,14 +21,12 @@ test_that("define", {
 })
 
 test_that("md_outline", {
-
   sp <- load_spec_ex(("DEM104101F_PK.yml"))
   expect_is(sp, "yspec")
   pr <- ys_project(sp)
   expect_is(pr,"yproj")
   yamlfile <- get_meta(pr)[["spec_file"]]
-
-  #define_for_rmd(yamlfile,"md_outline")
+  define_for_rmd(yamlfile,"md_outline")
 })
 
 test_that("pander_table", {
