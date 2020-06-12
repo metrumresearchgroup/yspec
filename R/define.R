@@ -229,7 +229,7 @@ define_for_rmd <- function(x,form_,proj=NULL,meta=NULL) {
   
   assertthat::assert_that(is.function(format_fun))
   
-  environment(format_fun) <- parent.frame()
+  #environment(format_fun) <- parent.frame()
   
   if(is.null(proj)) {
     proj <- load_spec_proj(x)  
