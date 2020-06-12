@@ -13,7 +13,7 @@ yspec_add_factors(
   .suffix = getOption("ys.fct.suffix", "_f")
 )
 
-yspec_make_factor(values, x)
+yspec_make_factor(values, x, strict = TRUE)
 }
 \arguments{
 \item{.data}{the data set to modify}
@@ -22,8 +22,8 @@ yspec_make_factor(values, x)
 
 \item{...}{unquoted column names for modification}
 
-\item{.all}{if `TRUE` then any column with a `values` attribute will be 
-added as a factor}
+\item{.all}{if `TRUE` then any column with a `values` attribute or  where 
+the `make_factor` field evaluates to `TRUE` will be added as a factor}
 
 \item{.suffix}{used to make the column name for the factors}
 
@@ -39,12 +39,14 @@ Note that `.suffix` can be chosen using option `ys.fct.suffix`.
 }
 \examples{
 
-spec <- load_spec_ex()
+spec <- ys_help$spec()
 
 yspec_make_factor(c(1,0,1,1,1,0), spec$SEX)
 
 data <- data.frame(SEX = c(1,1,1,1,0,0,1,1), STUDY= c(202,100))
 
-yspec_add_factors(data, spec, SEX, STUDY)
+head(yspec_add_factors(data, spec, SEX, STUDY))
+
+head(yspec_add_factors(data))
 
 }

@@ -17,6 +17,8 @@ SEQ:
   values: {observation: 0, dose: 1}
 CMT:
 EVID:
+  make_factor: true
+  lookup: true
 AMT: !look
   unit: mg
 DV:  !look

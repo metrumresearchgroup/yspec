@@ -29,14 +29,14 @@ test_that("error making factor from continuous data", {
    expect_error(yspec_make_factor(c(1,2,3,4), spec$WT))
 })
 
-test_that("make factor from .all_vars", {
+test_that("make all factors", {
   dat <- ys_help$data()
   sp <- ys_help$spec()
   
   has_values <- c("C", "SEQ", "EVID", "CP", "MDV", "BLQ", "PHASE", "STUDY", "RF")
   
   before <- names(dat)
-  dat <- yspec_add_factors(dat, sp, .all=TRUE)
+  dat <- yspec_add_factors(dat, sp)
   after <- names(dat)
   diff <- setdiff(after,before)
   expect_identical(diff, paste0(has_values,"_f"))
