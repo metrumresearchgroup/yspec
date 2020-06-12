@@ -15,10 +15,10 @@ test_that("define", {
   expect_is(sp, "yspec")
   pr <- ys_project(sp)
 
-  # out <- ys_document(sp, type = "working",quiet = TRUE,
-  #                    output_dir = path)
-  # 
-  # expect_is(out,"character")
+  out <- ys_document(sp, type = "working", quiet = TRUE,
+                     output_dir = tempdir())
+
+  expect_is(out,"character")
   
   out <- ys_document(pr, type = "regulatory", build_dir = mrgtemplate(),
                      quiet=TRUE, output_dir = path)
