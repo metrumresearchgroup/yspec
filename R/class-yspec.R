@@ -229,10 +229,11 @@ label.yspec <- function(x,default="short",...) {
 #' Get label
 #' 
 #' @param x ycol or yspec object
+#' @param ... passed to label methods
 #' 
 #' @export
 get_label <- function(x,...) {
-  yspec:::label(x,...)  
+  label(x,...)  
 }
   
 type <- function(x,...) UseMethod("type")

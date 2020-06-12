@@ -29,7 +29,7 @@ VALID_SPEC_NAMES <- c(
   "source", "comment",
   "short", "long", "about", "dots",
   "range", "longvalues", "lookup", 
-  "axis", "table", "label"
+  "axis", "table", "label", "make_factor"
 )
 
 VALID_SETUP_NAMES <- c(
