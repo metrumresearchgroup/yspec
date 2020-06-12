@@ -26,7 +26,7 @@ test_that("update sponsor - yspec", {
   expect_equal(get_meta(proj)[["sponsor"]],"new sponsor name")
 })
 
-test_that("update short column", {
+test_that("update column short value", {
   sp <- ys_help$spec()  
   sp2 <- update_short(sp, ID = "subject", AMT = "dose")
   expect_true(sp2$ID$short != sp$ID$short)
