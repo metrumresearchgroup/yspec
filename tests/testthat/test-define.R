@@ -35,6 +35,6 @@ test_that("pander_table", {
   pr <- ys_project_file(file_spec_ex("DEM104101F_PK.yml"))
   expect_is(pr,"yproj")
   yamlfile <- ys_spec_file(pr)
-  define_for_rmd(yamlfile,"pander_table")
+  ans <- define_for_rmd(yamlfile,"pander_table")
   expect_is(ans,"character")
 })
