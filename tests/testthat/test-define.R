@@ -4,11 +4,7 @@ library(testthat)
 context("test-define")
 
 test_that("define", {
-  
-  outd <- normalizePath(tempdir())
-  path <- file.path(outd,"test-define-out-dir")
-  if(dir.exists(path)) unlink(path, recursive = TRUE)
-  dir.create(path)
+
   sp <- load_spec_ex(("DEM104101F_PK.yml"))
   expect_is(sp, "yspec")
   pr <- ys_project(sp)
@@ -21,7 +17,7 @@ test_that("define", {
   expect_is(out,"character")
   
   out <- ys_document(pr, type = "regulatory", build_dir = mrgtemplate(),
-                     quiet=TRUE, output_dir = path)
+                     quiet=TRUE, output_dir = tempdir())
   
   expect_is(out,"character")
   
