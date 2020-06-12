@@ -16,7 +16,7 @@
 ##' @md
 ##' @export
 x_table <- function(x,...) {
-  assert_that(requireNamespace("xtable"))
+  assertthat::assert_that(requireNamespace("xtable"))
   tab <- pander_table_df(x,...)
   lengths <- c(0, 1, 0.65, 0.95, 2.4)
   align <- paste0("p{",lengths,"in}")
@@ -44,7 +44,7 @@ x_table <- function(x,...) {
 #' @rdname x_table
 #' @export
 x_table_long <- function(x,...) {
-  assert_that(requireNamespace("xtable"))
+  assertthat::assert_that(requireNamespace("xtable"))
   tab <- pander_table_df(x, long=TRUE, ...)
   lengths <- c(0, 1.65, 0.95, 2.4)
   align <- paste0("p{",lengths,"in}")
@@ -90,7 +90,7 @@ x_table_long <- function(x,...) {
 ##' @export
 pander_table <- function(x, ...) {
   
-  assert_that(requireNamespace("pander"))
+  assertthat::assert_that(requireNamespace("pander"))
   
   ans <- pander_table_df(x)
   
