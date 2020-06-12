@@ -93,3 +93,9 @@ test_that("collapse source, comment, long issue-46", {
   expect_equal(x$FOO$source, "line one line two line 3")
   expect_equal(x$FOO$long, "a b c")
 })
+
+test_that("error to pass non-character file name", {
+  x <- ys_help$spec()
+  expect_error(ys_load(x))
+})
+

@@ -147,6 +147,9 @@ ys_load <- function(file, verbose=FALSE,  ...) {
 ##' @rdname ys_load
 ##' @export
 ys_load_file <- function(file, data_path = NULL, data_stem = NULL, verbose=FALSE, ...) {
+  if(!is.character(file)) {
+    stop("'file' argument must have class character (not ", class(file)[1],")",call.=FALSE)  
+  }
   file <- normalPath(file, mustWork = FALSE)
   if(verbose) verb("~ working on", basename(file))
   x <- try_yaml(file)
