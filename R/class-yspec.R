@@ -226,6 +226,15 @@ label.yspec <- function(x,default="short",...) {
   map_chr(x,label.ycol, default = default)  
 }
 
+#' Get label
+#' 
+#' @param x ycol or yspec object
+#' 
+#' @export
+get_label <- function(x,...) {
+  yspec:::label(x,...)  
+}
+  
 type <- function(x,...) UseMethod("type")
 ##' @export
 type.ycol <- function(x, default = "numeric", ... ) {

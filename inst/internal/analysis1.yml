@@ -10,10 +10,10 @@ NUM:
 ID:
 SUBJ: !look
 TIME:
-  short: time after first dose
+  label: time after first dose
   unit: hour
 SEQ: 
-  short: data type
+  label: data type
   values: {observation: 0, dose: 1}
 CMT:
 EVID:
@@ -24,7 +24,8 @@ DV:  !look
 AGE:
 WT:
 CRCL:
-  about: [creatinine clearance, ml/min]
+  label: creatinine clearance
+  unit: ml/min
 ALB:
 BMI:
 AAG:

@@ -75,3 +75,10 @@ SEX:
 NUM: 
   short: record number
   type: numeric
+BQL: 
+  short: "data point below the LOQ"
+  type: numeric
+  values: {0: not below quantitation limit, 1: below quantitation limit}
+LOQ: 
+  short: assay limit of quantification
+  type: numeric
