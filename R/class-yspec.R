@@ -1,8 +1,6 @@
 
 is_yspec <- function(x) inherits(x, "yspec")
 
-
-
 ##' @export
 update.yspec <- function(object, projectnumber=NULL, sponsor=NULL, ...) {
   
