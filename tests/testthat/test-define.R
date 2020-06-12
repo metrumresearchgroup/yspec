@@ -20,10 +20,10 @@ test_that("define", {
 
   expect_is(out,"character")
   
-  out <- ys_document(pr, type = "regulatory", build_dir = mrgtemplate(),
-                     quiet=TRUE, output_dir = path)
-  
-  expect_is(out,"character")
+  # out <- ys_document(pr, type = "regulatory", build_dir = mrgtemplate(),
+  #                    quiet=TRUE, output_dir = path)
+  # 
+  # expect_is(out,"character")
 
 })
 
