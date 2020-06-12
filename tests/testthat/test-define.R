@@ -6,6 +6,7 @@ library(pander)
 context("test-define")
 
 test_that("define", {
+  skip()
   outdir <- normalizePath(tempdir())
   sp <- load_spec_ex(("DEM104101F_PK.yml"))
   expect_is(sp, "yspec")
@@ -21,12 +22,13 @@ test_that("define", {
 })
 
 test_that("md_outline", {
+  skip()
   sp <- load_spec_ex(("DEM104101F_PK.yml"))
   expect_is(sp, "yspec")
   pr <- ys_project(sp)
   expect_is(pr,"yproj")
   yamlfile <- get_meta(pr)[["spec_file"]]
-  skip()
+
   define_for_rmd(yamlfile,"md_outline")
 })
 
