@@ -12,6 +12,7 @@ test_that("define", {
 
   pr <- ys_project(sp)
   
+  skip()
   out <- ys_document(sp, type = "working",quiet=TRUE,
                      output_dir = outdir)
   out <- ys_document(pr, type = "regulatory", build_dir = mrgtemplate(),
@@ -25,6 +26,7 @@ test_that("md_outline", {
   pr <- ys_project(sp)
   expect_is(pr,"yproj")
   yamlfile <- get_meta(pr)[["spec_file"]]
+  skip()
   define_for_rmd(yamlfile,"md_outline")
 })
 
