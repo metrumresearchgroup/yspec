@@ -1,5 +1,4 @@
 library(yspec)
-library(purrr)
 library(testthat)
 
 context("test-import")

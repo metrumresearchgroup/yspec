@@ -1,6 +1,6 @@
 library(yspec)
 library(testthat)
-library(purrr)
+
 # .test_load <- yspec:::.test_load
 # .test_spec <- yspec:::.test_spec
 

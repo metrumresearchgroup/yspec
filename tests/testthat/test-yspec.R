@@ -1,7 +1,7 @@
 
 library(yspec)
 library(testthat)
-library(purrr)
+
 .test_load <- yspec:::.test_load
 .test_spec <- yspec:::.test_spec
 
@@ -12,7 +12,7 @@ spec <- load_spec_ex(file = "spec.yml")
 test_that("yspec object", {
   expect_is(spec, "yspec")
   expect_true(is.list(spec))
-  cl <- map_chr(spec, class)
+  cl <- purrr::map_chr(spec, class)
   expect_true(all(cl=="ycol"))
 })
 
@@ -106,12 +106,12 @@ test_that("add column labels", {
   data <- ys_help$data()
   
   data2 <- ys_add_labels(data,spec)
-  labs2 <- map(data2, attr, "label")
+  labs2 <- purrr::map(data2, attr, "label")
   expect_identical(labs2$WT,yspec:::label.ycol(spec$WT))
   expect_identical(labs2$STUDY,yspec:::label.ycol(spec$STUDY))
   
   data3 <- ys_add_labels(data,spec,function(x) x$short)
-  labs3 <- map(data3, attr, "label")
+  labs3 <- purrr::map(data3, attr, "label")
   
   expect_identical(labs3$HT,spec$HT$short)
   expect_error(ys_add_labels(spec,data), "data does not inherit from class")

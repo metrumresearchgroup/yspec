@@ -1,6 +1,5 @@
 library(yspec)
 library(testthat)
-library(purrr)
 
 context("test-exspec")
 
