@@ -13,10 +13,14 @@ test_that("define", {
   pr <- ys_project(sp)
 
   out <- ys_document(sp, type = "working",quiet=TRUE,
-                     output_dir = out)
+                     output_dir = outd)
 
+  expect_is(out,"character")
+  
   out <- ys_document(pr, type = "regulatory", build_dir = mrgtemplate(),
                      quiet=TRUE, output_dir = outd)
+  
+  expect_is(out,"character")
 
 })
 
