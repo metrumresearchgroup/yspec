@@ -15,7 +15,7 @@
 #' 
 #' @examples
 #' 
-#' spec <- ys_help$spec()
+#' spec <- load_spec_ex()
 #' 
 #' yspec_make_factor(c(1,0,1,1,1,0), spec$SEX)
 #' 
@@ -23,7 +23,10 @@
 #' 
 #' head(yspec_add_factors(data, spec, SEX, STUDY))
 #' 
-#' head(yspec_add_factors(data))
+#' data <- ys_help$data()
+#' spec <- ys_help$spec()
+#' 
+#' head(yspec_add_factors(data, spec))
 #' 
 #' @export
 yspec_add_factors <- function(.data, .spec, ... , 
@@ -50,6 +53,7 @@ yspec_add_factors <- function(.data, .spec, ... ,
   .data
 }
 
+#' @param strict if `FALSE`, then an factor will be returned for any `values` type
 #' @rdname yspec_add_factors
 #' @export
 yspec_make_factor <- function(values,x,strict=TRUE) {

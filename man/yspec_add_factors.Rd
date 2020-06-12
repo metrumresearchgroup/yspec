@@ -30,6 +30,8 @@ the `make_factor` field evaluates to `TRUE` will be added as a factor}
 \item{values}{a vector of values to convert to a factor}
 
 \item{x}{a ycol object}
+
+\item{strict}{if `FALSE`, then an factor will be returned for any `values` type}
 }
 \description{
 Add factors to data set based on spec information
@@ -39,7 +41,7 @@ Note that `.suffix` can be chosen using option `ys.fct.suffix`.
 }
 \examples{
 
-spec <- ys_help$spec()
+spec <- load_spec_ex()
 
 yspec_make_factor(c(1,0,1,1,1,0), spec$SEX)
 
@@ -47,6 +49,9 @@ data <- data.frame(SEX = c(1,1,1,1,0,0,1,1), STUDY= c(202,100))
 
 head(yspec_add_factors(data, spec, SEX, STUDY))
 
-head(yspec_add_factors(data))
+data <- ys_help$data()
+spec <- ys_help$spec()
+
+head(yspec_add_factors(data, spec))
 
 }

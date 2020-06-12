@@ -8,6 +8,8 @@ get_label(x, ...)
 }
 \arguments{
 \item{x}{ycol or yspec object}
+
+\item{...}{passed to label methods}
 }
 \description{
 Get label
