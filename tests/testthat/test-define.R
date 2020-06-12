@@ -12,8 +12,6 @@ test_that("define", {
 
   pr <- ys_project(sp)
   
-  skip_on_travis()
-  
   out <- ys_document(sp, type = "working",quiet=TRUE,
                      output_dir = outdir)
   out <- ys_document(pr, type = "regulatory", build_dir = mrgtemplate(),
