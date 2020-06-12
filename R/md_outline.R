@@ -11,7 +11,7 @@ md_outline <- function(x) {
 
   txt <- lapply(x, define_col_1)
 
-  flatten_chr(txt)
+  purrr::flatten_chr(txt)
 
 }
 
