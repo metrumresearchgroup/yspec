@@ -134,6 +134,8 @@ check_data_names <- function(ndata,nspec,env,output) {
 #' @param output the name of a file or a connection 
 #' for writing check results
 #' @param file the full path to a yaml specification file
+#' @param error_on_fail if `FALSE`, return logical check status rather than 
+#' generating an error
 #' @param ... arguments passed from alias function to preferred function name
 #' 
 #' @details
@@ -174,7 +176,8 @@ check_data_names <- function(ndata,nspec,env,output) {
 #' 
 #' @md
 #' @export
-ys_check <- function(data, spec, verbose = FALSE, output = tempfile()) {
+ys_check <- function(data, spec, verbose = FALSE, output = tempfile(), 
+                     error_on_fail = TRUE) {
   
   if(!is.data.frame(data)) {
     stop("'data' argument must be a data frame.", call.=FALSE)  
@@ -229,7 +232,6 @@ ys_check <- function(data, spec, verbose = FALSE, output = tempfile()) {
   
   cata("\n", make_sep(), "\n", file = output,sep="")
   
-  
   if(env$error) {
     msgs <- c(
       crayon::bold(crayon::green("Messages:\n")),
@@ -245,6 +247,7 @@ ys_check <- function(data, spec, verbose = FALSE, output = tempfile()) {
       cat("\n")
     }
     message(make_sep())
+    if(!error_on_fail) return(!env$error)
     .stop("Please review messages and re-check.")
   }
   
