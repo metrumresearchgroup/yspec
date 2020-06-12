@@ -22,6 +22,40 @@ update.yspec <- function(object, projectnumber=NULL, sponsor=NULL, ...) {
   
 }
 
+#' Update short names in a yspec object
+#' 
+#' @param spec a yspec object
+#' @param ... `<column name> = <short name>` pairs
+#' 
+#' @details
+#' If no update items are passed in, the original spec object will be returned.
+#' An error will be issued if a column update is requested, but can't be found
+#' in the spec.
+#' 
+#' @examples
+#' sp <- ys_help$spec()
+#' 
+#' sp2 <- update_short(sp, ID = "subject", ALB = "serum albumin")
+#' 
+#' @export
+update_short <- function(spec, ...) {
+  assert_that(is_yspec(spec),msg="'spec' must be a yspec object")
+  short <- list(...)
+  if(length(short)==0) return(spec)
+  col <- names(short)
+  for(i in seq_along(short)) {
+    this_col <- col[[i]]
+    assert_that(
+      exists(this_col,spec), 
+      msg = glue("column '{this_col}' does not exist in the spec object")
+    )
+    spec[[col[i]]][["short"]] <- short[[i]]    
+  }
+  spec
+}
+
+
+
 #' Add extra column elements to a yspec object
 #' 
 #' @param x a `yspec` object
@@ -233,7 +267,7 @@ label.yspec <- function(x,default="short",...) {
 get_label <- function(x,...) {
   label(x,...)  
 }
-  
+
 type <- function(x,...) UseMethod("type")
 ##' @export
 type.ycol <- function(x, default = "numeric", ... ) {
