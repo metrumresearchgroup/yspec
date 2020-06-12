@@ -14,5 +14,17 @@ test_that("fda_define", {
   expect_is(tex,"character")
 })
 
+test_that("data_stem is respected in regulatory define", {
+  spec <- yspec:::test_spec_test("issue-35.yml")
+  proj <- ys_project(spec)
+  m <- get_meta(proj)
+  ans <- fda_define(m$spec_file)
+  pr <- proj[[1]]
+  res <- regexpr(pr$data_stem, ans, fixed = TRUE)
+  expect_true(sum(res > 0)==2)
+  res <- regexpr(basename(pr$xpt_file), ans, fixed = TRUE)
+  expect_true(sum(res > 0) ==2)
+  expect_equal(basename(pr$xpt_file),paste0(pr$data_stem,".xpt"))
+})
 
 
