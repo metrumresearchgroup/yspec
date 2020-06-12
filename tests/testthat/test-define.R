@@ -1,6 +1,7 @@
 library(yspec)
 library(testthat)
 library(purrr)
+library(pander)
 
 context("test-define")
 
