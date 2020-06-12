@@ -7,11 +7,10 @@ context("test-define")
 
 test_that("define", {
  
-  outdir <- normalizePath(tempdir())
+  # outdir <- normalizePath(tempdir())
   sp <- load_spec_ex(("DEM104101F_PK.yml"))
-  #expect_is(sp, "yspec")
-
-  #pr <- ys_project(sp)
+  expect_is(sp, "yspec")
+  pr <- ys_project(sp)
 
   # out <- ys_document(sp, type = "working",quiet=TRUE,
   #                    output_dir = outdir)
