@@ -26,7 +26,7 @@
   to make that column into a factor #91
 - The following fields will be collapsed into a single value when they are 
   entered as array: `source`, `comment`, `long` #93
-- Add alias `ys_add_factors` to `yspec_add_factors`
+- Add alias `ys_add_factors` to `yspec_add_factors` #97
 
 # yspec 0.3.0
 
