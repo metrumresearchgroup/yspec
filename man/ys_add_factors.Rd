@@ -3,6 +3,7 @@
 \name{ys_add_factors}
 \alias{ys_add_factors}
 \alias{yspec_add_factors}
+\alias{ys_make_factor}
 \alias{yspec_make_factor}
 \title{Add factors to data set based on spec information}
 \usage{
@@ -21,6 +22,8 @@ yspec_add_factors(
   .all = TRUE,
   .suffix = getOption("ys.fct.suffix", "_f")
 )
+
+ys_make_factor(values, x, strict = TRUE)
 
 yspec_make_factor(values, x, strict = TRUE)
 }
@@ -52,7 +55,7 @@ Note that `.suffix` can be chosen using option `ys.fct.suffix`.
 
 spec <- load_spec_ex()
 
-yspec_make_factor(c(1,0,1,1,1,0), spec$SEX)
+ys_make_factor(c(1,0,1,1,1,0), spec$SEX)
 
 data <- data.frame(SEX = c(1,1,1,1,0,0,1,1), STUDY= c(202,100))
 

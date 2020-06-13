@@ -17,7 +17,7 @@
 #' 
 #' spec <- load_spec_ex()
 #' 
-#' yspec_make_factor(c(1,0,1,1,1,0), spec$SEX)
+#' ys_make_factor(c(1,0,1,1,1,0), spec$SEX)
 #' 
 #' data <- data.frame(SEX = c(1,1,1,1,0,0,1,1), STUDY= c(202,100))
 #' 
@@ -48,7 +48,7 @@ ys_add_factors <- function(.data, .spec, ... ,
   
   for(v in vars) {
     newcol <- paste0(v, .suffix)
-    .data[[newcol]] <- yspec_make_factor(.data[[v]],.spec[[v]],strict=!fct_ok[[v]])
+    .data[[newcol]] <- ys_make_factor(.data[[v]],.spec[[v]],strict=!fct_ok[[v]])
   }
   .data
 }
@@ -60,7 +60,7 @@ yspec_add_factors <- ys_add_factors
 #' @param strict if `FALSE`, then an factor will be returned for any `values` type
 #' @rdname ys_add_factors
 #' @export
-yspec_make_factor <- function(values,x,strict=TRUE) {
+ys_make_factor <- function(values,x,strict=TRUE) {
   if(is.null(x[["values"]])) {
     if(!strict) return(factor(values))
     stop("column: ", x[["col"]], " - values field is not found", call. = FALSE)
@@ -76,3 +76,6 @@ yspec_make_factor <- function(values,x,strict=TRUE) {
   factor(values, levels = x[["values"]], labels = decode)
 }
 
+#' @rdname ys_add_factors
+#' @export
+yspec_make_factor <- ys_make_factor
