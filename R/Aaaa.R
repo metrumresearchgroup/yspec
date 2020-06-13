@@ -79,7 +79,8 @@ VALID_SETUP_NAMES <- c(
 #'   generate an error on load. 
 #' - `ys.fct.suffix` the suffix to add to a column name, used by 
 #'   [yspec::yspec_add_factors()]
-#' 
+#' - `ys.require.label` if `TRUE`, an error will be generated whenever a column
+#'   is specified without a label
 #' @docType package
 #' @md
 #' @name yspec
