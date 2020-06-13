@@ -1,7 +1,32 @@
-# yspec 0.3.9000
+# yspec 0.4.0
 
-- Added minimum version numbers for dependency packages
-- Added `long` argument to `pander_table` to create longer tables
+- Add minimum version numbers for dependency packages
+- Add `long` argument to `pander_table` to create longer tables
+- Fix bug where `data_stem` meta field was not getting propagated into 
+  data set name in the define document #35
+- Add ability to update project number and sponsor information in a yspec
+  object or a yproj object #36
+- Fix bug where `unit` input was not properly validated #45
+- Fix bug where `ys_check` didn't issue error when data set columns were not 
+  in the right order #54
+- New field for data set columns: `label`; this will be used when labeling 
+  data sets for xpt export #60
+- Add function (`ys_add_labels`) to label data set columns #63
+- Add function (`update_short`) to change the value in the `short` field #82
+- Add meta field (`import`) to enable import of contents of another spec #84
+- Add meta field option (`character_last`) to push all character columns to 
+  the back of the spec object #86
+- Add meta field option (`comment_col`) to identify the column that is for 
+  comments; character comment columns will not be pushed to back #86
+- Add argument to `ys_check` so that an error is not generated when checking 
+  the data, but rather `FALSE` is returned #88
+- Add functionality to add all possible factors to data set with 
+  `yspec_add_factor` #91
+- Add new data column field `make_factor` that will tell `yspec_add_factor`
+  to make that column into a factor #91
+- The following fields will be collapsed into a single value when they are 
+  entered as array: `source`, `comment`, `long` #93
+- 
 
 # yspec 0.3.0
 
