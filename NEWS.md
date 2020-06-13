@@ -11,6 +11,7 @@
   in the right order #54
 - New field for data set columns: `label`; this will be used when labeling 
   data sets for xpt export #60
+- The label field can be made optional with `ys.require.label` option #99
 - Add function (`ys_add_labels`) to label data set columns #63
 - Add function (`update_short`) to change the value in the `short` field #82
 - Add meta field (`import`) to enable import of contents of another spec #84
