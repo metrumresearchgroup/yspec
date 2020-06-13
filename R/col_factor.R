@@ -21,17 +21,17 @@
 #' 
 #' data <- data.frame(SEX = c(1,1,1,1,0,0,1,1), STUDY= c(202,100))
 #' 
-#' head(yspec_add_factors(data, spec, SEX, STUDY))
+#' head(ys_add_factors(data, spec, SEX, STUDY))
 #' 
 #' data <- ys_help$data()
 #' spec <- ys_help$spec()
 #' 
-#' head(yspec_add_factors(data, spec))
+#' head(ys_add_factors(data, spec))
 #' 
 #' @export
-yspec_add_factors <- function(.data, .spec, ... , 
-                              .all = TRUE, 
-                              .suffix = getOption("ys.fct.suffix","_f")) {
+ys_add_factors <- function(.data, .spec, ... , 
+                           .all = TRUE, 
+                           .suffix = getOption("ys.fct.suffix","_f")) {
   
   assert_that(inherits(.spec, "yspec"))
   
@@ -53,8 +53,12 @@ yspec_add_factors <- function(.data, .spec, ... ,
   .data
 }
 
+#' @rdname ys_add_factors
+#' @export
+yspec_add_factors <- ys_add_factors
+
 #' @param strict if `FALSE`, then an factor will be returned for any `values` type
-#' @rdname yspec_add_factors
+#' @rdname ys_add_factors
 #' @export
 yspec_make_factor <- function(values,x,strict=TRUE) {
   if(is.null(x[["values"]])) {

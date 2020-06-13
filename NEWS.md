@@ -21,12 +21,12 @@
 - Add argument to `ys_check` so that an error is not generated when checking 
   the data, but rather `FALSE` is returned #88
 - Add functionality to add all possible factors to data set with 
-  `yspec_add_factor` #91
-- Add new data column field `make_factor` that will tell `yspec_add_factor`
+  `yspec_add_factors` #91
+- Add new data column field `make_factor` that will tell `yspec_add_factors`
   to make that column into a factor #91
 - The following fields will be collapsed into a single value when they are 
   entered as array: `source`, `comment`, `long` #93
-- 
+- Add alias `ys_add_factors` to `yspec_add_factors`
 
 # yspec 0.3.0
 

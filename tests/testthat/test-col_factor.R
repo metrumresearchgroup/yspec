@@ -44,5 +44,11 @@ test_that("make all factors", {
   expect_true(all(cl=="factor"))
 })
 
-
+test_that("ys_add_factor aliases yspec_add_factor", {
+  dat <- ys_help$data()
+  sp <- ys_help$spec()
+  a <- yspec_add_factors(dat,sp)
+  b <- ys_add_factors(dat,sp)
+  expect_identical(a,b)
+})
 
