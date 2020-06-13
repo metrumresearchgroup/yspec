@@ -17,3 +17,11 @@ test_that("get label", {
   expect_equal(x,spec$ID$short)
 })
 
+test_that("required label", {
+  file <- ys_help$file()  
+  options(ys.require.label=TRUE)
+  expect_error(ys_load(file))
+  options(ys.require.label=NULL)
+})
+  
+  

@@ -80,6 +80,11 @@ check_this_col <- function(x,col,env,...) {
   if(sum(nchar(x$label)) > 40) {
     err <- c(err, "the 'label' field should not be longer than 40 characters")
   }
+  if(isTRUE(env$require.label)) {
+    if(!is.character(x$label)) {
+      err <- c(err, "'label' is required for every column, but is missing")  
+    }
+  }
   if(sum(nchar(x$short)) > 40) {
     err <- c(err, "the 'short' field should not be longer than 40 characters")  
   }
@@ -104,6 +109,7 @@ check_spec_cols <- function(x, context = "column") {
 check_for_err <- function(x, .fun, ...) {
   env <- new.env()
   env$err <- set_names(vector("list", length(x)),names(x))
+  env$require.label <- getOption("ys.require.label", FALSE)
   walk2(x, names(x), .fun, env = env, ...)
   err <- discard(as.list(env)$err, is.null)
   if(length(err)==0) return(character(0))
