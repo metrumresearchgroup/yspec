@@ -6,7 +6,7 @@ context("test-ys-get")
 
 sp <- ys_help$spec()
 
-test_that("get units", {
+test_that("get unit", {
   ans <- ys_get_unit(sp)  
   expect_is(ans,"list")
   expect_named(ans)

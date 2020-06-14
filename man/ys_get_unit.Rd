@@ -2,7 +2,7 @@
 % Please edit documentation in R/ys-get.R
 \name{ys_get_unit}
 \alias{ys_get_unit}
-\title{Get units}
+\title{Get unit}
 \usage{
 ys_get_unit(x, parens = FALSE, default = "", ...)
 }
@@ -17,7 +17,7 @@ or more character}
 \item{...}{passed to unit methods}
 }
 \description{
-Get units
+Forms unit for a column (`ycol` method) or columns (`yspec` method)
 }
 \seealso{
 [ys_get_short], [ys_get_label], [ys_get_short_unit]

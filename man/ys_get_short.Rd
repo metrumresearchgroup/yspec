@@ -2,7 +2,7 @@
 % Please edit documentation in R/ys-get.R
 \name{ys_get_short}
 \alias{ys_get_short}
-\title{Get short label}
+\title{Get short}
 \usage{
 ys_get_short(x, ...)
 }
@@ -12,7 +12,7 @@ ys_get_short(x, ...)
 \item{...}{passed to label methods}
 }
 \description{
-Get short label
+Forms a short for a column (`ycol` method) or columns (`yspec` method)
 }
 \seealso{
 [ys_get_unit], [ys_get_label], [ys_get_short_unit]

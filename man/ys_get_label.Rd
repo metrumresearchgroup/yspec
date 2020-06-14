@@ -12,7 +12,7 @@ ys_get_label(x, ...)
 \item{...}{passed to label methods}
 }
 \description{
-Get label
+Forms a label for a column (`ycol` method) or columns (`yspec` method)
 }
 \seealso{
 [ys_get_short], [ys_get_short], [ys_get_short_unit]

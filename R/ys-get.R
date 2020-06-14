@@ -1,5 +1,7 @@
 #' Get label
 #' 
+#' Forms a label for a column (`ycol` method) or columns (`yspec` method)
+#' 
 #' @param x ycol or yspec object
 #' @param ... passed to label methods
 #' @seealso [ys_get_short], [ys_get_short], [ys_get_short_unit]
@@ -8,7 +10,9 @@ ys_get_label <- function(x, ...) {
   label(x,...)  
 }
 
-#' Get units 
+#' Get unit
+#' 
+#' Forms unit for a column (`ycol` method) or columns (`yspec` method)
 #' 
 #' @param x ycol or yspec object
 #' @param parens if `TRUE`, then parens will be added around any unit with one
@@ -28,7 +32,9 @@ ys_get_unit <- function(x, parens = FALSE, default = "",...) {
   ans
 }
 
-#' Get short label 
+#' Get short
+#' 
+#' Forms a short for a column (`ycol` method) or columns (`yspec` method)
 #' 
 #' @param x ycol or yspec object
 #' @param ... passed to label methods
