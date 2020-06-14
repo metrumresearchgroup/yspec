@@ -225,8 +225,13 @@ unit.ycol <- function(x, default = '.',...) {
   x[["unit"]]
 }
 ##' @export
-unit.yspec <- function(x,default = '.',...) {
-  map_chr(x,"unit", .default = default)
+unit.yspec <- function(x,default = '.', .aslist = TRUE, ...) {
+  if(isTRUE(.aslist)) {
+    ans <- map(x, "unit", .default = default)
+  } else {
+    ans <-  map_chr(x, "unit", .default = default) 
+  }
+  ans
 }
 
 long <- function(x,...) UseMethod("long")
@@ -254,8 +259,13 @@ label.ycol <- function(x, default = 'short', ...) {
   return(x[[default]])
 }
 #' @export
-label.yspec <- function(x,default="short",...) {
-  map_chr(x,label.ycol, default = default)  
+label.yspec <- function(x,default="short",.aslist=TRUE,...) {
+  if(isTRUE(.aslist)) {
+    ans <- map(x, label.ycol, default = default)
+  } else {
+    ans <- map_chr(x, label.ycol, default = default)
+  }
+  ans
 }
 
 type <- function(x,...) UseMethod("type")
@@ -275,14 +285,21 @@ short <- function(x,...) UseMethod("short")
 ##' @export
 short.ycol <- function(x, default = ".", ...) {
   if(.no("short", x)) {
-    return(default)
+    ans <- default
+  } else {
+    ans <- x[["short"]]
   }
-  x[["short"]]
+  ans
 }
 
 #' @export
-short.yspec <- function(x, default = '.', ...) {
-  map_chr(x, short.ycol, default = default, ...)  
+short.yspec <- function(x, default = '.', .aslist=TRUE,...) {
+  if(isTRUE(.aslist)) {
+    ans <- map(x, short.ycol, default = default, ...)  
+  } else {
+    ans <- map_chr(x, short.ycol, default = default, ...)      
+  }
+  ans
 }
 
 comment <- function(x,...) UseMethod("comment")

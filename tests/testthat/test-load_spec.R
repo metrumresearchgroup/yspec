@@ -75,7 +75,7 @@ test_that("access label", {
   expect_equal(yspec:::label.ycol(x$A), "the label for column A")
   expect_equal(yspec:::label.ycol(x$B), "the label (long) for column B")
   expect_equal(yspec:::label.ycol(x$C), "the label (short) for column C")
-  ans <- c(yspec:::label(x$A),yspec:::label(x$B),yspec:::label(x$C,"short"))
+  ans <- list(yspec:::label(x$A),yspec:::label(x$B),yspec:::label(x$C,"short"))
   lab <- yspec:::label(x)
   expect_identical(names(lab), c("A", "B", "C"))
   expect_identical(unname(lab), ans)
