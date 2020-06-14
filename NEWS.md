@@ -28,6 +28,8 @@
 - The following fields will be collapsed into a single value when they are 
   entered as array: `source`, `comment`, `long` #93
 - Add alias `ys_add_factors` to `yspec_add_factors` #97
+- Add functions to form label, unit, and short; methods for `yspec` and 
+  `ycol` #100
 
 # yspec 0.3.0
 

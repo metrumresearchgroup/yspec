@@ -11,9 +11,9 @@ test_that("label field exists", {
 })
 
 test_that("get label", {
-  x <- get_label(spec$TIME)  
+  x <- ys_get_label(spec$TIME,.aslist=TRUE)  
   expect_equal(x,spec$TIME$label)
-  x <- get_label(spec$ID)
+  x <- ys_get_label(spec$ID)
   expect_equal(x,spec$ID$short)
 })
 
