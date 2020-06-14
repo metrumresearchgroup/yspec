@@ -87,7 +87,7 @@ ys_get_short <- function(x, ...) {
 #' @examples
 #' spec <- ys_help$spec()
 #' 
-#' ys_ get_short_unit(spec)
+#' ys_get_short_unit(spec)
 #' 
 #' ys_get_short_unit(spec$WT)
 #' 
