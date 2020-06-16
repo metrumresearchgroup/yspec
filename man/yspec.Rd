@@ -49,6 +49,8 @@ name; this defaults to 8 so that columns with 9 or more characters will
 generate an error on load.
 \item \code{ys.fct.suffix} the suffix to add to a column name, used by
 \code{\link[yspec:yspec_add_factors]{yspec::yspec_add_factors()}}
+\item \code{ys.require.label} if \code{TRUE}, an error will be generated whenever a column
+is specified without a label
 }
 }
 

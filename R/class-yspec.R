@@ -22,6 +22,40 @@ update.yspec <- function(object, projectnumber=NULL, sponsor=NULL, ...) {
   
 }
 
+#' Update short names in a yspec object
+#' 
+#' @param spec a yspec object
+#' @param ... `<column name> = <short name>` pairs
+#' 
+#' @details
+#' If no update items are passed in, the original spec object will be returned.
+#' An error will be issued if a column update is requested, but can't be found
+#' in the spec.
+#' 
+#' @examples
+#' sp <- ys_help$spec()
+#' 
+#' sp2 <- update_short(sp, ID = "subject", ALB = "serum albumin")
+#' 
+#' @export
+update_short <- function(spec, ...) {
+  assert_that(is_yspec(spec),msg="'spec' must be a yspec object")
+  short <- list(...)
+  if(length(short)==0) return(spec)
+  col <- names(short)
+  for(i in seq_along(short)) {
+    this_col <- col[[i]]
+    assert_that(
+      exists(this_col,spec), 
+      msg = glue("column '{this_col}' does not exist in the spec object")
+    )
+    spec[[col[i]]][["short"]] <- short[[i]]    
+  }
+  spec
+}
+
+
+
 #' Add extra column elements to a yspec object
 #' 
 #' @param x a `yspec` object
@@ -191,8 +225,13 @@ unit.ycol <- function(x, default = '.',...) {
   x[["unit"]]
 }
 ##' @export
-unit.yspec <- function(x,default = '.',...) {
-  map_chr(x,"unit", .default = default)
+unit.yspec <- function(x,default = '.', .aslist = TRUE, ...) {
+  if(isTRUE(.aslist)) {
+    ans <- map(x, "unit", .default = default)
+  } else {
+    ans <-  map_chr(x, "unit", .default = default) 
+  }
+  ans
 }
 
 long <- function(x,...) UseMethod("long")
@@ -220,20 +259,15 @@ label.ycol <- function(x, default = 'short', ...) {
   return(x[[default]])
 }
 #' @export
-label.yspec <- function(x,default="short",...) {
-  map_chr(x,label.ycol, default = default)  
+label.yspec <- function(x,default="short",.aslist=TRUE,...) {
+  if(isTRUE(.aslist)) {
+    ans <- map(x, label.ycol, default = default)
+  } else {
+    ans <- map_chr(x, label.ycol, default = default)
+  }
+  ans
 }
 
-#' Get label
-#' 
-#' @param x ycol or yspec object
-#' @param ... passed to label methods
-#' 
-#' @export
-get_label <- function(x,...) {
-  label(x,...)  
-}
-  
 type <- function(x,...) UseMethod("type")
 ##' @export
 type.ycol <- function(x, default = "numeric", ... ) {
@@ -251,9 +285,21 @@ short <- function(x,...) UseMethod("short")
 ##' @export
 short.ycol <- function(x, default = ".", ...) {
   if(.no("short", x)) {
-    return(default)
+    ans <- default
+  } else {
+    ans <- x[["short"]]
   }
-  x[["short"]]
+  ans
+}
+
+#' @export
+short.yspec <- function(x, default = '.', .aslist=TRUE,...) {
+  if(isTRUE(.aslist)) {
+    ans <- map(x, short.ycol, default = default, ...)  
+  } else {
+    ans <- map_chr(x, short.ycol, default = default, ...)      
+  }
+  ans
 }
 
 comment <- function(x,...) UseMethod("comment")

@@ -1,7 +1,7 @@
 Package: yspec
 Type: Package
 Title: Data Specification for Pharmacometrics
-Version: 0.3.0.9003
+Version: 0.4.0
 Authors@R: c(
        person("Kyle T", "Baron", "", "kyleb@metrumrg.com", c("aut", "cre"), comment=c(ORCID="0000-0001-7252-5656")),
        person("Metrum Research Group", role =  c("cph"))
@@ -54,3 +54,4 @@ Collate:
     'spec_validate.R'
     'split_col.R'
     'x_table_2.R'
+    'ys-get.R'
