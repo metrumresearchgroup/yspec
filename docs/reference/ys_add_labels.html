@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Functions to sanitize text for TeX documents — ys_sanitize • yspec</title>
+<title>Add label attribute to data set columns — ys_add_labels • yspec</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Functions to sanitize text for TeX documents — ys_sanitize" />
-<meta property="og:description" content="Based on xtable::sanitize." />
+<meta property="og:title" content="Add label attribute to data set columns — ys_add_labels" />
+<meta property="og:description" content="Add label attribute to data set columns" />
 
 
 
@@ -133,33 +133,90 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Functions to sanitize text for TeX documents</h1>
+    <h1>Add label attribute to data set columns</h1>
     
-    <div class="hidden name"><code>ys_sanitize.Rd</code></div>
+    <div class="hidden name"><code>ys_add_labels.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Based on <a href='https://rdrr.io/pkg/xtable/man/sanitize.html'>xtable::sanitize</a>.</p>
+    <p>Add label attribute to data set columns</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ys_sanitize</span>(<span class='no'>x</span>)
-
-<span class='fu'>ys_dont_sanitize</span>(<span class='no'>x</span>)
-
-<span class='fu'>ys_mild_sanitize</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>ys_add_labels</span>(<span class='no'>data</span>, <span class='no'>spec</span>, <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>label.ycol</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>text to sanitize</p></td>
+      <th>data</th>
+      <td><p>a <code>data.frame</code> to label</p></td>
+    </tr>
+    <tr>
+      <th>spec</th>
+      <td><p>yspec object for <code>data</code></p></td>
+    </tr>
+    <tr>
+      <th>fun</th>
+      <td><p>the function to use for forming <code>label</code></p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>An error is generated if the names of <code>data</code> are not identical to names
+of <code>spec</code>.</p>
+<p>If the user passes <code>fun</code> to generate a custom label, the function must take
+a single argument, the column <code>ycol</code> object, and must return the label for
+that column as a character vector of length one.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>ys_sanitize</span>(<span class='st'>"Concentration ($\\mu$g)"</span>)</div><div class='output co'>#&gt; [1] "Concentration ($\\mu$g)"</div><div class='input'><span class='fu'>ys_sanitize</span>(<span class='st'>"H&amp;M"</span>)</div><div class='output co'>#&gt; [1] "H\\&amp;M"</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='no'>spec</span> <span class='kw'>&lt;-</span> <span class='no'>ys_help</span>$<span class='fu'><a href='https://rdrr.io/r/stats/spectrum.html'>spec</a></span>()
+
+<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='no'>ys_help</span>$<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>()
+
+<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'>ys_add_labels</span>(<span class='no'>data</span>,<span class='no'>spec</span>)
+
+<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>(<span class='no'>data</span>,<span class='no'>attr</span>,<span class='st'>"label"</span>)</div><div class='output co'>#&gt;                               C                             NUM 
+#&gt;             "comment character"                 "record number" 
+#&gt;                              ID                            SUBJ 
+#&gt;            "subject identifier"            "subject identifier" 
+#&gt;                            TIME                             SEQ 
+#&gt;         "time after first dose"                     "data type" 
+#&gt;                             CMT                            EVID 
+#&gt;            "compartment number"                      "event ID" 
+#&gt;                             AMT                              DV 
+#&gt;                   "dose amount"            "dependent variable" 
+#&gt;                             AGE                              WT 
+#&gt;                           "age"                        "weight" 
+#&gt;                            CRCL                             ALB 
+#&gt;          "creatinine clearance"                 "serum albumin" 
+#&gt;                             BMI                             AAG 
+#&gt;               "body mass index"     "alpha-1-acid glycoprotein" 
+#&gt;                             SCR                             AST 
+#&gt;              "serum creatinine"    "aspartate aminotransferase" 
+#&gt;                             ALT                              HT 
+#&gt;      "alanine aminotransferase"                        "Height" 
+#&gt;                              CP                            TAFD 
+#&gt;              "Child-Pugh score"         "time after first dose" 
+#&gt;                             TAD                            LDOS 
+#&gt;               "time after dose"              "last dose amount" 
+#&gt;                             MDV                             BLQ 
+#&gt;          "missing DV indicator" "below limit of quantification" 
+#&gt;                           PHASE                           STUDY 
+#&gt;         "study phase indicator"                  "study number" 
+#&gt;                              RF 
+#&gt;          "renal function stage" </div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>data</span>[,<span class='fl'>1</span>:<span class='fl'>5</span>])</div><div class='output co'>#&gt; 'data.frame':	4360 obs. of  5 variables:
+#&gt;  $ C   : logi  NA NA NA NA NA NA ...
+#&gt;   ..- attr(*, "label")= chr "comment character"
+#&gt;  $ NUM : int  1 2 3 4 5 6 7 8 9 10 ...
+#&gt;   ..- attr(*, "label")= chr "record number"
+#&gt;  $ ID  : int  1 1 1 1 1 1 1 1 1 1 ...
+#&gt;   ..- attr(*, "label")= chr "subject identifier"
+#&gt;  $ SUBJ: int  1 1 1 1 1 1 1 1 1 1 ...
+#&gt;   ..- attr(*, "label")= chr "subject identifier"
+#&gt;  $ TIME: num  0 0.61 1.15 1.73 2.15 3.19 4.21 5.09 6.22 8.09 ...
+#&gt;   ..- attr(*, "label")= chr "time after first dose"</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

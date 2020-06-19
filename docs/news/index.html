@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -53,7 +57,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -67,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">yspec</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0.9101</span>
       </span>
     </div>
 
@@ -128,27 +132,44 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
+      <h1 data-toc-skip>Changelog <small></small></h1>
       
     </div>
 
-    <div id="yspec-039000" class="section level1">
-<h1 class="page-header">
-<a href="#yspec-039000" class="anchor"></a>yspec 0.3.9000</h1>
+    <div id="yspec-040" class="section level1">
+<h1 class="page-header" data-toc-text="0.4.0">
+<a href="#yspec-040" class="anchor"></a>yspec 0.4.0</h1>
 <ul>
-<li>Added minimum version numbers for dependency packages</li>
-<li>Added <code>long</code> argument to <code>pander_table</code> to create longer tables</li>
+<li>Add minimum version numbers for dependency packages</li>
+<li>Add <code>long</code> argument to <code>pander_table</code> to create longer tables</li>
+<li>Fix bug where <code>data_stem</code> meta field was not getting propagated into data set name in the define document #35</li>
+<li>Add ability to update project number and sponsor information in a yspec object or a yproj object #36</li>
+<li>Fix bug where <code>unit</code> input was not properly validated #45</li>
+<li>Fix bug where <code>ys_check</code> didn’t issue error when data set columns were not in the right order #54</li>
+<li>New field for data set columns: <code>label</code>; this will be used when labeling data sets for xpt export #60</li>
+<li>The label field can be made optional with <code>ys.require.label</code> option #99</li>
+<li>Add function (<code>ys_add_labels</code>) to label data set columns #63</li>
+<li>Add function (<code>update_short</code>) to change the value in the <code>short</code> field #82</li>
+<li>Add meta field (<code>import</code>) to enable import of contents of another spec #84</li>
+<li>Add meta field option (<code>character_last</code>) to push all character columns to the back of the spec object #86</li>
+<li>Add meta field option (<code>comment_col</code>) to identify the column that is for comments; character comment columns will not be pushed to back #86</li>
+<li>Add argument to <code>ys_check</code> so that an error is not generated when checking the data, but rather <code>FALSE</code> is returned #88</li>
+<li>Add functionality to add all possible factors to data set with <code>yspec_add_factors</code> #91</li>
+<li>Add new data column field <code>make_factor</code> that will tell <code>yspec_add_factors</code> to make that column into a factor #91</li>
+<li>The following fields will be collapsed into a single value when they are entered as array: <code>source</code>, <code>comment</code>, <code>long</code> #93</li>
+<li>Add alias <code>ys_add_factors</code> to <code>yspec_add_factors</code> #97</li>
+<li>Add functions to form label, unit, and short; methods for <code>yspec</code> and <code>ycol</code> #100</li>
 </ul>
 </div>
     <div id="yspec-030" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.3.0">
 <a href="#yspec-030" class="anchor"></a>yspec 0.3.0</h1>
 <ul>
 <li>Released into production</li>
 </ul>
 </div>
     <div id="yspec-0209000" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2.0.9000">
 <a href="#yspec-0209000" class="anchor"></a>yspec 0.2.0.9000</h1>
 <ul>
 <li>Fixed bug where column check error were assigned to the wrong column name #7</li>
@@ -186,7 +207,7 @@
 </ul>
 </div>
     <div id="yspec-0109001" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.1.0.9001">
 <a href="#yspec-0109001" class="anchor"></a>yspec 0.1.0.9001</h1>
 <ul>
 <li>
@@ -197,7 +218,7 @@
 </ul>
 </div>
     <div id="yspec-010" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.1.0">
 <a href="#yspec-010" class="anchor"></a>yspec 0.1.0</h1>
 <ul>
 <li>Initial validated version</li>
@@ -205,17 +226,10 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#yspec-039000">0.3.9000</a></li>
-        <li><a href="#yspec-030">0.3.0</a></li>
-        <li><a href="#yspec-0209000">0.2.0.9000</a></li>
-        <li><a href="#yspec-0109001">0.1.0.9001</a></li>
-        <li><a href="#yspec-010">0.1.0</a></li>
-      </ul>
-    </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 
 </div>
@@ -227,7 +241,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

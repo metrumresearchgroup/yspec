@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -38,7 +42,6 @@
 <meta property="og:title" content="Render a spec as a pandoc table — pander_table" />
 <meta property="og:description" content="Requires the pander package to be installed.  pander_table_df actually
 formats the table." />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -56,7 +59,7 @@ formats the table." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -70,7 +73,7 @@ formats the table." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">yspec</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0.9101</span>
       </span>
     </div>
 
@@ -167,29 +170,26 @@ formats the table.</p>
     <pre class="examples"><div class='input'><span class='no'>spec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='load_spec_ex.html'>load_spec_ex</a></span>()
 
 <span class='fu'>pander_table_df</span>(<span class='no'>spec</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 62 x 4</span><span>
-#&gt;    Column  Type      Field      Value                       
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                       
-#&gt; </span><span style='color: #555555;'> 1</span><span> C       character short-name commented row indicator     
-#&gt; </span><span style='color: #555555;'> 2</span><span> </span><span style='color: #555555;'>""</span><span>      </span><span style='color: #555555;'>""</span><span>        values     ., C                        
-#&gt; </span><span style='color: #555555;'> 3</span><span> </span><span style='color: #555555;'>""</span><span>      </span><span style='color: #555555;'>""</span><span>        long-name  commented rows              
-#&gt; </span><span style='color: #555555;'> 4</span><span> USUBJID character short-name USUBJID                     
-#&gt; </span><span style='color: #555555;'> 5</span><span> </span><span style='color: #555555;'>""</span><span>      </span><span style='color: #555555;'>""</span><span>        long-name  universal subject identifier
-#&gt; </span><span style='color: #555555;'> 6</span><span> ID      numeric   short-name ID                          
-#&gt; </span><span style='color: #555555;'> 7</span><span> </span><span style='color: #555555;'>""</span><span>      </span><span style='color: #555555;'>""</span><span>        long-name  NONMEM ID number            
-#&gt; </span><span style='color: #555555;'> 8</span><span> EVID    numeric   short-name event ID                    
-#&gt; </span><span style='color: #555555;'> 9</span><span> </span><span style='color: #555555;'>""</span><span>      </span><span style='color: #555555;'>""</span><span>        long-name  event ID indicator          
-#&gt; </span><span style='color: #555555;'>10</span><span> </span><span style='color: #555555;'>""</span><span>      </span><span style='color: #555555;'>""</span><span>        comment    per NONMEM specifications   
+#&gt;    Column    Type        Field      Value                       
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                       
+#&gt; </span><span style='color: #555555;'> 1</span><span> </span><span style='color: #555555;'>"</span><span>C</span><span style='color: #555555;'>"</span><span>       </span><span style='color: #555555;'>"</span><span>character</span><span style='color: #555555;'>"</span><span> short-name commented row indicator     
+#&gt; </span><span style='color: #555555;'> 2</span><span> </span><span style='color: #555555;'>""</span><span>        </span><span style='color: #555555;'>""</span><span>          values     ., C                        
+#&gt; </span><span style='color: #555555;'> 3</span><span> </span><span style='color: #555555;'>""</span><span>        </span><span style='color: #555555;'>""</span><span>          long-name  commented rows              
+#&gt; </span><span style='color: #555555;'> 4</span><span> </span><span style='color: #555555;'>"</span><span>USUBJID</span><span style='color: #555555;'>"</span><span> </span><span style='color: #555555;'>"</span><span>character</span><span style='color: #555555;'>"</span><span> short-name USUBJID                     
+#&gt; </span><span style='color: #555555;'> 5</span><span> </span><span style='color: #555555;'>""</span><span>        </span><span style='color: #555555;'>""</span><span>          long-name  universal subject identifier
+#&gt; </span><span style='color: #555555;'> 6</span><span> </span><span style='color: #555555;'>"</span><span>ID</span><span style='color: #555555;'>"</span><span>      </span><span style='color: #555555;'>"</span><span>numeric</span><span style='color: #555555;'>"</span><span>   short-name ID                          
+#&gt; </span><span style='color: #555555;'> 7</span><span> </span><span style='color: #555555;'>""</span><span>        </span><span style='color: #555555;'>""</span><span>          long-name  NONMEM ID number            
+#&gt; </span><span style='color: #555555;'> 8</span><span> </span><span style='color: #555555;'>"</span><span>EVID</span><span style='color: #555555;'>"</span><span>    </span><span style='color: #555555;'>"</span><span>numeric</span><span style='color: #555555;'>"</span><span>   short-name event ID                    
+#&gt; </span><span style='color: #555555;'> 9</span><span> </span><span style='color: #555555;'>""</span><span>        </span><span style='color: #555555;'>""</span><span>          long-name  event ID indicator          
+#&gt; </span><span style='color: #555555;'>10</span><span> </span><span style='color: #555555;'>""</span><span>        </span><span style='color: #555555;'>""</span><span>          comment    per NONMEM specifications   
 #&gt; </span><span style='color: #555555;'># … with 52 more rows</span><span></div><div class='input'>
 <span class='fu'>pander_table</span>(<span class='no'>spec</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required namespace: pander</span></div><div class='output co'>#&gt; [1] "\n----------------------------------------------------------------------\nColumn    Type        Field        Value                              \n--------- ----------- ------------ -----------------------------------\nC         character   short-name   commented row indicator            \n\n                      values       ., C                               \n\n                      long-name    commented rows                     \n\nUSUBJID   character   short-name   USUBJID                            \n\n                      long-name    universal subject identifier       \n\nID        numeric     short-name   ID                                 \n\n                      long-name    NONMEM ID number                   \n\nEVID      numeric     short-name   event ID                           \n\n                      long-name    event ID indicator                 \n\n                      comment      per NONMEM specifications          \n\nMDV       numeric     short-name   MDV                                \n\n                      long-name    missing DV indicator               \n\n                      comment      per NONMEM specifications          \n\nSEQ       numeric     short-name   SEQ                                \n\n                      values       1 = concentration, 2 = response,   \n                                   3 = other                          \n\n                      long-name    record type indicators             \n\nAMT       numeric     short-name   amount                             \n\n                      unit         mg                                 \n\n                      range        0 to 1000                          \n\n                      long-name    dose amount                        \n\nII        numeric     short-name   II                                 \n\n                      unit         hours                              \n\n                      long-name    interdose interval                 \n\nCMT       numeric     short-name   Compartment                        \n\n                      values       1, 2, 3, 4                         \n\n                      long-name    compartment number                 \n\n                      comment      per NONMEM specifications          \n\nTAFD      numeric     short-name   TAFD                               \n\n                      unit         hours                              \n\n                      long-name    time after first dose              \n\nWT        numeric     short-name   Weight                             \n\n                      unit         kg                                 \n\n                      range        40 to 100                          \n\n                      long-name    baseline weight                    \n\nEGFR      numeric     short-name   eGFR                               \n\n                      unit         ml/min/1.73m2                      \n\n                      range        10 to 300                          \n\n                      long-name    estimated glomerular filtration    \n                                   rate                               \n\nSTUDY     character   short-name   Study                              \n\n                      values       100 = The first phase 1 study,     \n                                   202 = The first phase 2 study      \n                                   conducted only at sites 1, 2, 3    \n                                   when the formulation was still     \n                                   oral liquid only, 303 = The renal  \n                                   impairment study, 203 = The        \n                                   second phase 2 study               \n\n                      long-name    study identifier                   \n\nSEX       numeric     short-name   SEX                                \n\n                      values       0 = male, 1 = female               \n\nBQL       numeric     short-name   below limit of quantification      \n\n                      values       0 = FALSE, 1 = TRUE                \n\n                      long-name    DV value is below the              \n                                   quantitation limit                 \n\nDV        numeric     short-name   DV                                 \n\n                      unit         ng/mL                              \n\n                      long-name    dependent variable                 \n\n                      comment      see SEQ                            \n\nDV2       numeric     short-name   DV2                                \n\n                      long-name    second dependent variable          \n\nHAIR      character   short-name   HAIR                               \n\n                      values       0 = brown, 1 = blonde, 2 = black   \n\n                      long-name    patient hair color                 \n\nCLCR      numeric     short-name   creatinine clearance               \n\n                      unit         ml/min                             \n\n                      range        40 to 180                          \n\nALB       numeric     short-name   adjusted albumin                   \n\n                      unit         g/dL                               \n\n                      range        1 to 5                             \n\n                      comment      in the lookup document as ALB2     \n----------------------------------------------------------------------\n\n"</div><div class='input'>
 </div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -200,7 +200,7 @@ formats the table.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
