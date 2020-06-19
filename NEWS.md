@@ -1,4 +1,4 @@
-# yspec 0.4.0
+# yspec 0.4.1
 
 - Add minimum version numbers for dependency packages
 - Add `long` argument to `pander_table` to create longer tables
