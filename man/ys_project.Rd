@@ -6,12 +6,22 @@
 \alias{as_proj_spec}
 \title{Create a project object from data spec objects}
 \usage{
-ys_project(..., output = tempfile(fileext = ".yml"), data_path = NULL,
-  dots = list(), sponsor = "[sponsor]",
-  projectnumber = "[projectnumber]")
+ys_project(
+  ...,
+  output = tempfile(fileext = ".yml"),
+  data_path = NULL,
+  dots = list(),
+  sponsor = "[sponsor]",
+  projectnumber = "[projectnumber]",
+  keep_spec_data = FALSE
+)
 
-ys_project_file(..., output = tempfile(fileext = ".yml"), where = NULL,
-  dots = list())
+ys_project_file(
+  ...,
+  output = tempfile(fileext = ".yml"),
+  where = NULL,
+  dots = list()
+)
 
 as_proj_spec(...)
 }
@@ -27,6 +37,9 @@ as_proj_spec(...)
 \item{sponsor}{optional project sponsor}
 
 \item{projectnumber}{optional project number in \code{...}}
+
+\item{keep_spec_data}{if \code{TRUE}, then the specification data is saved in the
+meta space of the project object}
 
 \item{where}{directory containing the specification files if listed}
 }

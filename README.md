@@ -9,7 +9,7 @@ https://ghe.metrumrg.com/software/yspec
 ``` r
 repos <- c("https://metrumresearchgroup.github.io/r_validated", options()$repos)
 
-install.packages("yspec", repos = unique(repos), type = "source", destdir = NULL)
+install.packages("yspec", repos = unique(repos), type = "source")
 ```
 
 

@@ -1,6 +1,6 @@
 
 call_format_fun <- function(yamlfile,
-                            format = c("x_table","pander_table", "md_outline")) {
+                            format = c("x_table", "x_table_long","pander_table", "md_outline")) {
   format <- match.arg(format)
   format_fun <- get(format, mode = "function")
   spec <- load_spec(yamlfile)
@@ -73,6 +73,8 @@ ys_document <- function(x, type = c("working", "regulatory"), ...) {
 ##' @param author used in yaml front matter
 ##' @param toc used in yaml front matter
 ##' @param number_sections used in yaml front matter
+##' @param rmd_template full path to rmarkdown file to be used to template the 
+##' data specification document
 ##' @param date used in yaml front matter
 ##' @param dots passed to object converter
 ##' @param ... passed to [rmarkdown::render]
@@ -103,7 +105,7 @@ render_define <- function(x, ...) {
 ##' @export
 render_define.yproj <- function(x, 
                                 stem = "define_working",
-                                format = c("x_table","pander_table", "md_outline"),
+                                format = c("x_table","x_table_long","pander_table", "md_outline"),
                                 output_format = "pdf_document",
                                 output_dir = getwd(),
                                 build_dir = tempdir(),
@@ -111,7 +113,8 @@ render_define.yproj <- function(x,
                                 author = "MetrumRG",
                                 toc = "yes",
                                 number_sections = "yes",
-                                date = format(Sys.time()),...) {
+                                rmd_template = NULL,
+                                date = base::format(Sys.time()),...) {
   
   if(missing(toc) & length(x)==1) toc <- "no"
   if(missing(number_sections) & length(x)==1) number_sections <- "no"
@@ -143,19 +146,19 @@ render_define.yproj <- function(x,
     setwd(build_dir)
     on.exit(setwd(cwd))
   }
-  
-  format <- match.arg(format)
-  
+
   ys_working_markup_ <- basename(tempfile(fileext="aeiou"))
   
   env <- new.env()
-  env[[ys_working_markup_]] <- define_for_rmd(yamlfile,format)
+  env[[ys_working_markup_]] <- define_for_rmd(yamlfile,format,x,meta) 
   
   file <- normalPath(paste0(stem, ".Rmd"),mustWork=FALSE)
   
-  rmd <- system.file("rmd", "define.Rmd", package = "yspec")
+  if(is.null(rmd_template)) {
+    rmd_template <- system.file("rmd", "define.Rmd", package = "yspec")
+  } 
   
-  txt <- paste0(readLines(rmd), collapse = "\n")
+  txt <- paste0(readLines(rmd_template), collapse = "\n")
   
   txt <- glue::glue(txt, .open = "<", .close = ">")
   
@@ -169,7 +172,7 @@ render_define.yproj <- function(x,
   )
   
   if(copy_back) file.copy(normalPath(ans), output_dir, overwrite = TRUE)
-
+  
   return(invisible(ans))
 }
 
@@ -208,36 +211,64 @@ render_spec.yspec <- function(x, stem = get_meta(x)[["name"]], ..., dots = list(
 ##' 
 ##' This function is for internal use by [render_define].  
 ##'
-##' @param yamlfile a project file name
-##' @param format a function or the name of a function to format the spec
+##' @param x a project file name
+##' @param form_ a function or the name of a function to format the spec
 ##' contents
+##' @param proj a project object from which to render
+##' @param meta meta data list 
 ##' @keywords internal
 ##' @md
 ##' @export
-define_for_rmd <- function(yamlfile, format) {
+define_for_rmd <- function(x,form_,proj=NULL,meta=NULL) {
   
-  if(is.character(format)) {
-    format_fun <- get(format, mode = "function")
+  if(is.character(form_)) {
+    format_fun <- get(form_, mode = "function")
   } else {
-    format_fun <- format
+    format_fun <- form_
   }
   
   assert_that(is.function(format_fun))
   
-  proj <- load_spec_proj(yamlfile)
+  #environment(format_fun) <- parent.frame()
   
-  specs <- imap(proj, .f = function(x,name) {
-    description <- proj[[name]][["description"]]
-    sp <- load_spec(x[["spec_file"]])
-    sp <- format_fun(sp)
-    c(paste0("# ", name),
+  if(is.null(proj)) {
+    proj <- load_spec_proj(x)  
+  }
+  if(is.null(meta)) {
+    meta <- get_meta(proj)  
+  }
+  
+  if(.has("data", meta) & getOption("yspec.use.kept.data",FALSE)) {
+    warning(
+      "using spec data found in yproject object, not from the source yaml file.",
+      call.=FALSE
+    )
+    specs <- meta[["data"]]  
+  } else {
+    file_names <- map(proj, "spec_file")
+    specs <- map(file_names,load_spec)
+  }
+  
+  tex <- imap(proj, .f = function(xi,.name) {
+    description <- proj[[.name]][["description"]]
+    sp <- format_fun(specs[[.name]])
+    c(paste0("# ", .name),
       "",
       "__Description__: ",
       description,"",
       sp, " ")
   })
   
-  specs <- flatten_chr(specs)
+  tex <- flatten_chr(tex)
   
-  specs
+  tex
 }
+
+#' Render an arbitrary spec of project
+#' 
+#' 
+#' @inheritParams ys_document
+#' 
+ys_render <- function(...) {
+  ys_document(...)
+} 

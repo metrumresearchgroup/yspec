@@ -49,6 +49,7 @@ DV:
 WT:
   short: weight
   unit: kg
+  type: numeric
 EGFR:
   short: eGFR
   long: estimated glomerular filtration rate
@@ -68,8 +69,16 @@ ALB:
   type: numeric
 AGE:
   about: [age,years]
+  type: numeric
 SEX: 
   values: {male: 0, female: 1}
 NUM: 
   short: record number
+  type: numeric
+BQL: 
+  short: "data point below the LOQ"
+  type: numeric
+  values: {0: not below quantitation limit, 1: below quantitation limit}
+LOQ: 
+  short: assay limit of quantification
   type: numeric

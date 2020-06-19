@@ -9,11 +9,19 @@
 \usage{
 render_fda_define(x, ...)
 
-\method{render_fda_define}{yproj}(x, stem = "define",
-  title = "Data Definitions", date = format(Sys.time()),
-  author = "MetrumRG Staff Scientist", format = "fda_define",
-  output_dir = getwd(), build_dir = tempdir(), ext = ".xpt",
-  loc = ".", ...)
+\method{render_fda_define}{yproj}(
+  x,
+  stem = "define",
+  title = "Data Definitions",
+  date = format(Sys.time()),
+  author = "MetrumRG Staff Scientist",
+  format = "fda_define",
+  output_dir = getwd(),
+  build_dir = tempdir(),
+  ext = ".xpt",
+  loc = ".",
+  ...
+)
 
 \method{render_fda_define}{character}(x, ..., dots = list())
 

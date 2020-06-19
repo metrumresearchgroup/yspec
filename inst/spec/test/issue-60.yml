@@ -1,0 +1,8 @@
+SETUP__:
+  description: there are 3 columns and each have a different "label"
+A:
+  label: the label for column A
+B:
+  long: the label (long) for column B 
+C:
+  short: the label (short) for column C 

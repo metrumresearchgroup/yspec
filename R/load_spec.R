@@ -11,7 +11,6 @@ check_spec_input_col <- function(x, col, env, not_allowed = NULL, ...) {
     )
   }
   
-  
   t1 <- all(names(x) %in% setdiff(VALID_SPEC_NAMES, not_allowed))
   if(!t1) {
     valid <- setdiff(VALID_SPEC_NAMES, not_allowed)
@@ -65,10 +64,35 @@ check_this_col <- function(x,col,env,...) {
       )
     }
   }
-  if(!(x[["type"]] %in% c("numeric", "character", "integer"))) {
+  
+  if(length(x$unit) > 1) {
+    err <- c(err, "the 'unit' field should not be more than length 1")  
+  }
+  if(length(x$type) > 1) {
+    err <- c(err, "the 'type' field should not be more than length 1")  
+  }
+  if(length(x$short) > 1) {
+    err <- c(err, "the 'short' field should not be more than length 1")  
+  }
+  if(length(x$label) > 1) {
+    err <- c(err, "the 'label' field should not be more than length 1")  
+  }
+  if(sum(nchar(x$label)) > 40) {
+    err <- c(err, "the 'label' field should not be longer than 40 characters")
+  }
+  if(isTRUE(env$require.label)) {
+    if(!is.character(x$label)) {
+      err <- c(err, "'label' is required for every column, but is missing")  
+    }
+  }
+  if(sum(nchar(x$short)) > 40) {
+    err <- c(err, "the 'short' field should not be longer than 40 characters")  
+  }
+  if(! all(x[["type"]] %in% c("numeric", "character", "integer"))) {
+    bad <- setdiff(x[["type"]],c("numeric", "character", "integer"))
     err <- c(
       err, 
-      paste0("'type' must be 'numeric', 'character' or 'integer' ('", x[["type"]], "')")
+      paste0("'type' must be 'numeric', 'character' or 'integer' ('", bad, "')")
     )
   }
   env$err[[col]] <- err
@@ -85,6 +109,7 @@ check_spec_cols <- function(x, context = "column") {
 check_for_err <- function(x, .fun, ...) {
   env <- new.env()
   env$err <- set_names(vector("list", length(x)),names(x))
+  env$require.label <- getOption("ys.require.label", FALSE)
   walk2(x, names(x), .fun, env = env, ...)
   err <- discard(as.list(env)$err, is.null)
   if(length(err)==0) return(character(0))
@@ -128,6 +153,9 @@ ys_load <- function(file, verbose=FALSE,  ...) {
 ##' @rdname ys_load
 ##' @export
 ys_load_file <- function(file, data_path = NULL, data_stem = NULL, verbose=FALSE, ...) {
+  if(!is.character(file)) {
+    stop("'file' argument must have class character (not ", class(file)[1],")",call.=FALSE)  
+  }
   file <- normalPath(file, mustWork = FALSE)
   if(verbose) verb("~ working on", basename(file))
   x <- try_yaml(file)
@@ -135,7 +163,7 @@ ys_load_file <- function(file, data_path = NULL, data_stem = NULL, verbose=FALSE
   incoming <- list(...)
   incoming[["data_path"]] <- data_path
   incoming[["data_stem"]] <- data_stem
-  unpack_meta(x, to_update = incoming,verbose=verbose)
+  unpack_meta(x,to_update=incoming,verbose=verbose)
 }
 
 ##' @rdname ys_load
@@ -165,7 +193,18 @@ unpack_spec <- function(x,verbose=FALSE) {
   )
   x[] <- map(x, unpack_col)
   check_spec_cols(x)
-  structure(x, class = "yspec")
+  ans <- structure(x, class = "yspec")
+  if(.has("import", get_meta(x))) {
+    import <- ys_load(get_meta(x)[["import"]])
+    ans <- c(import,ans)
+  }
+  if(isTRUE(get_meta(x)[["character_last"]])) {
+    type <- map_chr(ans, "type")
+    chr <- type=="character"
+    comment <- names(ans) %in% get_meta(x)[["comment_col"]]
+    ans <- c(ans[(!chr) | comment],ans[chr & (!comment)])
+  }
+  ans
 }
 
 unpack_meta <- function(x,to_update, verbose=FALSE, ...) {
@@ -204,7 +243,7 @@ unpack_meta <- function(x,to_update, verbose=FALSE, ...) {
         names(x)
       ))
     if(!found_keys) {
-      err_file(meta[["spec_file"]], "Invalid primary key.")
+      err_file(meta[["spec_file"]], "invalid primary key.")
     }
   }
   if(verbose) {
@@ -213,6 +252,9 @@ unpack_meta <- function(x,to_update, verbose=FALSE, ...) {
     if(.has("sponsor", meta)) verb("  sponsor", meta[["sponsor"]])
   }
   meta <- update_list(meta,to_update)
+  if(exists("import", meta)) {
+    meta[["import"]] <- fs::path_abs(meta[["import"]],meta[["spec_path"]])  
+  }
   spec_validate_meta(meta)
   structure(x, meta = meta)
 }
@@ -258,6 +300,15 @@ unpack_col <- function(x) {
     }
     x$values <- sapply(x$values, sub_null, USE.NAMES=FALSE)
     if(is.character(x$values)) x$type <- "character"
+  }
+  if(.has("source", x)) {
+    x$source <- paste0(x$source, collapse = " ")  
+  }
+  if(.has("comment", x)) {
+    x$comment <- paste0(x$comment, collapse = " ")  
+  }
+  if(.has("long", x)) {
+    x$long <- paste0(x$long, collapse = " ")
   }
   structure(x, class = "ycol")
 }

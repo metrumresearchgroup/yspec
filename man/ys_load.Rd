@@ -8,8 +8,7 @@
 \usage{
 ys_load(file, verbose = FALSE, ...)
 
-ys_load_file(file, data_path = NULL, data_stem = NULL,
-  verbose = FALSE, ...)
+ys_load_file(file, data_path = NULL, data_stem = NULL, verbose = FALSE, ...)
 
 load_spec(...)
 }

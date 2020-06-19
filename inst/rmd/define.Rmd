@@ -5,7 +5,7 @@ sponsor: <sponsor>
 projectnumber: <projectnumber>
 scientist: <author>
 author: <author>
-geometry: "left=3.5cm,right=3.5cm,top=3cm,bottom=3cm"
+geometry: "left=2.54cm,right=2.54cm,top=3cm,bottom=3cm"
 output:
   pdf_document:
     number_sections: <number_sections>

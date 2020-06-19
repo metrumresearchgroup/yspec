@@ -2,9 +2,12 @@
 % Please edit documentation in R/pander_table.R
 \name{x_table}
 \alias{x_table}
+\alias{x_table_long}
 \title{Format specification output with xtable}
 \usage{
 x_table(x, ...)
+
+x_table_long(x, ...)
 }
 \arguments{
 \item{x}{a \code{yspec} object}

@@ -1,12 +1,13 @@
 #' @importFrom yaml yaml.load_file as.yaml
-#' @importFrom dplyr filter %>% bind_rows data_frame select_vars
+#' @importFrom dplyr filter %>% bind_rows
+#' @importFrom tidyselect vars_select
+#' @importFrom tibble tibble as_tibble
 #' @importFrom dplyr mutate if_else .data desc
-#' @importFrom dplyr tibble as_tibble
 #' @importFrom rmarkdown render pdf_document html_document
 #' @importFrom knitr kable
 #' @importFrom xtable xtable
 #' @importFrom utils capture.output head tail
-#' @importFrom rlang quos set_names
+#' @importFrom rlang quos set_names exprs as_string
 #' @importFrom assertthat assert_that
 #' @importFrom purrr map map_chr map_df map_if map_lgl
 #' @importFrom purrr imap imap_chr map_int
@@ -16,6 +17,7 @@
 #' @importFrom glue glue
 #' @importFrom utils type.convert read.csv
 #' @importFrom crayon red green black blue bold italic
+#' @importFrom fs path_rel
 #' 
 #' @include utils.R
 NULL
@@ -27,14 +29,15 @@ VALID_SPEC_NAMES <- c(
   "source", "comment",
   "short", "long", "about", "dots",
   "range", "longvalues", "lookup", 
-  "axis", "table"
+  "axis", "table", "label", "make_factor"
 )
 
 VALID_SETUP_NAMES <- c(
   "primary_key", "lookup_file", 
   "description", "sponsor", "projectnumber", 
   "data_path", "data_stem", "name", "spec_file", 
-  "spec_path", "glue", "use_internal_db"
+  "spec_path", "glue", "use_internal_db", 
+  "import", "character_last","comment_col"
 )
 
 .glopen <- "<<"
@@ -76,7 +79,8 @@ VALID_SETUP_NAMES <- c(
 #'   generate an error on load. 
 #' - `ys.fct.suffix` the suffix to add to a column name, used by 
 #'   [yspec::yspec_add_factors()]
-#' 
+#' - `ys.require.label` if `TRUE`, an error will be generated whenever a column
+#'   is specified without a label
 #' @docType package
 #' @md
 #' @name yspec

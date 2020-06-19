@@ -1,5 +1,4 @@
 library(yspec)
-library(purrr)
 
 context("text-spec")
 
@@ -25,4 +24,3 @@ test_that("yspec", {
   expect_true(grepl("EGFR", txt[13]))
 })
 
-spec <- load_spec_ex()

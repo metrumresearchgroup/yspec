@@ -1,5 +1,4 @@
 library(yspec)
-library(purrr)
 
 context("test-handlers")
 

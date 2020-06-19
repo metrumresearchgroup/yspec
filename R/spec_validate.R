@@ -18,6 +18,8 @@ spec_validate_meta <- function(meta) {
   assert_that(exists("data_path", meta))
   assert_that(!is.null(meta[["data_stem"]]))
   assert_that(nchar(meta[["data_stem"]]) > 0)
+  if(exists("import", meta)) {
+    assert_that(file.exists(meta[["import"]]))  
+  }
   return(invisible(NULL))
 }
-

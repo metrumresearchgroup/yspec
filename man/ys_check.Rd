@@ -7,7 +7,13 @@
 \alias{check_data_file}
 \title{Check a data set against its specification}
 \usage{
-ys_check(data, spec, verbose = FALSE, output = tempfile())
+ys_check(
+  data,
+  spec,
+  verbose = FALSE,
+  output = tempfile(),
+  error_on_fail = TRUE
+)
 
 ys_check_file(data, file)
 
@@ -25,6 +31,9 @@ are printed during the check}
 
 \item{output}{the name of a file or a connection
 for writing check results}
+
+\item{error_on_fail}{if \code{FALSE}, return logical check status rather than
+generating an error}
 
 \item{file}{the full path to a yaml specification file}
 
@@ -64,7 +73,8 @@ more verbose output can be requested as the check proceeds by the
 data <- ys_help$data()
 spec <- ys_help$spec()
 
-# Recommend running this at the end of data assembly
+# Recommend running this at the end of data assembly and will fix an error
+# stating that the data cols are not sorted according to the spec
 data <- dplyr::select(data,names(spec))
 
 ys_check(data,spec)

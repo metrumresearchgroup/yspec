@@ -1,7 +1,7 @@
 
 library(yspec)
 library(testthat)
-library(purrr)
+
 .test_load <- yspec:::.test_load
 .test_spec <- yspec:::.test_spec
 
@@ -12,7 +12,7 @@ spec <- load_spec_ex(file = "spec.yml")
 test_that("yspec object", {
   expect_is(spec, "yspec")
   expect_true(is.list(spec))
-  cl <- map_chr(spec, class)
+  cl <- purrr::map_chr(spec, class)
   expect_true(all(cl=="ycol"))
 })
 
@@ -100,3 +100,23 @@ test_that("combine two specs", {
   spec <- c(dat,post)
   expect_identical(names(spec), c(names(dat),names(post)))
 })
+
+test_that("add column labels", {
+  spec <- ys_help$spec()
+  data <- ys_help$data()
+  
+  data2 <- ys_add_labels(data,spec)
+  labs2 <- purrr::map(data2, attr, "label")
+  expect_identical(labs2$WT,yspec:::label.ycol(spec$WT))
+  expect_identical(labs2$STUDY,yspec:::label.ycol(spec$STUDY))
+  
+  data3 <- ys_add_labels(data,spec,function(x) x$short)
+  labs3 <- purrr::map(data3, attr, "label")
+  
+  expect_identical(labs3$HT,spec$HT$short)
+  expect_error(ys_add_labels(spec,data), "data does not inherit from class")
+  expect_error(ys_add_labels(data,"A"), "spec does not inherit from class")
+  datamix <- data[,sample(names(data))]
+  expect_error(ys_add_labels(datamix,spec), "names\\(data\\) not identical to")
+})
+

@@ -5,7 +5,9 @@
 \alias{print.yhelp}
 \alias{ys_help}
 \title{yspec help object}
-\format{An object of class \code{yhelp} of length 12.}
+\format{
+An object of class \code{yhelp} of length 12.
+}
 \usage{
 \method{print}{yhelp}(...)
 

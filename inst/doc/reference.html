@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <meta name="author" content />
 
-<meta name="date" content="2019-02-05" />
+<meta name="date" content="2020-01-16" />
 
 <title>YAML specification</title>
 
@@ -96,7 +96,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -291,6 +291,9 @@ code > span.al { color: #ff0000; font-weight: bold; }
 code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
 
+
+
+
 </head>
 
 <body>
@@ -299,7 +302,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 
 <h1 class="title toc-ignore">YAML specification</h1>
-<h4 class="date"><em>2019-02-05</em></h4>
+<h4 class="date">2020-01-16</h4>
 
 
 
@@ -359,7 +362,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <ul>
 <li><code>short: short-name</code>
 <ul>
-<li>a short name for the column; don’t include units here</li>
+<li>a short name for the column; don’t include unit here</li>
 </ul></li>
 <li><code>unit: numeric</code>
 <ul>
@@ -395,7 +398,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <li>Where the data came from</li>
 <li>include both the sdtm domain and variable name</li>
 </ul></li>
-<li><code>about: [short-name, units]</code>
+<li><code>about: [short-name, unit]</code>
 <ul>
 <li>This is a convenience structure.</li>
 </ul></li>
@@ -407,7 +410,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <li><code>axis</code>:
 <ul>
 <li>A short-ish name that can be used for axis titles for plots</li>
-<li>Generally, don’t include units; yspec helpers will add that automatically by default</li>
+<li>Generally, don’t include unit; yspec helpers will add that automatically by default</li>
 <li>If <code>short</code> will work for your axis title (as it is … with no modification), yspec will use that if no <code>axis</code> field is used</li>
 </ul></li>
 <li><code>type</code>:
@@ -433,7 +436,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <div id="continuous-values" class="section level3">
 <h3>Continuous values</h3>
 <ul>
-<li>The <code>about</code> array provides a short name and units</li>
+<li>The <code>about</code> array provides a short name and unit</li>
 <li>Any time <code>range</code> is given, the data is assumed to be continuous</li>
 </ul>
 <div class="sourceCode" id="cb5"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb5-1" title="1"><span class="fu">WT:</span></a>
@@ -442,7 +445,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <p>This is equivalent to</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb6-1" title="1"><span class="fu">WT:</span></a>
 <a class="sourceLine" id="cb6-2" title="2">  <span class="fu">short:</span><span class="at"> Weight</span></a>
-<a class="sourceLine" id="cb6-3" title="3">  <span class="fu">units:</span><span class="at"> kg</span></a>
+<a class="sourceLine" id="cb6-3" title="3">  <span class="fu">unit:</span><span class="at"> kg</span></a>
 <a class="sourceLine" id="cb6-4" title="4">  <span class="fu">range:</span><span class="at"> </span><span class="kw">[</span><span class="dv">5</span><span class="kw">,</span><span class="dv">300</span><span class="kw">]</span></a></code></pre></div>
 </div>
 <div id="character-data" class="section level3">
@@ -532,6 +535,9 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </div>
 </div>
 
+
+
+<!-- code folding -->
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->

@@ -1,0 +1,10 @@
+SETUP__:
+  description: testing data_stem feature
+  data_stem: demo-12345-pk
+  use_internal_db: true
+CMT:
+ID:
+TIME:
+  short: time after first dose
+DV:
+

@@ -48,6 +48,8 @@ $endif$
 }{}
 $if(geometry)$
 \usepackage[$for(geometry)$$geometry$$sep$,$endfor$]{geometry}
+$else$
+\usepackage[margin=1in]{geometry}
 $endif$
 \ifxetex
   \usepackage[setpagesize=false, % page size defined by xetex

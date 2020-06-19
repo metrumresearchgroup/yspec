@@ -141,7 +141,7 @@ yspec_is_character <- function(x) {
 }
 
 yspec_select <- function(.spec, ...) {
-  vars <- select_vars(names(.spec), !!!quos(...))
+  vars <- vars_select(names(.spec), !!!quos(...))
   .spec[vars]
 }
 
@@ -195,6 +195,14 @@ test_spec_error <- function(x) {
   ys_load(error)
 }
 
+test_spec_test <- function(x) {
+  test <- system.file(
+    "spec", "test", 
+    x, 
+    package = "yspec"
+  )
+  ys_load(test)
+}
 
 make_sep <- function(width = 40) {
   line <- paste0(rep("-",width-1),collapse = "")

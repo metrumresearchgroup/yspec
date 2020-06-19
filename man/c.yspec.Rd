@@ -7,9 +7,9 @@
 \method{c}{yspec}(x, y, ...)
 }
 \arguments{
-\item{x}{a `yspec` object}
+\item{x}{a \code{yspec} object}
 
-\item{y}{a `yspec` object}
+\item{y}{a \code{yspec} object}
 
 \item{...}{not used}
 }

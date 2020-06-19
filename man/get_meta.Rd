@@ -12,3 +12,9 @@ get_meta(x)
 \description{
 Get meta data from a specification object
 }
+\examples{
+spec <- ys_help$spec()
+
+ans <- get_meta(spec)
+
+}

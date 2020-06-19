@@ -10,13 +10,15 @@ NUM:
 ID:
 SUBJ: !look
 TIME:
-  short: time after first dose
+  label: time after first dose
   unit: hour
 SEQ: 
-  short: data type
+  label: data type
   values: {observation: 0, dose: 1}
 CMT:
 EVID:
+  make_factor: true
+  lookup: true
 AMT: !look
   unit: mg
 DV:  !look
@@ -24,7 +26,8 @@ DV:  !look
 AGE:
 WT:
 CRCL:
-  about: [creatinine clearance, ml/min]
+  label: creatinine clearance
+  unit: ml/min
 ALB:
 BMI:
 AAG:
@@ -52,8 +55,8 @@ MDV:
 BLQ:
   short: below limit of quantification
   values: 
-    - above QL: 1
-    - below Q: 0
+    above QL: 1
+    below Q: 0
 PHASE: 
   short: study phase indicator
   values: 1

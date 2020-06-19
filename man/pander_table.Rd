@@ -7,12 +7,14 @@
 \usage{
 pander_table(x, ...)
 
-pander_table_df(x)
+pander_table_df(x, long = FALSE, ...)
 }
 \arguments{
 \item{x}{a spec object}
 
 \item{...}{passed to other functions}
+
+\item{long}{if \code{TRUE}, then the table is made in a longer format}
 }
 \description{
 Requires the pander package to be installed.  \link{pander_table_df} actually

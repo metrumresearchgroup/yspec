@@ -49,7 +49,7 @@ ys_load_proj <- function(file) {
     x[["name"]] <- stem
     add_path <- FALSE  
     if(.no("data_file", x)) {
-      x[["data_file"]] <- paste0(stem, ".xpt")
+      x[["data_file"]] <- paste0(x[["data_stem"]], ".xpt")
     }
     if(.no("data_path",x)) {
       x[["data_path"]] <- path
@@ -136,6 +136,8 @@ csv_file_name <- function(data_path, data_stem, ext = ".csv", ...) {
 ##' @param dots used to update `SETUP__` block data items
 ##' @param sponsor optional project sponsor
 ##' @param projectnumber optional project number in `...`
+##' @param keep_spec_data if `TRUE`, then the specification data is saved in the 
+##' meta space of the project object
 ##' @return an object of class yproj
 ##' 
 ##' @details
@@ -158,7 +160,8 @@ csv_file_name <- function(data_path, data_stem, ext = ".csv", ...) {
 ##' @export
 ys_project <- function(..., output=tempfile(fileext=".yml"), 
                        data_path = NULL, dots = list(),
-                       sponsor = "[sponsor]", projectnumber = "[projectnumber]") {
+                       sponsor = "[sponsor]", projectnumber = "[projectnumber]", 
+                       keep_spec_data = FALSE) {
   lst <- list(...)
   proj <- map(lst, assemble_proj_info)
   meta <- map(proj, "meta")
@@ -197,6 +200,7 @@ ys_project <- function(..., output=tempfile(fileext=".yml"),
     path = dirname(output), 
     class = "yproj"
   )
+  if(keep_spec_data) meta[["data"]] <- do.call(as_spec_list,lst)
   meta <- update_list(meta,dots)
   txt <- yaml::as.yaml(c(list(YPROJ__ = meta),proj))
   if(dirname(output)==tempdir()) {

@@ -50,6 +50,12 @@ test_that("extra column", {
                regexp = "Please review messages and re-check")
 })
 
+test_that("cols not sorted issue-54", {
+  data <- dplyr::select(data1, sort(names(data1)))
+  expect_error(ys_check(data,spec), 
+               regexp = "Please review messages and re-check")
+})
+
 test_that("continuous out of range", {
   data <- mutate(data1, WT = 1E6)
   expect_error(check_data(data, spec), 
@@ -77,5 +83,12 @@ test_that("all NA returns success", {
   data$SEX[3] <- 1
   expect_message(check_data(data,spec),
                  regexp = "The data set passed all checks.")
+})
+
+test_that("no error on fail", {
+  data <- dplyr::select(data1, -WT, -STUDY)
+  expect_false(ys_check(data, spec, error_on_fail = FALSE))
+  expect_message(ys_check(data,spec,error_on_fail = FALSE), 
+                 regex = "names in spec but not in data")
 })
 

@@ -7,11 +7,11 @@
 ##' @export
 md_outline <- function(x) {
 
-  assert_that(is_yspec(x))
+  assertthat::assert_that(is_yspec(x))
 
   txt <- lapply(x, define_col_1)
 
-  flatten_chr(txt)
+  purrr::flatten_chr(txt)
 
 }
 
