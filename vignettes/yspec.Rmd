@@ -15,8 +15,10 @@ vignette: >
 
 ## About
 
-The `yspec` package will read you data specification file when it is written 
-in a specific `yaml` format.  
+The `yspec` package will read your data specification file when it is written 
+in a specific `yaml` format. Using the object created from this file, you can 
+validate data assembly outputs, label the data frame to be written in sas xport
+format, create a `define.pdf` document, and more.
 
 For each data set in your project that needs documentation, create
 a yaml file that lists the columns in the data set along with details 
@@ -68,6 +70,16 @@ or summarized
 summary(spec, WT, DV, EGFR)
 ```
 
+### Items that you should be including for most columns
+
+- `short`: a short name for the column (e.g `weight`); this will default to 
+  the column name (`col`) ... sometimes that makes sense
+- `label`: to be used to label the data set and to populate the `define.pdf` 
+  document (e.g. `patient weight at baseline`)
+- `unit`: when it's appropriate (e.g. `kg`)
+- `decode`: for discrete data items (e.g. if SEX is `values: [0,1]` then then 
+  use `decode: [male, female]`; or include the `make_factor: true` field
+
 
 ## Check a data set against the spec
 
@@ -78,7 +90,7 @@ and the spec object as the second argument
 
 data <- ys_help$data()
 
-ys_check(data,spec)
+ys_check(data, spec)
 
 ```
 
@@ -88,7 +100,7 @@ ys_check(data,spec)
 The specification object can be rendered to a specification file with the 
 `ys_document` function
 
-```{r "render_spec", results = "hide", message = FALSE}
+```{r "render_spec", results = "hide", message = FALSE, warning = FALSE}
 ys_document(spec, stem = "working_document")
 ```
 
@@ -135,7 +147,7 @@ To render the project file we'll use the same `ys_document()` function.
 This time, we'll add some extra (optional) arguments that will help us 
 get the document to look the way we want:
 
-```{r "render_define", results = "hide", message = FALSE}
+```{r "render_define", results = "hide", message = FALSE, warning = FALSE}
 ys_document(
   proj, 
   stem = "project_document", 
@@ -151,12 +163,11 @@ Using the `build_dir` argument gets us the document rendered with Metrum
 Research Group branding.  Also, `author` and `title` are passed into the
 configuration fields for this document.
 
-
 ### Regulatory document 
 
 To get a document that is formatted according to FDA requirements, use:
 
-```{r "render_fda", results = "hide", message = FALSE}
+```{r "render_fda", results = "hide", message = FALSE, warning = FALSE}
 ys_document(
   proj, 
   type = "regulatory",
@@ -166,6 +177,5 @@ ys_document(
   title = "Analysis data specification"
 )
 ```
+
 With output [here](fda_document.pdf).
-
-

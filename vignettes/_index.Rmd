@@ -15,3 +15,5 @@ vignette: >
 - [lookup column information](../../../library/yspec/doc/lookup.html)
 - [yspec internal data base](../../../library/yspec/doc/ysdb_internal.html)
 - [yspec project objects](../../../library/yspec/doc/project.html)
+- [Extract data from a yspec object](../../../library/yspec/extract.html)
+- [Label the columns in a data set](../../../library/yspec/label.html)

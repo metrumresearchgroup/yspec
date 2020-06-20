@@ -12,8 +12,8 @@ vignette: >
 ---
 # Introduction
 This vignette shows you how to gather the specifications for all of your
-analysis project data sets, assemble into a single object, and use that 
-object to render a project-wide define document.
+analysis project data sets, assemble into a single object, and use that object 
+to render a project-wide define document.
 
 # Set up
 
@@ -73,7 +73,7 @@ object (`sp1`) looks like this:
 
 ```
 
-In the `YPROJ__` block, we included a description; this is required to make a 
+In the `SETUP__` block, we included a description; this is required to make a 
 project object from data objects. There also is a `name` that defaults to the 
 stem of the data specification file.  We also optionally included `projectnumber` 
 and `sponsor`.  These will get inserted into the define document when the 
@@ -81,14 +81,9 @@ MetrumRG Rmarkdown template is used.
 
 # Render a define file
 Now, we have an object with the project information put together.  The essential
-contents of that object have been written to a project spec file and can 
-be used to template the creation of a project data specification file.
+contents of that object have been written to a project spec file and can be used 
+to template the creation of a project data specification file.
 
 ```{r, eval=FALSE}
 ys_document(proj, stem = "define_doc")
 ```
-
-
-
-
-

@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">yspec</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0.9101</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
       </span>
     </div>
 
@@ -60,7 +60,7 @@
       <a href="../articles/reference.html">Yaml specification reference</a>
     </li>
     <li>
-      <a href="../articles/analys1.html">Example yaml specification file</a>
+      <a href="../articles/analysis1.html">Example yaml specification file</a>
     </li>
     <li>
       <a href="../articles/lookup.html">Using lookup files</a>
@@ -70,6 +70,12 @@
     </li>
     <li>
       <a href="../articles/project.html">Project objects</a>
+    </li>
+    <li>
+      <a href="../articles/label.html">Label the columns in a data set</a>
+    </li>
+    <li>
+      <a href="../articles/extract.html">Extract data from a yspec object</a>
     </li>
   </ul>
 </li>
@@ -92,7 +98,7 @@
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>YAML specification</h1>
             
-            <h4 class="date">2020-06-18</h4>
+            <h4 class="date">2020-06-19</h4>
       
       
       <div class="hidden name"><code>reference.Rmd</code></div>
@@ -164,6 +170,12 @@
 <li>
 <code>use_internal_db</code>: <code>&lt;logical&gt; (true/false)</code>; if <code>true</code>, then yspec will load the internal column lookup database</li>
 <li>
+<code>import</code>: <code>&lt;character&gt;</code>; give the name of a <code>&lt;file&gt;</code> to import into the current data spec; all columns from <code>&lt;file&gt;</code> are imported as is; additional columns may also be listed with the normal syntax and these columns will appear after the imported columns</li>
+<li>
+<code>character_last</code>: <code>&lt;logical&gt;</code>; if true, automatically push all non-numeric columns to the end of the data specification list</li>
+<li>
+<code>comment_col</code>: <code>&lt;character&gt;</code>; identify the column that is used to store comments; the comment column will not be pushed to the back when <code>character_last</code> is true</li>
+<li>
 <code>glue</code>: <code>&lt;map&gt;</code>; specify name/value pairs; in the yaml data specification, use <code>&lt;&lt;name&gt;&gt;</code> in the text and <code>value</code> will glued into the text after it has been sanitized; intended use is to allow LaTeX code to evade the sanitizer</li>
 </ul>
 </div>
@@ -232,6 +244,8 @@
 <li>This is a convenience structure.</li>
 </ul>
 </li>
+<li>
+<code>label</code>: a label for the column; the label must be 40 or fewer characters and will get written into the define file as well as the data frame prior to writing out to sas xport format</li>
 <li><code>long: a longer name to describe the column</code></li>
 <li>
 <code>dots</code>:
@@ -256,6 +270,8 @@
 </li>
 </ul>
 </li>
+<li>
+<code>make_factor</code>: if <code>true</code>, then the column will be able to be converted to a factor regardless of whether <code>decode</code> is included or not</li>
 <li>
 <code>lookup</code>:
 <ul>

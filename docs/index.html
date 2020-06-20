@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">yspec</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0.9101</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
       </span>
     </div>
 
@@ -60,7 +60,7 @@
       <a href="articles/reference.html">Yaml specification reference</a>
     </li>
     <li>
-      <a href="articles/analys1.html">Example yaml specification file</a>
+      <a href="articles/analysis1.html">Example yaml specification file</a>
     </li>
     <li>
       <a href="articles/lookup.html">Using lookup files</a>
@@ -70,6 +70,12 @@
     </li>
     <li>
       <a href="articles/project.html">Project objects</a>
+    </li>
+    <li>
+      <a href="articles/label.html">Label the columns in a data set</a>
+    </li>
+    <li>
+      <a href="articles/extract.html">Extract data from a yspec object</a>
     </li>
   </ul>
 </li>
@@ -92,17 +98,11 @@
 <div id="yspec" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#yspec" class="anchor"></a>yspec</h1></div>
-<div id="browse-source-code-at" class="section level2">
+<div id="data-specification-for-pharmacometrics" class="section level2">
 <h2 class="hasAnchor">
-<a href="#browse-source-code-at" class="anchor"></a>Browse source code at</h2>
+<a href="#data-specification-for-pharmacometrics" class="anchor"></a>Data Specification for Pharmacometrics</h2>
+<p><strong>Browse source code at</strong></p>
 <p><a href="https://ghe.metrumrg.com/software/yspec" class="uri">https://ghe.metrumrg.com/software/yspec</a></p>
-</div>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="no">repos</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"https://metrumresearchgroup.github.io/r_validated"</span>, <span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span>()$<span class="no">repos</span>)
-
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"yspec"</span>, <span class="kw">repos</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(<span class="no">repos</span>), <span class="kw">type</span> <span class="kw">=</span> <span class="st">"source"</span>)</pre></div>
 </div>
 <div id="news" class="section level2">
 <h2 class="hasAnchor">
@@ -117,6 +117,8 @@
 <li><a href="https://ghe.metrumrg.com/pages/software/yspec/articles/reference.html">Specification syntax reference</a></li>
 <li><a href="https://ghe.metrumrg.com/pages/software/yspec/articles/project.html">Project template file for define documents</a></li>
 <li><a href="https://ghe.metrumrg.com/pages/software/yspec/articles/ysdb_internal.html">yspec internal lookup database</a></li>
+<li><a href="https://ghe.metrumrg.com/pages/software/yspec/extract.html">Extract data from a yspec object</a></li>
+<li><a href="https://ghe.metrumrg.com/pages/software/yspec/label.html">Label the columns in a data set</a></li>
 </ul>
 </div>
 </div>

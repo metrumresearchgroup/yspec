@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">yspec</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0.9101</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
       </span>
     </div>
 
@@ -60,7 +60,7 @@
       <a href="../articles/reference.html">Yaml specification reference</a>
     </li>
     <li>
-      <a href="../articles/analys1.html">Example yaml specification file</a>
+      <a href="../articles/analysis1.html">Example yaml specification file</a>
     </li>
     <li>
       <a href="../articles/lookup.html">Using lookup files</a>
@@ -70,6 +70,12 @@
     </li>
     <li>
       <a href="../articles/project.html">Project objects</a>
+    </li>
+    <li>
+      <a href="../articles/label.html">Label the columns in a data set</a>
+    </li>
+    <li>
+      <a href="../articles/extract.html">Extract data from a yspec object</a>
     </li>
   </ul>
 </li>
@@ -92,7 +98,7 @@
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Project object and define document</h1>
             
-            <h4 class="date">2020-06-18</h4>
+            <h4 class="date">2020-06-19</h4>
       
       
       <div class="hidden name"><code>project.Rmd</code></div>
@@ -152,15 +158,15 @@
 <a class="sourceLine" id="cb7-2" title="2"><span class="fu">YPROJ__:</span></a>
 <a class="sourceLine" id="cb7-3" title="3">  <span class="fu">sponsor:</span><span class="at"> ABC-Pharma</span></a>
 <a class="sourceLine" id="cb7-4" title="4">  <span class="fu">projectnumber:</span><span class="at"> ABC101104F</span></a>
-<a class="sourceLine" id="cb7-5" title="5">  <span class="fu">spec_file:</span><span class="at"> /var/folders/xb/hqmfzgl95fq8mx6tjxkzb71r0000gn/T//RtmpYFkI7c/filede293d5e5ed6.yml</span></a>
-<a class="sourceLine" id="cb7-6" title="6">  <span class="fu">spec_path:</span><span class="at"> /var/folders/xb/hqmfzgl95fq8mx6tjxkzb71r0000gn/T//RtmpYFkI7c</span></a>
-<a class="sourceLine" id="cb7-7" title="7">  <span class="fu">path:</span><span class="at"> /var/folders/xb/hqmfzgl95fq8mx6tjxkzb71r0000gn/T//RtmpYFkI7c</span></a>
+<a class="sourceLine" id="cb7-5" title="5">  <span class="fu">spec_file:</span><span class="at"> /var/folders/xb/hqmfzgl95fq8mx6tjxkzb71r0000gn/T//RtmpmVbhVm/file15ddd182c5348.yml</span></a>
+<a class="sourceLine" id="cb7-6" title="6">  <span class="fu">spec_path:</span><span class="at"> /var/folders/xb/hqmfzgl95fq8mx6tjxkzb71r0000gn/T//RtmpmVbhVm</span></a>
+<a class="sourceLine" id="cb7-7" title="7">  <span class="fu">path:</span><span class="at"> /var/folders/xb/hqmfzgl95fq8mx6tjxkzb71r0000gn/T//RtmpmVbhVm</span></a>
 <a class="sourceLine" id="cb7-8" title="8">  <span class="fu">class:</span><span class="at"> yproj</span></a>
 <a class="sourceLine" id="cb7-9" title="9"><span class="fu">DEM104101F_PK:</span></a>
 <a class="sourceLine" id="cb7-10" title="10">  <span class="fu">name:</span><span class="at"> DEM104101F_PK</span></a>
 <a class="sourceLine" id="cb7-11" title="11">  <span class="fu">description:</span><span class="at"> Population PK analysis data set</span></a>
-<a class="sourceLine" id="cb7-12" title="12">  <span class="fu">spec_path:</span><span class="at"> /private/var/folders/xb/hqmfzgl95fq8mx6tjxkzb71r0000gn/T/Rtmp97d9nO/temp_libpathdd9a2fb505d/yspec/spec</span></a>
-<a class="sourceLine" id="cb7-13" title="13">  <span class="fu">spec_file:</span><span class="at"> /private/var/folders/xb/hqmfzgl95fq8mx6tjxkzb71r0000gn/T/Rtmp97d9nO/temp_libpathdd9a2fb505d/yspec/spec/DEM104101F_PK.yml</span></a>
+<a class="sourceLine" id="cb7-12" title="12">  <span class="fu">spec_path:</span><span class="at"> /private/var/folders/xb/hqmfzgl95fq8mx6tjxkzb71r0000gn/T/RtmpyXrjXt/temp_libpath15d216863e00a/yspec/spec</span></a>
+<a class="sourceLine" id="cb7-13" title="13">  <span class="fu">spec_file:</span><span class="at"> /private/var/folders/xb/hqmfzgl95fq8mx6tjxkzb71r0000gn/T/RtmpyXrjXt/temp_libpath15d216863e00a/yspec/spec/DEM104101F_PK.yml</span></a>
 <a class="sourceLine" id="cb7-14" title="14">  <span class="fu">data_path:</span><span class="at"> ../data/derived</span></a>
 <a class="sourceLine" id="cb7-15" title="15">  <span class="fu">data_stem:</span><span class="at"> DEM104101F_PK</span></a>
 <a class="sourceLine" id="cb7-16" title="16">  <span class="fu">csv_file:</span><span class="at"> ../data/derived/DEM104101F_PK.csv</span></a>
@@ -168,8 +174,8 @@
 <a class="sourceLine" id="cb7-18" title="18"><span class="fu">DEM104101F_PKPD:</span></a>
 <a class="sourceLine" id="cb7-19" title="19">  <span class="fu">name:</span><span class="at"> DEM104101F_PKPD</span></a>
 <a class="sourceLine" id="cb7-20" title="20">  <span class="fu">description:</span><span class="at"> Population PKPD analysis data set</span></a>
-<a class="sourceLine" id="cb7-21" title="21">  <span class="fu">spec_path:</span><span class="at"> /private/var/folders/xb/hqmfzgl95fq8mx6tjxkzb71r0000gn/T/Rtmp97d9nO/temp_libpathdd9a2fb505d/yspec/spec</span></a>
-<a class="sourceLine" id="cb7-22" title="22">  <span class="fu">spec_file:</span><span class="at"> /private/var/folders/xb/hqmfzgl95fq8mx6tjxkzb71r0000gn/T/Rtmp97d9nO/temp_libpathdd9a2fb505d/yspec/spec/DEM104101F_PKPD.yml</span></a>
+<a class="sourceLine" id="cb7-21" title="21">  <span class="fu">spec_path:</span><span class="at"> /private/var/folders/xb/hqmfzgl95fq8mx6tjxkzb71r0000gn/T/RtmpyXrjXt/temp_libpath15d216863e00a/yspec/spec</span></a>
+<a class="sourceLine" id="cb7-22" title="22">  <span class="fu">spec_file:</span><span class="at"> /private/var/folders/xb/hqmfzgl95fq8mx6tjxkzb71r0000gn/T/RtmpyXrjXt/temp_libpath15d216863e00a/yspec/spec/DEM104101F_PKPD.yml</span></a>
 <a class="sourceLine" id="cb7-23" title="23">  <span class="fu">data_path:</span><span class="at"> ../data/derived</span></a>
 <a class="sourceLine" id="cb7-24" title="24">  <span class="fu">data_stem:</span><span class="at"> DEM104101F_PKPD</span></a>
 <a class="sourceLine" id="cb7-25" title="25">  <span class="fu">csv_file:</span><span class="at"> ../data/derived/DEM104101F_PKPD.csv</span></a>
@@ -177,8 +183,8 @@
 <a class="sourceLine" id="cb7-27" title="27"><span class="fu">DEM104101F_AE:</span></a>
 <a class="sourceLine" id="cb7-28" title="28">  <span class="fu">name:</span><span class="at"> DEM104101F_AE</span></a>
 <a class="sourceLine" id="cb7-29" title="29">  <span class="fu">description:</span><span class="at"> AE analysis data set</span></a>
-<a class="sourceLine" id="cb7-30" title="30">  <span class="fu">spec_path:</span><span class="at"> /private/var/folders/xb/hqmfzgl95fq8mx6tjxkzb71r0000gn/T/Rtmp97d9nO/temp_libpathdd9a2fb505d/yspec/spec</span></a>
-<a class="sourceLine" id="cb7-31" title="31">  <span class="fu">spec_file:</span><span class="at"> /private/var/folders/xb/hqmfzgl95fq8mx6tjxkzb71r0000gn/T/Rtmp97d9nO/temp_libpathdd9a2fb505d/yspec/spec/DEM104101F_AE.yml</span></a>
+<a class="sourceLine" id="cb7-30" title="30">  <span class="fu">spec_path:</span><span class="at"> /private/var/folders/xb/hqmfzgl95fq8mx6tjxkzb71r0000gn/T/RtmpyXrjXt/temp_libpath15d216863e00a/yspec/spec</span></a>
+<a class="sourceLine" id="cb7-31" title="31">  <span class="fu">spec_file:</span><span class="at"> /private/var/folders/xb/hqmfzgl95fq8mx6tjxkzb71r0000gn/T/RtmpyXrjXt/temp_libpath15d216863e00a/yspec/spec/DEM104101F_AE.yml</span></a>
 <a class="sourceLine" id="cb7-32" title="32">  <span class="fu">data_path:</span><span class="at"> ../data/derived</span></a>
 <a class="sourceLine" id="cb7-33" title="33">  <span class="fu">data_stem:</span><span class="at"> DEM0104101F_AE_2</span></a>
 <a class="sourceLine" id="cb7-34" title="34">  <span class="fu">csv_file:</span><span class="at"> ../data/derived/DEM0104101F_AE_2.csv</span></a>
@@ -219,7 +225,7 @@
 <a class="sourceLine" id="cb8-33" title="33">    <span class="fu">2 :</span><span class="at"> female</span></a>
 <a class="sourceLine" id="cb8-34" title="34"><span class="fu">EGFR2:</span><span class="at"> </span></a>
 <a class="sourceLine" id="cb8-35" title="35">  <span class="fu">lookup:</span><span class="at"> </span><span class="ch">true</span></a></code></pre></div>
-<p>In the <code>YPROJ__</code> block, we included a description; this is required to make a project object from data objects. There also is a <code>name</code> that defaults to the stem of the data specification file. We also optionally included <code>projectnumber</code> and <code>sponsor</code>. These will get inserted into the define document when the MetrumRG Rmarkdown template is used.</p>
+<p>In the <code>SETUP__</code> block, we included a description; this is required to make a project object from data objects. There also is a <code>name</code> that defaults to the stem of the data specification file. We also optionally included <code>projectnumber</code> and <code>sponsor</code>. These will get inserted into the define document when the MetrumRG Rmarkdown template is used.</p>
 </div>
 <div id="render-a-define-file" class="section level1">
 <h1 class="hasAnchor">

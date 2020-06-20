@@ -9,10 +9,14 @@ navbar:
       - text: Yaml specification reference
         href: articles/reference.html
       - text: Example yaml specification file
-        href: articles/analys1.html
+        href: articles/analysis1.html
       - text: Using lookup files
         href: articles/lookup.html
       - text: yspec internal data base
         href: articles/ysdb_internal.html
       - text: Project objects
         href: articles/project.html
+      - text: Label the columns in a data set
+        href: articles/label.html
+      - text: Extract data from a yspec object
+        href: articles/extract.html
