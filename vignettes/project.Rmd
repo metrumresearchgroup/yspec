@@ -6,7 +6,7 @@ output:
   rmarkdown::html_vignette: 
     keep_md: true
 vignette: >
-  %\VignetteIndexEntry{Project Object and Define Document}
+  %\VignetteIndexEntry{Project object and define document}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

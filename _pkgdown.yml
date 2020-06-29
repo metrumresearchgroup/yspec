@@ -1,7 +1,7 @@
 navbar:
   components:
     intro: 
-      text: Get Started
+      text: Get started
       href: articles/yspec.html
     articles:
       text: Articles
@@ -10,11 +10,11 @@ navbar:
         href: articles/reference.html
       - text: Example yaml specification file
         href: articles/analysis1.html
-      - text: Using lookup files
+      - text: Project-wide column definitions
         href: articles/lookup.html
-      - text: yspec internal data base
+      - text: Internal Column Lookup Database
         href: articles/ysdb_internal.html
-      - text: Project objects
+      - text: Project object and define document
         href: articles/project.html
       - text: Label the columns in a data set
         href: articles/label.html

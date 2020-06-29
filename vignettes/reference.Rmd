@@ -1,10 +1,10 @@
 ---
-title: "YAML specification"
+title: "Yaml specification reference"
 author: ""
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{yspec yaml specification}
+  %\VignetteIndexEntry{Yaml specification reference}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
