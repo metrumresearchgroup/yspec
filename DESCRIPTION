@@ -29,7 +29,7 @@ Imports:
     fs
 Suggests: pander, testthat
 VignetteBuilder: knitr
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 Collate: 
     'utils.R'
     'Aaaa.R'
