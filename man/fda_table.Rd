@@ -15,8 +15,8 @@ fda_table_file(file)
 \item{file}{the full path to yaml specification file}
 }
 \value{
-Character vector of latex code for the content of an FDA 
-`define.pdf` document.  It includes a table of contents as well as data spec
+Character vector of latex code for the content of an FDA
+\code{define.pdf} document.  It includes a table of contents as well as data spec
 tables for each dataset for a project.
 }
 \description{

@@ -8,8 +8,8 @@
 ##' @param root directory where the build will take place
 ##' 
 ##' @details The following files will be copied into the 
-##' build directory: \code{_output.yml}, \code{mrgtemplate.tex}, 
-##' \code{header.tex}, \code{mrglogo.pdf}.
+##' build directory: `_output.yml`, `mrgtemplate.tex`, 
+##' `header.tex`, `mrglogo.pdf`.
 ##' 
 ##' @return The path to the build directory.
 ##' 
@@ -20,7 +20,7 @@
 ##' ans
 ##' 
 ##' list.files(ans)
-##' 
+##' @md
 ##' @export
 mrgtemplate <- function(root = tempdir()) {
   dir <- file.path(root, "mrgtemplate")

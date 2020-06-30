@@ -6,10 +6,11 @@
 ##' @param ... unquoted column names in the spec
 ##' @param .fun a function that forms the axis label data for 
 ##' @param x a ycol object
-##' @param .add_unit if \code{TRUE}, the unit is appended to the axis title
+##' @param .add_unit if `TRUE`, the unit is appended to the axis title
 ##' if it is found
 ##' a single column
 ##' 
+##' @md
 ##' @export
 axis_labs <- function(.spec, ..., .fun = axis_label) {
   vars <- vars_select(names(.spec), !!!quos(...))

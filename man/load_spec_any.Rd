@@ -9,7 +9,7 @@ load_spec_any(file, ...)
 \arguments{
 \item{file}{a yaml file name}
 
-\item{...}{arguments passed to [ys_load] or [ys_load_proj]}
+\item{...}{arguments passed to \link{ys_load} or \link{ys_load_proj}}
 }
 \description{
 Load a specification file, guessing the type

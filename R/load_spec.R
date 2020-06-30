@@ -143,7 +143,7 @@ capture_file_info <- function(x,file,where = "SETUP__") {
 ##' 
 ##' sp <- ys_load(ys_help$file(), verbose = TRUE)
 ##' 
-##' 
+##' @md
 ##' @export
 ys_load <- function(file, verbose=FALSE,  ...) {
   x <- ys_load_file(file, verbose=verbose,...)
@@ -365,6 +365,7 @@ ys_load_meta <- function(file) {
 ##' 
 ##' class(load_spec_any(file_proj_ex()))
 ##' 
+##' @md
 ##' @export
 load_spec_any <- function(file,...) {
   file <- normalPath(file,mustWork=FALSE)

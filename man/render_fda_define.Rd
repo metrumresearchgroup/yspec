@@ -30,7 +30,7 @@ render_fda_define(x, ...)
 \arguments{
 \item{x}{a yaml specification file name or a yproj object}
 
-\item{...}{passed to [rmarkdown::render]}
+\item{...}{passed to \link[rmarkdown:render]{rmarkdown::render}}
 
 \item{stem}{used to name the output document}
 
@@ -51,10 +51,10 @@ provided will create any necessary directories if they do not exist.}
 
 \item{build_dir}{directory where the document is to be built}
 
-\item{ext}{data set file extension to include; this should only 
+\item{ext}{data set file extension to include; this should only
 be changed from default value of ".xpt" for testing purposes}
 
-\item{loc}{location to use for data set files; this should 
+\item{loc}{location to use for data set files; this should
 only be changed from default value of "." for testing purposes}
 
 \item{dots}{named list of arguments passed to object converter function}
@@ -70,5 +70,4 @@ proj_file
 \dontrun{
   render_fda_define(proj_file)
 }
-
 }

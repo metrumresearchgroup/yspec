@@ -34,8 +34,8 @@ yspec_make_factor(values, x, strict = TRUE)
 
 \item{...}{unquoted column names for modification}
 
-\item{.all}{if `TRUE` then any column with a `values` attribute or  where 
-the `make_factor` field evaluates to `TRUE` will be added as a factor}
+\item{.all}{if \code{TRUE} then any column with a \code{values} attribute or  where
+the \code{make_factor} field evaluates to \code{TRUE} will be added as a factor}
 
 \item{.suffix}{used to make the column name for the factors}
 
@@ -49,7 +49,7 @@ the `make_factor` field evaluates to `TRUE` will be added as a factor}
 Add factors to data set based on spec information
 }
 \details{
-Note that `.suffix` can be chosen using option `ys.fct.suffix`.
+Note that \code{.suffix} can be chosen using option \code{ys.fct.suffix}.
 }
 \examples{
 

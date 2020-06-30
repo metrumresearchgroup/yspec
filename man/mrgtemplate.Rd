@@ -13,12 +13,12 @@ mrgtemplate(root = tempdir())
 The path to the build directory.
 }
 \description{
-The idea is to create a build directory such that, when 
+The idea is to create a build directory such that, when
 you render
 }
 \details{
-The following files will be copied into the 
-build directory: \code{_output.yml}, \code{mrgtemplate.tex}, 
+The following files will be copied into the
+build directory: \verb{_output.yml}, \code{mrgtemplate.tex},
 \code{header.tex}, \code{mrglogo.pdf}.
 }
 \examples{
@@ -28,5 +28,4 @@ ans <- mrgtemplate()
 ans
 
 list.files(ans)
-
 }

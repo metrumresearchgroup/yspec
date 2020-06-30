@@ -9,7 +9,7 @@ ys_get_lookup(x, verbose = FALSE)
 \arguments{
 \item{x}{a yspec object}
 
-\item{verbose}{`logical`; print information to the console as the file
+\item{verbose}{\code{logical}; print information to the console as the file
 is processed}
 }
 \description{
@@ -19,6 +19,5 @@ Generate lookup list
 
 spec <- load_spec_ex("DEM104101F_PK.yml")
 ys_get_lookup(spec)
-
 
 }

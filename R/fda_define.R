@@ -71,7 +71,8 @@ add.to.row_long$command <- command__
 ##' spec <- load_spec_ex()
 ##' spec
 ##' fda_table(spec)
-##'
+##' 
+##' @md
 ##' @export
 fda_table <- function(x) {
   if(!is_yspec(x)) {
@@ -102,7 +103,8 @@ fda_table <- function(x) {
 ##'
 ##' @param x a spec define object
 ##' @inheritParams fda_define 
-##' @seealso \code{\link{load_spec_proj}}
+##' 
+##' @seealso [load_spec_proj]
 ##'
 ##' @examples
 ##' proj <- file_proj_ex()
@@ -110,7 +112,7 @@ fda_table <- function(x) {
 ##' spec <- load_spec_proj(proj)
 ##'
 ##' fda_content_table(spec)
-##'
+##' @md
 ##' @export
 fda_content_table <- function(x, ext=".xpt", loc=".") {
   if(!is_yproj(x)) {
@@ -163,8 +165,8 @@ fda_content_table_loc <- function(data_file,loc) {
 ##'
 ##' @return
 ##' A character vector of in markdown format.  Wrap
-##' \code{fda_define} in \code{\link{writeLines}} and
-##' render \code{asis} in an Rmarkdown document.
+##' `fda_define` in [writeLines] and
+##' render `asis` in an Rmarkdown document.
 ##'
 ##' @examples
 ##' proj <- file_proj_ex()
@@ -174,7 +176,8 @@ fda_content_table_loc <- function(data_file,loc) {
 ##' \dontrun{
 ##'   fda_define(proj)
 ##' }
-##' @seealso \code{\link{fda_table}}
+##' @seealso [fda_table]
+##' @md
 ##' @export
 fda_define <- function(file, title="Datasets", ext=".xpt", loc=".",...) {
   
@@ -214,7 +217,7 @@ fda_define <- function(file, title="Datasets", ext=".xpt", loc=".",...) {
 ##' \dontrun{
 ##'   render_fda_define(proj_file)
 ##' }
-##' 
+##' @md
 ##' @export
 render_fda_define <- function(x, ... ) {
   UseMethod("render_fda_define")
