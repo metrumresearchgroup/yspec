@@ -42,4 +42,8 @@ test_that("get short", {
   expect_is(ans,"character")
 })
 
+test_that("get short unit", {
+  ans <- ys_get_short_unit(sp)  
+  expect_is(ans,"list")
+})
 
