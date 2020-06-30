@@ -18,5 +18,5 @@ News can be found [here](news.md)
 - [Project template file for define documents](https://metrumresearchgroup.github.io/yspec/articles/project.html)
 - [yspec internal lookup 
 database](https://metrumresearchgroup.github.io/yspec/articles/ysdb_internal.html)
-- [Extract data from a yspec object](https://metrumresearchgroup.github.io/yspec/extract.html)
-- [Label the columns in a data set](https://metrumresearchgroup.github.io/yspec/label.html)
+- [Extract data from a yspec object](https://metrumresearchgroup.github.io/yspec/articles/extract.html)
+- [Label the columns in a data set](https://metrumresearchgroup.github.io/yspec/articles/label.html)
