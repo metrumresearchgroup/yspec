@@ -7,6 +7,8 @@ Authors@R: c(
        person("Metrum Research Group", role =  c("cph"))
        )
 Maintainer: Kyle Baron <kyleb@metrumrg.com>
+URL: https://github.com/metrumresearchgroup/yspec
+BugReports: https://github.com/metrumresearchgroup/yspec/issues
 Description: Generate Define.pdf from yaml specification.
 License: GPL (>=2)
 Encoding: UTF-8
