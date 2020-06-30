@@ -4,10 +4,13 @@
 \alias{ys_get_short_unit}
 \title{Get short with unit}
 \usage{
-ys_get_short_unit(x, ...)
+ys_get_short_unit(x, .aslist = TRUE, ...)
 }
 \arguments{
 \item{x}{ycol or yspec object}
+
+\item{.aslist}{a named list is returned if \code{TRUE}, otherwise a named
+character vector}
 
 \item{...}{arguments passed to \link{ys_get_short} and \link{ys_get_unit}}
 }

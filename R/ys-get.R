@@ -85,6 +85,8 @@ ys_get_short <- function(x, ...) {
 #' Get short with unit
 #' 
 #' @param x ycol or yspec object
+#' @param .aslist a named list is returned if `TRUE`, otherwise a named 
+#' character vector
 #' @param ... arguments passed to [ys_get_short] and [ys_get_unit]
 #' 
 #' @examples
@@ -97,12 +99,13 @@ ys_get_short <- function(x, ...) {
 #' @seealso [ys_get_short], [ys_get_unit], [ys_get_label]
 #' @md
 #' @export
-ys_get_short_unit <- function(x, ...) {
+ys_get_short_unit <- function(x, .aslist = TRUE, ...) {
   a <- ys_get_short(x, .aslist=FALSE, ...)
   b <- ys_get_unit(x, .aslist=FALSE,...)
   cols <- names(b)
   ans <- trimws(paste(a,b),"right")
   names(ans) <- cols
+  if(.aslist) ans <- as.list(ans)
   ans
 }
 
