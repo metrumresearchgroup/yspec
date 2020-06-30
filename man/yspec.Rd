@@ -43,12 +43,12 @@ session
 
 \itemize{
 \item \code{ys.sanitize} a function to use for sanitizing text before processing with
-latex; see \code{\link[yspec:pander_table]{yspec::pander_table()}}
+latex; see \code{\link[=pander_table]{pander_table()}}
 \item \code{ys.col.len} the maximum number of characters in a data frame column
 name; this defaults to 8 so that columns with 9 or more characters will
 generate an error on load.
 \item \code{ys.fct.suffix} the suffix to add to a column name, used by
-\code{\link[yspec:yspec_add_factors]{yspec::yspec_add_factors()}}
+\code{\link[=yspec_add_factors]{yspec_add_factors()}}
 \item \code{ys.require.label} if \code{TRUE}, an error will be generated whenever a column
 is specified without a label
 }

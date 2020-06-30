@@ -1,0 +1,121 @@
+---
+title: "Extract data from a yspec object"
+author: ""
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette: 
+    keep_md: true
+vignette: >
+  %\VignetteIndexEntry{Extract data from a yspec object}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Introduction
+This vignette shows you how to extract information from a yspec object.
+
+# Set up
+
+```{r setup}
+knitr::opts_chunk$set(comment = '.')
+```
+
+
+```{r, warning = FALSE, message = FALSE}
+library(tidyverse)
+library(yspec)
+```
+
+# Basic
+
+First, recall that the yspec object is just a list.  We can use map to get 
+information out of that list.  For example, to find the types of all the columns
+in the data set use `purrr:::map`
+
+```{r}
+spec <- ys_help$spec()
+
+map(spec, "type")[1:5]
+```
+
+If we wanted some column information in csv format we could also do
+
+```{r}
+map(spec, ~ paste(.x[["col"]],.x[["short"]],.x[["type"]],sep=','))[1:3]
+```
+
+There are other helper functions that do more than just pull a field.  We can 
+extract a label and form a unit.
+
+# Get units
+
+Call `ys_get_unit` to get a named list of units. When the `parens` argument is
+true, it will put parentheses around the unit.  Notice that the output here is 
+different than if we were to only map across the list and ask for the unit field. 
+Many columns don't have units and we'd get `NULL` back if we just mapped.  The 
+`ys_get_unit` function subs in blank character data items when `unit` is `NULL`.
+
+```{r}
+ys_get_unit(spec, parens = TRUE) %>% unlist
+```
+
+# Get labels
+
+We can also get labels
+
+```{r}
+ys_get_label(spec)[1:3]
+```
+
+# Get short
+
+We can also get the short name
+
+```{r}
+ys_get_short(spec)[1:3]
+```
+
+# Get short with unit
+
+This function returns a string with both the `unit` and `short`
+```{r}
+ys_get_short_unit(spec, parens = TRUE)[1:5] %>% as.list
+```
+
+# Meta information
+
+The information you entered in `SETUP__` as well as other meta information is
+stored as a list in the `meta` attribute of the `yspec` list. It can be 
+accessed with `get_meta`.  This returns a list with the various pieces of meta 
+data.
+
+```{r}
+get_meta(spec)[1:3]
+```
+
+You an pull a single piece of meta data with
+```{r}
+pull_meta(spec, "projectnumber")
+```
+
+## What is in the meta data?
+
+
+```{r}
+m <- get_meta(spec)
+```
+
+```{r}
+names(m)
+```
+
+Some descriptions: 
+
+1. `spec_file`: the yaml source file for the specification information
+1. `spec_path`: the directory where the yaml source file is located
+1. `name`: the stem of the yaml source file
+1. `data_stem`: the stem that is used and it is assumed that data sets will be 
+   written using this stem (for example `<data_stem>.csv` etc).
+1. `data_path`: the assumed derived data directory
+
+See also [reference.html](reference.html) for descriptions of meta fields.

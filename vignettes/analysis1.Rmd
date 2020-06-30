@@ -1,12 +1,12 @@
 ---
-title: "Example specification document"
+title: "Example yaml specification file"
 author: ""
 date: "`r Sys.Date()`"
 output: 
   rmarkdown::html_vignette: 
     keep_md: true
 vignette: >
-  %\VignetteIndexEntry{yspec}
+  %\VignetteIndexEntry{Example yaml specification file}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

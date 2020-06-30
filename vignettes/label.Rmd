@@ -1,0 +1,135 @@
+---
+title: "Label the columns in a data set"
+author: ""
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette: 
+    keep_md: true
+vignette: >
+  %\VignetteIndexEntry{Label the columns in a data set}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+# Introduction
+This vignette shows you how to add labels to the columns of a data set.
+
+# Set up
+
+```{r setup}
+knitr::opts_chunk$set(comment = '.')
+```
+
+
+```{r, warning = FALSE, message = FALSE}
+library(tidyverse)
+library(yspec)
+```
+
+# Load specification object and data set
+
+We'll use the examples provided in the package
+
+```{r}
+data <- ys_help$data()
+spec <- ys_help$spec()
+```
+
+The data
+```{r}
+as_tibble(data)
+```
+
+The spec
+```{r}
+spec
+```
+
+
+# Use ys_add_labels
+
+```{r}
+data <- ys_add_labels(data,spec)
+```
+
+It isn't obvious that anything was done here
+```{r}
+as_tibble(data)
+```
+
+How can you tell that the labels were added?
+
+```{r}
+labs <- map(data, attr, "label")
+
+labs[1:5]
+```
+
+Or do this
+
+```{r,eval=FALSE}
+str(data)
+```
+
+# Where does label come from?
+
+Ideally, we'd like to be writing in a `label` entry for every column in the 
+data set.  You can set the `ys.require.label` option to `TRUE` to require this
+when loading the spec (an error will be generated). 
+
+But yspec has a function called `ys_get_label` that will form a label for you. 
+Here are the rules:
+
+1. If `label` exists for a column, it will be used
+1. Otherwise, if `long` is found and it is `<=` 40 characters, it be used
+1. Otherwise, `short` will be used; reminder that `short` defaults to the 
+   column name (`col`) too
+
+Let's look at some examples:
+
+```{r}
+ys_get_label(spec)[1:3]
+```
+
+```{r}
+ys_get_label(spec$NUM)
+```
+
+```{r}
+spec$NUM$label
+```
+
+```{r}
+spec$C$label
+```
+
+# Custom label formation
+
+Just as an example, we can add a custom labeling function. For example, I want 
+the label to be the column name. 
+
+Set up a function that takes the column data as the first argument
+```{r}
+label_fun <- function(x,...) x[["col"]]
+```
+
+Now, pass that function into `ys_add_labels`
+
+```{r}
+data <- ys_add_labels(data, spec, fun = label_fun)
+```
+
+And check the output
+
+```{r}
+map(data, attr, "label")[1:5]
+```
+
+# Extract the label field
+
+Recall that the yspec object is just a list.  We can always map across that list
+and grab the label field:s
+
+```{r}
+map(spec, "label")[1:5]
+```
+
