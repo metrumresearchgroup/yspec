@@ -16,6 +16,7 @@
 #' purrr:::map(spec,"label")
 #' }
 #' @seealso [ys_get_short], [ys_get_short], [ys_get_short_unit]
+#' @md
 #' @export
 ys_get_label <- function(x, ...) {
   label(x,...)  
@@ -43,6 +44,7 @@ ys_get_label <- function(x, ...) {
 #' purrr:::map(spec,"unit")
 #' }
 #' @seealso [ys_get_short], [ys_get_label], [ys_get_short_unit]
+#' @md
 #' @export
 ys_get_unit <- function(x, parens = FALSE, default = "",...) {
   ans <- unit(x, default = default, ...)
@@ -74,6 +76,7 @@ ys_get_unit <- function(x, parens = FALSE, default = "",...) {
 #' purrr:::map(spec,"short")
 #' }
 #' @seealso [ys_get_unit], [ys_get_label], [ys_get_short_unit]
+#' @md
 #' @export
 ys_get_short <- function(x, ...) {
   short(x,...)
@@ -92,6 +95,7 @@ ys_get_short <- function(x, ...) {
 #' ys_get_short_unit(spec$WT)
 #' 
 #' @seealso [ys_get_short], [ys_get_unit], [ys_get_label]
+#' @md
 #' @export
 ys_get_short_unit <- function(x, ...) {
   a <- ys_get_short(x, .aslist=FALSE, ...)

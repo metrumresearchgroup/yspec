@@ -12,8 +12,8 @@ ys_get_short(x, ...)
 \item{...}{passed to short methods}
 }
 \description{
-Forms a short for a column (`ycol` method) or columns (`yspec` method). Use
-[purrr::map] or [purrr::map_chr] to simply extract the short field.
+Forms a short for a column (\code{ycol} method) or columns (\code{yspec} method). Use
+\link[purrr:map]{purrr::map} or \link[purrr:map]{purrr::map_chr} to simply extract the short field.
 }
 \examples{
 spec <- ys_help$spec()
@@ -27,5 +27,5 @@ purrr:::map(spec,"short")
 }
 }
 \seealso{
-[ys_get_unit], [ys_get_label], [ys_get_short_unit]
+\link{ys_get_unit}, \link{ys_get_label}, \link{ys_get_short_unit}
 }

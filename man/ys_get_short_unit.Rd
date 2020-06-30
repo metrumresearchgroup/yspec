@@ -9,7 +9,7 @@ ys_get_short_unit(x, ...)
 \arguments{
 \item{x}{ycol or yspec object}
 
-\item{...}{arguments passed to [ys_get_short] and [ys_get_unit]}
+\item{...}{arguments passed to \link{ys_get_short} and \link{ys_get_unit}}
 }
 \description{
 Get short with unit
@@ -23,5 +23,5 @@ ys_get_short_unit(spec$WT)
 
 }
 \seealso{
-[ys_get_short], [ys_get_unit], [ys_get_label]
+\link{ys_get_short}, \link{ys_get_unit}, \link{ys_get_label}
 }
