@@ -61,17 +61,18 @@ update_short <- function(spec, ...) {
 #' @param x a `yspec` object
 #' @param y a `yspec` object
 #' @param ... not used
+#' @param .meta meta information to use for the new spec object
 #' 
 #' 
 #' @md
 #' @export
-c.yspec <- function(x,y,...) {
+c.yspec <- function(x,y,...,.meta = get_meta(x)) {
   assert_that(is_yspec(y))
   new_cols <- setdiff(names(y),names(x))
   if(!identical(new_cols, names(y))) {
     stop("'x' and 'y' cannot share any names.")  
   }
-  structure(c(unclass(x),unclass(y)), meta = get_meta(x), class="yspec")
+  structure(c(unclass(x),unclass(y)), meta = .meta, class="yspec")
 }
 
 ##' @export
