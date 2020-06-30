@@ -4,7 +4,7 @@
 \alias{c.yspec}
 \title{Add extra column elements to a yspec object}
 \usage{
-\method{c}{yspec}(x, y, ...)
+\method{c}{yspec}(x, y, ..., .meta = get_meta(x))
 }
 \arguments{
 \item{x}{a \code{yspec} object}
@@ -12,6 +12,8 @@
 \item{y}{a \code{yspec} object}
 
 \item{...}{not used}
+
+\item{.meta}{meta information to use for the new spec object}
 }
 \description{
 Add extra column elements to a yspec object

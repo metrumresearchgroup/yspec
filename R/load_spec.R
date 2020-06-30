@@ -195,8 +195,8 @@ unpack_spec <- function(x,verbose=FALSE) {
   check_spec_cols(x)
   ans <- structure(x, class = "yspec")
   if(.has("import", get_meta(x))) {
-    import <- ys_load(get_meta(x)[["import"]])
-    ans <- c(import,ans)
+    import <- ys_load(pull_meta(x,"import"))
+    ans <- c(import,ans,.meta = get_meta(ans))
   }
   if(isTRUE(get_meta(x)[["character_last"]])) {
     type <- map_chr(ans, "type")
