@@ -5,7 +5,7 @@ yspec
 
 __Browse source code at__
 
-https://ghe.metrumrg.com/software/yspec
+https://github.com/metrumresearchgroup/yspec
 
 
 ## News
@@ -13,10 +13,10 @@ https://ghe.metrumrg.com/software/yspec
 News can be found [here](news.md)
 
 ## Vignettes
-- [Get started](https://ghe.metrumrg.com/pages/software/yspec/articles/yspec.html)
-- [Specification syntax reference](https://ghe.metrumrg.com/pages/software/yspec/articles/reference.html)
-- [Project template file for define documents](https://ghe.metrumrg.com/pages/software/yspec/articles/project.html)
+- [Get started](https://metrumresearchgroup.github.io/yspec/articles/yspec.html)
+- [Specification syntax reference](https://metrumresearchgroup.github.io/yspec/articles/reference.html)
+- [Project template file for define documents](https://metrumresearchgroup.github.io/yspec/articles/project.html)
 - [yspec internal lookup 
-database](https://ghe.metrumrg.com/pages/software/yspec/articles/ysdb_internal.html)
-- [Extract data from a yspec object](https://ghe.metrumrg.com/pages/software/yspec/extract.html)
-- [Label the columns in a data set](https://ghe.metrumrg.com/pages/software/yspec/label.html)
+database](https://metrumresearchgroup.github.io/yspec/articles/ysdb_internal.html)
+- [Extract data from a yspec object](https://metrumresearchgroup.github.io/yspec/articles/extract.html)
+- [Label the columns in a data set](https://metrumresearchgroup.github.io/yspec/articles/label.html)
