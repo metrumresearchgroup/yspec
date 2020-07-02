@@ -2,7 +2,7 @@ chunk_and_indent <- function(x,indent,width) {
   if(x=="") return("")
   x <- paste0("[",x,"]")
   pre0 <- paste0(rep(" ", indent),collapse = "")
-  pre <- paste0(pre0, " ;  ")
+  pre <- paste0(pre0, " ; ")
   chunked <- strwrap(x, width = width, prefix = pre,exdent=1)
   paste0("\n",paste0(chunked,collapse = "\n"))
 }
@@ -23,7 +23,7 @@ nm_input <- function(spec,width = 60) {
   short <- ys_get_short(spec, .aslist=FALSE)
   df <- tibble(col = col, col2 = col2, spc = " ; ", short = short, details = details)
   df <- mutate(df, details = map_chr(details, chunk_and_indent, indent = mx, width = width))
-  df <- mutate(df, rhs = paste0(short," ", details))
+  df <- mutate(df, rhs = trimws(paste0(short," ", details)))
   out <- paste0(df$col2, df$spc, df$rhs)
   out <- unlist(strsplit(out, "\n"))
   c("$INPUT",out)
