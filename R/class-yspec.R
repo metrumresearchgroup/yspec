@@ -282,19 +282,42 @@ type.yspec <- function(x, default = "numeric",...) {
   map_chr(x,"type", .default = default)
 }
 
+#' Form a short name
+#' 
+#' @param x a yspec or ycol object
+#' @param default character field name to use when the `short` field is not 
+#' found
+#' @param short_max if `short` is found, but contains more than `short_max` 
+#' characters, `col` will be used
+#' @param title_case `short` will be converted with [tools::toTitleCase] if it 
+#' is found
+#' @param ... passed to methods
+#' @md
 short <- function(x,...) UseMethod("short")
-##' @export
-short.ycol <- function(x, default = ".", ...) {
+#' @rdname short
+#' @export
+short.ycol <- function(x, default = "col", 
+                       short_max = getOption("yspec.short.max",NULL), 
+                       title_case = getOption("yspec.short.title", FALSE), ...) {
   if(.no("short", x)) {
-    ans <- default
+    ans <- x[[default]]
   } else {
     ans <- x[["short"]]
+    if(isTRUE(title_case)) {
+      ans <- toTitleCase(ans)  
+    }
+  }
+  if(is.numeric(short_max)) {
+    if(nchar(ans) > short_max) {
+      ans <- x[["col"]]
+    }
   }
   ans
 }
 
+#' @rdname short
 #' @export
-short.yspec <- function(x, default = '.', .aslist=TRUE,...) {
+short.yspec <- function(x, default = "short", .aslist=TRUE,...) {
   if(isTRUE(.aslist)) {
     ans <- map(x, short.ycol, default = default, ...)  
   } else {

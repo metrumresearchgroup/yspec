@@ -4,12 +4,18 @@
 \alias{ys_get_short}
 \title{Get short}
 \usage{
-ys_get_short(x, ...)
+ys_get_short(x, short_max = Inf, title_case = FALSE, ...)
 }
 \arguments{
 \item{x}{ycol or yspec object}
 
-\item{...}{passed to short methods}
+\item{short_max}{if \code{short} is found, but contains more than \code{short_max}
+characters, \code{col} will be used}
+
+\item{title_case}{\code{short} will be converted with \link[tools:toTitleCase]{tools::toTitleCase} if it
+is found}
+
+\item{...}{passed to short methods; see details}
 }
 \description{
 Forms a short for a column (\code{ycol} method) or columns (\code{yspec} method). Use
