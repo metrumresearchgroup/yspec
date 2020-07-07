@@ -48,15 +48,15 @@ test_that("get short unit", {
 })
 
 test_that("short is in title case", {
-  sh1 <- ys_get_short(spec)
-  sh2 <- ys_get_short(spec, title_case = TRUE)
+  sh1 <- ys_get_short(sp)
+  sh2 <- ys_get_short(sp, title_case = TRUE)
   expect_identical(sh1$WT, "weight")
   expect_identical(sh2$WT, "Weight")
 })
 
 test_that("short is limited to n characters", {
-  sh1 <- ys_get_short(spec)
-  sh2 <- ys_get_short(spec, short_max = 2)
+  sh1 <- ys_get_short(sp)
+  sh2 <- ys_get_short(sp, short_max = 2)
   expect_identical(sh1$WT, "weight")
   expect_identical(sh2$WT, "WT")
 })

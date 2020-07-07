@@ -13,7 +13,7 @@
 #' @md
 #' @export
 axis_labs <- function(.spec, vars=NULL, .fun = axis_label,...) {
-  if(missing(vars)) vars <- names(spec)
+  if(missing(vars)) vars <- names(.spec)
   if(is.character(vars)) {
     vars <- cvec_cs(vars) 
   } 

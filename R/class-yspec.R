@@ -315,6 +315,8 @@ short.ycol <- function(x, default = "col",
   ans
 }
 
+#' @param .aslist if `TRUE`a named list is returned; otherwise, a named character
+#' vector
 #' @rdname short
 #' @export
 short.yspec <- function(x, default = "short", .aslist=TRUE,...) {

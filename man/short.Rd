@@ -31,6 +31,9 @@ characters, \code{col} will be used}
 
 \item{title_case}{\code{short} will be converted with \link[tools:toTitleCase]{tools::toTitleCase} if it
 is found}
+
+\item{.aslist}{if `TRUE`a named list is returned; otherwise, a named character
+vector}
 }
 \description{
 Form a short name
