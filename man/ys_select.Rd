@@ -4,13 +4,20 @@
 \alias{ys_select}
 \title{Select a subset of columns from a yspec object}
 \usage{
-ys_select(x, ...)
+ys_select(.x, ...)
 }
 \arguments{
-\item{x}{a yspect object}
+\item{.x}{a yspect object}
 
 \item{...}{unquoted columns to select}
 }
 \description{
 Select a subset of columns from a yspec object
+}
+\examples{
+
+spec <- ys_help$spec()
+
+ys_select(spec, WT, AGE, ALB)
+
 }

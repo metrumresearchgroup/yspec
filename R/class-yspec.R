@@ -428,17 +428,25 @@ ys_add_labels <- function(data,spec,fun=label.ycol) {
   data
 }
 
-
 #' Select a subset of columns from a yspec object
 #' 
 #' @param .x a yspect object
 #' @param ... unquoted columns to select
 #' 
+#' @examples
+#' 
+#' spec <- ys_help$spec()
+#' 
+#' ys_select(spec, WT, AGE, ALB)
+#' 
 #' @export
 ys_select <- function(.x, ...) {
-  keep <- tidyselect::eval_select(expr(c(...)), as.list(.x))
-  .x <- .x[keep]
-  .x
+  keep <- eval_select(expr(c(...)), as.list(.x))
+  if(length(keep)==0) {
+    return(.x) 
+  }
+  ans <- .x[keep]
+  ans
 }
 
 
