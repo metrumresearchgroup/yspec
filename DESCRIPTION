@@ -1,7 +1,7 @@
 Package: yspec
 Type: Package
 Title: Data Specification for Pharmacometrics
-Version: 0.4.1.9003
+Version: 0.4.1.9004
 Authors@R: c(
        person("Kyle T", "Baron", "", "kyleb@metrumrg.com", c("aut", "cre"), comment=c(ORCID="0000-0001-7252-5656")),
        person("Metrum Research Group", role =  c("cph"))

@@ -1,3 +1,5 @@
+# yspec (development version)
+
 # yspec 0.4.1
 
 - Add minimum version numbers for dependency packages
