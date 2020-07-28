@@ -4,7 +4,7 @@
 #' @param .spec a yspec object
 #' @param vars a quosure or character vector; passed to 
 #' [tidyselect::vars_select]
-#' @param ... arguments passed to [short]
+#' @param ... arguments passed to [short()]
 #' @param .fun a function that forms the axis label data for 
 #' @param x a ycol object
 #' @param .add_unit if `TRUE`, the unit is appended to the axis title
@@ -12,8 +12,8 @@
 #'
 #' @md
 #' @export
-axis_labs <- function(.spec, vars=NULL, .fun = axis_label,...) {
-  if(missing(vars)) vars <- names(.spec)
+axis_labs <- function(.spec, vars = NULL, .fun = axis_label,...) {
+  if(missing(vars) || is.null(vars)) vars <- names(.spec)
   if(is.character(vars)) {
     vars <- cvec_cs(vars) 
   } 
@@ -24,8 +24,8 @@ axis_labs <- function(.spec, vars=NULL, .fun = axis_label,...) {
 
 #' @rdname axis_labs
 #' @export
-axis_col_labs <- function(.spec, ..., .fun = axis_label) {
-  ans <- axis_labs(.spec,..., .fun = .fun)  
+axis_col_labs <- function(.spec, vars = NULL, ..., .fun = axis_label) {
+  ans <- axis_labs(.spec, ..., .fun = .fun)  
   set_names(paste0(names(ans), "//", ans), names(ans))
 }
 
@@ -46,4 +46,3 @@ axis_label <- function(x, .add_unit = TRUE,...) {
 axis_asis <- function(x) {
   axis_label(x, .add_unit = FALSE)  
 }
-

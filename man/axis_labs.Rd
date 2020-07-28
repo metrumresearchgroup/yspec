@@ -9,7 +9,7 @@
 \usage{
 axis_labs(.spec, vars = NULL, .fun = axis_label, ...)
 
-axis_col_labs(.spec, ..., .fun = axis_label)
+axis_col_labs(.spec, vars = NULL, ..., .fun = axis_label)
 
 axis_label(x, .add_unit = TRUE, ...)
 
@@ -23,7 +23,7 @@ axis_asis(x)
 
 \item{.fun}{a function that forms the axis label data for}
 
-\item{...}{arguments passed to \link{short}}
+\item{...}{arguments passed to \code{\link[=short]{short()}}}
 
 \item{x}{a ycol object}
 

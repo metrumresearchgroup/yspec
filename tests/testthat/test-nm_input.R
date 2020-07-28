@@ -21,4 +21,3 @@ test_that("input text is formed from spec", {
   na <- gsub("=DROP", "",tx, fixed = TRUE)
   expect_identical(na, names(sp))
 })
-
