@@ -62,8 +62,10 @@ ys_get_unit <- function(x, parens = FALSE, default = "",...) {
 #' Forms a short for a column (`ycol` method) or columns (`yspec` method). Use
 #' [purrr::map] or [purrr::map_chr] to simply extract the short field.
 #' 
+#' @inheritParams short
+#' 
 #' @param x ycol or yspec object
-#' @param ... passed to short methods
+#' @param ... passed to short methods; see details
 #' 
 #' @examples
 #' spec <- ys_help$spec()
@@ -78,8 +80,8 @@ ys_get_unit <- function(x, parens = FALSE, default = "",...) {
 #' @seealso [ys_get_unit], [ys_get_label], [ys_get_short_unit]
 #' @md
 #' @export
-ys_get_short <- function(x, ...) {
-  short(x,...)
+ys_get_short <- function(x, short_max = Inf, title_case = FALSE, ...) {
+  short(x, short_max = short_max, title_case = title_case, ...)
 }
 
 #' Get short with unit
