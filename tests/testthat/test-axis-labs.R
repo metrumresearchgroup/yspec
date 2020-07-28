@@ -18,6 +18,21 @@ test_that("axis col-labels are generated", {
   expect_identical(unname(labs), c("WT//Weight (kg)", "ALB//Albumin (g/dL)"))
 })
 
+
+test_that("axis col-labels title case", {
+  labs <- axis_col_labs(spec, dplyr::vars(WT, ALB), title_case = TRUE)  
+  expect_identical(names(labs), c("WT","ALB"))
+  expect_identical(unname(labs), c("WT//Weight (kg)", "ALB//Albumin (g/dL)"))
+})
+
+test_that("axis col-labels short max", {
+  labs <- axis_col_labs(spec, dplyr::vars(WT, ALB), short_max = 4)  
+  expect_identical(names(labs), c("WT","ALB"))
+  expect_identical(unname(labs), c("WT//WT (kg)", "ALB//Albumin (g/dL)"))
+})
+
+
+
 test_that("take axis info as-is", {
   labs <- axis_labs(spec, dplyr::vars(WT, ALB), .fun = axis_asis)  
   expect_identical(labs, c(WT = "Weight", ALB = "Albumin"))
