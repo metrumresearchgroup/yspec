@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">yspec</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1.9005</span>
       </span>
     </div>
 
@@ -125,7 +125,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/metrumresearchgroup/yspec/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -140,7 +145,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Generate content for FDA define document</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/metrumresearchgroup/yspec/blob/master/R/fda_define.R'><code>R/fda_define.R</code></a></small>
     <div class="hidden name"><code>fda_define.Rd</code></div>
     </div>
 
@@ -163,12 +168,12 @@
     </tr>
     <tr>
       <th>ext</th>
-      <td><p>data set file extension to include; this should only 
+      <td><p>data set file extension to include; this should only
 be changed from default value of ".xpt" for testing purposes</p></td>
     </tr>
     <tr>
       <th>loc</th>
-      <td><p>location to use for data set files; this should 
+      <td><p>location to use for data set files; this should
 only be changed from default value of "." for testing purposes</p></td>
     </tr>
     <tr>
@@ -181,11 +186,11 @@ details</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A character vector of in markdown format.  Wrap
-<code>fda_define</code> in <code><a href='https://rdrr.io/r/base/writeLines.html'>writeLines</a></code> and
+<code>fda_define</code> in <a href='https://rdrr.io/r/base/writeLines.html'>writeLines</a> and
 render <code>asis</code> in an Rmarkdown document.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='fda_table.html'>fda_table</a></code></p></div>
+    <div class='dont-index'><p><a href='fda_table.html'>fda_table</a></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>proj</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='load_spec_ex.html'>file_proj_ex</a></span>()

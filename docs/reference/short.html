@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Select all columns that are discrete — yspec_select_discrete • yspec</title>
+<title>Form a short name — short • yspec</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Select all columns that are discrete — yspec_select_discrete" />
-<meta property="og:description" content="Select all columns that are discrete" />
+<meta property="og:title" content="Form a short name — short" />
+<meta property="og:description" content="Form a short name" />
 
 
 
@@ -144,23 +144,59 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Select all columns that are discrete</h1>
-    <small class="dont-index">Source: <a href='https://github.com/metrumresearchgroup/yspec/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
-    <div class="hidden name"><code>yspec_select_discrete.Rd</code></div>
+    <h1>Form a short name</h1>
+    <small class="dont-index">Source: <a href='https://github.com/metrumresearchgroup/yspec/blob/master/R/class-yspec.R'><code>R/class-yspec.R</code></a></small>
+    <div class="hidden name"><code>short.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Select all columns that are discrete</p>
+    <p>Form a short name</p>
     </div>
 
-    <pre class="usage"><span class='fu'>yspec_select_discrete</span>(<span class='no'>.spec</span>)</pre>
+    <pre class="usage"><span class='fu'>short</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for ycol</span>
+<span class='fu'>short</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>default</span> <span class='kw'>=</span> <span class='st'>"col"</span>,
+  <span class='kw'>short_max</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"yspec.short.max"</span>, <span class='kw'>NULL</span>),
+  <span class='kw'>title_case</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"yspec.short.title"</span>, <span class='fl'>FALSE</span>),
+  <span class='no'>...</span>
+)
+
+<span class='co'># S3 method for yspec</span>
+<span class='fu'>short</span>(<span class='no'>x</span>, <span class='kw'>default</span> <span class='kw'>=</span> <span class='st'>"short"</span>, <span class='kw'>.aslist</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>.spec</th>
-      <td><p>a yspec object</p></td>
+      <th>x</th>
+      <td><p>a yspec or ycol object</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>passed to methods</p></td>
+    </tr>
+    <tr>
+      <th>default</th>
+      <td><p>character field name to use when the <code>short</code> field is not
+found</p></td>
+    </tr>
+    <tr>
+      <th>short_max</th>
+      <td><p>if <code>short</code> is found, but contains more than <code>short_max</code>
+characters, <code>col</code> will be used</p></td>
+    </tr>
+    <tr>
+      <th>title_case</th>
+      <td><p><code>short</code> will be converted with <a href='https://rdrr.io/r/tools/toTitleCase.html'>tools::toTitleCase</a> if it
+is found</p></td>
+    </tr>
+    <tr>
+      <th>.aslist</th>
+      <td><p>if `TRUE`a named list is returned; otherwise, a named character
+vector</p></td>
     </tr>
     </table>
 

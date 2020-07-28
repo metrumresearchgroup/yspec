@@ -40,7 +40,7 @@
 
 
 <meta property="og:title" content="Create build location for branded documents — mrgtemplate" />
-<meta property="og:description" content="The idea is to create a build directory such that, when 
+<meta property="og:description" content="The idea is to create a build directory such that, when
 you render" />
 
 
@@ -73,7 +73,7 @@ you render" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">yspec</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1.9005</span>
       </span>
     </div>
 
@@ -126,7 +126,12 @@ you render" />
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/metrumresearchgroup/yspec/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -141,12 +146,12 @@ you render" />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Create build location for branded documents</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/metrumresearchgroup/yspec/blob/master/R/mrgtemmplate.R'><code>R/mrgtemmplate.R</code></a></small>
     <div class="hidden name"><code>mrgtemplate.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The idea is to create a build directory such that, when 
+    <p>The idea is to create a build directory such that, when
 you render</p>
     </div>
 
@@ -166,18 +171,17 @@ you render</p>
     <p>The path to the build directory.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The following files will be copied into the 
-build directory: <code>_output.yml</code>, <code>mrgtemplate.tex</code>, 
+    <p>The following files will be copied into the
+build directory: <code>_output.yml</code>, <code>mrgtemplate.tex</code>,
 <code>header.tex</code>, <code>mrglogo.pdf</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='no'>ans</span> <span class='kw'>&lt;-</span> <span class='fu'>mrgtemplate</span>()
 
-<span class='no'>ans</span></div><div class='output co'>#&gt; [1] "/private/var/folders/xb/hqmfzgl95fq8mx6tjxkzb71r0000gn/T/Rtmp3o0Ebh/mrgtemplate"</div><div class='input'>
+<span class='no'>ans</span></div><div class='output co'>#&gt; [1] "/private/var/folders/xb/hqmfzgl95fq8mx6tjxkzb71r0000gn/T/RtmpVmYdcT/mrgtemplate"</div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span>(<span class='no'>ans</span>)</div><div class='output co'>#&gt; [1] "_output.yml"     "header.tex"      "mrglogo.pdf"     "mrglogo2.pdf"   
-#&gt; [5] "mrgtemplate.tex"</div><div class='input'>
-</div></pre>
+#&gt; [5] "mrgtemplate.tex"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

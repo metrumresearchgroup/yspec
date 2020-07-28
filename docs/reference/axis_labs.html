@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">yspec</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1.9005</span>
       </span>
     </div>
 
@@ -125,7 +125,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/metrumresearchgroup/yspec/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -140,7 +145,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Generate axis labels or col/label structures for plots</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/metrumresearchgroup/yspec/blob/master/R/axis_data.R'><code>R/axis_data.R</code></a></small>
     <div class="hidden name"><code>axis_labs.Rd</code></div>
     </div>
 
@@ -148,11 +153,11 @@
     <p>Generate axis labels or col/label structures for plots</p>
     </div>
 
-    <pre class="usage"><span class='fu'>axis_labs</span>(<span class='no'>.spec</span>, <span class='no'>...</span>, <span class='kw'>.fun</span> <span class='kw'>=</span> <span class='no'>axis_label</span>)
+    <pre class="usage"><span class='fu'>axis_labs</span>(<span class='no'>.spec</span>, <span class='kw'>vars</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.fun</span> <span class='kw'>=</span> <span class='no'>axis_label</span>, <span class='no'>...</span>)
 
-<span class='fu'>axis_col_labs</span>(<span class='no'>.spec</span>, <span class='no'>...</span>, <span class='kw'>.fun</span> <span class='kw'>=</span> <span class='no'>axis_label</span>)
+<span class='fu'>axis_col_labs</span>(<span class='no'>.spec</span>, <span class='kw'>vars</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>, <span class='kw'>.fun</span> <span class='kw'>=</span> <span class='no'>axis_label</span>)
 
-<span class='fu'>axis_label</span>(<span class='no'>x</span>, <span class='kw'>.add_unit</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>axis_label</span>(<span class='no'>x</span>, <span class='kw'>.add_unit</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
 
 <span class='fu'>axis_asis</span>(<span class='no'>x</span>)</pre>
 
@@ -164,12 +169,17 @@
       <td><p>a yspec object</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>unquoted column names in the spec</p></td>
+      <th>vars</th>
+      <td><p>a quosure or character vector; passed to
+<a href='https://tidyselect.r-lib.org/reference/vars_select.html'>tidyselect::vars_select</a></p></td>
     </tr>
     <tr>
       <th>.fun</th>
       <td><p>a function that forms the axis label data for</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>arguments passed to <code><a href='short.html'>short()</a></code></p></td>
     </tr>
     <tr>
       <th>x</th>
@@ -178,8 +188,7 @@
     <tr>
       <th>.add_unit</th>
       <td><p>if <code>TRUE</code>, the unit is appended to the axis title
-if it is found
-a single column</p></td>
+if it is found</p></td>
     </tr>
     </table>
 

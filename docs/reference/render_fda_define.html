@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">yspec</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1.9005</span>
       </span>
     </div>
 
@@ -125,7 +125,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/metrumresearchgroup/yspec/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -140,7 +145,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Render a define.pdf document conforming to FDA standards</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/metrumresearchgroup/yspec/blob/master/R/fda_define.R'><code>R/fda_define.R</code></a></small>
     <div class="hidden name"><code>render_fda_define.Rd</code></div>
     </div>
 
@@ -180,7 +185,7 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p>passed to [rmarkdown::render]</p></td>
+      <td><p>passed to <a href='https://rdrr.io/pkg/rmarkdown/man/render.html'>rmarkdown::render</a></p></td>
     </tr>
     <tr>
       <th>stem</th>
@@ -217,12 +222,12 @@ provided will create any necessary directories if they do not exist.</p></td>
     </tr>
     <tr>
       <th>ext</th>
-      <td><p>data set file extension to include; this should only 
+      <td><p>data set file extension to include; this should only
 be changed from default value of ".xpt" for testing purposes</p></td>
     </tr>
     <tr>
       <th>loc</th>
-      <td><p>location to use for data set files; this should 
+      <td><p>location to use for data set files; this should
 only be changed from default value of "." for testing purposes</p></td>
     </tr>
     <tr>
@@ -235,7 +240,7 @@ only be changed from default value of "." for testing purposes</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>proj_file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='load_spec_ex.html'>file_proj_ex</a></span>()
 
-<span class='no'>proj_file</span></div><div class='output co'>#&gt; [1] "/private/var/folders/xb/hqmfzgl95fq8mx6tjxkzb71r0000gn/T/RtmpM2lyhM/temp_libpath15b747c3ae2ad/yspec/spec/project.yml"</div><div class='input'>
+<span class='no'>proj_file</span></div><div class='output co'>#&gt; [1] "/private/var/folders/xb/hqmfzgl95fq8mx6tjxkzb71r0000gn/T/Rtmpp7uFCV/temp_libpath382377af9b4d/yspec/spec/project.yml"</div><div class='input'>
 <span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
   <span class='fu'>render_fda_define</span>(<span class='no'>proj_file</span>)
 }</div></pre>

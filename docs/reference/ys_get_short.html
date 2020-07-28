@@ -40,8 +40,8 @@
 
 
 <meta property="og:title" content="Get short — ys_get_short" />
-<meta property="og:description" content="Forms a short for a column (`ycol` method) or columns (`yspec` method). Use
-[purrr::map] or [purrr::map_chr] to simply extract the short field." />
+<meta property="og:description" content="Forms a short for a column (ycol method) or columns (yspec method). Use
+purrr::map or purrr::map_chr to simply extract the short field." />
 
 
 
@@ -73,7 +73,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">yspec</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1.9005</span>
       </span>
     </div>
 
@@ -126,7 +126,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/metrumresearchgroup/yspec/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -141,16 +146,16 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Get short</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/metrumresearchgroup/yspec/blob/master/R/ys-get.R'><code>R/ys-get.R</code></a></small>
     <div class="hidden name"><code>ys_get_short.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Forms a short for a column (`ycol` method) or columns (`yspec` method). Use
-[purrr::map] or [purrr::map_chr] to simply extract the short field.</p>
+    <p>Forms a short for a column (<code>ycol</code> method) or columns (<code>yspec</code> method). Use
+<a href='https://purrr.tidyverse.org/reference/map.html'>purrr::map</a> or <a href='https://purrr.tidyverse.org/reference/map.html'>purrr::map_chr</a> to simply extract the short field.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ys_get_short</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>ys_get_short</span>(<span class='no'>x</span>, <span class='kw'>short_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>, <span class='kw'>title_case</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -160,14 +165,24 @@
       <td><p>ycol or yspec object</p></td>
     </tr>
     <tr>
+      <th>short_max</th>
+      <td><p>if <code>short</code> is found, but contains more than <code>short_max</code>
+characters, <code>col</code> will be used</p></td>
+    </tr>
+    <tr>
+      <th>title_case</th>
+      <td><p><code>short</code> will be converted with <a href='https://rdrr.io/r/tools/toTitleCase.html'>tools::toTitleCase</a> if it
+is found</p></td>
+    </tr>
+    <tr>
       <th>...</th>
-      <td><p>passed to short methods</p></td>
+      <td><p>passed to short methods; see details</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>[ys_get_unit], [ys_get_label], [ys_get_short_unit]</p></div>
+    <div class='dont-index'><p><a href='ys_get_unit.html'>ys_get_unit</a>, <a href='ys_get_label.html'>ys_get_label</a>, <a href='ys_get_short_unit.html'>ys_get_short_unit</a></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>spec</span> <span class='kw'>&lt;-</span> <span class='no'>ys_help</span>$<span class='fu'><a href='https://rdrr.io/r/stats/spectrum.html'>spec</a></span>()

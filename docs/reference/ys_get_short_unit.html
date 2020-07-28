@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">yspec</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1.9005</span>
       </span>
     </div>
 
@@ -125,7 +125,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/metrumresearchgroup/yspec/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -140,7 +145,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Get short with unit</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/metrumresearchgroup/yspec/blob/master/R/ys-get.R'><code>R/ys-get.R</code></a></small>
     <div class="hidden name"><code>ys_get_short_unit.Rd</code></div>
     </div>
 
@@ -148,7 +153,7 @@
     <p>Get short with unit</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ys_get_short_unit</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>ys_get_short_unit</span>(<span class='no'>x</span>, <span class='kw'>.aslist</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -158,49 +163,113 @@
       <td><p>ycol or yspec object</p></td>
     </tr>
     <tr>
+      <th>.aslist</th>
+      <td><p>a named list is returned if <code>TRUE</code>, otherwise a named
+character vector</p></td>
+    </tr>
+    <tr>
       <th>...</th>
-      <td><p>arguments passed to [ys_get_short] and [ys_get_unit]</p></td>
+      <td><p>arguments passed to <a href='ys_get_short.html'>ys_get_short</a> and <a href='ys_get_unit.html'>ys_get_unit</a></p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>[ys_get_short], [ys_get_unit], [ys_get_label]</p></div>
+    <div class='dont-index'><p><a href='ys_get_short.html'>ys_get_short</a>, <a href='ys_get_unit.html'>ys_get_unit</a>, <a href='ys_get_label.html'>ys_get_label</a></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>spec</span> <span class='kw'>&lt;-</span> <span class='no'>ys_help</span>$<span class='fu'><a href='https://rdrr.io/r/stats/spectrum.html'>spec</a></span>()
 
-<span class='fu'>ys_get_short_unit</span>(<span class='no'>spec</span>)</div><div class='output co'>#&gt;                                 C                               NUM 
-#&gt;               "comment character"                   "record number" 
-#&gt;                                ID                              SUBJ 
-#&gt;              "subject identifier"              "subject identifier" 
-#&gt;                              TIME                               SEQ 
-#&gt;                       "TIME hour"                             "SEQ" 
-#&gt;                               CMT                              EVID 
-#&gt;              "compartment number"                        "event ID" 
-#&gt;                               AMT                                DV 
-#&gt;                  "dose amount mg"     "dependent variable &lt;&lt;mugL&gt;&gt;" 
-#&gt;                               AGE                                WT 
-#&gt;                       "age years"                       "weight kg" 
-#&gt;                              CRCL                               ALB 
-#&gt;                     "CRCL ml/min"                    "albumin g/dL" 
-#&gt;                               BMI                               AAG 
-#&gt;                       "BMI m2/kg" "alpha-1-acid glycoprotein mg/dL" 
-#&gt;                               SCR                               AST 
-#&gt;          "serum creatinine mg/dL"      "aspartate aminotransferase" 
-#&gt;                               ALT                                HT 
-#&gt;        "alanine aminotransferase"                       "height cm" 
-#&gt;                                CP                              TAFD 
-#&gt;                "Child-Pugh score"     "time after first dose hours" 
-#&gt;                               TAD                              LDOS 
-#&gt;           "time after dose hours"             "last dose amount mg" 
-#&gt;                               MDV                               BLQ 
-#&gt;                             "MDV"   "below limit of quantification" 
-#&gt;                             PHASE                             STUDY 
-#&gt;           "study phase indicator"                    "study number" 
-#&gt;                                RF 
-#&gt;            "renal function stage" </div><div class='input'>
-<span class='fu'>ys_get_short_unit</span>(<span class='no'>spec</span>$<span class='no'>WT</span>)</div><div class='output co'>#&gt; [1] "weight kg"</div><div class='input'>
+<span class='fu'>ys_get_short_unit</span>(<span class='no'>spec</span>)</div><div class='output co'>#&gt; $C
+#&gt; [1] "comment character"
+#&gt; 
+#&gt; $NUM
+#&gt; [1] "record number"
+#&gt; 
+#&gt; $ID
+#&gt; [1] "subject identifier"
+#&gt; 
+#&gt; $SUBJ
+#&gt; [1] "subject identifier"
+#&gt; 
+#&gt; $TIME
+#&gt; [1] "TIME hour"
+#&gt; 
+#&gt; $SEQ
+#&gt; [1] "SEQ"
+#&gt; 
+#&gt; $CMT
+#&gt; [1] "compartment number"
+#&gt; 
+#&gt; $EVID
+#&gt; [1] "event ID"
+#&gt; 
+#&gt; $AMT
+#&gt; [1] "dose amount mg"
+#&gt; 
+#&gt; $DV
+#&gt; [1] "dependent variable &lt;&lt;mugL&gt;&gt;"
+#&gt; 
+#&gt; $AGE
+#&gt; [1] "age years"
+#&gt; 
+#&gt; $WT
+#&gt; [1] "weight kg"
+#&gt; 
+#&gt; $CRCL
+#&gt; [1] "CRCL ml/min"
+#&gt; 
+#&gt; $ALB
+#&gt; [1] "albumin g/dL"
+#&gt; 
+#&gt; $BMI
+#&gt; [1] "BMI m2/kg"
+#&gt; 
+#&gt; $AAG
+#&gt; [1] "alpha-1-acid glycoprotein mg/dL"
+#&gt; 
+#&gt; $SCR
+#&gt; [1] "serum creatinine mg/dL"
+#&gt; 
+#&gt; $AST
+#&gt; [1] "aspartate aminotransferase"
+#&gt; 
+#&gt; $ALT
+#&gt; [1] "alanine aminotransferase"
+#&gt; 
+#&gt; $HT
+#&gt; [1] "height cm"
+#&gt; 
+#&gt; $CP
+#&gt; [1] "Child-Pugh score"
+#&gt; 
+#&gt; $TAFD
+#&gt; [1] "time after first dose hours"
+#&gt; 
+#&gt; $TAD
+#&gt; [1] "time after dose hours"
+#&gt; 
+#&gt; $LDOS
+#&gt; [1] "last dose amount mg"
+#&gt; 
+#&gt; $MDV
+#&gt; [1] "MDV"
+#&gt; 
+#&gt; $BLQ
+#&gt; [1] "below limit of quantification"
+#&gt; 
+#&gt; $PHASE
+#&gt; [1] "study phase indicator"
+#&gt; 
+#&gt; $STUDY
+#&gt; [1] "study number"
+#&gt; 
+#&gt; $RF
+#&gt; [1] "renal function stage"
+#&gt; </div><div class='input'>
+<span class='fu'>ys_get_short_unit</span>(<span class='no'>spec</span>$<span class='no'>WT</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] "weight kg"
+#&gt; </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

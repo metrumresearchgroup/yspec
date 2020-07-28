@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">yspec</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1.9005</span>
       </span>
     </div>
 
@@ -125,7 +125,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/metrumresearchgroup/yspec/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -140,7 +145,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Add extra column elements to a yspec object</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/metrumresearchgroup/yspec/blob/master/R/class-yspec.R'><code>R/class-yspec.R</code></a></small>
     <div class="hidden name"><code>c.yspec.Rd</code></div>
     </div>
 
@@ -149,7 +154,7 @@
     </div>
 
     <pre class="usage"><span class='co'># S3 method for yspec</span>
-<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>, <span class='kw'>.meta</span> <span class='kw'>=</span> <span class='fu'><a href='get_meta.html'>get_meta</a></span>(<span class='no'>x</span>))</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -165,6 +170,10 @@
     <tr>
       <th>...</th>
       <td><p>not used</p></td>
+    </tr>
+    <tr>
+      <th>.meta</th>
+      <td><p>meta information to use for the new spec object</p></td>
     </tr>
     </table>
 

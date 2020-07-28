@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Select all columns that are discrete — yspec_select_discrete • yspec</title>
+<title>Select a subset of columns from a yspec object — ys_select • yspec</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Select all columns that are discrete — yspec_select_discrete" />
-<meta property="og:description" content="Select all columns that are discrete" />
+<meta property="og:title" content="Select a subset of columns from a yspec object — ys_select" />
+<meta property="og:description" content="Select a subset of columns from a yspec object" />
 
 
 
@@ -144,27 +144,40 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Select all columns that are discrete</h1>
-    <small class="dont-index">Source: <a href='https://github.com/metrumresearchgroup/yspec/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
-    <div class="hidden name"><code>yspec_select_discrete.Rd</code></div>
+    <h1>Select a subset of columns from a yspec object</h1>
+    <small class="dont-index">Source: <a href='https://github.com/metrumresearchgroup/yspec/blob/master/R/class-yspec.R'><code>R/class-yspec.R</code></a></small>
+    <div class="hidden name"><code>ys_select.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Select all columns that are discrete</p>
+    <p>Select a subset of columns from a yspec object</p>
     </div>
 
-    <pre class="usage"><span class='fu'>yspec_select_discrete</span>(<span class='no'>.spec</span>)</pre>
+    <pre class="usage"><span class='fu'>ys_select</span>(<span class='no'>.x</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>.spec</th>
-      <td><p>a yspec object</p></td>
+      <th>.x</th>
+      <td><p>a yspect object</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>unquoted columns to select</p></td>
     </tr>
     </table>
 
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='no'>spec</span> <span class='kw'>&lt;-</span> <span class='no'>ys_help</span>$<span class='fu'><a href='https://rdrr.io/r/stats/spectrum.html'>spec</a></span>()
+
+<span class='fu'>ys_select</span>(<span class='no'>spec</span>, <span class='no'>WT</span>, <span class='no'>AGE</span>, <span class='no'>ALB</span>)</div><div class='output co'>#&gt;  name c d unit  short   source           
+#&gt;  WT   - - kg    weight  ysdb_internal.yml
+#&gt;  AGE  - - years age     ysdb_internal.yml
+#&gt;  ALB  - - g/dL  albumin ysdb_internal.yml</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">yspec</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1.9005</span>
       </span>
     </div>
 
@@ -124,7 +124,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/metrumresearchgroup/yspec/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -139,32 +144,40 @@
   <div class="col-md-9 contents">
     <div class="page-header">
       <h1 data-toc-skip>Changelog <small></small></h1>
-      
+      <small>Source: <a href='https://github.com/metrumresearchgroup/yspec/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="yspec-development-version" class="section level1">
+<h1 class="page-header" data-toc-text="development version">
+<a href="#yspec-development-version" class="anchor"></a>yspec (development version)</h1>
+<ul>
+<li>Add <code><a href="../reference/ys_select.html">ys_select()</a></code> to select a subset of columns from a yspec object <a href='https://github.com/metrumresearchgroup/yspec/issues/24'>#24</a></li>
+<li>Refactored <code>axis_col_labs</code> to add vars argument; if missing, all col / labs will be created; otherwise, the user can select a subset to be created</li>
+</ul>
+</div>
     <div id="yspec-041" class="section level1">
 <h1 class="page-header" data-toc-text="0.4.1">
 <a href="#yspec-041" class="anchor"></a>yspec 0.4.1</h1>
 <ul>
 <li>Add minimum version numbers for dependency packages</li>
 <li>Add <code>long</code> argument to <code>pander_table</code> to create longer tables</li>
-<li>Fix bug where <code>data_stem</code> meta field was not getting propagated into data set name in the define document #35</li>
-<li>Add ability to update project number and sponsor information in a yspec object or a yproj object #36</li>
-<li>Fix bug where <code>unit</code> input was not properly validated #45</li>
-<li>Fix bug where <code>ys_check</code> didn’t issue error when data set columns were not in the right order #54</li>
-<li>New field for data set columns: <code>label</code>; this will be used when labeling data sets for xpt export #60</li>
-<li>The label field can be made optional with <code>ys.require.label</code> option #99</li>
-<li>Add function (<code>ys_add_labels</code>) to label data set columns #63</li>
-<li>Add function (<code>update_short</code>) to change the value in the <code>short</code> field #82</li>
-<li>Add meta field (<code>import</code>) to enable import of contents of another spec #84</li>
-<li>Add meta field option (<code>character_last</code>) to push all character columns to the back of the spec object #86</li>
-<li>Add meta field option (<code>comment_col</code>) to identify the column that is for comments; character comment columns will not be pushed to back #86</li>
-<li>Add argument to <code>ys_check</code> so that an error is not generated when checking the data, but rather <code>FALSE</code> is returned #88</li>
-<li>Add functionality to add all possible factors to data set with <code>yspec_add_factors</code> #91</li>
-<li>Add new data column field <code>make_factor</code> that will tell <code>yspec_add_factors</code> to make that column into a factor #91</li>
-<li>The following fields will be collapsed into a single value when they are entered as array: <code>source</code>, <code>comment</code>, <code>long</code> #93</li>
-<li>Add alias <code>ys_add_factors</code> to <code>yspec_add_factors</code> #97</li>
-<li>Add functions to form label, unit, and short; methods for <code>yspec</code> and <code>ycol</code> #100</li>
+<li>Fix bug where <code>data_stem</code> meta field was not getting propagated into data set name in the define document <a href='https://github.com/metrumresearchgroup/yspec/issues/35'>#35</a></li>
+<li>Add ability to update project number and sponsor information in a yspec object or a yproj object <a href='https://github.com/metrumresearchgroup/yspec/issues/36'>#36</a></li>
+<li>Fix bug where <code>unit</code> input was not properly validated <a href='https://github.com/metrumresearchgroup/yspec/issues/45'>#45</a></li>
+<li>Fix bug where <code>ys_check</code> didn’t issue error when data set columns were not in the right order <a href='https://github.com/metrumresearchgroup/yspec/issues/54'>#54</a></li>
+<li>New field for data set columns: <code>label</code>; this will be used when labeling data sets for xpt export <a href='https://github.com/metrumresearchgroup/yspec/issues/60'>#60</a></li>
+<li>The label field can be made optional with <code>ys.require.label</code> option <a href='https://github.com/metrumresearchgroup/yspec/issues/99'>#99</a></li>
+<li>Add function (<code>ys_add_labels</code>) to label data set columns <a href='https://github.com/metrumresearchgroup/yspec/issues/63'>#63</a></li>
+<li>Add function (<code>update_short</code>) to change the value in the <code>short</code> field <a href='https://github.com/metrumresearchgroup/yspec/issues/82'>#82</a></li>
+<li>Add meta field (<code>import</code>) to enable import of contents of another spec <a href='https://github.com/metrumresearchgroup/yspec/issues/84'>#84</a></li>
+<li>Add meta field option (<code>character_last</code>) to push all character columns to the back of the spec object <a href='https://github.com/metrumresearchgroup/yspec/issues/86'>#86</a></li>
+<li>Add meta field option (<code>comment_col</code>) to identify the column that is for comments; character comment columns will not be pushed to back <a href='https://github.com/metrumresearchgroup/yspec/issues/86'>#86</a></li>
+<li>Add argument to <code>ys_check</code> so that an error is not generated when checking the data, but rather <code>FALSE</code> is returned <a href='https://github.com/metrumresearchgroup/yspec/issues/88'>#88</a></li>
+<li>Add functionality to add all possible factors to data set with <code>yspec_add_factors</code> <a href='https://github.com/metrumresearchgroup/yspec/issues/91'>#91</a></li>
+<li>Add new data column field <code>make_factor</code> that will tell <code>yspec_add_factors</code> to make that column into a factor <a href='https://github.com/metrumresearchgroup/yspec/issues/91'>#91</a></li>
+<li>The following fields will be collapsed into a single value when they are entered as array: <code>source</code>, <code>comment</code>, <code>long</code> <a href='https://github.com/metrumresearchgroup/yspec/issues/93'>#93</a></li>
+<li>Add alias <code>ys_add_factors</code> to <code>yspec_add_factors</code> <a href='https://github.com/metrumresearchgroup/yspec/issues/97'>#97</a></li>
+<li>Add functions to form label, unit, and short; methods for <code>yspec</code> and <code>ycol</code> <a href='https://github.com/metrumresearchgroup/yspec/issues/100'>#100</a></li>
 </ul>
 </div>
     <div id="yspec-030" class="section level1">
@@ -178,9 +191,9 @@
 <h1 class="page-header" data-toc-text="0.2.0.9000">
 <a href="#yspec-0209000" class="anchor"></a>yspec 0.2.0.9000</h1>
 <ul>
-<li>Fixed bug where column check error were assigned to the wrong column name #7</li>
+<li>Fixed bug where column check error were assigned to the wrong column name <a href='https://github.com/metrumresearchgroup/yspec/issues/7'>#7</a></li>
 <li>Added <code>as_proj_spec</code> function that allows creation of a project spec file from individual data set spec objects</li>
-<li>Added more flexibility for specifying project and data set spec files in different locations #5</li>
+<li>Added more flexibility for specifying project and data set spec files in different locations <a href='https://github.com/metrumresearchgroup/yspec/issues/5'>#5</a></li>
 <li>Function <code>ys_load</code> preferred alias for <code>load_spec</code>
 </li>
 <li>Function <code>ys_load_file</code> preferred alias for <code>load_spec_file</code>
@@ -195,7 +208,7 @@
 <li>
 <code>ys_lookup_source</code> will report on the source of each column in an yspec object</li>
 <li>In general, we no longer write out a project file; use <code>ys_project</code> with a vector of files or yspec objects instead</li>
-<li>The table of contents for the regulatory document (<code>fda_content_table</code>) now links to the corresponding <code>.xpt</code> file; to facilitate testing, arguments <code>loc</code> and <code>ext</code> have been added so that the linking can be better tested (e.g. create a document that links to a <code>.csv</code> file, which should be easier to open on computers that don’t have SAS installed). #20</li>
+<li>The table of contents for the regulatory document (<code>fda_content_table</code>) now links to the corresponding <code>.xpt</code> file; to facilitate testing, arguments <code>loc</code> and <code>ext</code> have been added so that the linking can be better tested (e.g. create a document that links to a <code>.csv</code> file, which should be easier to open on computers that don’t have SAS installed). <a href='https://github.com/metrumresearchgroup/yspec/issues/20'>#20</a></li>
 <li>Arguments <code>data_path</code> and <code>data_stem</code> have been added to <code>ys_load</code>
 </li>
 <li>Handler <code>!look</code> has been added to indicate that column data should be searched for in the lookup resources</li>

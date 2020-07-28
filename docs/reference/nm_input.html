@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Select all columns that are discrete — yspec_select_discrete • yspec</title>
+<title>Write columns and column information for NONMEM $INPUT block — nm_input • yspec</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,12 @@
 
 
 
-<meta property="og:title" content="Select all columns that are discrete — yspec_select_discrete" />
-<meta property="og:description" content="Select all columns that are discrete" />
+<meta property="og:title" content="Write columns and column information for NONMEM $INPUT block — nm_input" />
+<meta property="og:description" content="Column names are written to the console one-per-line on the
+left hand side of a NONMEM comment character (;) and
+a description of the column is written on the right hand
+side.  The description includes the short name and values
+with decodes for non-character columns." />
 
 
 
@@ -144,27 +148,82 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Select all columns that are discrete</h1>
-    <small class="dont-index">Source: <a href='https://github.com/metrumresearchgroup/yspec/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
-    <div class="hidden name"><code>yspec_select_discrete.Rd</code></div>
+    <h1>Write columns and column information for NONMEM $INPUT block</h1>
+    <small class="dont-index">Source: <a href='https://github.com/metrumresearchgroup/yspec/blob/master/R/nm_input.R'><code>R/nm_input.R</code></a></small>
+    <div class="hidden name"><code>nm_input.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Select all columns that are discrete</p>
+    <p>Column names are written to the console one-per-line on the
+left hand side of a NONMEM comment character (<code>;</code>) and
+a description of the column is written on the right hand
+side.  The description includes the short name and values
+with decodes for non-character columns.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>yspec_select_discrete</span>(<span class='no'>.spec</span>)</pre>
+    <pre class="usage"><span class='fu'>nm_input</span>(<span class='no'>spec</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>60</span>, <span class='kw'>cat</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>.spec</th>
+      <th>spec</th>
       <td><p>a yspec object</p></td>
+    </tr>
+    <tr>
+      <th>width</th>
+      <td><p>number of characters</p></td>
+    </tr>
+    <tr>
+      <th>cat</th>
+      <td><p>if <code>TRUE</code>, the text is sent to the console with <code><a href='https://rdrr.io/r/base/cat.html'>cat()</a></code></p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>A character vector of text forming the <code>$INPUT</code> block (including
+the <code>$INPUT</code> part).</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>spec</span> <span class='kw'>&lt;-</span> <span class='no'>ys_help</span>$<span class='fu'><a href='https://rdrr.io/r/stats/spectrum.html'>spec</a></span>()
+<span class='fu'>nm_input</span>(<span class='no'>spec</span>)</div><div class='output co'>#&gt; $INPUT
+#&gt; C         ; comment character
+#&gt; NUM       ; record number
+#&gt; ID        ; subject identifier
+#&gt; SUBJ=DROP ; subject identifier
+#&gt; TIME      ; TIME
+#&gt; SEQ       ; SEQ 
+#&gt;           ; [0 = observation, 1 = dose]
+#&gt; CMT       ; compartment number
+#&gt; EVID      ; event ID 
+#&gt;           ; [values: 0, 1]
+#&gt; AMT       ; dose amount
+#&gt; DV        ; dependent variable
+#&gt; AGE       ; age
+#&gt; WT        ; weight
+#&gt; CRCL      ; CRCL
+#&gt; ALB       ; albumin
+#&gt; BMI       ; BMI
+#&gt; AAG       ; alpha-1-acid glycoprotein
+#&gt; SCR       ; serum creatinine
+#&gt; AST       ; aspartate aminotransferase
+#&gt; ALT       ; alanine aminotransferase
+#&gt; HT        ; height
+#&gt; CP        ; Child-Pugh score 
+#&gt;           ; [0 = normal, 1 = Pugh1, 2 = Pugh2, 3 = Pugh3]
+#&gt; TAFD      ; time after first dose
+#&gt; TAD       ; time after dose
+#&gt; LDOS      ; last dose amount
+#&gt; MDV       ; MDV 
+#&gt;           ; [values: 0, 1]
+#&gt; BLQ       ; below limit of quantification 
+#&gt;           ; [1 = above QL, 0 = below Q]
+#&gt; PHASE     ; study phase indicator 
+#&gt;           ; [values: 1]
+#&gt; STUDY     ; study number 
+#&gt;           ; [1 = SAD, 2 = MAD, 3 = Renal, 4 = Hepatic]
+#&gt; RF=DROP   ; renal function stage</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
