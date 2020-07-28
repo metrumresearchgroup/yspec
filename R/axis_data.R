@@ -25,7 +25,7 @@ axis_labs <- function(.spec, vars = NULL, .fun = axis_label, ...) {
 #' @rdname axis_labs
 #' @export
 axis_col_labs <- function(.spec, vars = NULL, ..., .fun = axis_label) {
-  ans <- axis_labs(.spec,vars, .fun = .fun)  
+  ans <- axis_labs(.spec,vars, .fun = .fun, ...)  
   set_names(paste0(names(ans), "//", ans), names(ans))
 }
 
