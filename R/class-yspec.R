@@ -403,6 +403,21 @@ ys_add_labels <- function(data,spec,fun=label.ycol) {
   data
 }
 
+
+#' Select a subset of columns from a yspec object
+#' 
+#' @param .x a yspect object
+#' @param ... unquoted columns to select
+#' 
+#' @export
+ys_select <- function(.x, ...) {
+  keep <- tidyselect::eval_select(expr(c(...)), as.list(.x))
+  .x <- .x[keep]
+  .x
+}
+
+
+
 as_spec_list <- function(...) {
   x <- list(...)
   names(x) <- map_chr(map(x,get_meta),"name")
