@@ -67,7 +67,7 @@ test_that("categorical out of range", {
   expect_error(check_data(data, spec), 
                regexp = "Please review messages and re-check")
   expect_message(try(check_data(data, spec), silent=TRUE), 
-                 regexp = "STUDY = A in data")
+                 regexp = "value: A out of range")
 })
 
 test_that("all NA returns success", {
