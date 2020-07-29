@@ -66,6 +66,8 @@ test_that("categorical out of range", {
   data <- mutate(data1, STUDY = "A")
   expect_error(check_data(data, spec), 
                regexp = "Please review messages and re-check")
+  expect_message(try(check_data(data, spec), silent=TRUE), 
+                 regexp = "STUDY = A in data")
 })
 
 test_that("all NA returns success", {
