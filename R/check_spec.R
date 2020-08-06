@@ -9,9 +9,9 @@ check_values <- function(x,values,verbose=FALSE, con = NULL, env = list()) {
     if(length(values) > 3) {
       valu <- c(valu[seq(3)], "...")
     }
-    if(verbose) message(paste0("     value: ", valu, "\n"))
+    if(verbose) message("    values: ", paste0(valu, collapse = ','))
     if(!is.null(con)) {
-      cata(paste0("     value: ", valu), file = con, sep ="\n")
+      cata( "    values: ", paste0(valu, collapse = ','),file = con)
     }
   }
   if(length(x)==0) return(TRUE)
@@ -221,12 +221,12 @@ ys_check <- function(data, spec, verbose = FALSE, output = tempfile(),
     x <- spec[[i]]
     y <- data[[x$col]]
     if(is.null(y)) next 
-    cata("  * column:", x$col, file = output)
+    cata("  * column: ", x$col, file = output)
     val <- check_values(y,x[["values"]],verbose = FALSE, con=output, env = env)
     if(!val) {
       add_log(env, "discrete value out of range:", x$col)
       for(bad in env$check_values_bad) {
-        bad <- paste0(" - value: ", bad, " out of range")
+        bad <- paste0(" - ", x$col, " = ", bad, " in data")
         bad <- crayon::silver(bad)
         append_log(env, bad, .bullet = FALSE)  
       }
@@ -271,7 +271,7 @@ ys_check <- function(data, spec, verbose = FALSE, output = tempfile(),
   if(!using_stderr) {
     message("The data set passed all checks.")
   }
-  return(invisible(env$error))
+  return(invisible(!env$error))
 }
 
 #' @rdname ys_check

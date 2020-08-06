@@ -94,3 +94,12 @@ test_that("no error on fail", {
                  regex = "names in spec but not in data")
 })
 
+test_that("ys_check return value", {
+  good <- data1
+  bad <- dplyr::select(good, -WT, -STUDY)
+  expect_true(ys_check(good,spec))
+  expect_true(ys_check(good,spec,error_on_fail = FALSE))
+  expect_false(ys_check(bad,spec,error_on_fail = FALSE))
+  expect_error(ys_check(bad,spec))
+})
+
