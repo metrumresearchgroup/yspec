@@ -67,7 +67,7 @@ test_that("categorical out of range", {
   expect_error(check_data(data, spec), 
                regexp = "Please review messages and re-check")
   expect_message(try(check_data(data, spec), silent=TRUE), 
-                 regexp = "value: A out of range")
+                 regexp = "discrete value out of range: STUDY")
 })
 
 test_that("all NA returns success", {
@@ -92,5 +92,14 @@ test_that("no error on fail", {
   expect_false(ys_check(data, spec, error_on_fail = FALSE))
   expect_message(ys_check(data,spec,error_on_fail = FALSE), 
                  regex = "names in spec but not in data")
+})
+
+test_that("ys_check return value", {
+  good <- data1
+  bad <- dplyr::select(good, -WT, -STUDY)
+  expect_true(ys_check(good,spec))
+  expect_true(ys_check(good,spec,error_on_fail = FALSE))
+  expect_false(ys_check(bad,spec,error_on_fail = FALSE))
+  expect_error(ys_check(bad,spec))
 })
 
