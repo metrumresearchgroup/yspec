@@ -3,7 +3,7 @@
 ########################################
 
 # project name
-local name = "pmtables";
+local name = "yspec";
 
 # where to mount a temporary volume; useful for persisting files across steps
 local temp_volume_dir = "/ephemeral";
