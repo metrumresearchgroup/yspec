@@ -43,7 +43,6 @@ in the call to \link{ys_document}.
 \dontrun{
   ys_document(ys_help$spec())
   ys_document(ys_help$spec(), type = "regulatory")
-  ys_document(ys_help$spec(), type = "regulatory", build_dir = mrgtemplate())
 }
 }
 \seealso{

@@ -4,6 +4,6 @@ pdf_document:
   keep_tex: true
   fig_width: 6
   fig_height: 4
-  template: mrgtemplate.tex
+  template: definetemplate.tex
   include:
     in_header: header.tex

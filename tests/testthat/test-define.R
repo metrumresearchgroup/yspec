@@ -15,7 +15,7 @@ test_that("define", {
   
   expect_is(out,"character")
   
-  out <- ys_document(pr, type = "regulatory", build_dir = mrgtemplate(),
+  out <- ys_document(pr, type = "regulatory", build_dir = tempdir(),
                      quiet=TRUE, output_dir = tempdir())
   
   expect_is(out,"character")
