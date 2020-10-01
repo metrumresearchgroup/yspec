@@ -19,6 +19,7 @@
 #' @importFrom tools toTitleCase
 #' @importFrom crayon red green black blue bold italic
 #' @importFrom fs path_rel
+#' @importFrom stringr fixed str_detect str_split_fixed
 #' 
 #' @include utils.R
 NULL
@@ -30,7 +31,8 @@ VALID_SPEC_NAMES <- c(
   "source", "comment",
   "short", "long", "about", "dots",
   "range", "longvalues", "lookup", 
-  "axis", "table", "label", "make_factor"
+  "axis", "table", "label", "make_factor", 
+  "namespace"
 )
 
 VALID_SETUP_NAMES <- c(

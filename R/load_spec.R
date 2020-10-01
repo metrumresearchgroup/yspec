@@ -172,6 +172,8 @@ load_spec <- function(...) ys_load(...)
 
 unpack_spec <- function(x,verbose=FALSE) {
   
+  x <- modify(x, create_namespaces)
+  
   check_spec_input(x)
   
   # defaults
