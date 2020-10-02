@@ -163,6 +163,7 @@ ys_load_file <- function(file, data_path = NULL, data_stem = NULL, verbose=FALSE
   incoming <- list(...)
   incoming[["data_path"]] <- data_path
   incoming[["data_stem"]] <- data_stem
+
   unpack_meta(x,to_update=incoming,verbose=verbose)
 }
 
@@ -171,9 +172,7 @@ ys_load_file <- function(file, data_path = NULL, data_stem = NULL, verbose=FALSE
 load_spec <- function(...) ys_load(...)
 
 unpack_spec <- function(x,verbose=FALSE) {
-  
-  x <- modify(x, create_namespaces)
-  
+
   check_spec_input(x)
   
   # defaults
@@ -258,6 +257,7 @@ unpack_meta <- function(x,to_update, verbose=FALSE, ...) {
     meta[["import"]] <- fs::path_abs(meta[["import"]],meta[["spec_path"]])  
   }
   spec_validate_meta(meta)
+  meta[["namespace"]] <- list_namespaces(x)
   structure(x, meta = meta)
 }
 
@@ -343,6 +343,8 @@ col_initialize <- function(x, name) {
     x[["do_lookup"]] <- FALSE
     x[["lookup"]] <- "<none>"
   }
+  
+  x <- create_namespaces(x)
   
   x
 }

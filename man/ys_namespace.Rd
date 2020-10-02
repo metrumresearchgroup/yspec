@@ -4,7 +4,12 @@
 \alias{ys_namespace}
 \title{Change namespace}
 \usage{
-ys_namespace(spec, namespace)
+ys_namespace(x, namespace = NULL)
+}
+\arguments{
+\item{x}{a `yspec` object}
+
+\item{namespace}{namespace name (character) to switch to}
 }
 \description{
 Change namespace

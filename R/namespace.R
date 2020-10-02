@@ -1,9 +1,12 @@
 #' Change namespace
 #' 
+#' @param x a `yspec` object
+#' @param namespace namespace name (character) to switch to
+#' 
 #' @export
-ys_namespace <- function(spec, namespace = NULL) {
+ys_namespace <- function(x, namespace = NULL) {
   if(is.null(namespace)) {
-    ns <- list_namespaces(spec)
+    ns <- pull_meta(spec, "namespace")
     if(length(ns)==0) {
       message("no namespaces found")
       return(invisible(spec))
@@ -12,17 +15,20 @@ ys_namespace <- function(spec, namespace = NULL) {
     message(paste0(" - ", ns, "\n"))
     return(invisible(spec))
   }
-  scan_for <- c("unit", "short", "label", "long", "decode")
-  modify(spec, switch_namespace, namespace, scan_for = scan_for)
+  namespace <- cvec_cs(namespace)
+  for(ns in namespace) {
+    spec <- modify(spec, switch_namespace, ns = ns, scan_for = VALID_NS_NAMES)
+  }
+  spec
 }
 
-switch_namespace <- function(col, namespace, scan_for) {
-  if(is.null(col$namespace[[namespace]])) {
+switch_namespace <- function(col, ns, scan_for) {
+  if(is.null(col[["namespace"]][[ns]])) {
     return(col)  
   }
-  to_cp <- intersect(names(col), names(col[["namespace"]][[namespace]]))
+  to_cp <- intersect(names(col[["namespace"]][[ns]]),scan_for)
   for(this_col in to_cp) {
-    col[[this_col]] <- col[["namespace"]][[namespace]][[this_col]]
+    col[[this_col]] <- col[["namespace"]][[ns]][[this_col]]
   }
   col
 }
@@ -36,22 +42,27 @@ list_namespaces <- function(spec) {
 }
 
 create_namespaces <- function(col) {
-  if("namespace" %in% names(col)) return(col)
-  z <- list()
+  if(.has("namespace", col)) return(col)
   has_ns <- str_detect(names(col), fixed("::"))
+  if(!any(has_ns)) return(col)
   y <- col[which(has_ns)]
   x <- col[which(!has_ns)]
-  if(length(y)==0) {
-    x$namespace <- z
-    return(x)
-  }
-  ns <- str_split_fixed(names(y), fixed("::"), 2)
-  for(i in seq(nrow(ns))) {
-    if(!exists(ns[i,1], z)) {
-      z[[ns[i,1]]] <- list()  
+  ns_data <- str_split_fixed(names(y), fixed("::"), 2)
+  namespace <- list()
+  for(i in seq(nrow(ns_data))) {
+    if(!exists(ns_data[i,1], namespace)) {
+      namespace[[ns_data[i,1]]] <- list()  
     }
-    z[[ns[i,1]]][[ns[[i,2]]]] <- y[[i]]  
+    namespace[[ns_data[i,1]]][[ns_data[[i,2]]]] <- y[[i]]  
   }
-  x$namespace <- z
+  x$namespace <- namespace
   x
 }
+
+try_tex_namespace <- function(x) {
+  if("tex" %in% pull_meta(x, "namespace")) {
+    x <- ys_namespace(x, "tex")  
+  }
+  return(x)
+}
+
