@@ -17,7 +17,7 @@ render_fda_define(x, ...)
   author = "MetrumRG Staff Scientist",
   format = "fda_define",
   output_dir = getwd(),
-  build_dir = tempdir(),
+  build_dir = definetemplate(),
   ext = ".xpt",
   loc = ".",
   ...
