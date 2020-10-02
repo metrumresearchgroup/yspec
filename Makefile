@@ -40,7 +40,7 @@ ec:
 	echo ${VERSION}
 
 data:
-	Rscript --vanilla inst/test_data/data.R
+	Rscript inst/test_data/data.R
 
 all:
 	make data
