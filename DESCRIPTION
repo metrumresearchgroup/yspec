@@ -43,7 +43,7 @@ Collate:
     'class-yspec.R'
     'col_factor.R'
     'define.R'
-    'defintemplate.R'
+    'definetemplate.R'
     'err_log.R'
     'exspec.R'
     'fda_define.R'
