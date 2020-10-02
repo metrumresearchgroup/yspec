@@ -53,7 +53,6 @@ Collate:
     'load_spec.R'
     'lookup.R'
     'md_outline.R'
-    'mrgtemmplate.R'
     'namespace.R'
     'nm_input.R'
     'pander_table.R'
