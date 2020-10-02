@@ -43,7 +43,6 @@ call_format_fun <- function(yamlfile,
 ##' \dontrun{
 ##'   ys_document(ys_help$spec())
 ##'   ys_document(ys_help$spec(), type = "regulatory")
-##'   ys_document(ys_help$spec(), type = "regulatory", build_dir = mrgtemplate())
 ##' }
 ##' @seealso [render_define], [render_fda_define]
 ##' @md
@@ -108,7 +107,7 @@ render_define.yproj <- function(x,
                                 format = c("x_table","x_table_long","pander_table", "md_outline"),
                                 output_format = "pdf_document",
                                 output_dir = getwd(),
-                                build_dir = tempdir(),
+                                build_dir = definetemplate(),
                                 title = "Data Specification",
                                 author = "MetrumRG",
                                 toc = "yes",
