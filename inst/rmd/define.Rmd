@@ -5,14 +5,13 @@ sponsor: <sponsor>
 projectnumber: <projectnumber>
 scientist: <author>
 author: <author>
-geometry: "left=2.54cm,right=2.54cm,top=3cm,bottom=3cm"
+geometry: "margin=1in"
 output:
   pdf_document:
     number_sections: <number_sections>
     toc: <toc>
     extra_dependencies:
       fontenc: T1
-      mathdesign: utopia
       longtable:
       booktabs:
   html_document:

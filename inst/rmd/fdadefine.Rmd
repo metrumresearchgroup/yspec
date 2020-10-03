@@ -4,7 +4,7 @@ date: <date>
 sponsor: <sponsor>
 projectnumber: <projectnumber>
 author: <author>
-geometry: "left=2.54cm,right=2.54cm,top=3cm,bottom=3cm"
+geometry: "margin=1in"
 linkcolor: magenta
 output:
   pdf_document:
@@ -12,7 +12,6 @@ output:
     toc: false
     extra_dependencies:
       fontenc: T1
-      mathdesign: utopia
       longtable:
   html_document:
     number_sections: true
