@@ -3,11 +3,15 @@ x_table_2_details <- function(x) {
   if(.has("values", x)) {
     codes <- pack_codes(x)  
   }
+  range <- NULL
+  if(.has("range", x)) {
+    range <- paste0("valid range: [", x$range[1], " to ",  x$range[2], "]")  
+  }
   source <- NULL
   if(.has("source", x)) {
     source <- paste0("source: ", x$source)
   }
-  details <- c(x$type,codes,source,x$comment) 
+  details <- c(x$type,codes,range,source,x$comment) 
   paste0(details,collapse="; ")
 }
 
@@ -33,7 +37,9 @@ x_table_2 <- function(spec,
   names(tab) <- c("Name", "Label", "Details")
   xt <- xtable(
     tab, 
-    align = c("p{0cm}","p{0.67in}" , "p{2.45in}","p{2.7in}")
+    align = c("p{0cm}","p{0.67in}" , 
+              ">{\\raggedright\\arraybackslash}p{2.45in}",
+              ">{\\raggedright\\arraybackslash}p{2.7in}")
   )
   add.to.row <- list(pos = list(0), command = NULL)
   command__ <- paste0(

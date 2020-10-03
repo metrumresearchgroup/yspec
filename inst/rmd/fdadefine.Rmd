@@ -13,6 +13,7 @@ output:
     extra_dependencies:
       fontenc: T1
       longtable:
+      array:
   html_document:
     number_sections: true
     toc: false

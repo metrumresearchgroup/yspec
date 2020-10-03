@@ -110,11 +110,11 @@ render_define.yproj <- function(x,
                                 output_dir = getwd(),
                                 build_dir = definetemplate(),
                                 title = "Data Specification",
-                                author = "MetrumRG",
+                                author = "",
                                 toc = "yes",
                                 number_sections = "yes",
                                 rmd_template = NULL,
-                                date = base::format(Sys.time()),...) {
+                                date = as.character(Sys.Date()),...) {
   
   if(missing(toc) & length(x)==1) toc <- "no"
   if(missing(number_sections) & length(x)==1) number_sections <- "no"

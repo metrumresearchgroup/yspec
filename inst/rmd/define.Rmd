@@ -14,6 +14,7 @@ output:
       fontenc: T1
       longtable:
       booktabs:
+      array:
   html_document:
     number_sections: true
     toc: true

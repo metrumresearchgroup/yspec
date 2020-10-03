@@ -1,7 +1,7 @@
 SETUP__:
-  description: Example PopPK analysis data set.
+  description: Example PopPK analysis data set
   sponsor: example-project
-  projectnumber: examp101F
+  projectnumber: EXAMPK1011F
   use_internal_db: true
   glue: 
     mugL: "$\\mu$g/L"
@@ -23,23 +23,34 @@ AMT: !look
   unit: mg
 DV:  !look
   unit: "<<mugL>>"
-AGE:
-WT:
+AGE: !look
+  range: [18,50]
+WT: !look
+  range: [40,100]
 CRCL:
   label: creatinine clearance
   unit: ml/min
-ALB:
-BMI:
+  range: [15,150]
+ALB: !look
+  range: [1.2,6]
+BMI: !look
+  range: [18,25]
 AAG:
   short: alpha-1-acid glycoprotein
   unit: mg/dL
+  range: [50,120]
 SCR: 
   about: [serum creatinine, mg/dL]
+  range: [0.7,6]
 AST:
   short: aspartate aminotransferase
+  range: [10,36]
 ALT: 
   short: alanine aminotransferase
-HT:
+  range: [10,35]
+HT: !look
+  range: [140, 222]
+  unit: cm
 CP:
   short: Child-Pugh score
   values: {normal: 0, Pugh1: 1, Pugh2: 2, Pugh3: 3}

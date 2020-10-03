@@ -80,7 +80,7 @@ fda_table <- function(x) {
   }
   tab <- as_fda_table(x)
   lengths <- c(0, 0.75, 2.1, 0.6, 2.2)
-  align <- paste0("p{",lengths,"in}|")
+  align <- paste0(">{\\raggedright\\arraybackslash}p{",lengths,"in}|")
   align[2] <- paste0("|", align[2])
   xtab <- xtable(tab, align = align)
   ans <- capture.output(
@@ -123,7 +123,7 @@ fda_content_table <- function(x, ext=".xpt", loc=".") {
   ans <- kable(
     contents,
     format = "latex",
-    align = c("|p{2.85in}", "p{3.15in}|"),
+    align = c("|>{\\raggedright\\arraybackslash}p{2.85in}", ">{\\raggedright\\arraybackslash}p{3.15in}|"),
     escape = FALSE, longtable=TRUE
   )
   ans
@@ -219,7 +219,7 @@ fda_define <- function(file, title="Datasets", ext=".xpt", loc=".",...) {
 ##' }
 ##' @md
 ##' @export
-render_fda_define <- function(x, ... ) {
+render_fda_define  <- function(x, ... ) {
   UseMethod("render_fda_define")
 }
 
@@ -228,8 +228,8 @@ render_fda_define <- function(x, ... ) {
 render_fda_define.yproj <- function(x, 
                                     stem = "define",
                                     title = "Data Definitions",
-                                    date = format(Sys.time()),
-                                    author = "MetrumRG Staff Scientist",
+                                    date = as.character(Sys.Date()),
+                                    author = "",
                                     format = "fda_define",
                                     output_dir = getwd(),
                                     build_dir = definetemplate(),

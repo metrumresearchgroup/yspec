@@ -20,11 +20,11 @@ render_define(x, ...)
   output_dir = getwd(),
   build_dir = definetemplate(),
   title = "Data Specification",
-  author = "MetrumRG",
+  author = "",
   toc = "yes",
   number_sections = "yes",
   rmd_template = NULL,
-  date = base::format(Sys.time()),
+  date = as.character(Sys.Date()),
   ...
 )
 
