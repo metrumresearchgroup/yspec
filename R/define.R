@@ -10,11 +10,11 @@ call_format_fun <- function(yamlfile,
 
 ##' Render a document from one or more specification objects
 ##' 
-##' This function is a wrapper around [render_define] and [render_fda_define].
+##' This function is a wrapper around [render_define()] and [render_fda_define()].
 ##' 
 ##' @param x a spec or project object
 ##' @param type the document type
-##' @param ... passed to [render_define] or [render_fda_define]; it is important
+##' @param ... passed to [render_define()] or [render_fda_define()]; it is important
 ##' to review these help topics to see what other aspects of the document 
 ##' can be specified; see also `details` here.
 ##' 
@@ -32,12 +32,24 @@ call_format_fun <- function(yamlfile,
 ##' You can also pass in the full path to a specification document and
 ##' yspec will guess which format it is and render accordingly.  
 ##' 
-##' Because `...` are passed to [render_define] and [render_fda_define], 
+##' Because `...` are passed to [render_define()] and [render_fda_define()], 
 ##' it is important to review arguments to those functions as well.  Specifically, 
 ##' please note that the document **title**, **author**, and **date** can 
 ##' be set, along with the name of the output document, the working document 
 ##' build directory, and several other aspects of the document can be set
 ##' in the call to [ys_document]. 
+##' 
+##' @section latex requirements:
+##' 
+##' For all document types, the following `latex` packages are required: 
+##' 
+##' 1. `array`
+##' 1. `longtable`
+##' 1. `booktabs`
+##' 1. `fontenc`
+##' 1. `mathdesign`
+##' 
+##' Make sure these packages are installed and available when trying to render a document. 
 ##' 
 ##' @examples
 ##' 
@@ -45,7 +57,7 @@ call_format_fun <- function(yamlfile,
 ##'   ys_document(ys_help$spec())
 ##'   ys_document(ys_help$spec(), type = "regulatory")
 ##' }
-##' @seealso [render_define], [render_fda_define]
+##' @seealso [render_define()], [render_fda_define()]
 ##' @md
 ##' @export
 ys_document <- function(x, type = c("working", "regulatory"), ...) {
@@ -65,8 +77,8 @@ ys_document <- function(x, type = c("working", "regulatory"), ...) {
 ##' @param stem used to name the output file
 ##' @param format the name of a function that will generate code formatting
 ##' the data specification information
-##' @param output_format passed to [rmarkdown::render]
-##' @param output_dir passed to [rmarkdown::render]
+##' @param output_format passed to [rmarkdown::render()]
+##' @param output_dir passed to [rmarkdown::render()]
 ##' @param build_dir directory where `rmarkdown` should build the
 ##' document
 ##' @param title used in yaml front matter
@@ -77,14 +89,23 @@ ys_document <- function(x, type = c("working", "regulatory"), ...) {
 ##' data specification document
 ##' @param date used in yaml front matter
 ##' @param dots passed to object converter
-##' @param ... passed to [rmarkdown::render]
+##' @param ... passed to [rmarkdown::render()]
 ##' 
 ##'
 ##' @details
 ##' `stem` should not include a file extension, just
 ##' the file stem.
 ##' 
+##' @section latex requirements:
 ##' 
+##' For all document types, the following `latex` packages are required: 
+##' 
+##' 1. `array`
+##' 1. `longtable`
+##' 1. `booktabs`
+##' 1. `fontenc`
+##' 
+##' Make sure these packages are installed and available when trying to render a document.
 ##'
 ##' @examples
 ##'

@@ -30,7 +30,7 @@ render_fda_define(x, ...)
 \arguments{
 \item{x}{a yaml specification file name or a yproj object}
 
-\item{...}{passed to \link[rmarkdown:render]{rmarkdown::render}}
+\item{...}{passed to \code{\link[rmarkdown:render]{rmarkdown::render()}}}
 
 \item{stem}{used to name the output document}
 
@@ -62,6 +62,21 @@ only be changed from default value of "." for testing purposes}
 \description{
 Render a define.pdf document conforming to FDA standards
 }
+\section{latex requirements}{
+
+
+For all document types, the following \code{latex} packages are required:
+\enumerate{
+\item \code{array}
+\item \code{longtable}
+\item \code{booktabs}
+\item \code{fontenc}
+\item \code{mathdesign}
+}
+
+Make sure these packages are installed and available when trying to render a document.
+}
+
 \examples{
 proj_file <- file_proj_ex()
 
@@ -70,4 +85,5 @@ proj_file
 \dontrun{
   render_fda_define(proj_file)
 }
+
 }

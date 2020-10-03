@@ -165,7 +165,7 @@ fda_content_table_loc <- function(data_file,loc) {
 ##'
 ##' @return
 ##' A character vector of in markdown format.  Wrap
-##' `fda_define` in [writeLines] and
+##' `fda_define` in [writeLines()] and
 ##' render `asis` in an Rmarkdown document.
 ##'
 ##' @examples
@@ -207,7 +207,7 @@ fda_define <- function(file, title="Datasets", ext=".xpt", loc=".",...) {
 ##' @param build_dir directory where the document is to be built
 ##' @inheritParams fda_define
 ##' @inheritParams rmarkdown::render 
-##' @param ... passed to [rmarkdown::render]
+##' @param ... passed to [rmarkdown::render()]
 ##'
 ##' @examples
 ##' proj_file <- file_proj_ex()
@@ -217,6 +217,20 @@ fda_define <- function(file, title="Datasets", ext=".xpt", loc=".",...) {
 ##' \dontrun{
 ##'   render_fda_define(proj_file)
 ##' }
+##' 
+##' @section latex requirements:
+##' 
+##' For all document types, the following `latex` packages are required: 
+##' 
+##' 1. `array`
+##' 1. `longtable`
+##' 1. `booktabs`
+##' 1. `fontenc`
+##' 1. `mathdesign`
+##' 
+##' Make sure these packages are installed and available when trying to render a document.
+##' 
+##' 
 ##' @md
 ##' @export
 render_fda_define  <- function(x, ... ) {

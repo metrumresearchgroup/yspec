@@ -7,7 +7,7 @@
 ys_render(...)
 }
 \arguments{
-\item{...}{passed to \link{render_define} or \link{render_fda_define}; it is important
+\item{...}{passed to \code{\link[=render_define]{render_define()}} or \code{\link[=render_fda_define]{render_fda_define()}}; it is important
 to review these help topics to see what other aspects of the document
 can be specified; see also \code{details} here.}
 }
