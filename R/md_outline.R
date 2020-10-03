@@ -1,12 +1,16 @@
-##' Generate an outline representation of a data spec
+# nocov start
+
+##' DEPRECATED: Generate an outline representation of a data spec
 ##'
 ##' @param x a yspec object
 ##'
 ##' @return character
 ##'
 ##' @export
-md_outline <- function(x) {
+md_outline <- function(x) { 
 
+  stop("md_outline is deprecated")
+  
   assertthat::assert_that(is_yspec(x))
 
   txt <- lapply(x, define_col_1)
@@ -34,7 +38,7 @@ define_col_1 <- function(x) {
 
   return(c(col,descr,short,type,values,unit,source,comment))
 }
-
+#nocov end
 
 has_values <- function(x) {
   if(!is.null(x$values)) {

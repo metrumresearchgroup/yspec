@@ -83,17 +83,8 @@ $for(include-before)$
 $include-before$
 $endfor$
 
-% toc
-$if(toc)$
-{
-\hypersetup{linkcolor=$if(toccolor)$$toccolor$$else$black$endif$}
-\setcounter{tocdepth}{$toc-depth$}
-\tableofcontents
-}
-\hrule
-$endif$
-
 {\Large \textbf{$title$}}
+
 
 $if(author)$ 
 \textbf{Author:} $author$
@@ -106,6 +97,18 @@ $endif$
 \vskip 0.75cm
 
 \hrule
+
+% toc
+$if(toc)$
+{
+\hypersetup{linkcolor=$if(toccolor)$$toccolor$$else$black$endif$}
+\setcounter{tocdepth}{$toc-depth$}
+\tableofcontents
+\vskip 0.8cm
+}
+\hrule
+$endif$
+
 
 % the body
 $body$

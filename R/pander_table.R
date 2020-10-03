@@ -69,9 +69,9 @@ x_table_long <- function(x,...) {
 }
 
 
+# nocov start
 
-
-##' Render a spec as a pandoc table
+##' DEPRECATED: Render a spec as a pandoc table
 ##' 
 ##' Requires the pander package to be installed.  [pander_table_df] actually
 ##' formats the table. 
@@ -81,14 +81,18 @@ x_table_long <- function(x,...) {
 ##'
 ##' @examples
 ##' spec <- load_spec_ex()
-##'
+##' 
+##' \dontrun{
 ##' pander_table_df(spec)
 ##'
 ##' pander_table(spec)
+##' }
 ##' 
 ##' @md
 ##' @export
 pander_table <- function(x, ...) {
+  
+  stop("pander_table is deprecated")
   
   assertthat::assert_that(requireNamespace("pander"))
   
@@ -250,4 +254,4 @@ define_col_pander_long <- function(x) {
 
 }
 
-
+# nocov end
