@@ -1,6 +1,7 @@
 
 call_format_fun <- function(yamlfile,
-                            format = c("x_table", "x_table_long","pander_table", "md_outline")) {
+                            format = c("x_table_2", "x_table", "x_table_long",
+                                       "pander_table", "md_outline")) {
   format <- match.arg(format)
   format_fun <- get(format, mode = "function")
   spec <- load_spec(yamlfile)
@@ -104,7 +105,7 @@ render_define <- function(x, ...) {
 ##' @export
 render_define.yproj <- function(x, 
                                 stem = "define_working",
-                                format = c("x_table","x_table_long","pander_table", "md_outline"),
+                                format = c("x_table_2", "x_table","x_table_long"),
                                 output_format = "pdf_document",
                                 output_dir = getwd(),
                                 build_dir = definetemplate(),
