@@ -16,7 +16,7 @@ ys_mild_sanitize(x)
 \item{x}{text to sanitize}
 }
 \description{
-Based on \link[xtable:sanitize]{xtable::sanitize}.
+Based on \code{\link[xtable:sanitize]{xtable::sanitize()}}.
 }
 \examples{
 ys_sanitize("Concentration ($\\\\mu$g)")

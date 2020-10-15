@@ -8,9 +8,10 @@ test_that("mrgtemplate is deprecated", {
 })
 
 test_that("definetemplate replaces mrgtemplate", {
-  loc <- definetemplate()
+  loc <- normalizePath(definetemplate())
   expect_true(dir.exists(loc))
-  files <- c("_output.yml", "header.tex", "definetemplate.tex")
-  exist <- file.exists(file.path(tempdir(), "definetemplate", files))
+  files <- c("_output.yml", "header.tex")
+  where_to_check <- normalizePath(tempdir())
+  exist <- file.exists(file.path(where_to_check, "definetemplate", files))
   expect_true(all(exist))
 })
