@@ -22,7 +22,7 @@ details}
 }
 \value{
 A character vector of in markdown format.  Wrap
-\code{fda_define} in \link{writeLines} and
+\code{fda_define} in \code{\link[=writeLines]{writeLines()}} and
 render \code{asis} in an Rmarkdown document.
 }
 \description{

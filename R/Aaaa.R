@@ -19,6 +19,7 @@
 #' @importFrom tools toTitleCase
 #' @importFrom crayon red green black blue bold italic
 #' @importFrom fs path_rel
+#' @importFrom stringr str_count fixed
 #' 
 #' @include utils.R
 NULL
