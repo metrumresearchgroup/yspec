@@ -47,9 +47,9 @@ x_table_2 <- function(spec,
   xt <- xtable(
     tab, 
     align = c("p{0cm}",
-              "|p{0.67in}" , 
-              ">{\\raggedright\\arraybackslash}p{2.45in}",
-              ">{\\raggedright\\arraybackslash}p{2.7in}|")
+              "|p{0.8in}" , 
+              ">{\\raggedright\\arraybackslash}p{2.42in}",
+              ">{\\raggedright\\arraybackslash}p{2.78in}|")
   )
   add.to.row <- list(pos = list(0), command = NULL)
   command__ <- paste0(
