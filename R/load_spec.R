@@ -147,7 +147,8 @@ capture_file_info <- function(x,file,where = "SETUP__") {
 ##' @export
 ys_load <- function(file, verbose=FALSE,  ...) {
   x <- ys_load_file(file, verbose=verbose,...)
-  unpack_spec(x,verbose=verbose)
+  x <- unpack_spec(x,verbose=verbose)
+  set_namespace(x, "base")
 }
 
 ##' @rdname ys_load
@@ -173,10 +174,12 @@ load_spec <- function(...) ys_load(...)
 
 unpack_spec <- function(x,verbose=FALSE) {
 
+  #x[] <- map(x, create_namespaces)
+  
   check_spec_input(x)
   
   # defaults
-  x[] <- imap(x,.f=col_initialize)
+  x[] <- imap(x,.f = col_initialize)
   
   # for looking up column data
   lookup <- ys_get_lookup(x,verbose=verbose)
@@ -257,6 +260,7 @@ unpack_meta <- function(x,to_update, verbose=FALSE, ...) {
     meta[["import"]] <- fs::path_abs(meta[["import"]],meta[["spec_path"]])  
   }
   spec_validate_meta(meta)
+  x[] <- map(x, create_namespaces)
   meta[["namespace"]] <- list_namespaces(x)
   structure(x, meta = meta)
 }
@@ -343,8 +347,6 @@ col_initialize <- function(x, name) {
     x[["do_lookup"]] <- FALSE
     x[["lookup"]] <- "<none>"
   }
-  
-  x <- create_namespaces(x)
   
   x
 }
