@@ -1,5 +1,4 @@
 
-
 check_spec_input_col <- function(x, col, env, not_allowed = NULL, ...) {
   err <- c()
   if(is.null(x)) return()
@@ -164,7 +163,6 @@ ys_load_file <- function(file, data_path = NULL, data_stem = NULL, verbose=FALSE
   incoming <- list(...)
   incoming[["data_path"]] <- data_path
   incoming[["data_stem"]] <- data_stem
-
   unpack_meta(x,to_update=incoming,verbose=verbose)
 }
 
@@ -174,8 +172,6 @@ load_spec <- function(...) ys_load(...)
 
 unpack_spec <- function(x,verbose=FALSE) {
 
-  #x[] <- map(x, create_namespaces)
-  
   check_spec_input(x)
   
   # defaults
@@ -260,7 +256,7 @@ unpack_meta <- function(x,to_update, verbose=FALSE, ...) {
     meta[["import"]] <- fs::path_abs(meta[["import"]],meta[["spec_path"]])  
   }
   spec_validate_meta(meta)
-  x[] <- map(x, create_namespaces)
+  x[] <- imap(x, create_namespaces)
   meta[["namespace"]] <- list_namespaces(x)
   structure(x, meta = meta)
 }
@@ -280,11 +276,9 @@ unpack_about <- function(x) {
 }
 
 unpack_col <- function(x) {
-  
   if(identical(x,NULL)) {
     x <- list(short = x[["col"]], lookup=TRUE)
   }
-  
   if(.no("short",x)) {
     x[["short"]] <- x[["col"]]
   }

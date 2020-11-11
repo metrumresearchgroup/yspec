@@ -47,7 +47,8 @@ list_namespaces <- function(x) {
   ns
 }
 
-create_namespaces <- function(col) {
+create_namespaces <- function(col, col_name) {
+  if(!is.list(col)) return(col)
   if(.has("namespace", col)) return(col)
   has_ns <- str_detect(names(col), fixed("."))
   if(!any(has_ns)) return(col)
@@ -56,14 +57,37 @@ create_namespaces <- function(col) {
   ns_data <- str_split_fixed(names(y), fixed("."), 2)
   namespace <- list()
   for(i in seq(nrow(ns_data))) {
-    if(!exists(ns_data[i,2], namespace)) {
-      namespace[[ns_data[i,2]]] <- list()  
+    ns <- ns_data[i,2]
+    field <- ns_data[i,1]
+    if(!exists(ns, namespace)) {
+      namespace[[ns]] <- list()  
     }
-    namespace[[ns_data[i,2]]][[ns_data[[i,1]]]] <- y[[i]]
-    namespace[["base"]][[ns_data[[i,1]]]] <- x[[ns_data[[i,1]]]]
+    namespace[[ns]][[field]] <- y[[i]]
+    namespace[["base"]][[field]] <- x[[field]]
+    if(field == "decode") {
+      validate_namespace_decode(col_name, namespace)
+    }
   }
   x$namespace <- namespace
   x
+}
+
+validate_namespace_decode <- function(col, namespace) {
+  expected <- length(namespace[["base"]][["decode"]])
+  ns <- names(namespace)
+  for(i in seq_along(ns)) {
+    if(length(namespace[[i]][["decode"]]) == expected) next
+    found <- length(namespace[[i]][["decode"]])
+    message("decode is not the correct length:")
+    message(" - column: ", col)
+    message(" - input:  ", paste0("decode.", ns[[i]]))
+    message(" - expect: ", expected)
+    message(" - actual: ", found)
+    stop(
+      "decode length in the namespaced input must conform to base input", 
+      call. = FALSE
+    )
+  }
 }
 
 try_tex_namespace <- function(x) {
