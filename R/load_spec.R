@@ -171,7 +171,7 @@ ys_load_file <- function(file, data_path = NULL, data_stem = NULL, verbose=FALSE
 load_spec <- function(...) ys_load(...)
 
 unpack_spec <- function(x,verbose=FALSE) {
-
+  
   check_spec_input(x)
   
   # defaults
@@ -188,7 +188,7 @@ unpack_spec <- function(x,verbose=FALSE) {
     .p = ~.x$do_lookup,
     .f = merge_lookup_column,
     lookup = lookup, 
-    file = get_meta(x)[["spec_file"]], 
+    file = pull_meta(x, "spec_file"), 
     verbose=verbose
   )
   x[] <- map(x, unpack_col)
@@ -198,10 +198,10 @@ unpack_spec <- function(x,verbose=FALSE) {
     import <- ys_load(pull_meta(x,"import"))
     ans <- c(import,ans,.meta = get_meta(ans))
   }
-  if(isTRUE(get_meta(x)[["character_last"]])) {
+  if(isTRUE(pull_meta(x, "character_last"))) {
     type <- map_chr(ans, "type")
     chr <- type=="character"
-    comment <- names(ans) %in% get_meta(x)[["comment_col"]]
+    comment <- names(ans) %in% pull_meta(x, "comment_col")
     ans <- c(ans[(!chr) | comment],ans[chr & (!comment)])
   }
   ans
