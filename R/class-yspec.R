@@ -183,6 +183,10 @@ pull_meta <- function(x,what) {
   ans[[what]]
 }
 
+maybe_pull_meta <- function(x, what) {
+  attr(x, "meta")[[what]]  
+}
+
 ##' Get the file name for a yspec object
 ##' 
 ##' This read from the yspec object meta data via [get_meta].

@@ -195,13 +195,13 @@ unpack_spec <- function(x,verbose=FALSE) {
   check_spec_cols(x)
   ans <- structure(x, class = "yspec")
   if(.has("import", get_meta(x))) {
-    import <- ys_load(pull_meta(x,"import"))
+    import <- ys_load(maybe_pull_meta(x,"import"))
     ans <- c(import,ans,.meta = get_meta(ans))
   }
-  if(isTRUE(pull_meta(x, "character_last"))) {
+  if(isTRUE(maybe_pull_meta(x, "character_last"))) {
     type <- map_chr(ans, "type")
     chr <- type=="character"
-    comment <- names(ans) %in% pull_meta(x, "comment_col")
+    comment <- names(ans) %in% maybe_pull_meta(x, "comment_col")
     ans <- c(ans[(!chr) | comment],ans[chr & (!comment)])
   }
   ans
