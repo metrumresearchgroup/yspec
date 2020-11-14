@@ -1,9 +1,10 @@
 SETUP__:
   lookup_file: [_yspec_lookup.yml]
   primary_key: [ID, EVID, SEQ]
+  description: Another example PK/PD type data set
 C:
   long: commented rows
-  values: [.,C]
+  values: [".",C]
   type: character
 USUBJID:
   long: universal subject identifier
@@ -43,7 +44,7 @@ TAFD:
   long: time after first dose
   type: numeric
 WT:
-  source: DEMO$WT
+  source: "DEMO\\$WT"
 EGFR:
   short: eGFR
   unit: ml/min/1.73m2
@@ -81,7 +82,7 @@ DV2:
   long: second dependent variable
   type: numeric
 HAIR:
-  long: patient hair color
+  long: subject hair color
   values: [0,1,2]
   decode: [brown, blonde, black]
   type: numeric
@@ -93,5 +94,5 @@ CLCR:
   type: numeric
 RACE:
   values: [1,3,5]
-  decode: ["white", "black", "other"]
+  decode: ["this", "that", "other"]
   type: numeric

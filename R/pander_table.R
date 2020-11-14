@@ -19,7 +19,7 @@ x_table <- function(x,...) {
   assertthat::assert_that(requireNamespace("xtable"))
   tab <- pander_table_df(x,...)
   lengths <- c(0, 1, 0.65, 0.95, 2.4)
-  align <- paste0("p{",lengths,"in}")
+  align <- paste0(">{\\raggedright\\arraybackslash}p{",lengths,"in}")
   align[2] <- paste0("|", align[2], "|")
   align[4] <- paste0("|", align[4])
   align[5] <- paste0(align[5], "|")
@@ -47,7 +47,7 @@ x_table_long <- function(x,...) {
   assertthat::assert_that(requireNamespace("xtable"))
   tab <- pander_table_df(x, long=TRUE, ...)
   lengths <- c(0, 1.65, 0.95, 2.4)
-  align <- paste0("p{",lengths,"in}")
+  align <- paste0(">{\\raggedright\\arraybackslash}p{",lengths,"in}")
   align[2] <- paste0("|", align[2], "|")
   align[4] <- paste0(align[4], "|")
   hlines <- which(tab[,1] != "")-1
@@ -69,9 +69,9 @@ x_table_long <- function(x,...) {
 }
 
 
+# nocov start
 
-
-##' Render a spec as a pandoc table
+##' DEPRECATED: Render a spec as a pandoc table
 ##' 
 ##' Requires the pander package to be installed.  [pander_table_df] actually
 ##' formats the table. 
@@ -81,14 +81,18 @@ x_table_long <- function(x,...) {
 ##'
 ##' @examples
 ##' spec <- load_spec_ex()
-##'
+##' 
+##' \dontrun{
 ##' pander_table_df(spec)
 ##'
 ##' pander_table(spec)
+##' }
 ##' 
 ##' @md
 ##' @export
 pander_table <- function(x, ...) {
+  
+  stop("pander_table is deprecated")
   
   assertthat::assert_that(requireNamespace("pander"))
   
@@ -250,4 +254,4 @@ define_col_pander_long <- function(x) {
 
 }
 
-
+# nocov end

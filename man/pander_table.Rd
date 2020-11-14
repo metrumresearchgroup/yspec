@@ -3,7 +3,7 @@
 \name{pander_table}
 \alias{pander_table}
 \alias{pander_table_df}
-\title{Render a spec as a pandoc table}
+\title{DEPRECATED: Render a spec as a pandoc table}
 \usage{
 pander_table(x, ...)
 
@@ -23,8 +23,10 @@ formats the table.
 \examples{
 spec <- load_spec_ex()
 
+\dontrun{
 pander_table_df(spec)
 
 pander_table(spec)
+}
 
 }
