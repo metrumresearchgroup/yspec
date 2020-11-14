@@ -23,10 +23,6 @@ test_that("switch to tex namespace", {
   
   c <- yspec:::try_tex_namespace(a)
   expect_identical(c, b)
-  
-  x <- ys_help$spec()
-  y <- yspec:::try_tex_namespace(x)
-  expect_identical(x,y)
 })
 
 test_that("revert to base namespace", {
@@ -49,10 +45,3 @@ test_that("alternate decode in namespace", {
   expect_error(ys_load(file), msg = "decode is not the correct length")
 })
 
-test_that("warn if base entry is missing", {
-  file <- system.file(
-    "spec", "test", "namespace-no-base-entry.yaml", 
-    package = "yspec"
-  )
-  expect_warning(ys_load(file), msg = "Column WT:")
-})

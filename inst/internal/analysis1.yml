@@ -4,7 +4,7 @@ SETUP__:
   projectnumber: EXAMPK1011F
   use_internal_db: true
   glue: 
-    mugL: "$\\mu$g/L"
+    bmiunits: "kg/m$^2$"
 C:
 NUM:
 ID:
@@ -22,7 +22,8 @@ EVID:
 AMT: !look
   unit: mg
 DV:  !look
-  unit: "<<mugL>>"
+  unit: "micrograms/L"
+  unit.tex: "$\\mu$g/L"
 AGE: !look
   range: [18,50]
 WT: !look
@@ -35,6 +36,7 @@ ALB: !look
   range: [1.2,6]
 BMI: !look
   range: [18,25]
+  unit.tex: <<bmiunits>>
 AAG:
   short: alpha-1-acid glycoprotein
   unit: mg/dL

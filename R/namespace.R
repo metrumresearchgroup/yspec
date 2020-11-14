@@ -62,10 +62,6 @@ create_namespaces <- function(col, col_name) {
     if(!exists(ns, namespace)) {
       namespace[[ns]] <- list()  
     }
-    if(!exists(field, col)) {
-      msg <- "Column {col_name}: found `{field}.{ns}` but no entry for `{field}` in base"
-      warning(glue(msg),call.=FALSE)
-    }
     namespace[[ns]][[field]] <- ns_input[[i]]
     namespace[["base"]][[field]] <- col[[field]]
     if(field == "decode") {
