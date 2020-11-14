@@ -52,24 +52,28 @@ create_namespaces <- function(col, col_name) {
   if(.has("namespace", col)) return(col)
   has_ns <- str_detect(names(col), fixed("."))
   if(!any(has_ns)) return(col)
-  y <- col[which(has_ns)]
-  x <- col[which(!has_ns)]
-  ns_data <- str_split_fixed(names(y), fixed("."), 2)
+  ns_input <- col[which(has_ns)]
+  col <- col[which(!has_ns)]
+  ns_parsed <- str_split_fixed(names(ns_input), fixed("."), 2)
   namespace <- list()
-  for(i in seq(nrow(ns_data))) {
-    ns <- ns_data[i,2]
-    field <- ns_data[i,1]
+  for(i in seq(nrow(ns_parsed))) {
+    ns <- ns_parsed[i,2]
+    field <- ns_parsed[i,1]
     if(!exists(ns, namespace)) {
       namespace[[ns]] <- list()  
     }
-    namespace[[ns]][[field]] <- y[[i]]
-    namespace[["base"]][[field]] <- x[[field]]
+    if(!exists(field, col)) {
+      msg <- "Column {col_name}: found `{field}.{ns}` but no entry for `{field}` in base"
+      warning(glue(msg),call.=FALSE)
+    }
+    namespace[[ns]][[field]] <- ns_input[[i]]
+    namespace[["base"]][[field]] <- col[[field]]
     if(field == "decode") {
       validate_namespace_decode(col_name, namespace)
     }
   }
-  x$namespace <- namespace
-  x
+  col[["namespace"]] <- namespace
+  col
 }
 
 validate_namespace_decode <- function(col, namespace) {
@@ -88,13 +92,14 @@ validate_namespace_decode <- function(col, namespace) {
       call. = FALSE
     )
   }
+  invisible(NULL)
 }
 
 try_tex_namespace <- function(x) {
   if("tex" %in% pull_meta(x, "namespace")) {
     x <- ys_namespace(x, "tex")  
   }
-  return(x)
+  x
 }
 
 current_namespace <- function(x) {

@@ -48,3 +48,11 @@ test_that("alternate decode in namespace", {
   )
   expect_error(ys_load(file), msg = "decode is not the correct length")
 })
+
+test_that("warn if base entry is missing", {
+  file <- system.file(
+    "spec", "test", "namespace-no-base-entry.yaml", 
+    package = "yspec"
+  )
+  expect_warning(ys_load(file), msg = "Column WT:")
+})
