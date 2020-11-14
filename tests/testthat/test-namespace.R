@@ -37,7 +37,7 @@ test_that("revert to base namespace", {
   expect_equal(a,c)
 })
 
-test_that("alternate decode in namespacer", {
+test_that("alternate decode in namespace", {
   a <- ys_load(works)
   b <- ys_namespace(a, "plot")
   expect_equal(a$SEX$decode, c("m", "f"))
@@ -48,4 +48,3 @@ test_that("alternate decode in namespacer", {
   )
   expect_error(ys_load(file), msg = "decode is not the correct length")
 })
-

@@ -1,0 +1,22 @@
+SETUP__:
+  description: a test spec that works
+  use_internal_db: true
+DV:
+  short: dependent variable
+  unit: micrograms / ml
+  unit.tex: $\\mu$g / ml
+  range: [1,5]
+WT:
+  short: baseline body weight
+  short.plot: weight
+  unit: kg
+HAIR:
+  short: hair color
+  values: [1,2,3]
+  decode: [brown, black, blonde]
+  decode.two: [brown, black, blonde, red]
+C: 
+  short: comment column
+  short.foo: comment col in foo ns
+  short.bar: comment col in bar ns
+ALB: !look
