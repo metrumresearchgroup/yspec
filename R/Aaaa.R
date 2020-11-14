@@ -93,5 +93,3 @@ VALID_NS_NAMES <- c(
 #' @md
 #' @name yspec
 NULL
-
-

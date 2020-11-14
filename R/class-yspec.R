@@ -434,7 +434,7 @@ ys_add_labels <- function(data,spec,fun=label.ycol) {
 
 #' Select a subset of columns from a yspec object
 #' 
-#' @param .x a yspect object
+#' @param .x a yspec object
 #' @param ... unquoted columns to select
 #' 
 #' @examples
@@ -452,8 +452,6 @@ ys_select <- function(.x, ...) {
   ans <- .x[keep]
   ans
 }
-
-
 
 as_spec_list <- function(...) {
   x <- list(...)

@@ -7,7 +7,7 @@
 ys_select(.x, ...)
 }
 \arguments{
-\item{.x}{a yspect object}
+\item{.x}{a yspec object}
 
 \item{...}{unquoted columns to select}
 }
