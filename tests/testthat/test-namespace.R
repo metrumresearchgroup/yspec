@@ -20,7 +20,13 @@ test_that("switch to tex namespace", {
   expect_equal(a$DV$unit, "micrograms / ml")
   expect_equal(b$DV$unit, "$\\\\mu$g / ml")
   expect_error(ys_namespace(a, "kyle"))
-
+  
+  c <- yspec:::try_tex_namespace(a)
+  expect_identical(c, b)
+  
+  x <- ys_help$spec()
+  y <- yspec:::try_tex_namespace(x)
+  expect_identical(x,y)
 })
 
 test_that("revert to base namespace", {
@@ -31,6 +37,15 @@ test_that("revert to base namespace", {
   expect_equal(a,c)
 })
 
-
-
+test_that("alternate decode in namespacer", {
+  a <- ys_load(works)
+  b <- ys_namespace(a, "plot")
+  expect_equal(a$SEX$decode, c("m", "f"))
+  expect_equal(b$SEX$decode, c("male", "female"))
+  file <- system.file(
+    "spec", "test", "namespace-error-decode.yaml", 
+    package = "yspec"
+  )
+  expect_error(ys_load(file), msg = "decode is not the correct length")
+})
 
