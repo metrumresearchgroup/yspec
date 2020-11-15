@@ -5,15 +5,15 @@ check_spec_input_col <- function(x, col, env, not_allowed = NULL, ...) {
   t0 <- nchar(col) <= getOption("ys.col.len",8)
   if(!t0) {
     err <- c(
-      err, 
+      err,
       paste0("column name more than ",  getOption("ys.col.len",8), " characters long")
     )
   }
-  
-  t1 <- all(names(x) %in% setdiff(VALID_SPEC_NAMES, not_allowed))
+  fields <- sub("\\..*$", "", names(x))
+  t1 <- all(fields %in% setdiff(VALID_SPEC_NAMES, not_allowed))
   if(!t1) {
     valid <- setdiff(VALID_SPEC_NAMES, not_allowed)
-    inval <- setdiff(names(x), valid)
+    inval <- setdiff(fields, valid)
     inval <- paste(inval, collapse = ", ")
     err <- c(
       err,
@@ -174,24 +174,30 @@ unpack_spec <- function(x,verbose=FALSE) {
   
   check_spec_input(x)
   
-  # defaults
-  x[] <- imap(x,.f = col_initialize)
-  
   # for looking up column data
+  x[] <- imap(x, .f = col_initialize)
+  
   lookup <- ys_get_lookup(x,verbose=verbose)
   
   if(length(lookup) > 0 & verbose) {
     verb(relapse(":",13), relapse(":",30))
   }
+  
   x[] <- map_if(
     .x = x,
     .p = ~.x$do_lookup,
     .f = merge_lookup_column,
     lookup = lookup, 
     file = pull_meta(x, "spec_file"), 
-    verbose=verbose
+    verbose = verbose
   )
+  
   x[] <- map(x, unpack_col)
+
+  m <- get_meta(x)
+  m[["namespace"]] <- list_namespaces(x)
+  x <- structure(x, meta = m)
+  
   check_spec_cols(x)
   ans <- structure(x, class = "yspec")
   if(.has("import", get_meta(x))) {
@@ -256,11 +262,8 @@ unpack_meta <- function(x,to_update, verbose=FALSE, ...) {
     meta[["import"]] <- fs::path_abs(meta[["import"]],meta[["spec_path"]])  
   }
   spec_validate_meta(meta)
-  x[] <- imap(x, create_namespaces)
-  meta[["namespace"]] <- list_namespaces(x)
   structure(x, meta = meta)
 }
-
 
 unpack_about <- function(x) {
   if(!exists("about",x)) {
@@ -310,6 +313,7 @@ unpack_col <- function(x) {
   if(.has("long", x)) {
     x$long <- paste0(x$long, collapse = " ")
   }
+  x <- create_namespaces(x)
   structure(x, class = "ycol")
 }
 
@@ -341,7 +345,6 @@ col_initialize <- function(x, name) {
     x[["do_lookup"]] <- FALSE
     x[["lookup"]] <- "<none>"
   }
-  
   x
 }
 

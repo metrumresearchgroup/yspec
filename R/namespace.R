@@ -68,7 +68,11 @@ create_namespaces <- function(col, col_name) {
       validate_namespace_decode(col_name, namespace)
     }
   }
-  col[["namespace"]] <- namespace
+  if(is.list(col[["namespace"]])) {
+    col[["namespace"]] <- combine_list(col[["namespace"]],namespace)
+  } else {
+    col[["namespace"]] <- namespace  
+  }
   col
 }
 
