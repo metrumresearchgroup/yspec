@@ -265,7 +265,7 @@ define_for_rmd <- function(x,form_,proj=NULL,meta=NULL,tex=TRUE) {
     specs <- map(file_names,load_spec)
   }
   
-  if(tex) {
+  if(isTRUE(tex)) {
     specs <- map(specs, try_tex_namespace)
   }
   

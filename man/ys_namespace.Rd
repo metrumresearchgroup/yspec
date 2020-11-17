@@ -11,6 +11,9 @@ ys_namespace(x, namespace = NULL)
 
 \item{namespace}{namespace name (character) to switch to}
 }
+\value{
+the `yspec` object (`x`) is returned, possibly modified
+}
 \description{
 Change namespace
 }

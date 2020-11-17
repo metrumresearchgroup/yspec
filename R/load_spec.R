@@ -9,6 +9,10 @@ check_spec_input_col <- function(x, col, env, not_allowed = NULL, ...) {
       paste0("column name more than ",  getOption("ys.col.len",8), " characters long")
     )
   }
+  # fields within namespaces have the following pattern: field.namespace
+  # e.g unit.tex; we remove everything after the first `.` when checking for 
+  # valid names; eventually I'd like to refactor the load / check process a bit
+  # to handle this in a more natural way
   fields <- sub("\\..*$", "", names(x))
   t1 <- all(fields %in% setdiff(VALID_SPEC_NAMES, not_allowed))
   if(!t1) {

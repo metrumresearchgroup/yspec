@@ -2,9 +2,11 @@
 #' 
 #' @param x a `yspec` object
 #' @param namespace namespace name (character) to switch to
-#' 
+#'  
+#' @return the `yspec` object (`x`) is returned, possibly modified
 #' @export
 ys_namespace <- function(x, namespace = NULL) {
+  assert_that(is_yspec(x))
   if(is.null(namespace)) {
     ns <- pull_meta(x, "namespace")
     if(length(ns)==0) {
@@ -47,9 +49,33 @@ list_namespaces <- function(x) {
   ns
 }
 
+#' Find and process namespaced input
+#' 
+#' @param col a list of column data
+#' @param col_name the column name (character)
+#' 
+#' @keywords internal
+#' @noRd
+#' 
+#' @details
+#' - find names in the list of the form `<field>.<namespace>` (e.g. `unit.tex`
+#'   for the field `unit` in the `tex` namespace
+#' - nothing is done if `.` isn't found 
+#' - if `.` is found, we split the name and create a `namespace` slot in the 
+#'   list where we hold the `<field>` information in a list named `<namespace>`
+#' - when a namespace entry is made, we also copy any unnamespaced entry for 
+#'   `field` into a `base` namespace
+#' - when the `field` is `decode`, we check to make sure that the length of 
+#'   `decode` in the namespace is the same as the length of `decode` in the 
+#'   `base`
+#' 
+#' @return 
+#' `col` is returned with possibly an extra slot called `namespace` 
+#' 
 create_namespaces <- function(col, col_name) {
   if(!is.list(col)) return(col)
   if(.has("namespace", col)) return(col)
+  # see check_spec_input_col where we also split on `.` for ns information
   has_ns <- str_detect(names(col), fixed("."))
   if(!any(has_ns)) return(col)
   ns_input <- col[which(has_ns)]
@@ -76,6 +102,20 @@ create_namespaces <- function(col, col_name) {
   col
 }
 
+#' Validate namespaced decode information
+#' 
+#' @param col a list of column data 
+#' @param namespace a list of namespaced column data
+#' 
+#' @details
+#' Check to make sure that the number of `decode` values in a namespace entry
+#' matches the number of `decode` values in the base namespace.
+#' 
+#' @return an error is generated if decode lenght is no appropriate; otherwise, 
+#' returns `NULL` invisibly
+#' 
+#' @keywords internal
+#' @noRd
 validate_namespace_decode <- function(col, namespace) {
   expected <- length(namespace[["base"]][["decode"]])
   ns <- names(namespace)
