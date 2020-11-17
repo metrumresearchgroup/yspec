@@ -21,6 +21,9 @@ Rmd
 filesystem
 yproj
 NONMEM
+nonmem
+ish
+namespacing
 xport
 templated
 sdtm
@@ -30,3 +33,4 @@ parens
 mrgtemplate
 definetemplate
 csv
+

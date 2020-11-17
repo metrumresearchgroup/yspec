@@ -1,9 +1,20 @@
 # yspec (development version)
 - Add `ys_select()` to select a subset of columns from a yspec object #24
-- Refactored `axis_col_labs` to add vars argument; if missing, all col / labs
+- Refactor `axis_col_labs` to add vars argument; if missing, all col / labs
   will be created; otherwise, the user can select a subset to be created 
-- Deprecated `mrgtemplate()`; added `definetemplate()` that is used as default
-  for a more styled define document
+- Deprecate `mrgtemplate()`; added `definetemplate()` that is used as default
+  for a more styled define document #37
+- Add ability to include alternate representations of field information through
+  namespacing #38
+- Fix bug in `ys_check` where the return value was not correct when 
+  `error_on_fail` was set to `FALSE` #31
+- Add `nm_input` function to print nonmem input data text to the console #8
+- Fix bug where some meta data (`data_stem`, `name`, `spec_file`) was not 
+  updated when importing from another spec #5
+- Fix bug where `ys_get_short_unit` was not returning a list #2
+- Fix bug where `axis_col_labs` doesn't do title case or short max #26
+- Better reporting of bad values in discrete data column #27
+
 
 # yspec 0.4.1
 
