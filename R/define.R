@@ -167,11 +167,11 @@ render_define.yproj <- function(x,
     setwd(build_dir)
     on.exit(setwd(cwd))
   }
-
+  
   ys_working_markup_ <- basename(tempfile(fileext="aeiou"))
   
   env <- new.env()
-  env[[ys_working_markup_]] <- define_for_rmd(yamlfile,format,x,meta) 
+  env[[ys_working_markup_]] <- define_for_rmd(yamlfile,format,x,meta,tex=TRUE) 
   
   file <- normalPath(paste0(stem, ".Rmd"),mustWork=FALSE)
   
@@ -230,17 +230,18 @@ render_spec.yspec <- function(x, stem = get_meta(x)[["name"]], ..., dots = list(
 
 ##' Generate code for a generic define document
 ##' 
-##' This function is for internal use by [render_define].  
+##' This function is for internal use by [render_define()].  
 ##'
 ##' @param x a project file name
 ##' @param form_ a function or the name of a function to format the spec
 ##' contents
 ##' @param proj a project object from which to render
 ##' @param meta meta data list 
+##' @param tex logical; if `TRUE` then try to switch to `tex` namespace if it exists
 ##' @keywords internal
 ##' @md
 ##' @export
-define_for_rmd <- function(x,form_,proj=NULL,meta=NULL) {
+define_for_rmd <- function(x,form_,proj=NULL,meta=NULL,tex=TRUE) {
   
   if(is.character(form_)) {
     format_fun <- get(form_, mode = "function")
@@ -250,8 +251,6 @@ define_for_rmd <- function(x,form_,proj=NULL,meta=NULL) {
   
   assert_that(is.function(format_fun))
   
-  #environment(format_fun) <- parent.frame()
-  
   if(is.null(proj)) {
     proj <- load_spec_proj(x)  
   }
@@ -259,15 +258,15 @@ define_for_rmd <- function(x,form_,proj=NULL,meta=NULL) {
     meta <- get_meta(proj)  
   }
   
-  if(.has("data", meta) & getOption("yspec.use.kept.data",FALSE)) {
-    warning(
-      "using spec data found in yproject object, not from the source yaml file.",
-      call.=FALSE
-    )
+  if(.has("data", meta)) {
     specs <- meta[["data"]]  
   } else {
     file_names <- map(proj, "spec_file")
     specs <- map(file_names,load_spec)
+  }
+  
+  if(isTRUE(tex)) {
+    specs <- map(specs, try_tex_namespace)
   }
   
   tex <- imap(proj, .f = function(xi,.name) {

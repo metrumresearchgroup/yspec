@@ -133,6 +133,7 @@ fda_content_table <- function(x, ext=".xpt", loc=".") {
 ##' @export
 fda_table_file <- function(file) {
   x <- load_spec(file)
+  x <- try_tex_namespace(x)
   fda_table(x)
 }
 
@@ -165,7 +166,7 @@ fda_content_table_loc <- function(data_file,loc) {
 ##'
 ##' @return
 ##' A character vector of in markdown format.  Wrap
-##' `fda_define` in [writeLines()] and
+##' [fda_define()] in [writeLines()] and
 ##' render `asis` in an Rmarkdown document.
 ##'
 ##' @examples
@@ -176,7 +177,7 @@ fda_content_table_loc <- function(data_file,loc) {
 ##' \dontrun{
 ##'   fda_define(proj)
 ##' }
-##' @seealso [fda_table]
+##' @seealso [fda_table()]
 ##' @md
 ##' @export
 fda_define <- function(file, title="Datasets", ext=".xpt", loc=".",...) {

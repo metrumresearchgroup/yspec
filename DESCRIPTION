@@ -12,6 +12,7 @@ BugReports: https://github.com/metrumresearchgroup/yspec/issues
 Description: Generate Define.pdf from yaml specification.
 License: GPL (>=2)
 Encoding: UTF-8
+Language: en-US
 LazyData: true
 Depends: R (>= 3.5.0)
 Imports: 
@@ -53,6 +54,7 @@ Collate:
     'load_spec.R'
     'lookup.R'
     'md_outline.R'
+    'namespace.R'
     'nm_input.R'
     'pander_table.R'
     'spec_validate.R'

@@ -183,6 +183,10 @@ pull_meta <- function(x,what) {
   ans[[what]]
 }
 
+maybe_pull_meta <- function(x, what) {
+  attr(x, "meta")[[what]]  
+}
+
 ##' Get the file name for a yspec object
 ##' 
 ##' This read from the yspec object meta data via [get_meta].
@@ -430,7 +434,7 @@ ys_add_labels <- function(data,spec,fun=label.ycol) {
 
 #' Select a subset of columns from a yspec object
 #' 
-#' @param .x a yspect object
+#' @param .x a yspec object
 #' @param ... unquoted columns to select
 #' 
 #' @examples
@@ -448,8 +452,6 @@ ys_select <- function(.x, ...) {
   ans <- .x[keep]
   ans
 }
-
-
 
 as_spec_list <- function(...) {
   x <- list(...)

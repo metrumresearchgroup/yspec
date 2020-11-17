@@ -6,12 +6,12 @@
 #' @importFrom rmarkdown render pdf_document html_document
 #' @importFrom knitr kable
 #' @importFrom xtable xtable
-#' @importFrom rlang quos set_names exprs as_string expr
+#' @importFrom rlang quos set_names exprs as_string expr 
 #' @importFrom assertthat assert_that
 #' @importFrom purrr map map_chr map_df map_if map_lgl
 #' @importFrom purrr imap imap_chr map_int
 #' @importFrom purrr discard compact transpose
-#' @importFrom purrr walk walk2 iwalk 
+#' @importFrom purrr walk walk2 iwalk keep
 #' @importFrom purrr flatten flatten_chr modify
 #' @importFrom glue glue
 #' @importFrom utils type.convert read.csv 
@@ -19,6 +19,7 @@
 #' @importFrom tools toTitleCase
 #' @importFrom crayon red green black blue bold italic
 #' @importFrom fs path_rel
+#' @importFrom stringr fixed str_detect str_split_fixed
 #' @importFrom stringr str_count fixed
 #' 
 #' @include utils.R
@@ -31,7 +32,8 @@ VALID_SPEC_NAMES <- c(
   "source", "comment",
   "short", "long", "about", "dots",
   "range", "longvalues", "lookup", 
-  "axis", "table", "label", "make_factor"
+  "axis", "table", "label", "make_factor", 
+  "namespace"
 )
 
 VALID_SETUP_NAMES <- c(
@@ -40,6 +42,10 @@ VALID_SETUP_NAMES <- c(
   "data_path", "data_stem", "name", "spec_file", 
   "spec_path", "glue", "use_internal_db", 
   "import", "character_last","comment_col"
+)
+
+VALID_NS_NAMES <- c(
+  "unit", "short", "label", "long", "decode", "comment"
 )
 
 .glopen <- "<<"
@@ -87,5 +93,3 @@ VALID_SETUP_NAMES <- c(
 #' @md
 #' @name yspec
 NULL
-
-

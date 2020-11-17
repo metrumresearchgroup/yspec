@@ -22,7 +22,7 @@ details}
 }
 \value{
 A character vector of in markdown format.  Wrap
-\code{fda_define} in \code{\link[=writeLines]{writeLines()}} and
+\code{\link[=fda_define]{fda_define()}} in \code{\link[=writeLines]{writeLines()}} and
 render \code{asis} in an Rmarkdown document.
 }
 \description{
@@ -38,5 +38,5 @@ cat(readLines(proj), sep = "\n")
 }
 }
 \seealso{
-\link{fda_table}
+\code{\link[=fda_table]{fda_table()}}
 }
