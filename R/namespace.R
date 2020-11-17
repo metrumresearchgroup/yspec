@@ -88,7 +88,7 @@ validate_namespace_decode <- function(col, namespace) {
     message(" - expect: ", expected)
     message(" - actual: ", found)
     stop(
-      "decode length in the namespaced input must conform to base input", 
+      "decode length in the namespace input must conform to base input", 
       call. = FALSE
     )
   }
