@@ -1,4 +1,4 @@
-# yspec (development version)
+# yspec 0.4.2
 - Add `ys_select()` to select a subset of columns from a yspec object #24
 - Refactor `axis_col_labs` to add vars argument; if missing, all col / labs
   will be created; otherwise, the user can select a subset to be created 
