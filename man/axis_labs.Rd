@@ -7,26 +7,28 @@
 \alias{axis_asis}
 \title{Generate axis labels or col/label structures for plots}
 \usage{
-axis_labs(.spec, ..., .fun = axis_label)
+axis_labs(.spec, vars = NULL, .fun = axis_label, ...)
 
-axis_col_labs(.spec, ..., .fun = axis_label)
+axis_col_labs(.spec, vars = NULL, ..., .fun = axis_label)
 
-axis_label(x, .add_unit = TRUE)
+axis_label(x, .add_unit = TRUE, ...)
 
 axis_asis(x)
 }
 \arguments{
 \item{.spec}{a yspec object}
 
-\item{...}{unquoted column names in the spec}
+\item{vars}{a quosure or character vector; passed to
+\link[tidyselect:vars_select]{tidyselect::vars_select}}
 
 \item{.fun}{a function that forms the axis label data for}
+
+\item{...}{arguments passed to \code{\link[=short]{short()}}}
 
 \item{x}{a ycol object}
 
 \item{.add_unit}{if \code{TRUE}, the unit is appended to the axis title
-if it is found
-a single column}
+if it is found}
 }
 \description{
 Generate axis labels or col/label structures for plots

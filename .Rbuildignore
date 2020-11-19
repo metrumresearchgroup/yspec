@@ -29,3 +29,4 @@ vignettes/analysis1\.Rmd
 vignettes/label\.Rmd
 vignettes/extract\.Rmd
 .drone.yml
+^.drone.jsonnet$

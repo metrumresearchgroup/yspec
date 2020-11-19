@@ -12,8 +12,8 @@ ys_get_label(x, ...)
 \item{...}{passed to label methods}
 }
 \description{
-Forms a label for a column (`ycol` method) or columns (`yspec` method). Use
-[purrr::map] or [purrr::map_chr] to simply extract the label field.
+Forms a label for a column (\code{ycol} method) or columns (\code{yspec} method). Use
+\link[purrr:map]{purrr::map} or \link[purrr:map]{purrr::map_chr} to simply extract the label field.
 }
 \examples{
 spec <- ys_help$spec()
@@ -26,5 +26,5 @@ purrr:::map(spec,"label")
 }
 }
 \seealso{
-[ys_get_short], [ys_get_short], [ys_get_short_unit]
+\link{ys_get_short}, \link{ys_get_short}, \link{ys_get_short_unit}
 }

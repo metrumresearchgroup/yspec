@@ -11,12 +11,12 @@ ys_document(x, type = c("working", "regulatory"), ...)
 
 \item{type}{the document type}
 
-\item{...}{passed to \link{render_define} or \link{render_fda_define}; it is important
+\item{...}{passed to \code{\link[=render_define]{render_define()}} or \code{\link[=render_fda_define]{render_fda_define()}}; it is important
 to review these help topics to see what other aspects of the document
 can be specified; see also \code{details} here.}
 }
 \description{
-This function is a wrapper around \link{render_define} and \link{render_fda_define}.
+This function is a wrapper around \code{\link[=render_define]{render_define()}} and \code{\link[=render_fda_define]{render_fda_define()}}.
 }
 \details{
 Select \code{type} of "working` for a working document that contains more
@@ -31,21 +31,35 @@ Note that \code{x} is usually either a \code{yspec} object or a \code{yproj} obj
 You can also pass in the full path to a specification document and
 yspec will guess which format it is and render accordingly.
 
-Because \code{...} are passed to \link{render_define} and \link{render_fda_define},
+Because \code{...} are passed to \code{\link[=render_define]{render_define()}} and \code{\link[=render_fda_define]{render_fda_define()}},
 it is important to review arguments to those functions as well.  Specifically,
 please note that the document \strong{title}, \strong{author}, and \strong{date} can
 be set, along with the name of the output document, the working document
 build directory, and several other aspects of the document can be set
 in the call to \link{ys_document}.
 }
+\section{latex requirements}{
+
+
+For all document types, the following \code{latex} packages are required:
+\enumerate{
+\item \code{array}
+\item \code{longtable}
+\item \code{booktabs}
+\item \code{fontenc}
+\item \code{mathdesign}
+}
+
+Make sure these packages are installed and available when trying to render a document.
+}
+
 \examples{
 
 \dontrun{
   ys_document(ys_help$spec())
   ys_document(ys_help$spec(), type = "regulatory")
-  ys_document(ys_help$spec(), type = "regulatory", build_dir = mrgtemplate())
 }
 }
 \seealso{
-\link{render_define}, \link{render_fda_define}
+\code{\link[=render_define]{render_define()}}, \code{\link[=render_fda_define]{render_fda_define()}}
 }

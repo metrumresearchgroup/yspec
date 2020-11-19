@@ -1,6 +1,7 @@
 
 call_format_fun <- function(yamlfile,
-                            format = c("x_table", "x_table_long","pander_table", "md_outline")) {
+                            format = c("x_table_2", "x_table", "x_table_long",
+                                       "pander_table", "md_outline")) {
   format <- match.arg(format)
   format_fun <- get(format, mode = "function")
   spec <- load_spec(yamlfile)
@@ -9,11 +10,11 @@ call_format_fun <- function(yamlfile,
 
 ##' Render a document from one or more specification objects
 ##' 
-##' This function is a wrapper around [render_define] and [render_fda_define].
+##' This function is a wrapper around [render_define()] and [render_fda_define()].
 ##' 
 ##' @param x a spec or project object
 ##' @param type the document type
-##' @param ... passed to [render_define] or [render_fda_define]; it is important
+##' @param ... passed to [render_define()] or [render_fda_define()]; it is important
 ##' to review these help topics to see what other aspects of the document 
 ##' can be specified; see also `details` here.
 ##' 
@@ -31,21 +32,32 @@ call_format_fun <- function(yamlfile,
 ##' You can also pass in the full path to a specification document and
 ##' yspec will guess which format it is and render accordingly.  
 ##' 
-##' Because `...` are passed to [render_define] and [render_fda_define], 
+##' Because `...` are passed to [render_define()] and [render_fda_define()], 
 ##' it is important to review arguments to those functions as well.  Specifically, 
 ##' please note that the document **title**, **author**, and **date** can 
 ##' be set, along with the name of the output document, the working document 
 ##' build directory, and several other aspects of the document can be set
 ##' in the call to [ys_document]. 
 ##' 
+##' @section latex requirements:
+##' 
+##' For all document types, the following `latex` packages are required: 
+##' 
+##' 1. `array`
+##' 1. `longtable`
+##' 1. `booktabs`
+##' 1. `fontenc`
+##' 1. `mathdesign`
+##' 
+##' Make sure these packages are installed and available when trying to render a document. 
+##' 
 ##' @examples
 ##' 
 ##' \dontrun{
 ##'   ys_document(ys_help$spec())
 ##'   ys_document(ys_help$spec(), type = "regulatory")
-##'   ys_document(ys_help$spec(), type = "regulatory", build_dir = mrgtemplate())
 ##' }
-##' @seealso [render_define], [render_fda_define]
+##' @seealso [render_define()], [render_fda_define()]
 ##' @md
 ##' @export
 ys_document <- function(x, type = c("working", "regulatory"), ...) {
@@ -65,8 +77,8 @@ ys_document <- function(x, type = c("working", "regulatory"), ...) {
 ##' @param stem used to name the output file
 ##' @param format the name of a function that will generate code formatting
 ##' the data specification information
-##' @param output_format passed to [rmarkdown::render]
-##' @param output_dir passed to [rmarkdown::render]
+##' @param output_format passed to [rmarkdown::render()]
+##' @param output_dir passed to [rmarkdown::render()]
 ##' @param build_dir directory where `rmarkdown` should build the
 ##' document
 ##' @param title used in yaml front matter
@@ -77,14 +89,23 @@ ys_document <- function(x, type = c("working", "regulatory"), ...) {
 ##' data specification document
 ##' @param date used in yaml front matter
 ##' @param dots passed to object converter
-##' @param ... passed to [rmarkdown::render]
+##' @param ... passed to [rmarkdown::render()]
 ##' 
 ##'
 ##' @details
 ##' `stem` should not include a file extension, just
 ##' the file stem.
 ##' 
+##' @section latex requirements:
 ##' 
+##' For all document types, the following `latex` packages are required: 
+##' 
+##' 1. `array`
+##' 1. `longtable`
+##' 1. `booktabs`
+##' 1. `fontenc`
+##' 
+##' Make sure these packages are installed and available when trying to render a document.
 ##'
 ##' @examples
 ##'
@@ -105,16 +126,16 @@ render_define <- function(x, ...) {
 ##' @export
 render_define.yproj <- function(x, 
                                 stem = "define_working",
-                                format = c("x_table","x_table_long","pander_table", "md_outline"),
+                                format = c("x_table_2", "x_table","x_table_long"),
                                 output_format = "pdf_document",
                                 output_dir = getwd(),
-                                build_dir = tempdir(),
+                                build_dir = definetemplate(),
                                 title = "Data Specification",
-                                author = "MetrumRG",
+                                author = "",
                                 toc = "yes",
                                 number_sections = "yes",
                                 rmd_template = NULL,
-                                date = base::format(Sys.time()),...) {
+                                date = as.character(Sys.Date()),...) {
   
   if(missing(toc) & length(x)==1) toc <- "no"
   if(missing(number_sections) & length(x)==1) number_sections <- "no"
@@ -146,11 +167,11 @@ render_define.yproj <- function(x,
     setwd(build_dir)
     on.exit(setwd(cwd))
   }
-
+  
   ys_working_markup_ <- basename(tempfile(fileext="aeiou"))
   
   env <- new.env()
-  env[[ys_working_markup_]] <- define_for_rmd(yamlfile,format,x,meta) 
+  env[[ys_working_markup_]] <- define_for_rmd(yamlfile,format,x,meta,tex=TRUE) 
   
   file <- normalPath(paste0(stem, ".Rmd"),mustWork=FALSE)
   
@@ -209,17 +230,18 @@ render_spec.yspec <- function(x, stem = get_meta(x)[["name"]], ..., dots = list(
 
 ##' Generate code for a generic define document
 ##' 
-##' This function is for internal use by [render_define].  
+##' This function is for internal use by [render_define()].  
 ##'
 ##' @param x a project file name
 ##' @param form_ a function or the name of a function to format the spec
 ##' contents
 ##' @param proj a project object from which to render
 ##' @param meta meta data list 
+##' @param tex logical; if `TRUE` then try to switch to `tex` namespace if it exists
 ##' @keywords internal
 ##' @md
 ##' @export
-define_for_rmd <- function(x,form_,proj=NULL,meta=NULL) {
+define_for_rmd <- function(x,form_,proj=NULL,meta=NULL,tex=TRUE) {
   
   if(is.character(form_)) {
     format_fun <- get(form_, mode = "function")
@@ -229,8 +251,6 @@ define_for_rmd <- function(x,form_,proj=NULL,meta=NULL) {
   
   assert_that(is.function(format_fun))
   
-  #environment(format_fun) <- parent.frame()
-  
   if(is.null(proj)) {
     proj <- load_spec_proj(x)  
   }
@@ -238,15 +258,15 @@ define_for_rmd <- function(x,form_,proj=NULL,meta=NULL) {
     meta <- get_meta(proj)  
   }
   
-  if(.has("data", meta) & getOption("yspec.use.kept.data",FALSE)) {
-    warning(
-      "using spec data found in yproject object, not from the source yaml file.",
-      call.=FALSE
-    )
+  if(.has("data", meta)) {
     specs <- meta[["data"]]  
   } else {
     file_names <- map(proj, "spec_file")
     specs <- map(file_names,load_spec)
+  }
+  
+  if(isTRUE(tex)) {
+    specs <- map(specs, try_tex_namespace)
   }
   
   tex <- imap(proj, .f = function(xi,.name) {

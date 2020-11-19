@@ -1,20 +1,23 @@
 
-
 check_spec_input_col <- function(x, col, env, not_allowed = NULL, ...) {
   err <- c()
   if(is.null(x)) return()
   t0 <- nchar(col) <= getOption("ys.col.len",8)
   if(!t0) {
     err <- c(
-      err, 
+      err,
       paste0("column name more than ",  getOption("ys.col.len",8), " characters long")
     )
   }
-  
-  t1 <- all(names(x) %in% setdiff(VALID_SPEC_NAMES, not_allowed))
+  # fields within namespaces have the following pattern: field.namespace
+  # e.g unit.tex; we remove everything after the first `.` when checking for 
+  # valid names; eventually I'd like to refactor the load / check process a bit
+  # to handle this in a more natural way
+  fields <- sub("\\..*$", "", names(x))
+  t1 <- all(fields %in% setdiff(VALID_SPEC_NAMES, not_allowed))
   if(!t1) {
     valid <- setdiff(VALID_SPEC_NAMES, not_allowed)
-    inval <- setdiff(names(x), valid)
+    inval <- setdiff(fields, valid)
     inval <- paste(inval, collapse = ", ")
     err <- c(
       err,
@@ -143,11 +146,12 @@ capture_file_info <- function(x,file,where = "SETUP__") {
 ##' 
 ##' sp <- ys_load(ys_help$file(), verbose = TRUE)
 ##' 
-##' 
+##' @md
 ##' @export
 ys_load <- function(file, verbose=FALSE,  ...) {
   x <- ys_load_file(file, verbose=verbose,...)
-  unpack_spec(x,verbose=verbose)
+  x <- unpack_spec(x,verbose=verbose)
+  set_namespace(x, "base")
 }
 
 ##' @rdname ys_load
@@ -174,34 +178,40 @@ unpack_spec <- function(x,verbose=FALSE) {
   
   check_spec_input(x)
   
-  # defaults
-  x[] <- imap(x,.f=col_initialize)
-  
   # for looking up column data
+  x[] <- imap(x, .f = col_initialize)
+  
   lookup <- ys_get_lookup(x,verbose=verbose)
   
   if(length(lookup) > 0 & verbose) {
     verb(relapse(":",13), relapse(":",30))
   }
+  
   x[] <- map_if(
     .x = x,
     .p = ~.x$do_lookup,
     .f = merge_lookup_column,
     lookup = lookup, 
-    file = get_meta(x)[["spec_file"]], 
-    verbose=verbose
+    file = pull_meta(x, "spec_file"), 
+    verbose = verbose
   )
+  
   x[] <- map(x, unpack_col)
+
+  m <- get_meta(x)
+  m[["namespace"]] <- list_namespaces(x)
+  x <- structure(x, meta = m)
+  
   check_spec_cols(x)
   ans <- structure(x, class = "yspec")
   if(.has("import", get_meta(x))) {
-    import <- ys_load(get_meta(x)[["import"]])
-    ans <- c(import,ans)
+    import <- ys_load(maybe_pull_meta(x,"import"))
+    ans <- c(import,ans,.meta = get_meta(ans))
   }
-  if(isTRUE(get_meta(x)[["character_last"]])) {
+  if(isTRUE(maybe_pull_meta(x, "character_last"))) {
     type <- map_chr(ans, "type")
     chr <- type=="character"
-    comment <- names(ans) %in% get_meta(x)[["comment_col"]]
+    comment <- names(ans) %in% maybe_pull_meta(x, "comment_col")
     ans <- c(ans[(!chr) | comment],ans[chr & (!comment)])
   }
   ans
@@ -259,7 +269,6 @@ unpack_meta <- function(x,to_update, verbose=FALSE, ...) {
   structure(x, meta = meta)
 }
 
-
 unpack_about <- function(x) {
   if(!exists("about",x)) {
     x[["about"]] <- c(x[["short"]],NA)
@@ -274,11 +283,9 @@ unpack_about <- function(x) {
 }
 
 unpack_col <- function(x) {
-  
   if(identical(x,NULL)) {
     x <- list(short = x[["col"]], lookup=TRUE)
   }
-  
   if(.no("short",x)) {
     x[["short"]] <- x[["col"]]
   }
@@ -310,6 +317,7 @@ unpack_col <- function(x) {
   if(.has("long", x)) {
     x$long <- paste0(x$long, collapse = " ")
   }
+  x <- create_namespaces(x)
   structure(x, class = "ycol")
 }
 
@@ -341,7 +349,6 @@ col_initialize <- function(x, name) {
     x[["do_lookup"]] <- FALSE
     x[["lookup"]] <- "<none>"
   }
-  
   x
 }
 
@@ -365,6 +372,7 @@ ys_load_meta <- function(file) {
 ##' 
 ##' class(load_spec_any(file_proj_ex()))
 ##' 
+##' @md
 ##' @export
 load_spec_any <- function(file,...) {
   file <- normalPath(file,mustWork=FALSE)

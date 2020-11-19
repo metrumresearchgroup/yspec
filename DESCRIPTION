@@ -1,15 +1,18 @@
 Package: yspec
 Type: Package
 Title: Data Specification for Pharmacometrics
-Version: 0.4.1
+Version: 0.4.2
 Authors@R: c(
        person("Kyle T", "Baron", "", "kyleb@metrumrg.com", c("aut", "cre"), comment=c(ORCID="0000-0001-7252-5656")),
        person("Metrum Research Group", role =  c("cph"))
        )
 Maintainer: Kyle Baron <kyleb@metrumrg.com>
+URL: https://github.com/metrumresearchgroup/yspec
+BugReports: https://github.com/metrumresearchgroup/yspec/issues
 Description: Generate Define.pdf from yaml specification.
 License: GPL (>=2)
 Encoding: UTF-8
+Language: en-US
 LazyData: true
 Depends: R (>= 3.5.0)
 Imports: 
@@ -26,7 +29,8 @@ Imports:
     crayon (>= 1.3.4),
     tibble, 
     tidyselect, 
-    fs
+    fs, 
+    stringr
 Suggests: pander, testthat
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1
@@ -41,6 +45,7 @@ Collate:
     'class-yspec.R'
     'col_factor.R'
     'define.R'
+    'definetemplate.R'
     'err_log.R'
     'exspec.R'
     'fda_define.R'
@@ -49,7 +54,8 @@ Collate:
     'load_spec.R'
     'lookup.R'
     'md_outline.R'
-    'mrgtemmplate.R'
+    'namespace.R'
+    'nm_input.R'
     'pander_table.R'
     'spec_validate.R'
     'split_col.R'

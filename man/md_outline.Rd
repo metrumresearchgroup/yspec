@@ -2,7 +2,7 @@
 % Please edit documentation in R/md_outline.R
 \name{md_outline}
 \alias{md_outline}
-\title{Generate an outline representation of a data spec}
+\title{DEPRECATED: Generate an outline representation of a data spec}
 \usage{
 md_outline(x)
 }
@@ -13,5 +13,5 @@ md_outline(x)
 character
 }
 \description{
-Generate an outline representation of a data spec
+DEPRECATED: Generate an outline representation of a data spec
 }

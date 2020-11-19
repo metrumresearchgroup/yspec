@@ -13,11 +13,11 @@ render_fda_define(x, ...)
   x,
   stem = "define",
   title = "Data Definitions",
-  date = format(Sys.time()),
-  author = "MetrumRG Staff Scientist",
+  date = as.character(Sys.Date()),
+  author = "",
   format = "fda_define",
   output_dir = getwd(),
-  build_dir = tempdir(),
+  build_dir = definetemplate(),
   ext = ".xpt",
   loc = ".",
   ...
@@ -30,7 +30,7 @@ render_fda_define(x, ...)
 \arguments{
 \item{x}{a yaml specification file name or a yproj object}
 
-\item{...}{passed to [rmarkdown::render]}
+\item{...}{passed to \code{\link[rmarkdown:render]{rmarkdown::render()}}}
 
 \item{stem}{used to name the output document}
 
@@ -51,10 +51,10 @@ provided will create any necessary directories if they do not exist.}
 
 \item{build_dir}{directory where the document is to be built}
 
-\item{ext}{data set file extension to include; this should only 
+\item{ext}{data set file extension to include; this should only
 be changed from default value of ".xpt" for testing purposes}
 
-\item{loc}{location to use for data set files; this should 
+\item{loc}{location to use for data set files; this should
 only be changed from default value of "." for testing purposes}
 
 \item{dots}{named list of arguments passed to object converter function}
@@ -62,6 +62,21 @@ only be changed from default value of "." for testing purposes}
 \description{
 Render a define.pdf document conforming to FDA standards
 }
+\section{latex requirements}{
+
+
+For all document types, the following \code{latex} packages are required:
+\enumerate{
+\item \code{array}
+\item \code{longtable}
+\item \code{booktabs}
+\item \code{fontenc}
+\item \code{mathdesign}
+}
+
+Make sure these packages are installed and available when trying to render a document.
+}
+
 \examples{
 proj_file <- file_proj_ex()
 

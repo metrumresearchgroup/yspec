@@ -4,7 +4,7 @@
 \alias{define_for_rmd}
 \title{Generate code for a generic define document}
 \usage{
-define_for_rmd(x, form_, proj = NULL, meta = NULL)
+define_for_rmd(x, form_, proj = NULL, meta = NULL, tex = TRUE)
 }
 \arguments{
 \item{x}{a project file name}
@@ -15,8 +15,10 @@ contents}
 \item{proj}{a project object from which to render}
 
 \item{meta}{meta data list}
+
+\item{tex}{logical; if \code{TRUE} then try to switch to \code{tex} namespace if it exists}
 }
 \description{
-This function is for internal use by \link{render_define}.
+This function is for internal use by \code{\link[=render_define]{render_define()}}.
 }
 \keyword{internal}

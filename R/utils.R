@@ -243,7 +243,7 @@ normalPath <- function(path, winslash = .Platform$file.sep, mustWork = NA) {
 
 ##' Functions to sanitize text for TeX documents
 ##' 
-##' Based on [xtable::sanitize].  
+##' Based on [xtable::sanitize()].  
 ##' 
 ##' @param x text to sanitize
 ##' 
@@ -292,4 +292,33 @@ verb <- function(left, right) {
 }
 
 relapse <- function(x,n) paste0(rep(x,n),collapse="")
+
+cvec_cs <- function (x) {
+  if (is.null(x) | length(x) == 0) 
+    return(character(0))
+  x <- unlist(strsplit(as.character(x), ",", fixed = TRUE), 
+              use.names = FALSE)
+  x <- unlist(strsplit(x, " ", fixed = TRUE), use.names = FALSE)
+  x <- x[x != ""]
+  if (length(x) == 0) {
+    return(character(0))
+  }
+  else {
+    return(x)
+  }
+}
+
+do_escape <- function(x) {
+  str_count(x, fixed("$")) <= 1 &
+    str_count(x, fixed("\\")) == 0
+}
+
+ys_escape <- function(string, esc = c("_", "%", "$", "&"), ...) {
+  if(is.null(esc)) return(string)
+  w <- do_escape(string)
+  for(ch in esc) {
+    string[w] <- gsub(ch, paste0("\\",ch), string[w], fixed = TRUE)
+  }
+  string
+}
 

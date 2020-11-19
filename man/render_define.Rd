@@ -15,16 +15,16 @@ render_define(x, ...)
 \method{render_define}{yproj}(
   x,
   stem = "define_working",
-  format = c("x_table", "x_table_long", "pander_table", "md_outline"),
+  format = c("x_table_2", "x_table", "x_table_long"),
   output_format = "pdf_document",
   output_dir = getwd(),
-  build_dir = tempdir(),
+  build_dir = definetemplate(),
   title = "Data Specification",
-  author = "MetrumRG",
+  author = "",
   toc = "yes",
   number_sections = "yes",
   rmd_template = NULL,
-  date = base::format(Sys.time()),
+  date = as.character(Sys.Date()),
   ...
 )
 
@@ -41,16 +41,16 @@ render_spec(x, ...)
 \arguments{
 \item{x}{a \code{yproj} object or project specification file name}
 
-\item{...}{passed to \link[rmarkdown:render]{rmarkdown::render}}
+\item{...}{passed to \code{\link[rmarkdown:render]{rmarkdown::render()}}}
 
 \item{stem}{used to name the output file}
 
 \item{format}{the name of a function that will generate code formatting
 the data specification information}
 
-\item{output_format}{passed to \link[rmarkdown:render]{rmarkdown::render}}
+\item{output_format}{passed to \code{\link[rmarkdown:render]{rmarkdown::render()}}}
 
-\item{output_dir}{passed to \link[rmarkdown:render]{rmarkdown::render}}
+\item{output_dir}{passed to \code{\link[rmarkdown:render]{rmarkdown::render()}}}
 
 \item{build_dir}{directory where \code{rmarkdown} should build the
 document}
@@ -77,6 +77,20 @@ data specification document}
 \code{stem} should not include a file extension, just
 the file stem.
 }
+\section{latex requirements}{
+
+
+For all document types, the following \code{latex} packages are required:
+\enumerate{
+\item \code{array}
+\item \code{longtable}
+\item \code{booktabs}
+\item \code{fontenc}
+}
+
+Make sure these packages are installed and available when trying to render a document.
+}
+
 \examples{
 
 file <- ys_help$file()

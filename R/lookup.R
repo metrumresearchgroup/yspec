@@ -19,7 +19,7 @@ ys_lookup_source <- function(x) {
 ##' spec <- load_spec_ex("DEM104101F_PK.yml")
 ##' ys_get_lookup(spec)
 ##' 
-##' 
+##' @md
 ##' @export
 ys_get_lookup <- function(x,verbose=FALSE) {
   files <- get_lookup_files(x)

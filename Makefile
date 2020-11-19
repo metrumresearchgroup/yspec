@@ -5,6 +5,13 @@ TARBALL=${PACKAGE}_${VERSION}.tar.gz
 PKGDIR=.
 CHKDIR=.
 
+bump-dev:
+	Rscript -e 'usethis::use_version("dev")'
+
+tag-version:
+	git tag $(VERSION)
+	git push origin $(VERSION)
+
 testing:
 	make doc
 	make build
@@ -33,7 +40,7 @@ ec:
 	echo ${VERSION}
 
 data:
-	Rscript --vanilla inst/test_data/data.R
+	Rscript inst/test_data/data.R
 
 all:
 	make data

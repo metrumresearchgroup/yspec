@@ -28,6 +28,7 @@
 #' 
 #' head(ys_add_factors(data, spec))
 #' 
+#' @md
 #' @export
 ys_add_factors <- function(.data, .spec, ... , 
                            .all = TRUE, 

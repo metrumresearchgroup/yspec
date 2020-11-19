@@ -15,10 +15,10 @@ load_spec(...)
 \arguments{
 \item{file}{name of yaml file containing specification}
 
-\item{verbose}{`logical`; print information to the console as the file
+\item{verbose}{\code{logical}; print information to the console as the file
 is processed}
 
-\item{...}{other arguments to update `SETUP__`}
+\item{...}{other arguments to update \code{SETUP__}}
 
 \item{data_path}{optional path to data sets}
 
@@ -33,6 +33,5 @@ sp <- ys_load(ys_help$file())
 sp
 
 sp <- ys_load(ys_help$file(), verbose = TRUE)
-
 
 }

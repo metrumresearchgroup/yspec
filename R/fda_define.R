@@ -71,7 +71,8 @@ add.to.row_long$command <- command__
 ##' spec <- load_spec_ex()
 ##' spec
 ##' fda_table(spec)
-##'
+##' 
+##' @md
 ##' @export
 fda_table <- function(x) {
   if(!is_yspec(x)) {
@@ -79,7 +80,7 @@ fda_table <- function(x) {
   }
   tab <- as_fda_table(x)
   lengths <- c(0, 0.75, 2.1, 0.6, 2.2)
-  align <- paste0("p{",lengths,"in}|")
+  align <- paste0(">{\\raggedright\\arraybackslash}p{",lengths,"in}|")
   align[2] <- paste0("|", align[2])
   xtab <- xtable(tab, align = align)
   ans <- capture.output(
@@ -102,7 +103,8 @@ fda_table <- function(x) {
 ##'
 ##' @param x a spec define object
 ##' @inheritParams fda_define 
-##' @seealso \code{\link{load_spec_proj}}
+##' 
+##' @seealso [load_spec_proj]
 ##'
 ##' @examples
 ##' proj <- file_proj_ex()
@@ -110,7 +112,7 @@ fda_table <- function(x) {
 ##' spec <- load_spec_proj(proj)
 ##'
 ##' fda_content_table(spec)
-##'
+##' @md
 ##' @export
 fda_content_table <- function(x, ext=".xpt", loc=".") {
   if(!is_yproj(x)) {
@@ -121,7 +123,7 @@ fda_content_table <- function(x, ext=".xpt", loc=".") {
   ans <- kable(
     contents,
     format = "latex",
-    align = c("|p{2.85in}", "p{3.15in}|"),
+    align = c("|>{\\raggedright\\arraybackslash}p{2.85in}", ">{\\raggedright\\arraybackslash}p{3.15in}|"),
     escape = FALSE, longtable=TRUE
   )
   ans
@@ -131,6 +133,7 @@ fda_content_table <- function(x, ext=".xpt", loc=".") {
 ##' @export
 fda_table_file <- function(file) {
   x <- load_spec(file)
+  x <- try_tex_namespace(x)
   fda_table(x)
 }
 
@@ -163,8 +166,8 @@ fda_content_table_loc <- function(data_file,loc) {
 ##'
 ##' @return
 ##' A character vector of in markdown format.  Wrap
-##' \code{fda_define} in \code{\link{writeLines}} and
-##' render \code{asis} in an Rmarkdown document.
+##' [fda_define()] in [writeLines()] and
+##' render `asis` in an Rmarkdown document.
 ##'
 ##' @examples
 ##' proj <- file_proj_ex()
@@ -174,7 +177,8 @@ fda_content_table_loc <- function(data_file,loc) {
 ##' \dontrun{
 ##'   fda_define(proj)
 ##' }
-##' @seealso \code{\link{fda_table}}
+##' @seealso [fda_table()]
+##' @md
 ##' @export
 fda_define <- function(file, title="Datasets", ext=".xpt", loc=".",...) {
   
@@ -204,7 +208,7 @@ fda_define <- function(file, title="Datasets", ext=".xpt", loc=".",...) {
 ##' @param build_dir directory where the document is to be built
 ##' @inheritParams fda_define
 ##' @inheritParams rmarkdown::render 
-##' @param ... passed to [rmarkdown::render]
+##' @param ... passed to [rmarkdown::render()]
 ##'
 ##' @examples
 ##' proj_file <- file_proj_ex()
@@ -215,8 +219,22 @@ fda_define <- function(file, title="Datasets", ext=".xpt", loc=".",...) {
 ##'   render_fda_define(proj_file)
 ##' }
 ##' 
+##' @section latex requirements:
+##' 
+##' For all document types, the following `latex` packages are required: 
+##' 
+##' 1. `array`
+##' 1. `longtable`
+##' 1. `booktabs`
+##' 1. `fontenc`
+##' 1. `mathdesign`
+##' 
+##' Make sure these packages are installed and available when trying to render a document.
+##' 
+##' 
+##' @md
 ##' @export
-render_fda_define <- function(x, ... ) {
+render_fda_define  <- function(x, ... ) {
   UseMethod("render_fda_define")
 }
 
@@ -225,11 +243,11 @@ render_fda_define <- function(x, ... ) {
 render_fda_define.yproj <- function(x, 
                                     stem = "define",
                                     title = "Data Definitions",
-                                    date = format(Sys.time()),
-                                    author = "MetrumRG Staff Scientist",
+                                    date = as.character(Sys.Date()),
+                                    author = "",
                                     format = "fda_define",
                                     output_dir = getwd(),
-                                    build_dir = tempdir(),
+                                    build_dir = definetemplate(),
                                     ext = ".xpt", loc = '.', 
                                     ...) {
   

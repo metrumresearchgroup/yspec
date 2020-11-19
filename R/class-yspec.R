@@ -61,17 +61,18 @@ update_short <- function(spec, ...) {
 #' @param x a `yspec` object
 #' @param y a `yspec` object
 #' @param ... not used
+#' @param .meta meta information to use for the new spec object
 #' 
 #' 
 #' @md
 #' @export
-c.yspec <- function(x,y,...) {
+c.yspec <- function(x,y,...,.meta = get_meta(x)) {
   assert_that(is_yspec(y))
   new_cols <- setdiff(names(y),names(x))
   if(!identical(new_cols, names(y))) {
     stop("'x' and 'y' cannot share any names.")  
   }
-  structure(c(unclass(x),unclass(y)), meta = get_meta(x), class="yspec")
+  structure(c(unclass(x),unclass(y)), meta = .meta, class="yspec")
 }
 
 ##' @export
@@ -182,6 +183,10 @@ pull_meta <- function(x,what) {
   ans[[what]]
 }
 
+maybe_pull_meta <- function(x, what) {
+  attr(x, "meta")[[what]]  
+}
+
 ##' Get the file name for a yspec object
 ##' 
 ##' This read from the yspec object meta data via [get_meta].
@@ -281,19 +286,44 @@ type.yspec <- function(x, default = "numeric",...) {
   map_chr(x,"type", .default = default)
 }
 
+#' Form a short name
+#' 
+#' @param x a yspec or ycol object
+#' @param default character field name to use when the `short` field is not 
+#' found
+#' @param short_max if `short` is found, but contains more than `short_max` 
+#' characters, `col` will be used
+#' @param title_case `short` will be converted with [tools::toTitleCase] if it 
+#' is found
+#' @param ... passed to methods
+#' @md
 short <- function(x,...) UseMethod("short")
-##' @export
-short.ycol <- function(x, default = ".", ...) {
+#' @rdname short
+#' @export
+short.ycol <- function(x, default = "col", 
+                       short_max = getOption("yspec.short.max",NULL), 
+                       title_case = getOption("yspec.short.title", FALSE), ...) {
   if(.no("short", x)) {
-    ans <- default
+    ans <- x[[default]]
   } else {
     ans <- x[["short"]]
+    if(isTRUE(title_case)) {
+      ans <- toTitleCase(ans)  
+    }
+  }
+  if(is.numeric(short_max)) {
+    if(nchar(ans) > short_max) {
+      ans <- x[["col"]]
+    }
   }
   ans
 }
 
+#' @param .aslist if `TRUE`a named list is returned; otherwise, a named character
+#' vector
+#' @rdname short
 #' @export
-short.yspec <- function(x, default = '.', .aslist=TRUE,...) {
+short.yspec <- function(x, default = "short", .aslist=TRUE,...) {
   if(isTRUE(.aslist)) {
     ans <- map(x, short.ycol, default = default, ...)  
   } else {
@@ -400,6 +430,27 @@ ys_add_labels <- function(data,spec,fun=label.ycol) {
     attr(data[[i]],"label") <- col_labels[[i]]
   }
   data
+}
+
+#' Select a subset of columns from a yspec object
+#' 
+#' @param .x a yspec object
+#' @param ... unquoted columns to select
+#' 
+#' @examples
+#' 
+#' spec <- ys_help$spec()
+#' 
+#' ys_select(spec, WT, AGE, ALB)
+#' 
+#' @export
+ys_select <- function(.x, ...) {
+  keep <- eval_select(expr(c(...)), as.list(.x))
+  if(length(keep)==0) {
+    return(.x) 
+  }
+  ans <- .x[keep]
+  ans
 }
 
 as_spec_list <- function(...) {

@@ -1,0 +1,26 @@
+SETUP__:
+  description: a test spec that works
+  use_internal_db: true
+  lookup_file: namespace-works-lookup.yaml
+DV: !look
+  short: dependent variable
+  unit: micrograms / ml
+  unit.tex: $\\mu$g / ml
+  range: [1,5]
+WT:
+  short: baseline body weight
+  short.plot: weight
+  unit: kg
+CRCL:
+  short: creatinine clearance
+  unit: ml / min / 1.73m2
+  unit.tex: ml/min/1.73m$^2$
+C: 
+  short: comment column
+  short.plot: comment col in foo ns
+  short.tex: comment col in bar ns
+ALB: !look
+SEX:
+  values: [0,1]
+  decode: [m,f]
+  decode.plot: [male, female]

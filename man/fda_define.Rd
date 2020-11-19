@@ -11,10 +11,10 @@ fda_define(file, title = "Datasets", ext = ".xpt", loc = ".", ...)
 
 \item{title}{used in yaml front matter}
 
-\item{ext}{data set file extension to include; this should only 
+\item{ext}{data set file extension to include; this should only
 be changed from default value of ".xpt" for testing purposes}
 
-\item{loc}{location to use for data set files; this should 
+\item{loc}{location to use for data set files; this should
 only be changed from default value of "." for testing purposes}
 
 \item{...}{arguments passed to rendering functions; see
@@ -22,7 +22,7 @@ details}
 }
 \value{
 A character vector of in markdown format.  Wrap
-\code{fda_define} in \code{\link{writeLines}} and
+\code{\link[=fda_define]{fda_define()}} in \code{\link[=writeLines]{writeLines()}} and
 render \code{asis} in an Rmarkdown document.
 }
 \description{
@@ -38,5 +38,5 @@ cat(readLines(proj), sep = "\n")
 }
 }
 \seealso{
-\code{\link{fda_table}}
+\code{\link[=fda_table]{fda_table()}}
 }

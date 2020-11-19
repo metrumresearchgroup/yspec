@@ -1,5 +1,5 @@
 
-check_values <- function(x,values,verbose=FALSE, con = NULL) {
+check_values <- function(x,values,verbose=FALSE, con = NULL, env = list()) {
   if(is.null(values)  | is.null(x)) return(TRUE)
   x <- x[!is.na(x)]
   x <- unlist(unique(x),use.names = FALSE)
@@ -15,7 +15,11 @@ check_values <- function(x,values,verbose=FALSE, con = NULL) {
     }
   }
   if(length(x)==0) return(TRUE)
-  all(x %in% values)
+  ans <- all(x %in% values)
+  if(!ans) {
+    env$check_values_bad <- setdiff(x,values)  
+  }
+  return(ans)
 }
 
 check_range <- function(x,range,verbose=FALSE, con = NULL) {
@@ -57,8 +61,6 @@ append_log <- function(env,entries,.bullet = FALSE) {
   
 }
 
-
-
 add_error <- function(env) {
   env$error <- TRUE
   return(invisible(NULL))
@@ -93,10 +95,12 @@ check_data_names <- function(ndata,nspec,env,output) {
   if(length(diff) > 0) {
     pos <- match(diff,nspec)
     dfs <- data.frame(position = pos, col_name = diff,col_source = "spec",stringsAsFactors=FALSE)
-    diff <- paste0(diff, collapse = ", ")
-    diff <- crayon::black(strwrap(diff, width = 50))
     add_log(env, "names in spec but not in data:")
-    append_log(env,diff,.bullet = FALSE)
+    diff <- paste0(" - ", diff)
+    for(d in diff) {
+      d <- crayon::silver(d)
+      append_log(env, d, .bullet = FALSE)
+    }
   }
   
   # In the data but not in the spec
@@ -105,10 +109,12 @@ check_data_names <- function(ndata,nspec,env,output) {
   if(length(diff) > 0) {
     pos <- match(diff,ndata)
     dfd <- data.frame(position = pos, col_name = diff,col_source = "data",stringsAsFactors=FALSE)
-    diff <- paste0(diff, collapse = ", ")
-    diff <- crayon::black(strwrap(diff, width = 50))
     add_log(env, "names in data but not in spec:")
-    append_log(env,diff,.bullet = FALSE)
+    diff <- paste0(" - ", diff)
+    for(d in diff) {
+      d <- crayon::silver(d)
+      append_log(env, d, .bullet = FALSE)
+    }
   }
   
   dff <- dplyr::bind_rows(dfs,dfd)
@@ -206,7 +212,7 @@ ys_check <- function(data, spec, verbose = FALSE, output = tempfile(),
        file = output, sep="")
   
   check_data_names(ndata,nspec,env,output) 
-
+  
   cata("\n", make_sep(), "\n", file = output,sep="")
   
   cata("checking each column in the spec:", file = output)
@@ -216,9 +222,14 @@ ys_check <- function(data, spec, verbose = FALSE, output = tempfile(),
     y <- data[[x$col]]
     if(is.null(y)) next 
     cata("  * column: ", x$col, file = output)
-    val <- check_values(y,x[["values"]],verbose = FALSE, con=output)
+    val <- check_values(y,x[["values"]],verbose = FALSE, con=output, env = env)
     if(!val) {
       add_log(env, "discrete value out of range:", x$col)
+      for(bad in env$check_values_bad) {
+        bad <- paste0(" - ", x$col, " = ", bad, " in data")
+        bad <- crayon::silver(bad)
+        append_log(env, bad, .bullet = FALSE)  
+      }
       add_error(env)
     }
     range <- check_range(y,x[["range"]],verbose=FALSE,con = output)
@@ -260,7 +271,7 @@ ys_check <- function(data, spec, verbose = FALSE, output = tempfile(),
   if(!using_stderr) {
     message("The data set passed all checks.")
   }
-  return(invisible(env$error))
+  return(invisible(!env$error))
 }
 
 #' @rdname ys_check
