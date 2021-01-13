@@ -14,7 +14,7 @@ An object of class \code{yhelp} of length 12.
 ys_help
 }
 \arguments{
-\item{...}{further arguments passed to or from other methods.}
+\item{...}{not used}
 }
 \description{
 \code{ys_help} is an environment containing functions that can be called to

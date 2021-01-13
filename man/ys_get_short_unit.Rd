@@ -4,7 +4,7 @@
 \alias{ys_get_short_unit}
 \title{Get short with unit}
 \usage{
-ys_get_short_unit(x, .aslist = TRUE, ...)
+ys_get_short_unit(x, .aslist = TRUE, parens = TRUE, ...)
 }
 \arguments{
 \item{x}{ycol or yspec object}
@@ -12,7 +12,10 @@ ys_get_short_unit(x, .aslist = TRUE, ...)
 \item{.aslist}{a named list is returned if \code{TRUE}, otherwise a named
 character vector}
 
-\item{...}{arguments passed to \link{ys_get_short} and \link{ys_get_unit}}
+\item{parens}{if \code{TRUE}, then parens will be added around any unit with one
+or more character}
+
+\item{...}{arguments passed to \code{\link[=ys_get_short]{ys_get_short()}} and \code{\link[=ys_get_unit]{ys_get_unit()}}}
 }
 \description{
 Get short with unit
@@ -26,5 +29,5 @@ ys_get_short_unit(spec$WT)
 
 }
 \seealso{
-\link{ys_get_short}, \link{ys_get_unit}, \link{ys_get_label}
+\code{\link[=ys_get_short]{ys_get_short()}}, \code{\link[=ys_get_unit]{ys_get_unit()}}, \code{\link[=ys_get_label]{ys_get_label()}}
 }
