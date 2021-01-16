@@ -4,13 +4,16 @@
 \alias{lscape_table}
 \title{Create a data frame for landscape define document}
 \usage{
-lscape_table(spec, title_case = FALSE)
+lscape_table(spec, title_case = FALSE, pmtable = FALSE)
 }
 \arguments{
 \item{spec}{a `yspec` object}
 
 \item{title_case}{if `TRUE` the `Label` column is passed to 
 [tools::toTitleCase()]}
+
+\item{pmtable}{set this to `TRUE` to return a list object with class 
+`pmtable` which can directly be turned into a latex table}
 }
 \value{
 A tibble with columns:
@@ -18,7 +21,7 @@ A tibble with columns:
 - `Label`
 - `Unit`
 - `Type`
-- `Decode/Source/Comment`
+- `Decode/Range/Comment`
 }
 \description{
 Create a data frame for landscape define document

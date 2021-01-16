@@ -3,6 +3,8 @@
 #' @param spec a `yspec` object
 #' @param title_case if `TRUE` the `Label` column is passed to 
 #' [tools::toTitleCase()]
+#' @param pmtable set this to `TRUE` to return a list object with class 
+#' `pmtable` which can directly be turned into a latex table
 #' 
 #' @return A tibble with columns:
 #' - `Variable`
