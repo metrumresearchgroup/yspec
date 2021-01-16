@@ -144,7 +144,9 @@ define_col_pander <- function(x) {
   if(.has("values", x)) {
     val <- x[["values"]]
     if(.has("decode",x)) {
+      same <- which(val == x[["decode"]])
       val <- paste(val, " = ", x[["decode"]])
+      val[same] <- x[["decode"]][same]
     }
     val <- paste0(val, collapse=", ")
   } else {
@@ -208,7 +210,9 @@ define_col_pander_long <- function(x) {
   if(.has("values", x)) {
     val <- x[["values"]]
     if(.has("decode",x)) {
+      same <- which(val == x[["decode"]])
       val <- paste(val, " = ", x[["decode"]])
+      val[same] <- x[["decode"]][same]
     }
     val <- paste0(val, collapse=", ")
   } else {
