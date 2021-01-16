@@ -3,8 +3,7 @@ SETUP__:
   sponsor: example-project
   projectnumber: EXAMPK1011F
   use_internal_db: true
-  glue: 
-    bmiunits: "kg/m$^2$"
+  glue: {bmiunits: "kg/m$^2$"}
 C:
 NUM:
 ID:

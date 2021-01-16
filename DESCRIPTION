@@ -44,6 +44,7 @@ Collate:
     'class-yproject.R'
     'class-yspec.R'
     'col_factor.R'
+    'define-lscape.R'
     'define.R'
     'definetemplate.R'
     'err_log.R'
