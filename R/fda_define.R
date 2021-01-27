@@ -185,7 +185,7 @@ fda_define <- function(file, title="Datasets", ext=".xpt", loc=".",...) {
   x <- load_spec_proj(file)
   
   main <- paste0("# ", title)
-
+  
   contents <- fda_content_table(x, ext=ext, loc=loc, ...)
   
   specs <- map(x, function(this) {
@@ -206,6 +206,8 @@ fda_define <- function(file, title="Datasets", ext=".xpt", loc=".",...) {
 ##' @param format function to generate the define text
 ##' @param dots named list of arguments passed to object converter function
 ##' @param build_dir directory where the document is to be built
+##' @param check_xpt if `TRUE`, then a warning will be issued if the `.xpt` 
+##' data file for each `yspec` object is not found in `output_dir`
 ##' @inheritParams fda_define
 ##' @inheritParams rmarkdown::render 
 ##' @param ... passed to [rmarkdown::render()]
@@ -249,6 +251,7 @@ render_fda_define.yproj <- function(x,
                                     output_dir = getwd(),
                                     build_dir = definetemplate(),
                                     ext = ".xpt", loc = '.', 
+                                    check_xpt = FALSE, 
                                     ...) {
   
   output_dir <- normalPath(output_dir)
@@ -301,6 +304,8 @@ render_fda_define.yproj <- function(x,
   
   if(copy_back) file.copy(ans, output_dir, overwrite = TRUE)
   
+  if(isTRUE(check_xpt)) check_xpt_file(yamlfile, output_dir)
+  
   return(invisible(ans))
   
 }
@@ -318,6 +323,25 @@ render_fda_define.yspec <- function(x, ..., dots = list()) {
   dots <- c(list(x),dots)
   proj <- do.call(ys_project, dots)
   render_fda_define.yproj(proj,...)  
+}
+
+check_xpt_file <- function(yamlfile, output_dir) {
+  proj <- ys_load_proj(yamlfile)
+  xpts <- map_chr(proj, "xpt_file")
+  paths <- file.path(output_dir, basename(xpts))
+  found <- file.exists(paths)
+  if(all(found)) return(invisible(TRUE))
+  warning(
+    "[yspec] could not locate some data files in output_dir; ",
+    "links to\n     data files added to pdf document, but they will not work",
+    call. = FALSE
+  )
+  miss <- basename(paths[!found])
+  for(m in miss) {
+    msg <- "[yspec] data file {m} not found in pdf output_dir"
+    warning(glue(msg), call. = FALSE)
+  }
+  return(invisible(FALSE))
 }
 
 

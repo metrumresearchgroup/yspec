@@ -17,9 +17,15 @@ load_spec_ex <- function(file = "spec.yml") {
 
 ##' @rdname load_spec_ex
 ##' @export
-load_proj_ex <- function(file = "project.yml") {
-  file <- file_proj_ex(file)
-  load_spec_proj(file)
+load_proj_ex <- function() {
+  path <- system.file(
+    "spec", 
+    c("DEM104101F_PK.yml", 
+    "DEM104101F_PKPD.yml", 
+    "DEM104101F_AE.yml"),
+    package = "yspec"
+  )
+  do.call(ys_project_file, as.list(path))
 }
 
 ##' @rdname load_spec_ex
