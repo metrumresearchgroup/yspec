@@ -174,7 +174,7 @@ capture_file_info <- function(x,file,where = "SETUP__") {
 ##' @export
 ys_load <- function(file, verbose=FALSE,  ...) {
   x <- ys_load_file(file, verbose=verbose,...)
-  x <- unpack_spec(x, verbose=verbose)
+  x <- unpack_spec(x, verbose = verbose)
   set_namespace(x, "base")
 }
 
@@ -198,7 +198,7 @@ ys_load_file <- function(file, data_path = NULL, data_stem = NULL, verbose=FALSE
 ##' @export
 load_spec <- function(...) ys_load(...)
 
-unpack_spec <- function(x, verbose=FALSE) {
+unpack_spec <- function(x, verbose = FALSE) {
   
   control <- get_spec_control(get_meta(x))
   
