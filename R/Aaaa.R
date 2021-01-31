@@ -42,8 +42,7 @@ VALID_SETUP_NAMES <- c(
   "data_path", "data_stem", "name", "spec_file", 
   "spec_path", "glue", "use_internal_db", 
   "import", "character_last","comment_col", 
-  "strict", "max_nchar_label", "max_nchar_col", 
-  "max_nchar_short"
+  "max_nchar_label", "max_nchar_col", "max_nchar_short"
 )
 ys_control_defaults <- function() {
   list(
