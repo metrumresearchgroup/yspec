@@ -1,0 +1,6 @@
+SETUP__:
+  max_char_label: 100
+ABC:
+  type: numeric
+  short: blah
+  label: this is a label that is longer than the usual 40 characters

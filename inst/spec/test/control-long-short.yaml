@@ -1,0 +1,7 @@
+SETUP__:
+  max_char_short: 100
+ABC:
+  type: numeric
+  label: blah
+  short: this is short text that is longer than the usual 40 characters
+
