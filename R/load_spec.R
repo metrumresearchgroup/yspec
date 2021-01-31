@@ -1,15 +1,17 @@
 
 get_spec_control <- function(meta = NULL) {
   ans <- ys_control_defaults()
+  mo <- map(ans, mode)
   if(is.null(meta)) return(ans)
   for(nn in names(ans)) {
     if(.has(nn, meta)) {
+      assert_that(
+        identical(mode(meta[[nn]]), mo[[nn]]),
+        msg = glue("meta field {nn} has wrong type (required: {mo[[nn]]})")
+      )
       ans[[nn]] <- meta[[nn]]  
     }
   }
-  assert_that(is.numeric(ans[["max_nchar_col"]]))
-  assert_that(is.numeric(ans[["max_nchar_label"]]))
-  assert_that(is.numeric(ans[["max_nchar_short"]]))
   ans
 }
 
