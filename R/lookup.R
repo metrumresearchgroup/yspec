@@ -35,7 +35,11 @@ ys_get_lookup <- function(x,verbose=FALSE) {
   files <- rev(files)
   for(.file in files) {
     this <- ys_load_file(.file, verbose = verbose)
-    check_spec_input(this, context = "lookup spec", not_allowed = "lookup")
+    control <- get_spec_control(get_meta(this))
+    check_spec_input(
+      this, context = "lookup spec", not_allowed = "lookup", 
+      control = control
+    )
     this <- map(this, function(x) {
       x[["lookup_source"]] <- basename(.file);
       x

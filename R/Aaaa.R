@@ -41,8 +41,17 @@ VALID_SETUP_NAMES <- c(
   "description", "sponsor", "projectnumber", 
   "data_path", "data_stem", "name", "spec_file", 
   "spec_path", "glue", "use_internal_db", 
-  "import", "character_last","comment_col"
+  "import", "character_last","comment_col", 
+  "strict", "max_nchar_label", "max_nchar_col", 
+  "max_nchar_short"
 )
+ys_control_defaults <- function() {
+  list(
+    max_nchar_label = 40,
+    max_nchar_short = 40,
+    max_nchar_col = 8
+  )
+}
 
 VALID_NS_NAMES <- c(
   "unit", "short", "label", "long", "decode", "comment"
