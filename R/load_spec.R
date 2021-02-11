@@ -200,7 +200,7 @@ load_spec <- function(...) ys_load(...)
 
 unpack_spec <- function(x, verbose = FALSE) {
   
-  control <- get_spec_control(get_meta(x))
+  control <- pull_meta(x, "control")
   
   check_spec_input(x, control = control)
   
@@ -292,6 +292,7 @@ unpack_meta <- function(x,to_update, verbose=FALSE, ...) {
     meta[["import"]] <- fs::path_abs(meta[["import"]],meta[["spec_path"]])  
   }
   spec_validate_meta(meta)
+  meta[["control"]] <- get_spec_control(meta)
   structure(x, meta = meta)
 }
 
