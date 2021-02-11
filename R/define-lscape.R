@@ -49,12 +49,12 @@ lscape_table <- function(spec, title_case = FALSE, pmtable = FALSE) {
     `Decode/Range/Comment` = details
   )
   if(!isTRUE(pmtable)) return(data)
-  align <- cols_align(
-    Variable = col_ragged(1.75), 
-    Label = col_ragged(5.5), 
-    Unit = col_ragged(1.5), 
-    Type = col_ragged(1.5),
-    `Decode/Range/Comment` = col_ragged(10)
+  align <- pmtables::cols_align(
+    Variable = pmtables::col_ragged(1.75), 
+    Label = pmtables::col_ragged(5.5), 
+    Unit = pmtables::col_ragged(2), 
+    Type = pmtables::col_ragged(1.5),
+    `Decode/Range/Comment` = pmtables::col_ragged(10)
   )
   nl <- seq(length(spec))
   ans <- list(data = data, align = align, hline_at = nl, cols_bold = TRUE)
@@ -78,3 +78,9 @@ lscape_details <- function(x) {
   paste0(details,collapse="; ")
 }
 
+#' @export
+lscape <- function(spec) {
+  ans <- pmtables::stable_long(lscape_table(spec, pmtable = TRUE))  
+  ans <- pmtables::st_wrap(ans)
+  ans
+}

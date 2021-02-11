@@ -126,7 +126,7 @@ render_define <- function(x, ...) {
 ##' @export
 render_define.yproj <- function(x, 
                                 stem = "define_working",
-                                format = c("x_table_2", "x_table","x_table_long"),
+                                format = c("x_table_2", "x_table", "x_table_long", "lscape"),
                                 output_format = "pdf_document",
                                 output_dir = getwd(),
                                 build_dir = definetemplate(),
@@ -135,7 +135,7 @@ render_define.yproj <- function(x,
                                 toc = "yes",
                                 number_sections = "yes",
                                 rmd_template = NULL,
-                                date = as.character(Sys.Date()),...) {
+                                date = as.character(Sys.Date()), ...) {
   
   if(missing(toc) & length(x)==1) toc <- "no"
   if(missing(number_sections) & length(x)==1) number_sections <- "no"
@@ -175,9 +175,7 @@ render_define.yproj <- function(x,
   
   file <- normalPath(paste0(stem, ".Rmd"),mustWork=FALSE)
   
-  if(is.null(rmd_template)) {
-    rmd_template <- system.file("rmd", "define.Rmd", package = "yspec")
-  } 
+  rmd_template <- pick_rmd_template(rmd_template, format)
   
   txt <- paste0(readLines(rmd_template), collapse = "\n")
   
@@ -292,3 +290,14 @@ define_for_rmd <- function(x,form_,proj=NULL,meta=NULL,tex=TRUE) {
 ys_render <- function(...) {
   ys_document(...)
 } 
+
+
+pick_rmd_template <- function(input_template, format) {
+  if(is.character(input_template)) return(input_template)  
+  if(format == "lscape") {
+    ans <- system.file("rmd", "define-landscape.Rmd", package = "yspec")  
+  } else {
+    ans <- system.file("rmd", "define.Rmd", package = "yspec")  
+  }
+  ans
+}

@@ -15,7 +15,7 @@ render_define(x, ...)
 \method{render_define}{yproj}(
   x,
   stem = "define_working",
-  format = c("x_table_2", "x_table", "x_table_long"),
+  format = c("x_table_2", "x_table", "x_table_long", "lscape"),
   output_format = "pdf_document",
   output_dir = getwd(),
   build_dir = definetemplate(),
