@@ -51,8 +51,7 @@ all:
 package: 
 	make data
 	make doc
-	make vignettes
-	make build
+	make build-vignettes
 	make install
 	
 test:
@@ -65,6 +64,9 @@ doc:
 
 build:
 	R CMD build --md5  --no-build-vignettes $(PKGDIR)
+
+build-vignettes:
+	R CMD build --md5 $(PKGDIR)
 
 install:
 	R CMD INSTALL --install-tests ${TARBALL}
