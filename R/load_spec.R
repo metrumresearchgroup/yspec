@@ -1,8 +1,8 @@
 
 get_spec_control <- function(meta = NULL) {
   ans <- ys_control_defaults()
-  mo <- map(ans, mode)
   if(is.null(meta)) return(ans)
+  mo <- map(ans, mode)
   for(nn in names(ans)) {
     if(.has(nn, meta)) {
       assert_that(
@@ -172,8 +172,8 @@ capture_file_info <- function(x,file,where = "SETUP__") {
 ##' 
 ##' @md
 ##' @export
-ys_load <- function(file, verbose=FALSE,  ...) {
-  x <- ys_load_file(file, verbose=verbose,...)
+ys_load <- function(file, verbose = FALSE, ...) {
+  x <- ys_load_file(file, verbose = verbose,...)
   x <- unpack_spec(x, verbose = verbose)
   set_namespace(x, "base")
 }
