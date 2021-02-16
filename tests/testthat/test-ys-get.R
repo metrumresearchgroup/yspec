@@ -45,6 +45,9 @@ test_that("get short", {
 test_that("get short unit", {
   ans <- ys_get_short_unit(sp)  
   expect_is(ans,"list")
+  expect_match(ans$WT, "(kg)", fixed = TRUE, all = FALSE)
+  ans <- ys_get_short_unit(sp, parens = FALSE)
+  expect_match(ans$WT, " kg$", fixed = FALSE, all = FALSE)
 })
 
 test_that("short is in title case", {

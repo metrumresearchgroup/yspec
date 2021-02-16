@@ -2,6 +2,8 @@
 library(yspec)
 library(testthat)
 
+context("test-select")
+
 test_that("select column subset", {
   spec <- ys_help$spec()
   spec2 <- ys_select(spec)
