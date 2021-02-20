@@ -1,12 +1,5 @@
 
 get_spec_control <- function(meta = NULL) {
-  len <- getOption("ys.col.len", NULL)
-  if(!is.null(len)) {
-    warning(
-      "the option `ys.col.len` has been deprecated; please use the control 
-      field `max_nchar_col` in SETUP__: instead"
-    )
-  }
   ans <- ys_control_defaults()
   if(is.null(meta)) return(ans)
   mo <- map(ans, mode)
@@ -180,6 +173,14 @@ capture_file_info <- function(x,file,where = "SETUP__") {
 ##' @md
 ##' @export
 ys_load <- function(file, verbose = FALSE, ...) {
+  # not using lifecycle yet; possibly in the future
+  if(!is.null(getOption("ys.col.len", NULL))) {
+    warning(
+      "The option `ys.col.len` has been deprecated; please use the control\n", 
+      "field `max_nchar_col` in SETUP__: instead of the option.", 
+      call. = FALSE
+    )
+  }
   x <- ys_load_file(file, verbose = verbose,...)
   x <- unpack_spec(x, verbose = verbose)
   set_namespace(x, "base")

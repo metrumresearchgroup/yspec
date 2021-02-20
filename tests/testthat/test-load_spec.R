@@ -22,10 +22,10 @@ test_that("error if null values", {
 test_that("decodes, named list", {
   l <- list(NAME  = list(values = list(A=1,B=2), type = "character"))
   x <- test_spec_list(l)
- expect_is(x, "yspec")
- expect_equal(x$NAME$decode, c("A", "B"))
- expect_equal(x$NAME$values, c(A=1,B=2))
- expect_equal(x$NAME$type,"character")
+  expect_is(x, "yspec")
+  expect_equal(x$NAME$decode, c("A", "B"))
+  expect_equal(x$NAME$values, c(A=1,B=2))
+  expect_equal(x$NAME$type,"character")
 })
 
 ld <- yspec:::test_spec_error
@@ -34,7 +34,7 @@ test_that("more decodes than values", {
   expect_error(
     ld("bad_decode.yml"),
     "length of values is not equal to"
-    )
+  )
 })
 
 test_that("duplicate map key", {
@@ -58,13 +58,15 @@ test_that("primary keys not in the data set", {
   )
 })
 
-# This functionality has been deprecated 
-# test_that("error if column name is greater than 8 characters", {
-#   expect_error(ld("long_column.yml"), "more than 8 characters long")
-#   options(ys.col.len = 100)
-#   expect_is(ld("long_column.yml"),"yspec")
-#   options(ys.col.len = NULL)
-# })
+test_that("error if column name is greater than 8 characters", {
+  expect_error(ld("long_column.yml"), "more than 8 characters long")
+  options(ys.col.len = 100)
+  expect_warning(
+    x <- ys_load(ys_help$file()), 
+    "The option `ys.col.len` has been deprecated; please use"
+  )
+  options(ys.col.len = NULL)
+})
 
 test_that("error if unit, type, or short are gt length 1 issue-45", {
   expect_error(yspec:::test_spec_test("issue-45.yml"), 
