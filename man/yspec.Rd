@@ -44,13 +44,14 @@ session
 \itemize{
 \item \code{ys.sanitize} a function to use for sanitizing text before processing with
 latex; see \code{\link[=pander_table]{pander_table()}}
-\item \code{ys.col.len} the maximum number of characters in a data frame column
-name; this defaults to 8 so that columns with 9 or more characters will
-generate an error on load.
 \item \code{ys.fct.suffix} the suffix to add to a column name, used by
 \code{\link[=yspec_add_factors]{yspec_add_factors()}}
 \item \code{ys.require.label} if \code{TRUE}, an error will be generated whenever a column
 is specified without a label
 }
+
+\strong{NOTE}: \code{ys.col.len} was an available in previous versions to set the
+maximum number of characters allowable in a column name. This options has
+been deprecated.  Please use \code{max_char_col} in \verb{SETUP__:} instead.
 }
 

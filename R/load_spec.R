@@ -1,5 +1,12 @@
 
 get_spec_control <- function(meta = NULL) {
+  len <- getOption("ys.col.len", NULL)
+  if(!is.null(len)) {
+    warning(
+      "the option `ys.col.len` has been deprecated; please use the control 
+      field `max_nchar_col` in SETUP__: instead"
+    )
+  }
   ans <- ys_control_defaults()
   if(is.null(meta)) return(ans)
   mo <- map(ans, mode)
@@ -18,13 +25,13 @@ get_spec_control <- function(meta = NULL) {
 check_spec_input_col <- function(x, col, env, not_allowed = NULL, control, ...) {
   err <- c()
   if(is.null(x)) return()
-  t0 <- nchar(col) <= getOption("ys.col.len",control[["max_nchar_col"]])
+  t0 <- nchar(col) <= control[["max_nchar_col"]]
   if(!t0) {
     err <- c(
       err,
       paste0(
         "column name more than ",  
-        getOption("ys.col.len", control[["max_nchar_col"]]), 
+        control[["max_nchar_col"]], 
         " characters long"
       )
     )

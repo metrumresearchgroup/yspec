@@ -44,6 +44,7 @@ VALID_SETUP_NAMES <- c(
   "import", "character_last","comment_col", 
   "max_nchar_label", "max_nchar_col", "max_nchar_short"
 )
+
 ys_control_defaults <- function() {
   list(
     max_nchar_label = 40,
@@ -90,13 +91,15 @@ VALID_NS_NAMES <- c(
 #' 
 #' - `ys.sanitize` a function to use for sanitizing text before processing with 
 #'   latex; see [yspec::pander_table()]
-#' - `ys.col.len` the maximum number of characters in a data frame column 
-#'   name; this defaults to 8 so that columns with 9 or more characters will
-#'   generate an error on load. 
 #' - `ys.fct.suffix` the suffix to add to a column name, used by 
 #'   [yspec::yspec_add_factors()]
 #' - `ys.require.label` if `TRUE`, an error will be generated whenever a column
 #'   is specified without a label
+#'   
+#' **NOTE**: `ys.col.len` was an available in previous versions to set the 
+#' maximum number of characters allowable in a column name. This options has 
+#' been deprecated.  Please use `max_char_col` in `SETUP__:` instead.
+#' 
 #' @docType package
 #' @md
 #' @name yspec
