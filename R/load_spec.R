@@ -215,7 +215,7 @@ unpack_spec <- function(x, verbose = FALSE) {
   # for looking up column data
   x[] <- imap(x, .f = col_initialize)
   
-  lookup <- ys_get_lookup(x,verbose=verbose)
+  lookup <- ys_get_lookup(x, verbose = verbose)
   
   if(length(lookup) > 0 & verbose) {
     verb(relapse(":",13), relapse(":",30))
@@ -239,19 +239,19 @@ unpack_spec <- function(x, verbose = FALSE) {
   check_spec_cols(x, control = control)
   ans <- structure(x, class = "yspec")
   if(.has("import", get_meta(x))) {
-    import <- ys_load(maybe_pull_meta(x,"import"))
+    import <- ys_load(maybe_pull_meta(x, "import"))
     ans <- c(import, ans, .meta = get_meta(ans))
   }
   if(isTRUE(maybe_pull_meta(x, "character_last"))) {
     type <- map_chr(ans, "type")
-    chr <- type=="character"
+    chr <- type == "character"
     comment <- names(ans) %in% maybe_pull_meta(x, "comment_col")
-    ans <- c(ans[(!chr) | comment],ans[chr & (!comment)])
+    ans <- c(ans[(!chr) | comment], ans[chr & (!comment)])
   }
   ans
 }
 
-unpack_meta <- function(x,to_update, verbose=FALSE, ...) {
+unpack_meta <- function(x, to_update, verbose = FALSE, ...) {
   meta <- list()
   metai <- names(x) == "SETUP__"
   if(any(metai)) {
@@ -264,8 +264,8 @@ unpack_meta <- function(x,to_update, verbose=FALSE, ...) {
   }
   if(exists("lookup_file", meta)) {
     assert_that(is.character(meta[["lookup_file"]]))
-    meta[["lookup_file"]] <- file.path(meta[["spec_path"]],meta[["lookup_file"]])
-    meta[["lookup_file"]] <- normalPath(meta[["lookup_file"]],mustWork = FALSE)
+    meta[["lookup_file"]] <- file.path(meta[["spec_path"]], meta[["lookup_file"]])
+    meta[["lookup_file"]] <- normalPath(meta[["lookup_file"]], mustWork = FALSE)
   }
   if(.no("name", meta)) {
     meta[["name"]] <- basename(meta[["spec_file"]])
@@ -295,9 +295,9 @@ unpack_meta <- function(x,to_update, verbose=FALSE, ...) {
     if(.has("project", meta)) verb("  project", meta[["project"]])
     if(.has("sponsor", meta)) verb("  sponsor", meta[["sponsor"]])
   }
-  meta <- update_list(meta,to_update)
+  meta <- update_list(meta, to_update)
   if(exists("import", meta)) {
-    meta[["import"]] <- fs::path_abs(meta[["import"]],meta[["spec_path"]])  
+    meta[["import"]] <- fs::path_abs(meta[["import"]], meta[["spec_path"]])  
   }
   spec_validate_meta(meta)
   meta[["control"]] <- get_spec_control(meta)
