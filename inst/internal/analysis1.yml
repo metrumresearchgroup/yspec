@@ -26,33 +26,43 @@ DV:  !look
   unit.tex: "$\\mu$g/L"
 AGE: !look
   range: [18,50]
+  dots: {covariate: true} 
 WT: !look
   range: [40,100]
+  dots: {covariate: true} 
 CRCL:
   label: creatinine clearance
   unit: ml/min
   range: [15,150]
+  dots: {covariate: true}
 ALB: !look
   range: [1.2,6]
+  dots: {covariate: true} 
 BMI: !look
   range: [18,25]
   unit.tex: <<bmiunits>>
+  dots: {covariate: true} 
 AAG:
   short: alpha-1-acid glycoprotein
   unit: mg/dL
   range: [50,120]
+  dots: {covariate: true} 
 SCR: 
   about: [serum creatinine, mg/dL]
   range: [0.7,6]
+  dots: {covariate: true} 
 AST:
   short: aspartate aminotransferase
   range: [10,36]
+  dots: {covariate: true} 
 ALT: 
   short: alanine aminotransferase
   range: [10,35]
+  dots: {covariate: true} 
 HT: !look
   range: [140, 222]
   unit: cm
+  dots: {covariate: true}
 CP:
   short: Child-Pugh score
   values: {normal: 0, Pugh1: 1, Pugh2: 2, Pugh3: 3}
