@@ -1,9 +1,9 @@
-ys_filter_impl <- function(x, ex, def) {
+ys_filter_impl <- function(x, expr, def) {
   if(is.list(x[["dots"]])) {
-    x <- combine_list(x[["dots"]], x)
+    x <- combine_list(x,x[["dots"]])
   }
   x <- combine_list(def, x)
-  isTRUE(eval(ex, x, enclos = baseenv()))
+  isTRUE(eval(expr, envir = x, enclos = baseenv()))
 }
 
 #' Select columns from spec object
@@ -23,17 +23,20 @@ ys_filter_impl <- function(x, ex, def) {
 #' ys_filter(spec, unit == "kg" | type == "character")
 #' 
 #' @export
-ys_filter <- function(spec, expr, .default = NULL) {
-  assert_that(is_yspec(spec))
+ys_filter <- function(x, expr, .default = NULL) {
+  assert_that(is_yspec(x))
   def <- list(
-    unit = '<null>', lookup = FALSE, values = "<null>", 
-    decode = "<null>", covariate = FALSE
+    unit = "", lookup = FALSE, values = "", 
+    decode = "", covariate = FALSE
   )
   if(is.list(.default)) {
     assert_that(rlang::is_named(.default))
     def <- combine_list(def, .default)    
   }
   expr <- quo_get_expr(enquo(expr))
-  ans <- map_lgl(spec, ys_filter_impl, ex = expr, def = def)
-  spec[ans]
+  ans <- map_lgl(x, ys_filter_impl, expr = expr, def = def)
+  if(sum(ans)==0) {
+    warning("no columns were selected when filtering", call. = FALSE)  
+  }
+  x[ans]
 }

@@ -4,14 +4,14 @@
 \alias{ys_filter}
 \title{Select columns from spec object}
 \usage{
-ys_filter(spec, expr, .default = NULL)
+ys_filter(x, expr, .default = NULL)
 }
 \arguments{
-\item{spec}{a yspec object}
-
 \item{expr}{an unquoted expression}
 
 \item{.default}{a named list of default look up values}
+
+\item{spec}{a yspec object}
 }
 \value{
 A `yspec` object.
@@ -22,7 +22,7 @@ Select columns from spec object
 \examples{
 spec <- ys_help$spec()
 
-ys_filter(spec, is.character(decodes))
+ys_filter(spec, is.character(decode))
 
 ys_filter(spec, unit == "kg" | type == "character")
 
