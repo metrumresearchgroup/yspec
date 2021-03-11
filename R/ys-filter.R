@@ -8,7 +8,7 @@ ys_filter_impl <- function(x, expr, def) {
 
 #' Select columns from spec object
 #' 
-#' @param spec a yspec object
+#' @param x a yspec object
 #' @param expr an unquoted expression
 #' @param .default a named list of default look up values
 #' 

@@ -60,5 +60,5 @@ Collate:
     'spec_validate.R'
     'split_col.R'
     'x_table_2.R'
+    'ys-filter.R'
     'ys-get.R'
-    'ys_filter.R'
