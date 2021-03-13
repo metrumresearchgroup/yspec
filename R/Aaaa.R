@@ -7,6 +7,7 @@
 #' @importFrom knitr kable
 #' @importFrom xtable xtable
 #' @importFrom rlang quos set_names exprs as_string expr quo_get_expr enquo
+#' @importFrom rlang is_named
 #' @importFrom assertthat assert_that
 #' @importFrom purrr map map_chr map_df map_if map_lgl
 #' @importFrom purrr imap imap_chr map_int

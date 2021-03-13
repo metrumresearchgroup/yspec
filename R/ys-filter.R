@@ -1,16 +1,40 @@
-ys_filter_impl <- function(x, expr, def) {
+ys_filter_impl <- function(x, expr, def, import, chk_vars) {
+  env <- x[unique(c(import, names(def)))]
   if(is.list(x[["dots"]])) {
-    x <- combine_list(x,x[["dots"]])
+    env <- combine_list(env, x[["dots"]])
   }
-  x <- combine_list(def, x)
-  isTRUE(eval(expr, envir = x, enclos = baseenv()))
+  env <- combine_list(def,env)
+  if(!all(chk_vars %in% names(env))) return(FALSE)
+  isTRUE(eval(expr, envir = env, enclos = baseenv()))
 }
 
-#' Select columns from spec object
+#' Subset spec items using column values
 #' 
 #' @param x a yspec object
 #' @param expr an unquoted expression
 #' @param .default a named list of default look up values
+#' 
+#' @details
+#' 
+#' The following fields always exist in the spec and are available for 
+#' querying in the filter expression:
+#' - `col`
+#' - `type`
+#' - `discrete`
+#' - `continuous`
+#' - `short`
+#' - `do_lookup`
+#' 
+#' The following fields will be provided defaults when the filter expression 
+#' is evaluated: 
+#' 
+#' - `unit` = ""
+#' - `values` = ""
+#' - `decode` = ""
+#' - `covariate` = `FALSE`
+#' 
+#' In addition to these fields, you can build the filter expression using 
+#' items in the `dots` field. 
 #' 
 #' @return 
 #' A `yspec` object.
@@ -26,15 +50,27 @@ ys_filter_impl <- function(x, expr, def) {
 ys_filter <- function(x, expr, .default = NULL) {
   assert_that(is_yspec(x))
   def <- list(
-    unit = "", lookup = FALSE, values = "", 
-    decode = "", covariate = FALSE
+    unit = "",  values = "", decode = "", covariate = FALSE
   )
   if(is.list(.default)) {
-    assert_that(rlang::is_named(.default))
+    assert_that(is_named(.default))
     def <- combine_list(def, .default)    
   }
   expr <- quo_get_expr(enquo(expr))
-  ans <- map_lgl(x, ys_filter_impl, expr = expr, def = def)
+  # variables in the test expression
+  all_vars <- all.vars(expr)
+  # take these from the spec; they are always present
+  import <- c("col", "type", "discrete", "short", "do_lookup", "continuous")
+  # if we can't find the chk_vars, the test will be false
+  chk_vars <- setdiff(all_vars, c(import, names(def)))
+  ans <- map_lgl(
+    x, 
+    ys_filter_impl, 
+    expr = expr, 
+    def = def, 
+    import = import, 
+    chk_vars = chk_vars
+  )
   if(sum(ans)==0) {
     warning("no columns were selected when filtering", call. = FALSE)  
   }

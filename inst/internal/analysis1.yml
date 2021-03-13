@@ -29,12 +29,12 @@ AGE: !look
   dots: {covariate: true} 
 WT: !look
   range: [40,100]
-  dots: {covariate: true} 
+  dots: {covariate: true, time_varying: true} 
 CRCL:
   label: creatinine clearance
   unit: ml/min
   range: [15,150]
-  dots: {covariate: true}
+  dots: {covariate: true, time_varying: true}
 ALB: !look
   range: [1.2,6]
   dots: {covariate: true} 

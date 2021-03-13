@@ -2,7 +2,7 @@
 % Please edit documentation in R/ys-filter.R
 \name{ys_filter}
 \alias{ys_filter}
-\title{Select columns from spec object}
+\title{Subset spec items using column values}
 \usage{
 ys_filter(x, expr, .default = NULL)
 }
@@ -17,7 +17,28 @@ ys_filter(x, expr, .default = NULL)
 A `yspec` object.
 }
 \description{
-Select columns from spec object
+Subset spec items using column values
+}
+\details{
+The following fields always exist in the spec and are available for 
+querying in the filter expression:
+- `col`
+- `type`
+- `discrete`
+- `continuous`
+- `short`
+- `do_lookup`
+
+The following fields will be provided defaults when the filter expression 
+is evaluated: 
+
+- `unit` = ""
+- `values` = ""
+- `decode` = ""
+- `covariate` = `FALSE`
+
+In addition to these fields, you can build the filter expression using 
+items in the `dots` field.
 }
 \examples{
 spec <- ys_help$spec()
