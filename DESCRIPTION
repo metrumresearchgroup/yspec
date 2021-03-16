@@ -49,6 +49,7 @@ Collate:
     'err_log.R'
     'exspec.R'
     'fda_define.R'
+    'flags.R'
     'handlers.R'
     'help.R'
     'load_spec.R'

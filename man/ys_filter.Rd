@@ -17,25 +17,28 @@ ys_filter(x, expr, .default = NULL)
 A `yspec` object.
 }
 \description{
-Subset spec items using column values
+The intended use is to subset based on variables define in the `dots` list, 
+however some internal column data is also available to query.
 }
 \details{
 The following fields always exist in the spec and are available for 
 querying in the filter expression:
-- `col`
-- `type`
-- `discrete`
-- `continuous`
-- `short`
-- `do_lookup`
+- `col`:  column name `<character>`
+- `type`: data type `<character>`; either numeric, character, or integer
+- `discrete`: discrete data flag `<logical>`; yspec sets this to `TRUE`
+  when the `values` field is populated
+- `continuous`: continuous dat flag `<logical>`; yspec sets this to `TRUE`
+  when the `range` field is populated
+- `short`: the short name `<character>`
+- `do_lookup`: lookup indicator; yspec sets this to `TRUE` when some or all 
+  of the column data is defined by an external lookup file
 
 The following fields will be provided defaults when the filter expression 
 is evaluated: 
 
-- `unit` = ""
-- `values` = ""
-- `decode` = ""
-- `covariate` = `FALSE`
+- `unit`: as specified by the user `<character>`; default value is  ""
+- `covariate`: as specified by the user in `dots` `<logical>`; default value
+  is `FALSE`
 
 In addition to these fields, you can build the filter expression using 
 items in the `dots` field.

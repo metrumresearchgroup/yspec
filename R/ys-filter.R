@@ -10,6 +10,9 @@ ys_filter_impl <- function(x, expr, def, import, chk_vars) {
 
 #' Subset spec items using column values
 #' 
+#' The intended use is to subset based on variables define in the `dots` list, 
+#' however some internal column data is also available to query.
+#' 
 #' @param x a yspec object
 #' @param expr an unquoted expression
 #' @param .default a named list of default look up values
@@ -18,20 +21,22 @@ ys_filter_impl <- function(x, expr, def, import, chk_vars) {
 #' 
 #' The following fields always exist in the spec and are available for 
 #' querying in the filter expression:
-#' - `col`
-#' - `type`
-#' - `discrete`
-#' - `continuous`
-#' - `short`
-#' - `do_lookup`
+#' - `col`:  column name `<character>`
+#' - `type`: data type `<character>`; either numeric, character, or integer
+#' - `discrete`: discrete data flag `<logical>`; yspec sets this to `TRUE`
+#'   when the `values` field is populated
+#' - `continuous`: continuous dat flag `<logical>`; yspec sets this to `TRUE`
+#'   when the `range` field is populated
+#' - `short`: the short name `<character>`
+#' - `do_lookup`: lookup indicator; yspec sets this to `TRUE` when some or all 
+#'   of the column data is defined by an external lookup file
 #' 
 #' The following fields will be provided defaults when the filter expression 
 #' is evaluated: 
 #' 
-#' - `unit` = ""
-#' - `values` = ""
-#' - `decode` = ""
-#' - `covariate` = `FALSE`
+#' - `unit`: as specified by the user `<character>`; default value is  ""
+#' - `covariate`: as specified by the user in `dots` `<logical>`; default value
+#'   is `FALSE`
 #' 
 #' In addition to these fields, you can build the filter expression using 
 #' items in the `dots` field. 
@@ -49,9 +54,7 @@ ys_filter_impl <- function(x, expr, def, import, chk_vars) {
 #' @export
 ys_filter <- function(x, expr, .default = NULL) {
   assert_that(is_yspec(x))
-  def <- list(
-    unit = "",  values = "", decode = "", covariate = FALSE
-  )
+  def <- list(unit = "", covariate = FALSE, values = "", decode = "")
   if(is.list(.default)) {
     assert_that(is_named(.default))
     def <- combine_list(def, .default)    

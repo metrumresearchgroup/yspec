@@ -183,6 +183,7 @@ ys_load <- function(file, verbose = FALSE, ...) {
   }
   x <- ys_load_file(file, verbose = verbose,...)
   x <- unpack_spec(x, verbose = verbose)
+  x <- add_flags(x)
   set_namespace(x, "base")
 }
 
@@ -300,6 +301,7 @@ unpack_meta <- function(x, to_update, verbose = FALSE, ...) {
     meta[["import"]] <- fs::path_abs(meta[["import"]], meta[["spec_path"]])  
   }
   spec_validate_meta(meta)
+  meta[["flags"]] <- validate_flags(meta[["flags"]])
   meta[["control"]] <- get_spec_control(meta)
   structure(x, meta = meta)
 }
