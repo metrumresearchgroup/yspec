@@ -21,6 +21,14 @@ add_flags <- function(x) {
   if(is.null(flags)) return(x)
   for(i in seq_along(flags)) {
     this_fl <- names(flags)[i]
+    flag_cols <- expand_names_on_colon(flags[[i]], names(x))
+    if(flag_cols[["any_bad"]]) {
+      bad <- flag_cols[["bad_cols"]]
+      bad <- paste0(" - ", bad, "\n")
+      bad <- c("names not found in spec: \n", bad)
+      stop(bad, call. = FALSE)
+    }
+    flags[[i]] <- flag_cols[["cols"]]
     x <- modify(x, set_this_flag_impl, name = this_fl, flag_cols = flags[[i]])
   }
   x

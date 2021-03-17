@@ -2,7 +2,7 @@
 #' @importFrom dplyr filter %>% bind_rows
 #' @importFrom tidyselect vars_select eval_select
 #' @importFrom tibble tibble as_tibble
-#' @importFrom dplyr mutate if_else .data desc
+#' @importFrom dplyr mutate if_else .data desc rowwise
 #' @importFrom rmarkdown render pdf_document html_document
 #' @importFrom knitr kable
 #' @importFrom xtable xtable
