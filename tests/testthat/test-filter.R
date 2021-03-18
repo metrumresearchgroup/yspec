@@ -19,7 +19,7 @@ test_that("select column filter - unit", {
 test_that("select column filter - type", {
   spec <- ys_help$spec()
   a <- ys_filter(spec, type=="character")
-  b <- map(spec, "type")
+  b <- purrr::map(spec, "type")
   b <- spec[unlist(b)=="character"]
   expect_true(identical(a,b))
 })
@@ -27,7 +27,7 @@ test_that("select column filter - type", {
 test_that("select column filter - continuous", {
   spec <- ys_help$spec()
   a <- ys_filter(spec, continuous)
-  b <- map(spec, "continuous")
+  b <- purrr::map(spec, "continuous")
   b <- spec[unlist(b)]
   expect_true(identical(a,b))
 })
@@ -35,7 +35,7 @@ test_that("select column filter - continuous", {
 test_that("select column filter - discrete", {
   spec <- ys_help$spec()
   a <- ys_filter(spec, discrete)
-  b <- map(spec, "discrete")
+  b <- purrr::map(spec, "discrete")
   b <- spec[unlist(b)]
   expect_true(identical(a,b))
 })
@@ -43,7 +43,7 @@ test_that("select column filter - discrete", {
 test_that("select column filter - do_lookup", {
   spec <- ys_help$spec()
   a <- ys_filter(spec, do_lookup)
-  b <- map(spec, "do_lookup")
+  b <- purrr::map(spec, "do_lookup")
   b <- spec[unlist(b)]
   expect_true(identical(a,b))
 })
@@ -97,4 +97,16 @@ test_that("nothing returned", {
     ), 
     regexp="no columns were selected"
   )
+})
+
+test_that("filter with negate", {
+  spec <- ys_help$spec()
+  ans <- ys_filter(spec, covariate & col != "WT")
+  expect_false("WT" %in% names(ans))
+})
+
+test_that("filter with in", {
+  spec <- ys_help$spec()
+  ans <- ys_filter(spec, col %in% c("WT", "SCR", "ALB"))
+  expect_identical(sort(names(ans)), sort(c("WT", "ALB", "SCR")))
 })
