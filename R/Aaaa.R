@@ -20,8 +20,7 @@
 #' @importFrom tools toTitleCase
 #' @importFrom crayon red green black blue bold italic
 #' @importFrom fs path_rel
-#' @importFrom stringr fixed str_detect str_split_fixed
-#' @importFrom stringr str_count fixed
+#' @importFrom stringr fixed str_detect str_split_fixed str_count fixed 
 #' 
 #' @include utils.R
 NULL

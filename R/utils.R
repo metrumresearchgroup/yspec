@@ -323,19 +323,22 @@ ys_escape <- function(string, esc = c("_", "%", "$", "&"), ...) {
 }
 
 expand_names_on_colon <- function(set, valid) {
-  set <- stringr::str_split_fixed(set, ":", n = 2)
+  set <- str_split_fixed(set, ":", n = 2)
   set <- as.data.frame(set)
-  set <- mutate(set, V2 = ifelse(V2 == "", V1, V2))
-  set <- mutate(set, V3 = match(V1, valid))
-  set <- mutate(set, V4 = match(V2, valid))
-  bad1 <- filter(set, is.na(V3))[["V1"]]
-  bad2 <- filter(set, is.na(V4))[["V2"]]
+  set <- mutate(
+    set, 
+    V2 = ifelse(.data[["V2"]] == "", .data[["V1"]], .data[["V2"]])
+  )
+  set <- mutate(set, V3 = match(.data[["V1"]], valid))
+  set <- mutate(set, V4 = match(.data[["V2"]], valid))
+  bad1 <- filter(set, is.na(.data[["V3"]]))[["V1"]]
+  bad2 <- filter(set, is.na(.data[["V4"]]))[["V2"]]
   bad <- unique(c(bad1, bad2))
-  set <- filter(set, !is.na(V3) & !is.na(V4))
+  set <- filter(set, !is.na(.data[["V3"]]) & !is.na(.data[["V4"]]))
   if(nrow(set) > 0) {
     set <- mutate(
       rowwise(set), 
-      selected = list(valid[sort(seq(V3, V4))])
+      selected = list(valid[sort(seq(.data[["V3"]], .data[["V4"]]))])
     )
     cols <- unique(unlist(set[["selected"]]))
   } else {
