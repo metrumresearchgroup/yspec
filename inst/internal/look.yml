@@ -2,4 +2,4 @@ SETUP__:
   flags: 
     covariate: [CP]
 CP: 
-  dots: {came_from_lookup: true}
+  dots: {updated_from_lookup: true, came_from_lookup: true} # used in test

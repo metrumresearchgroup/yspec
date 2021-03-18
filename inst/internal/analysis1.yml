@@ -67,7 +67,7 @@ HT: !look
 CP: !look 
   short: Child-Pugh score
   values: {normal: 0, Pugh1: 1, Pugh2: 2, Pugh3: 3}
-  dots: {came_from_main_yaml: true}
+  dots: {updated_from_lookup: false} # these dots used in tests
 TAFD:
   short: time after first dose
   unit: hours

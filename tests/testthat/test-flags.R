@@ -32,4 +32,6 @@ test_that("flags are propagated from lookup file", {
   expect_true(spec$CP$dots$covariate)
   just_cp <- ys_filter(spec, covariate)
   expect_true("CP" %in% names(just_cp))
+  expect_false(spec$CP$dots$updated_from_lookup)
+  expect_true(spec$CP$dots$came_from_lookup)
 })
