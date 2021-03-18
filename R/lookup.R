@@ -29,7 +29,7 @@ ys_get_lookup <- function(x,verbose=FALSE) {
   }
   if(length(files)==0) return(list())
   if(verbose) {
-    walk(basename(files),verb, left = "  lookup file")
+    walk(basename(files), verb, left = "  lookup file")
   }
   ans <- list()
   files <- rev(files)
@@ -42,6 +42,8 @@ ys_get_lookup <- function(x,verbose=FALSE) {
       not_allowed = "lookup", 
       control = control
     )
+    this[] <- imap(this, ~ {.x[["col"]] = .y; .x})
+    this <- add_flags(this)
     this <- map(this, function(x) {
       x[["lookup_source"]] <- basename(.file);
       x

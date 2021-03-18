@@ -5,6 +5,7 @@ SETUP__:
   use_internal_db: true
   glue: 
     bmiunits: "kg/m$^2$"
+  lookup_file: look.yml
 C:
 NUM:
 ID:
@@ -63,7 +64,7 @@ HT: !look
   range: [140, 222]
   unit: cm
   dots: {covariate: true}
-CP:
+CP: !look
   short: Child-Pugh score
   values: {normal: 0, Pugh1: 1, Pugh2: 2, Pugh3: 3}
 TAFD:

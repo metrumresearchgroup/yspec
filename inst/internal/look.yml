@@ -1,0 +1,5 @@
+SETUP__:
+  flags: 
+    covariate: [CP]
+CP: 
+  dots: {came_from_lookup: true}
