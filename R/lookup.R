@@ -1,26 +1,26 @@
-##' Get column lookup source
-##' 
-##' @param x a yspec object
-##' @export
+#' Get column lookup source
+#' 
+#' @param x a yspec object
+#' @export
 ys_lookup_source <- function(x) {
   home <- basename(get_meta(x)[["spec_file"]])
   xx <- map_chr(x, "lookup_source", .default = home)
   tibble(col = names(x), lookup_source = xx)
 }
 
-##' Generate lookup list
-##' 
-##' @param x a yspec object 
-##' @param verbose `logical`; print information to the console as the file
-##' is processed
-##' 
-##' @examples
-##' 
-##' spec <- load_spec_ex("DEM104101F_PK.yml")
-##' ys_get_lookup(spec)
-##' 
-##' @md
-##' @export
+#' Generate lookup list
+#' 
+#' @param x a yspec object 
+#' @param verbose `logical`; print information to the console as the file
+#' is processed
+#' 
+#' @examples
+#' 
+#' spec <- load_spec_ex("DEM104101F_PK.yml")
+#' ys_get_lookup(spec)
+#' 
+#' @md
+#' @export
 ys_get_lookup <- function(x,verbose=FALSE) {
   files <- get_lookup_files(x)
   m <- get_meta(x)
@@ -42,9 +42,10 @@ ys_get_lookup <- function(x,verbose=FALSE) {
       not_allowed = "lookup", 
       control = control
     )
+    # need to set col in order to run add_flags 
     this[] <- imap(this, ~ {.x[["col"]] = .y; .x})
     this <- add_flags(this)
-    this <- map(this, function(x) {
+    this[] <- map(this, function(x) {
       x[["lookup_source"]] <- basename(.file);
       x
     })
@@ -61,20 +62,24 @@ get_lookup_files <- function(x) {
   return(character(0))
 }
 
-merge_lookup_column <- function(x,lookup,file,verbose=FALSE) {
+merge_lookup_column <- function(x, lookup, file, verbose = FALSE) {
   lookup_name <- x[["lookup"]]
-  if(.has(lookup_name,lookup)) {
+  if(.has(lookup_name, lookup)) {
     if(verbose) {
       a <- lookup[[lookup_name]][["lookup_source"]]
       b <- " ---> "
       c <- crayon::bold(crayon::blue(lookup_name)) 
-      verb("~ looking up", c(a,b,c))
+      verb("~ looking up", c(a, b, c))
     }
-    x <- combine_list(lookup[[lookup_name]],x)
+    # special handling for dots
+    lookup_dots <- lookup[[lookup_name]][["dots"]]
+    lookup[[lookup_name]][["dots"]] <- NULL
+    x <- combine_list(lookup[[lookup_name]], x)
+    x <- merge_dots(x, lookup_dots)
   } else {
     warning(
-      "Did not find lookup data for ", 
-      lookup_name, ", file: ", basename(file), call.=FALSE
+      "did not find lookup data for ", 
+      lookup_name, ", file: ", basename(file), call. = FALSE
     )
   }
   x
@@ -84,3 +89,10 @@ lookup_ysdb_file <- function(do = TRUE) {
   system.file("internal", "ysdb_internal.yml", package = "yspec")
 }
 
+merge_dots <- function(x, dots) {
+  if(!is.list(dots) || !is.list(x[["dots"]])) {
+    return(x)  
+  }
+  x[["dots"]] <- combine_list(dots, x[["dots"]])
+  x
+}

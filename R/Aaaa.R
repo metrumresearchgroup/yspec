@@ -13,7 +13,7 @@
 #' @importFrom purrr imap imap_chr map_int
 #' @importFrom purrr discard compact transpose
 #' @importFrom purrr walk walk2 iwalk keep
-#' @importFrom purrr flatten flatten_chr modify
+#' @importFrom purrr flatten flatten_chr modify imodify
 #' @importFrom glue glue
 #' @importFrom utils type.convert read.csv 
 #' @importFrom utils capture.output head tail
