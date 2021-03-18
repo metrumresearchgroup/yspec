@@ -331,8 +331,10 @@ expand_names_on_colon <- function(set, valid) {
   )
   set <- mutate(set, V3 = match(.data[["V1"]], valid))
   set <- mutate(set, V4 = match(.data[["V2"]], valid))
-  bad1 <- dplyr::filter(set, is.na(.data[["V3"]]))[["V1"]]
-  bad2 <- dplyr::filter(set, is.na(.data[["V4"]]))[["V2"]]
+  bad1 <- dplyr::filter(set, is.na(.data[["V3"]]))
+  bad1 <- bad1[["V1"]]
+  bad2 <- dplyr::filter(set, is.na(.data[["V4"]]))
+  bad2 <- bad2[["V2"]]
   bad <- unique(c(bad1, bad2))
   set <- dplyr::filter(set, !is.na(.data[["V3"]]) & !is.na(.data[["V4"]]))
   if(nrow(set) > 0) {
