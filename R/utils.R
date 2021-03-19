@@ -324,7 +324,7 @@ ys_escape <- function(string, esc = c("_", "%", "$", "&"), ...) {
 
 expand_names_on_colon <- function(set, valid) {
   set <- str_split_fixed(set, ":", n = 2)
-  set <- as.data.frame(set)
+  set <- as.data.frame(set, stringsAsFactors = FALSE)
   set <- mutate(
     set, 
     V2 = ifelse(.data[["V2"]] == "", .data[["V1"]], .data[["V2"]])
