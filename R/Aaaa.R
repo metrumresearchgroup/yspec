@@ -38,7 +38,7 @@ VALID_SPEC_NAMES <- c(
 
 VALID_SETUP_NAMES <- c(
   "primary_key", "lookup_file", 
-  "description", "sponsor", "projectnumber", 
+  "description", "comment", "sponsor", "projectnumber", 
   "data_path", "data_stem", "name", "spec_file", 
   "spec_path", "glue", "use_internal_db", 
   "import", "character_last","comment_col", 

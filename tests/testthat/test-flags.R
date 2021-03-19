@@ -23,7 +23,14 @@ test_that("set flags in SETUP__", {
 test_that("flags error", {
   expect_error(
     yspec:::test_spec_test("flags-error.yaml"), 
-    msg = "names not found in spec:\n- b\n-c"
+    regexp = "names not found in spec:\n - b\n - c"
+  )
+})
+
+test_that("flags - warn when exists and overwrite", {
+  expect_warning( 
+    yspec:::test_spec_test("flags-warn-exists.yml"), 
+    regexp = "but is not logical type"
   )
 })
 
