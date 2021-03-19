@@ -1,0 +1,10 @@
+SETUP__:
+  flags: 
+    set1: ["b","a"]
+a: 
+  short: test a
+b: 
+  short: test y
+  dots: {set1: "abc"}
+c: 
+  short: test z
