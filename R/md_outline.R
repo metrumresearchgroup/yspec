@@ -87,16 +87,18 @@ define_values <- function(x) {
   }
 
   if(has_decode(x)) {
+    same <- which(values==decode)
     values <- paste0(values, " = " , decode)
+    values[same] <- decode[same]
   }
-
+  
   if(is.null(values)) return(character(0))
 
   if(!long) {
     values <- paste0("`", values, "`")
-    values <- paste(values, collapse=", ")
+    values <- paste(values, collapse = ", ")
     values <- sub("\\, *$", "", values)
-    values <- paste0("    - values: ",values)
+    values <- paste0("    - values: ", values)
     return(values)
   }
 

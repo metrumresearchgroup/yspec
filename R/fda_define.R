@@ -12,7 +12,9 @@ pack_codes <- function(x) {
     ans <- paste0("values: ", ans)
     return(ans)
   }
+  same <- which(x[["values"]] == x[["decode"]])
   ans <- paste0(x[["values"]], " = ", x[["decode"]])
+  ans[same] <- x[["values"]][same]
   paste(ans, collapse = ", ")
 }
 
