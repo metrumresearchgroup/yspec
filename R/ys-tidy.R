@@ -1,3 +1,31 @@
+#' Select a subset of columns from a yspec object
+#' 
+#' @param .x a yspec object
+#' @param ... unquoted columns to select
+#' 
+#' @examples
+#' 
+#' spec <- ys_help$spec()
+#' 
+#' ys_select(spec, WT, AGE, ALB)
+#' 
+#' ys_select(spec, Wt = WT, AGE)
+#' 
+#' @export
+ys_select <- function(.x, ...) {
+  keep <- eval_select(expr(c(...)), as.list(.x))
+  if(length(keep)==0) {
+    return(.x) 
+  }
+  original <- names(.x)[keep]
+  ans <- .x[original]
+  names(ans) <- names(keep)
+  for(i in seq_along(keep)) {
+    ans[[i]][["col"]] <- names(keep)[[i]]
+  }
+  ans
+}
+
 ys_filter_impl <- function(x, expr, def, import, chk_vars) {
   env <- x[unique(c(import, names(def)))]
   if(is.list(x[["dots"]])) {
@@ -124,7 +152,7 @@ ys_join <- function(left, right, ...) {
 
 #' Rename spec columns
 #' 
-#' @param x a yspec object
+#' @param .x a yspec object
 #' @param ... tidy rename specification; use `new_name` = `old_name` to rename
 #' 
 #' @examples
@@ -137,12 +165,12 @@ ys_join <- function(left, right, ...) {
 #' @return A yspec object
 #' @seealso [ys_join()], [ys_filter()], [ys_select()]
 #' @export
-ys_rename <- function(x, ...) {
-  assert_that(ys_yspec(x))
-  re <- eval_rename(expr(c(...)), as.list(x))
-  names(x)[re] <- names(re)
+ys_rename <- function(.x, ...) {
+  assert_that(is_yspec(.x))
+  re <- eval_rename(expr(c(...)), as.list(.x))
+  names(.x)[re] <- names(re)
   for(i in seq_along(re)) {
-    x[[i]][["col"]] <- re[[i]]
+    .x[[re[[i]]]][["col"]] <- names(re)[[i]]
   }
-  x
+  .x
 }
