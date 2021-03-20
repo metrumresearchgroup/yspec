@@ -337,7 +337,7 @@ expand_names_on_colon <- function(set, valid) {
   bad2 <- dplyr::filter(set, is.na(.data[["V4"]]))
   bad2 <- bad2[["V2"]]
   bad <- unique(c(bad1, bad2))
-  set <- dplyr::filter(set, !is.na(.data[["V3"]]) & !is.na(.data[["V4"]]))
+  set <- filter(set, !is.na(.data[["V3"]]) & !is.na(.data[["V4"]]))
   if(nrow(set) > 0) {
     set <- mutate(
       rowwise(set), 

@@ -7,6 +7,8 @@
 ys_fill_dots(x, ..., .overwrite = FALSE)
 }
 \arguments{
+\item{x}{a yspec object}
+
 \item{...}{\code{name = value} data to be added to \code{dots}}
 
 \item{.overwrite}{logical indicating whether \code{x} should be overwritten with

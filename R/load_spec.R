@@ -196,11 +196,11 @@ ys_load_file <- function(file, data_path = NULL, data_stem = NULL, verbose=FALSE
   file <- normalPath(file, mustWork = FALSE)
   if(verbose) verb("~ working on", basename(file))
   x <- try_yaml(file)
-  x <- capture_file_info(x,file)
+  x <- capture_file_info(x, file)
   incoming <- list(...)
   incoming[["data_path"]] <- data_path
   incoming[["data_stem"]] <- data_stem
-  unpack_meta(x,to_update=incoming,verbose=verbose)
+  unpack_meta(x, to_update = incoming, verbose = verbose)
 }
 
 ##' @rdname ys_load
@@ -301,7 +301,7 @@ unpack_meta <- function(x, to_update, verbose = FALSE, ...) {
     meta[["import"]] <- fs::path_abs(meta[["import"]], meta[["spec_path"]])  
   }
   spec_validate_meta(meta)
-  meta[["flags"]] <- validate_flags(meta[["flags"]])
+  meta[["flags"]] <- validate_flags(meta[["flags"]], valid = names(x))
   meta[["control"]] <- get_spec_control(meta)
   structure(x, meta = meta)
 }
