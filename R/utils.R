@@ -42,6 +42,7 @@ update_list <- function(left, right) {
   left[common] <-  right[common]
   left
 }
+ys_update_list <- update_list
 
 # nocov start
 parens <- function(x) paste0("(",x,")")

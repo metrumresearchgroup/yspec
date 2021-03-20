@@ -91,7 +91,7 @@ test_that("select column filter - covariate", {
   expect_true(identical(a,b))  
 })
 
-test_that("dots", {
+test_that("select column filter - dots", {
   spec <- ys_help$spec()
   a <- ys_filter(spec, time_varying)
   expect_is(a, "yspec")
@@ -100,7 +100,7 @@ test_that("dots", {
   expect_true(identical(a,b))  
 })
 
-test_that("nothing returned", {
+test_that("select column filter - nothing returned", {
   spec <- ys_help$spec()
   expect_warning(
     a <- ys_filter(
@@ -156,4 +156,19 @@ test_that("join two or more spec objects", {
   ans <- ys_join(a, d)
   expect_is(ans, "yspec")
   expect_equal(names(ans), c("WT", "BMI", "HT", "AGE"))
+})
+
+test_that("fill dots", {
+  spec <- ys_help$spec()
+  spec2 <- ys_fill_dots(spec, a = TRUE, b = FALSE)
+  expect_is(spec2, "yspec")
+  expect_false(identical(spec, spec2))
+  a <- map_lgl(spec2, ~.x$dots$a)
+  b <- map_lgl(spec2, ~.x$dots$b)
+  expect_true(all(a))
+  expect_false(any(b))
+  expect_null(spec$TIME$dots$covariate)
+  spec3 <- ys_fill_dots(spec, covariate = FALSE)
+  expect_true(spec3$WT$dots$covariate)
+  expect_false(spec3$TIME$dots$covariate)
 })

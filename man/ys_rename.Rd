@@ -9,7 +9,7 @@ ys_rename(.x, ...)
 \arguments{
 \item{.x}{a yspec object}
 
-\item{...}{tidy rename specification; use `new_name` = `old_name` to rename}
+\item{...}{tidy rename specification; use \code{new_name} = \code{old_name} to rename}
 }
 \value{
 A yspec object
@@ -26,5 +26,5 @@ tail(ans)
 
 }
 \seealso{
-[ys_join()], [ys_filter()], [ys_select()]
+\code{\link[=ys_join]{ys_join()}}, \code{\link[=ys_filter]{ys_filter()}}, \code{\link[=ys_select]{ys_select()}}
 }

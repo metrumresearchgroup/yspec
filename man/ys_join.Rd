@@ -20,9 +20,9 @@ A single yspec object
 Join yspec objects together
 }
 \details{
-All inputs must be `yspec` objects. When the `right` spec (or specs passed
-under `...`) is joined to the `left` spec, columns that exist in both 
-`left` and `right` are removed from `right` before joining.
+All inputs must be \code{yspec} objects. When the \code{right} spec (or specs passed
+under \code{...}) is joined to the \code{left} spec, columns that exist in both
+\code{left} and \code{right} are removed from \code{right} before joining.
 }
 \examples{
 
@@ -38,5 +38,5 @@ ys_join(l, r, rr)
 
 }
 \seealso{
-[ys_rename()], [ys_filter()], [ys_select()]
+\code{\link[=ys_rename]{ys_rename()}}, \code{\link[=ys_filter]{ys_filter()}}, \code{\link[=ys_select]{ys_select()}}
 }
