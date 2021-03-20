@@ -6,6 +6,7 @@
 - `ys_join()` will combine two or more `yspec` objects together (#64)
 - New `SETUP__` field called `flags` that can be used to flag sets of 
   columns (#62)
+- `ys_fill_dots()` will supplement the `dots` list with default values (#62)
 
 # yspec 0.4.2
 - Add `ys_select()` to select a subset of columns from a yspec object #24
