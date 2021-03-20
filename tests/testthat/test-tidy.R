@@ -125,6 +125,20 @@ test_that("filter with in", {
   expect_identical(sort(names(ans)), sort(c("WT", "ALB", "SCR")))
 })
 
+test_that("filter from parent frame", {
+  yes <- "abc"
+  spec <- ys_help$spec()
+  spec2 <- ys_filter(spec, yes=="abc")
+  expect_equivalent(spec,spec2)
+})
+
+test_that("filter from defaults", {
+  def <- list(no = "xyz")
+  spec <- ys_help$spec()
+  spec2 <- ys_filter(spec, no=="xyz", .default = def)
+  expect_equivalent(spec,spec2)
+})
+
 test_that("rename yspec columns", {
   spec <- ys_help$spec() 
   spec <- ys_select(spec, WT, BMI, STUDY)
