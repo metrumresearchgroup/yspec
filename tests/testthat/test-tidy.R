@@ -3,7 +3,7 @@ library(yspec)
 library(testthat)
 library(purrr)
 
-context("test-filter")
+context("test-tidy")
 
 test_that("select column filter - col", {
   spec <- ys_help$spec()

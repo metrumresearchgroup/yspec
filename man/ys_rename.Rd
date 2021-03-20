@@ -4,10 +4,10 @@
 \alias{ys_rename}
 \title{Rename spec columns}
 \usage{
-ys_rename(x, ...)
+ys_rename(.x, ...)
 }
 \arguments{
-\item{x}{a yspec object}
+\item{.x}{a yspec object}
 
 \item{...}{tidy rename specification; use `new_name` = `old_name` to rename}
 }
