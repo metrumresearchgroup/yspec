@@ -1,5 +1,12 @@
 # yspec (development version)
 
+- `ys_select()` will now rename columns if new names are provided (#62)
+- `ys_filter()` will subset a `yspec` object based on logical criteria (#65)
+- `ys_rename()` will rename columns in a `yspec` object (#63)
+- `ys_join()` will combine two or more `yspec` objects together (#64)
+- New `SETUP__` field called `flags` that can be used to flag sets of 
+  columns (#62)
+
 # yspec 0.4.2
 - Add `ys_select()` to select a subset of columns from a yspec object #24
 - Refactor `axis_col_labs` to add vars argument; if missing, all col / labs

@@ -20,7 +20,7 @@ test_that("set flags in SETUP__", {
   expect_identical(a,b)
 })
 
-test_that("flags error", {
+test_that("flags error when col not found", {
   expect_error(
     yspec:::test_spec_test("flags-error.yaml"), 
     regexp = "names not found in spec:\n - b\n - c"
