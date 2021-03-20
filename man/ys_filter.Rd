@@ -49,5 +49,7 @@ spec <- ys_help$spec()
 ys_filter(spec, is.character(decode))
 
 ys_filter(spec, unit == "kg" | type == "character")
-
+}
+\seealso{
+[ys_rename()], [ys_join()], [ys_select()]
 }

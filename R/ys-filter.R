@@ -50,7 +50,7 @@ ys_filter_impl <- function(x, expr, def, import, chk_vars) {
 #' ys_filter(spec, is.character(decode))
 #' 
 #' ys_filter(spec, unit == "kg" | type == "character")
-#' 
+#' @seealso [ys_rename()], [ys_join()], [ys_select()]
 #' @export
 ys_filter <- function(x, expr, .default = NULL) {
   assert_that(is_yspec(x))
@@ -78,4 +78,71 @@ ys_filter <- function(x, expr, .default = NULL) {
     warning("no columns were selected when filtering", call. = FALSE)  
   }
   x[ans]
+}
+
+
+#' Join yspec objects together
+#' 
+#' @param left a yspec object
+#' @param right a yspec object
+#' @param ... more yspect objects
+#' 
+#' @return A single yspec object
+#' 
+#' @details
+#' All inputs must be `yspec` objects. When the `right` spec (or specs passed
+#' under `...`) is joined to the `left` spec, columns that exist in both 
+#' `left` and `right` are removed from `right` before joining.
+#' 
+#' @examples
+#' 
+#' spec <- ys_help$spec()
+#' 
+#' l <- ys_select(spec, WT, BMI)
+#' r <- ys_select(spec, TIME, TAD)
+#' rr <- ys_select(spec, EVID, MDV, CMT, BMI)
+#' 
+#' ys_join(l, r)
+#' 
+#' ys_join(l, r, rr)
+#' 
+#' @seealso [ys_rename()], [ys_filter()], [ys_select()]
+#' @export
+ys_join <- function(left, right, ...) {
+  if(missing(right)) return(left)
+  assert_that(is_yspec(left))
+  assert_that(is_yspec(right))
+  take <- setdiff(names(right), names(left))
+  if(length(take)==0) return(left)
+  right <- ys_select(right, take)
+  ans <- c(left, right)
+  for(addl in list(...)) {
+    ans <- ys_join(ans,addl)
+  }
+  ans
+}
+
+#' Rename spec columns
+#' 
+#' @param x a yspec object
+#' @param ... tidy rename specification; use `new_name` = `old_name` to rename
+#' 
+#' @examples
+#' spec <- ys_help$spec()
+#' 
+#' ans <- ys_rename(spec, TIME = TAFD, RENAL = RF)
+#' 
+#' tail(ans)
+#' 
+#' @return A yspec object
+#' @seealso [ys_join()], [ys_filter()], [ys_select()]
+#' @export
+ys_rename <- function(x, ...) {
+  assert_that(ys_yspec(x))
+  re <- eval_rename(expr(c(...)), as.list(x))
+  names(x)[re] <- names(re)
+  for(i in seq_along(re)) {
+    x[[i]][["col"]] <- re[[i]]
+  }
+  x
 }
