@@ -24,7 +24,7 @@ file <- system.file("internal", "analysis1.yml", package = "yspec")
 ```
 
 
-```{yaml, eval=FALSE, code = readLines(file)}
+```{txt, eval=FALSE, code = readLines(file)}
 
 ```
 

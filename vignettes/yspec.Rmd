@@ -89,11 +89,9 @@ Use the `ys_check()` function, with the data frame as the first argument
 and the spec object as the second argument
 
 ```{r}
-
 data <- ys_help$data()
 
 ys_check(data, spec)
-
 ```
 
 
