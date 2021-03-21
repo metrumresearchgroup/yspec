@@ -56,7 +56,7 @@ Many columns don't have units and we'd get `NULL` back if we just mapped.  The
 `ys_get_unit` function subs in blank character data items when `unit` is `NULL`.
 
 ```{r}
-ys_get_unit(spec, parens = TRUE) %>% unlist
+ys_get_unit(spec, parens = TRUE) %>% unlist()
 ```
 
 # Get labels

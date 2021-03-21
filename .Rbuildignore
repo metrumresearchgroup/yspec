@@ -17,5 +17,6 @@ Makefile
 ^\.Rproj\.user$
 dev
 ^docs$
-.drone.yml
-^.drone.jsonnet$
+\.drone\.yml
+^\.drone\.jsonnet$
+vignettes/*\.pdf

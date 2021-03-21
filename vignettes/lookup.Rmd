@@ -30,7 +30,11 @@ is just another data specification file.  For example, create a file called
 # in file lookup.yml
 AMT: 
   short: dose amount
-  unit: nM
+  unit: nmol
+  type: numeric
+AMTMG: 
+  short: dose amount
+  unit: mg
   type: numeric
 WT: 
   short: patient weight
@@ -69,6 +73,22 @@ C:
   short: comment character
 AMT:
 ```
+
+Finally, we can import a column from the lookup file under a new name in the 
+working spec
+
+```yaml
+SETUP__:
+  description: PKPD analysis data set
+  lookup_file: lookup.yml
+C: 
+  short: comment character
+AMT:
+  lookup: AMTMG
+```
+
+In this snippet, we are asking for the `AMTMG` column from the lookup and 
+bringing it in as `AMT` in the working spec.
 
 
 # Internal lookup data base
@@ -148,21 +168,3 @@ ys_get_lookup(spec) %>% glimpse()
 ```
 
 </details>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
