@@ -42,6 +42,11 @@ install:
 check:
 	make data
 	make build
+	R CMD CHECK  --ignore-vignettes ${TARBALL} -o ${CHKDIR}
+
+check-package:
+	make data
+	make build-vignettes
 	R CMD CHECK ${TARBALL} -o ${CHKDIR}
 
 test:
