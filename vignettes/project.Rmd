@@ -4,12 +4,16 @@ author: ""
 date: "`r Sys.Date()`"
 output: 
   rmarkdown::html_vignette: 
+    toc: true
+    number_sections: true
     keep_md: true
 vignette: >
   %\VignetteIndexEntry{Project object and define document}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+
+
 # Introduction
 This vignette shows you how to gather the specifications for all of your
 analysis project data sets, assemble into a single object, and use that object 

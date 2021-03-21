@@ -4,6 +4,8 @@ author: ""
 date: "`r Sys.Date()`"
 output: 
   rmarkdown::html_vignette: 
+    toc: true
+    number_sections: true
     keep_md: true
 vignette: >
   %\VignetteIndexEntry{Project-wide column definitions}
@@ -12,6 +14,7 @@ vignette: >
 ---
 
 # Introduction
+
 This document shows how data set column definitions can be entered into 
 a lookup file which can be accessed by multiple data specification files 
 within a project. This document also discusses an internal lookup data base

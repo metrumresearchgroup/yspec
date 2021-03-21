@@ -4,6 +4,8 @@ author: ""
 date: "`r Sys.Date()`"
 output: 
   rmarkdown::html_vignette: 
+    toc: true
+    number_sections: true
     keep_md: true
 vignette: >
   %\VignetteIndexEntry{Get started}
@@ -157,8 +159,6 @@ ys_document(
 )
 ```
 
-With output [here](project_document.pdf).
-
 Using the `build_dir` argument gets us the document rendered with Metrum 
 Research Group branding.  Also, `author` and `title` are passed into the
 configuration fields for this document.
@@ -178,4 +178,3 @@ ys_document(
 )
 ```
 
-With output [here](fda_document.pdf).

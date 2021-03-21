@@ -4,6 +4,8 @@ author: ""
 date: "`r Sys.Date()`"
 output: 
   rmarkdown::html_vignette: 
+    toc: true
+    number_sections: true
     keep_md: true
 vignette: >
   %\VignetteIndexEntry{Label the columns in a data set}

@@ -2,7 +2,10 @@
 title: "Yaml specification reference"
 author: ""
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_vignette: 
+    toc: true
+    number_sections: true
 vignette: >
   %\VignetteIndexEntry{Yaml specification reference}
   %\VignetteEngine{knitr::rmarkdown}
@@ -355,3 +358,50 @@ yspec will call `glue()` and replace `<<mugL>>` with `$\\mu%g/L`.
 Notice that we put all of the values in quotes;  this is good practice to ensure
 that yaml will parse the value as a character data item when reading in the 
 spec. 
+
+## `flags`
+
+The `flags` section in `SETUP__:` is available for you to name sets of columns
+in the work in spec. For example, the following code defines a flag called 
+`covariate` and it names three columns (`WT`, `AGE`, and `CRCL`) to carry 
+this tag
+
+```{yaml}
+SETUP__:
+  flags:
+    covariate: [WT, AGE, CRCL]
+```
+
+When yspec loads a yaml file that contains `flags`, it will go into every column
+in the spec and add a logical flag in `dots` that indicates whether or not that 
+column is a member of that covariate set. For this example, all columns in the 
+spec will have `dots$covariate` set to `FALSE` except for `WT`, `AGE`, and 
+`CRCL` where it will be set to `TRUE`. 
+
+The user can appear to this information when filtering the spec. Filtering like
+this will return a yspec object containing only `WT`, `AGE`, and `CRCL`. 
+
+```{r, eval = FALSE}
+ys_filter(spec, covariate)
+```
+
+Note that this flagging process will not overwrite a flag that the user already
+set in a specific column. In this example, `AGE` will not be flagged as a 
+covariate, but `WT` and `CRCL` will.  
+
+```{yaml}
+SETUP__:
+  flags:
+    covariate: [WT, AGE, CRCL]
+WT: 
+  short: weight
+AGE: 
+  short: age
+  dots: {covariate: false}
+CRCL:
+  short: creatinine clearance
+```
+
+It's recommended that `flags` are given in the `SETUP__` information only, but 
+the user can override as needed. 
+
