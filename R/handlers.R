@@ -22,4 +22,4 @@ handlrs[["look"]] <- function(x) {
   x 
 }
 
-
+handlrs[["lookup"]] <- landlrs[["look"]]
