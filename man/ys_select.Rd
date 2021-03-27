@@ -11,6 +11,9 @@ ys_select(.x, ...)
 
 \item{...}{unquoted columns to select}
 }
+\value{
+A \code{yspec} object
+}
 \description{
 Select a subset of columns from a yspec object
 }

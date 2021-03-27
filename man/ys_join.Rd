@@ -15,6 +15,8 @@ ys_join(left, right, ...)
 }
 \value{
 A single yspec object
+
+A single \code{yspec} object
 }
 \description{
 Join yspec objects together

@@ -14,6 +14,9 @@ ys_fill_dots(x, ..., .overwrite = FALSE)
 \item{.overwrite}{logical indicating whether \code{x} should be overwritten with
 data in \code{...}}
 }
+\value{
+A \code{yspec} object with modified \code{.dots}
+}
 \description{
 Please avoid thinking of this function as a way to mutate \code{dots}.  It sort of
 is but not in the way you think. It really is for supplementing the spec

@@ -11,6 +11,9 @@
 #' 
 #' ys_select(spec, Wt = WT, AGE)
 #' 
+#' @return 
+#' A `yspec` object
+#' 
 #' @md
 #' @export
 ys_select <- function(.x, ...) {
@@ -100,7 +103,7 @@ ys_filter_impl <- function(x, expr, def, import, chk_vars, enclos) {
 #' 
 #' 
 #' @return 
-#' A `yspec` object.
+#' A `yspec` object
 #' 
 #' @examples
 #' spec <- ys_help$spec()
@@ -108,6 +111,9 @@ ys_filter_impl <- function(x, expr, def, import, chk_vars, enclos) {
 #' ys_filter(spec, is.character(decode))
 #' 
 #' ys_filter(spec, unit == "kg" | type == "character")
+#' 
+#' ys_filter(spec, covariate)
+#' 
 #' @seealso [ys_rename()], [ys_join()], [ys_select()], [ys_fill_dots()]
 #' @md
 #' @export
@@ -171,6 +177,9 @@ ys_filter <- function(x, expr, .default = NULL, .enclos = parent.frame()) {
 #' 
 #' spec2 <- ys_fill_dots(spec, new_var = FALSE)
 #' 
+#' @return 
+#' A `yspec` object with modified `.dots`
+#' 
 #' @md
 #' @export
 ys_fill_dots <- function(x, ..., .overwrite = FALSE) {
@@ -219,6 +228,9 @@ ys_fill_dots_impl <- function(x, .defaults, .overwrite) {
 #' 
 #' ys_join(l, r, rr)
 #' 
+#' @return 
+#' A single `yspec` object
+#' 
 #' @seealso [ys_rename()], [ys_filter()], [ys_select()]
 #' @md
 #' @export
@@ -248,7 +260,8 @@ ys_join <- function(left, right, ...) {
 #' 
 #' tail(ans)
 #' 
-#' @return A yspec object
+#' @return A `yspec` object with renamed columns
+#' 
 #' @seealso [ys_join()], [ys_filter()], [ys_select()]
 #' @md
 #' @export

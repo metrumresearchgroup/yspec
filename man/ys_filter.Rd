@@ -17,7 +17,7 @@ consider using \code{\link[=ys_fill_dots]{ys_fill_dots()}} as an alternative to 
 \item{.enclos}{an enclosing environment for evaluatingn \code{expr}}
 }
 \value{
-A \code{yspec} object.
+A \code{yspec} object
 }
 \description{
 The intended use is to subset based on variables define in the \code{dots} list,
@@ -83,6 +83,9 @@ spec <- ys_help$spec()
 ys_filter(spec, is.character(decode))
 
 ys_filter(spec, unit == "kg" | type == "character")
+
+ys_filter(spec, covariate)
+
 }
 \seealso{
 \code{\link[=ys_rename]{ys_rename()}}, \code{\link[=ys_join]{ys_join()}}, \code{\link[=ys_select]{ys_select()}}, \code{\link[=ys_fill_dots]{ys_fill_dots()}}

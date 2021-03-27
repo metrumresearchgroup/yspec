@@ -12,7 +12,7 @@ ys_rename(.x, ...)
 \item{...}{tidy rename specification; use \code{new_name} = \code{old_name} to rename}
 }
 \value{
-A yspec object
+A \code{yspec} object with renamed columns
 }
 \description{
 Rename spec columns
