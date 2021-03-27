@@ -42,6 +42,7 @@ update_list <- function(left, right) {
   left[common] <-  right[common]
   left
 }
+ys_update_list <- update_list
 
 # nocov start
 parens <- function(x) paste0("(",x,")")
@@ -322,3 +323,29 @@ ys_escape <- function(string, esc = c("_", "%", "$", "&"), ...) {
   string
 }
 
+expand_names_on_colon <- function(set, valid) {
+  set <- str_split_fixed(set, ":", n = 2)
+  set <- as.data.frame(set, stringsAsFactors = FALSE)
+  set <- mutate(
+    set, 
+    V2 = ifelse(.data[["V2"]] == "", .data[["V1"]], .data[["V2"]])
+  )
+  set <- mutate(set, V3 = match(.data[["V1"]], valid))
+  set <- mutate(set, V4 = match(.data[["V2"]], valid))
+  bad1 <- dplyr::filter(set, is.na(.data[["V3"]]))
+  bad1 <- bad1[["V1"]]
+  bad2 <- dplyr::filter(set, is.na(.data[["V4"]]))
+  bad2 <- bad2[["V2"]]
+  bad <- unique(c(bad1, bad2))
+  set <- filter(set, !is.na(.data[["V3"]]) & !is.na(.data[["V4"]]))
+  if(nrow(set) > 0) {
+    set <- mutate(
+      rowwise(set), 
+      selected = list(valid[sort(seq(.data[["V3"]], .data[["V4"]]))])
+    )
+    cols <- unique(unlist(set[["selected"]]))
+  } else {
+    cols <- character(0)  
+  }
+  list(cols = cols, bad_cols = bad, any_bad = length(bad) > 0)
+}

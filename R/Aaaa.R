@@ -1,26 +1,26 @@
 #' @importFrom yaml yaml.load_file as.yaml
 #' @importFrom dplyr filter %>% bind_rows
-#' @importFrom tidyselect vars_select eval_select
+#' @importFrom tidyselect vars_select eval_select eval_rename
 #' @importFrom tibble tibble as_tibble
-#' @importFrom dplyr mutate if_else .data desc
+#' @importFrom dplyr mutate if_else .data desc rowwise
 #' @importFrom rmarkdown render pdf_document html_document
 #' @importFrom knitr kable
 #' @importFrom xtable xtable
-#' @importFrom rlang quos set_names exprs as_string expr 
+#' @importFrom rlang quos set_names exprs as_string expr quo_get_expr enquo
+#' @importFrom rlang is_named
 #' @importFrom assertthat assert_that
 #' @importFrom purrr map map_chr map_df map_if map_lgl
 #' @importFrom purrr imap imap_chr map_int
 #' @importFrom purrr discard compact transpose
 #' @importFrom purrr walk walk2 iwalk keep
-#' @importFrom purrr flatten flatten_chr modify
+#' @importFrom purrr flatten flatten_chr modify imodify
 #' @importFrom glue glue
 #' @importFrom utils type.convert read.csv 
 #' @importFrom utils capture.output head tail
 #' @importFrom tools toTitleCase
 #' @importFrom crayon red green black blue bold italic
 #' @importFrom fs path_rel
-#' @importFrom stringr fixed str_detect str_split_fixed
-#' @importFrom stringr str_count fixed
+#' @importFrom stringr fixed str_detect str_split_fixed str_count fixed 
 #' 
 #' @include utils.R
 NULL
@@ -38,11 +38,12 @@ VALID_SPEC_NAMES <- c(
 
 VALID_SETUP_NAMES <- c(
   "primary_key", "lookup_file", 
-  "description", "sponsor", "projectnumber", 
+  "description", "comment", "sponsor", "projectnumber", 
   "data_path", "data_stem", "name", "spec_file", 
   "spec_path", "glue", "use_internal_db", 
   "import", "character_last","comment_col", 
-  "max_nchar_label", "max_nchar_col", "max_nchar_short"
+  "max_nchar_label", "max_nchar_col", "max_nchar_short", 
+  "flags"
 )
 
 ys_control_defaults <- function() {

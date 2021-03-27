@@ -2,7 +2,10 @@
 title: "Yaml specification reference"
 author: ""
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_vignette: 
+    toc: true
+    number_sections: true
 vignette: >
   %\VignetteIndexEntry{Yaml specification reference}
   %\VignetteEngine{knitr::rmarkdown}
@@ -26,6 +29,7 @@ __NOTES__
     - Use `short: "> QL"` not `short: > QL`
     - Use `values: [".", C]` not `values: [.,C]`
     - Use `address: "123 Main St."` not `address: 123 Main St.`
+    - Use `label: "line 1 \\n line 2"` not `label: line 1 \n line2`
 
 Instructions for including TeX in the yaml specification code are provided
 in a section below. 
@@ -37,9 +41,9 @@ file extension.
 At the top of the file, include a block called `SETUP__:`; this is where 
 the data set meta data is stored.  For example
 
-```yaml
+```txt
 SETUP__:
-  description: PKPD analysis data set. 
+  description: PKPD analysis data set
   use_internal_db: true
   projectnumber: FOO123
   sponsor: MetrumRG
@@ -50,7 +54,7 @@ See the details below for other files that can be included here.
 Next, list each data set column in order, with the data column name 
 starting in the first column and ending with a colon.  For example:
 
-```yaml
+```txt
 WT:
   short: weight
   unit: kg
@@ -78,32 +82,44 @@ See the [ys_help] topic for more information.
 
 ## `SETUP__` specification fields
 
-- `description`: `<character>`; a short description of the data set 
-- `projectnumber`: `<character>` the project reference number; may be 
+- `description`: `<chr>`; a short, label-like description of the data set 
+- `projectnumber`: `<chr>` the project reference number; may be 
    incorporated into rendered define documents; when the project number is 
    given in the first yspec object in a project object, that project number 
    will be rendered in the project-wide define document
-- `sponsor`: `<character>` the project sponsor; when the project sponsor is 
+- `sponsor`: `<chr>` the project sponsor; when the project sponsor is 
    given in the first yspec object in a project object, that project sponsor 
    name will be rendered in the project-wide define document 
-- `lookup_file`: `<character>`; a yaml array of other yaml files where 
+- `data_path`: `<chr>`; a path locating the data set associated with the spec
+- `data_stem`: `<chr>`; the stem (no extension) for the data set associated 
+  with the spec; usually the stem of the data file is the same as the stem of 
+  the spec, but they can also be different
+- `lookup_file`: `<chr>`; a yaml array of other yaml files where 
    yspec will look for column lookup information
 - `use_internal_db`: `<logical> (true/false)`; if `true`, then yspec will 
    load the internal column lookup database
-- `import`: `<character>`;  give the name of a `<file>` to import into the 
+- `import`: `<chr>`;  give the name of a `<file>` to import into the 
   current data spec; all 
   columns from `<file>` are imported as is; additional columns may also be listed
   with the normal syntax and these columns will appear after the imported 
   columns
 - `character_last`: `<logical>`;  if true, automatically push all non-numeric 
   columns to the end of the data specification list
-- `comment_col`: `<character>`; identify the column that is used to store 
+- `comment_col`: `<chr>`; identify the column that is used to store 
   comments; the comment column will not be pushed to the back when 
   `character_last` is true
 - `glue`: `<map>`; specify name/value pairs;  in the yaml data specification, 
   use `<<name>>` in the text and `value` will glued into the text after
   it has been sanitized; intended use is to allow LaTeX code to evade the 
   sanitizer
+- `max_nchar_label`: `integer`; the maximum number of characters allowed in 
+  the `label` field
+- `max_nchar_short`: `integer`; the maximum number of characters allowed in 
+  the `short` field
+- `max_nchar_col`: `integer`; the maximum number of characters allowed in 
+  the data set column name
+- `flags`: `<map>`; for each key, an array of column names where a logical 
+  data item will be set in the `dots` list
 
 ## Data column specification fields
 
@@ -121,8 +137,8 @@ See the [ys_help] topic for more information.
       yaml map structure (the decode is to the left of the `:`)
     - __Note__ the curly brackets, not square brackets
 - `decode: [decode1, decode2, decode3]`
-    - Separate the `decode` from the `values` specification
-    - See example below for clearer way to input very long decodes
+    - separate the `decode` from the `values` specification
+    - see example below for clearer way to input very long decodes
 - `longvalues: true`
     - print the values in a (long) `yaml`-formatted list
 - `comment: just whatever you want to say`
@@ -131,35 +147,35 @@ See the [ys_help] topic for more information.
       on multiple lines of
       text`
 - `source: ADSL.xpt`
-    - Where the data came from
+    - where the data came from
     - include both the sdtm domain and variable name
 - `about: [short-name, unit]`
-  - This is a convenience structure.
+  - this is a convenience structure
 - `label`: a label for the column; the label must be 40 or fewer characters and 
   will get written into the define file as well as the data frame prior to 
   writing out to sas xport format
 - `long: a longer name to describe the column`
 - `dots`: 
-  - A named list of whatever you want to carry along in the object; the `dots` list
-    isn't used by any rendering function in the yspec package, but might be used 
-    by a custom rendering function 
+  - a named list of whatever you want to carry along in the object; the `dots` 
+    list isn't used by any rendering function in the yspec package, but might 
+    be used by a custom rendering function 
 - `axis`:
-  - A short-ish name that can be used for axis titles for plots
-  - Generally, don't include unit; yspec helpers will add that 
+  - a short-ish name that can be used for axis titles for plots
+  - generally, don't include unit; yspec helpers will add that 
     automatically by default
-  - If `short` will work for your axis title (as it is ... with no 
+  - if `short` will work for your axis title (as it is ... with no 
     modification), yspec will use that if no `axis` field is used
 - `type`:
-  - Can be `numeric`, `character`, or `integer`
-  - This is optional; the default is `numeric`
+  - can be `numeric`, `character`, or `integer`
+  - this is optional; the default is `numeric`
 - `make_factor`: if `true`, then the column will be able to be converted to a 
   factor regardless of whether `decode` is included or not
 - `lookup`:
-  - Logical; if `true` then the definition for the column is looked up in 
+  - logical; if `true` then the definition for the column is looked up in 
   the `lookup_files` (specified in `SETUP__:`)
-  - Use the `!look` handler to indicate lookup
+  - use the `!look` handler to indicate lookup
   
-
+  
 ## Defaults
 
 - If `type` is not given, then it will default to `numeric`
@@ -171,17 +187,17 @@ See the [ys_help] topic for more information.
 - The `about` array provides a short name and unit
 - Any time `range` is given, the data is assumed to be continuous
 
-```yaml
+```txt
 WT:
-  about: [Weight, kg]
-  range: [5,300]
+  about: [weight, kg]
+  range: [5, 300]
 ```
 
 This is equivalent to 
 
-```yaml
+```txt
 WT:
-  short: Weight
+  short: weight
   unit: kg
   range: [5,300]
 ```
@@ -189,18 +205,18 @@ WT:
 ### Character data
 - Using `values` indicates discrete data
 
-```yaml
+```txt
 RACE:
-  values: [white, black, Native American, Other]
+  values: [White, Black, Native American, Other]
 ```
 
 Any other array input structure can be used.  For example
 
-```yaml
+```txt
 RACE: 
   values:
-    - white
-    - black
+    - White
+    - Black
     - Native American
     - Other
 ```
@@ -209,9 +225,9 @@ RACE:
 By default, `values` are printed as comma-separated list.  To
 get them to print in long format
 
-```yaml
+```txt
 RACE:
-  values: [white, black, Native American, Other]
+  values: [White, Black, Native American, Other]
   longvalues: true
 ```
 
@@ -224,7 +240,7 @@ __Method 1__
 - Finally it is a `:` that separates decode (on the left) and the 
   value (on the right).
 
-```yaml
+```txt
 SEX:
   values: {dude: 0, gal: 1}
 ```
@@ -235,7 +251,7 @@ decode specification.
 The `!value:decode` handler allows you to put the value on the left and 
 decode on the right
 
-```yaml
+```txt
 SEX: 
   values: !value:decode
     0 : dude
@@ -244,7 +260,7 @@ SEX:
 
 The default behavior can be achieved with
 
-```yaml
+```txt
 SEX: 
   values: !value:decode
     dude: 0
@@ -255,7 +271,7 @@ The handlers also allow associating multiple values with a single decode
 
 __To get multiple values with the same decode__
 
-```yaml
+```txt
 STUDY:
   values: !decode:value
     phase 1 : [101, 102, 103]
@@ -279,7 +295,7 @@ __Method 3__
 Really, it's the same as method 2, but easier to type and read when the
 decode gets really long
 
-```yaml
+```txt
 BQL:
   values [0, 1]
   decode:
@@ -291,17 +307,17 @@ BQL:
 
 Either fill in the `lookup` field or use the `!look` handler
 
-```yaml
+```txt
 CMT: 
   lookup: true
 ```
 
-```yaml
+```txt
 CMT: !look
 ```
 You can also give the column name to import
 
-```yaml
+```txt
 HT: 
   lookup: HT_INCHES
 ```
@@ -314,15 +330,15 @@ lookup file that would be imported under the name `HT`.
 
 Most define documents get rendered via `xtable` and the text gets processed
 by a sanitize function.  yspec implements a custom sanitize function
-called `ys_sanitize`, which is similar to `xtable::sanitize`, but whitelists
+called `ys_sanitize()`, which is similar to `xtable::sanitize`, but whitelists
 some symbols so they do not get sanitized.  
 
-To protect TeX code from the sanitizer, first create a field in `SETUP_`
+To protect TeX code from the sanitizer, first create a field in `SETUP__`
 called `glue` with a map between a name and some corresponding TeX code.  In 
 the following example, we with to write $\mu$g/L, so we create a name 
 called `mugL` and map it to `$\\mu$g/L`:
 
-```{yaml}
+```{txt}
 SETUP__:
   glue: {mugL: "$\\mu$g/L"}
 ```
@@ -330,7 +346,7 @@ SETUP__:
 Once the map is in place, we can write the data set column definition like 
 this:
 
-```{yaml}
+```{txt}
 DV: 
   unit: "<<mugL>>"
 ```
@@ -342,3 +358,50 @@ yspec will call `glue()` and replace `<<mugL>>` with `$\\mu%g/L`.
 Notice that we put all of the values in quotes;  this is good practice to ensure
 that yaml will parse the value as a character data item when reading in the 
 spec. 
+
+## `flags`
+
+The `flags` section in `SETUP__:` is available for you to name sets of columns
+in the work in spec. For example, the following code defines a flag called 
+`covariate` and it names three columns (`WT`, `AGE`, and `CRCL`) to carry 
+this tag
+
+```{txt}
+SETUP__:
+  flags:
+    covariate: [WT, AGE, CRCL]
+```
+
+When yspec loads a yaml file that contains `flags`, it will go into every column
+in the spec and add a logical flag in `dots` that indicates whether or not that 
+column is a member of that covariate set. For this example, all columns in the 
+spec will have `dots$covariate` set to `FALSE` except for `WT`, `AGE`, and 
+`CRCL` where it will be set to `TRUE`. 
+
+The user can appear to this information when filtering the spec. Filtering like
+this will return a yspec object containing only `WT`, `AGE`, and `CRCL`. 
+
+```{r, eval = FALSE}
+ys_filter(spec, covariate)
+```
+
+Note that this flagging process will not overwrite a flag that the user already
+set in a specific column. In this example, `AGE` will not be flagged as a 
+covariate, but `WT` and `CRCL` will.  
+
+```{txt}
+SETUP__:
+  flags:
+    covariate: [WT, AGE, CRCL]
+WT: 
+  short: weight
+AGE: 
+  short: age
+  dots: {covariate: false}
+CRCL:
+  short: creatinine clearance
+```
+
+It's recommended that `flags` are given in the `SETUP__` information only, but 
+the user can override as needed. 
+

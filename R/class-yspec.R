@@ -66,25 +66,25 @@ update_short <- function(spec, ...) {
 #' 
 #' @md
 #' @export
-c.yspec <- function(x,y,...,.meta = get_meta(x)) {
+c.yspec <- function(x, y, ... ,.meta = get_meta(x)) {
   assert_that(is_yspec(y))
   new_cols <- setdiff(names(y),names(x))
   if(!identical(new_cols, names(y))) {
-    stop("'x' and 'y' cannot share any names.")  
+    stop("`x` and `y` cannot share any names.")  
   }
-  structure(c(unclass(x),unclass(y)), meta = .meta, class="yspec")
+  structure(c(unclass(x),unclass(y)), meta = .meta, class = "yspec")
 }
 
 ##' @export
 `$.yspec` <- function(x, name, ...) {
-  if(!exists(name,x)) {
+  if(!exists(name, x)) {
     return(NULL)
   }
   x[[name]]
 }
 
 ##' @export
-`[.yspec` <- function(x,i,j,drop=FALSE) {
+`[.yspec` <- function(x, i, j, drop = FALSE) {
   meta <- get_meta(x)
   x <- unclass(x)
   x <- x[i]
@@ -92,19 +92,19 @@ c.yspec <- function(x,y,...,.meta = get_meta(x)) {
 }
 
 ##' @export
-`[[.yspec` <- function(x,i,..., exact = TRUE) {
+`[[.yspec` <- function(x, i, ..., exact = TRUE) {
   unclass(x)[[i]]
 }
 
 ##' @method as.list yspec
 ##' @export
-as.list.yspec <- function(x,...) {
-  lapply(unclass(x),unclass)
+as.list.yspec <- function(x, ...) {
+  lapply(unclass(x), unclass)
 }
 
 ##' @export
-as.data.frame.yspec <- function(x,...) {
-  summary.yspec(x,...)
+as.data.frame.yspec <- function(x, ...) {
+  summary.yspec(x, ...)
 }
 
 ##' @export
@@ -120,12 +120,9 @@ tail.yspec <- function(x, n = 10, ...) {
 }
 
 ##' @export
-print.yspec <- function(x,i=0,...) {
-  # if(i==1) {
-  #   return(print1(x,...))
-  # }
+print.yspec <- function(x, i = 0, ...) {
   out <- summary.yspec(x)
-  print.data.frame(out, row.names=FALSE, right=FALSE)
+  print.data.frame(out, row.names = FALSE, right = FALSE)
 }
 
 yml_rm <- function(x) {
@@ -430,27 +427,6 @@ ys_add_labels <- function(data,spec,fun=label.ycol) {
     attr(data[[i]],"label") <- col_labels[[i]]
   }
   data
-}
-
-#' Select a subset of columns from a yspec object
-#' 
-#' @param .x a yspec object
-#' @param ... unquoted columns to select
-#' 
-#' @examples
-#' 
-#' spec <- ys_help$spec()
-#' 
-#' ys_select(spec, WT, AGE, ALB)
-#' 
-#' @export
-ys_select <- function(.x, ...) {
-  keep <- eval_select(expr(c(...)), as.list(.x))
-  if(length(keep)==0) {
-    return(.x) 
-  }
-  ans <- .x[keep]
-  ans
 }
 
 as_spec_list <- function(...) {

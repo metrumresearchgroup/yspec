@@ -4,6 +4,8 @@ author: ""
 date: "`r Sys.Date()`"
 output: 
   rmarkdown::html_vignette: 
+    toc: true
+    number_sections: true
     keep_md: true
 vignette: >
   %\VignetteIndexEntry{Project-wide column definitions}
@@ -12,6 +14,7 @@ vignette: >
 ---
 
 # Introduction
+
 This document shows how data set column definitions can be entered into 
 a lookup file which can be accessed by multiple data specification files 
 within a project. This document also discusses an internal lookup data base
@@ -26,11 +29,15 @@ The lookup file that is to be accessed by other data specification files
 is just another data specification file.  For example, create a file called
 `lookup.yml` and enter this information.
 
-```yaml
+```txt
 # in file lookup.yml
 AMT: 
   short: dose amount
-  unit: nM
+  unit: nmol
+  type: numeric
+AMTMG: 
+  short: dose amount
+  unit: mg
   type: numeric
 WT: 
   short: patient weight
@@ -44,7 +51,7 @@ valid yaml.
 
 This is just the standard data specification file
 
-```yaml
+```txt
 SETUP__:
   description: PKPD analysis data set
   lookup_file: lookup.yml
@@ -61,7 +68,7 @@ indicate that we wanted that data to be looked up.
 Alternatively, we could just pass in empty data and yspec will assume that 
 you want to try to look up that data
 
-```yaml
+```txt
 SETUP__:
   description: PKPD analysis data set
   lookup_file: lookup.yml
@@ -70,6 +77,22 @@ C:
 AMT:
 ```
 
+Finally, we can import a column from the lookup file under a new name in the 
+working spec
+
+```txt
+SETUP__:
+  description: PKPD analysis data set
+  lookup_file: lookup.yml
+C: 
+  short: comment character
+AMT:
+  lookup: AMTMG
+```
+
+In this snippet, we are asking for the `AMTMG` column from the lookup and 
+bringing it in as `AMT` in the working spec.
+
 
 # Internal lookup data base
 
@@ -77,7 +100,7 @@ There is an internal data base of common data set columns that
 yspec will attach by default.  So, with no lookup file defined, 
 we could write the following in our specification file
 
-```yaml
+```txt
 SETUP__:
   description: PKPD analysis data set
   use_internal_db: true
@@ -148,21 +171,3 @@ ys_get_lookup(spec) %>% glimpse()
 ```
 
 </details>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

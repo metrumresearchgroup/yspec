@@ -1,0 +1,27 @@
+SETUP__:
+  flags: 
+    set1: [h,i,j]
+    set2: [b:e,k]
+    set3: [k,e:b]
+a: 
+  short: test a
+b: 
+  short: test b
+c: 
+  short: test c
+d: 
+  short: test d
+e: 
+  short: test e
+f: 
+  short: test f
+g: 
+  short: test g
+h: 
+  short: test h
+i: 
+  short: test i
+j: 
+  short: test j
+k: 
+  short: test k
