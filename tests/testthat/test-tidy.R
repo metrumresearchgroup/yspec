@@ -186,3 +186,22 @@ test_that("fill dots", {
   expect_true(spec3$PHASE$dots$categorical)
   expect_false(spec3$TIME$dots$categorical)
 })
+
+test_that("mutate the spec", {
+  ys_mutate <- yspec:::ys_mutate
+  spec <- ys_help$spec()
+  spec <- ys_mutate(
+    spec, 
+    WT = list(unit = "mg"), 
+    ALB = list(short = "al bu min", type = "factor")
+  )
+  expect_is(spec, "yspec")
+  expect_is(spec$WT, "ycol")
+  expect_is(spec$ALB, "ycol")
+  expect_equal(spec$WT$unit, "mg")
+  expect_equal(spec$ALB$short, "al bu min")
+  expect_equal(spec$ALB$type, "numeric")
+  expect_error(ys_mutate(spec, B = c(unit = "mg")), "must be lists")
+  expect_error(ys_mutate(spec, list(unit = "mg")), "must be named")
+  rm(ys_mutate)
+})
