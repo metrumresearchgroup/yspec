@@ -274,3 +274,51 @@ ys_rename <- function(.x, ...) {
   }
   .x
 }
+
+#' Mutate column data
+#' 
+#' @param x a yspec object
+#' @param ... named lists of column data to update; only specific items can be 
+#' mutated at this time; see details.
+#' 
+#' @details 
+#' Items that can be mutated: 
+#' - `short`
+#' - `unit`
+#' - `label`
+#' 
+#' @return 
+#' A `yspec` object
+#' 
+#' @examples
+#' 
+#' spec <- ys_help$spec()
+#' xpec <- yspec:::ys_mutate(spec, TIME = list(unit = "d"), TAD = list(unit = 'w'))
+#' spec$TIME
+#' spec$TAD
+#' 
+#' @seealso [update_short()]
+ys_mutate <- function(x, ...) {
+  assert_that(is_yspec(x))
+  args <- list(...)
+  assert_that(
+    is_named(args), 
+    msg = "all args passed to `ys_mutate` as dots must be named"
+  )
+  assert_that(
+    all(map_lgl(args, is.list)),
+    msg = "all args passed to `ys_mutate` as dots must be lists"
+  )
+  cols <- names(args)
+  for(i in seq_along(cols)) {
+    x <- ys_mutate_impl(x, cols[[i]], args[[i]])
+  }
+  x
+}
+
+ys_mutate_impl <- function(x, col_name, col_new) {
+  col_new <- col_new[names(col_new) %in% c("short", "unit", "label", "axis", "table")]
+  if(length(col_new)==0) return(x)
+  x[[col_name]] <- update_list(x[[col_name]], col_new)
+  x
+}
