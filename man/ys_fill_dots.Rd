@@ -27,7 +27,7 @@ function.
 \details{
 By default, this function will not overwrite data in \code{dots} when it already
 exists. This behavior can be changed with the \code{.overwrite} argument. Note
-that when \code{.overwrite} is \code{TRUE}, all columns in the cpec will have the
+that when \code{.overwrite} is \code{TRUE}, all columns in the spec will have the
 same value in \code{dots} for the \code{name} getting set.
 }
 \examples{

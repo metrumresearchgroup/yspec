@@ -49,7 +49,7 @@ ys_filter_impl <- function(x, expr, def, import, chk_vars, enclos) {
 #' @param expr an unquoted expression
 #' @param .default a named list or environment containing defaults for `expr`; 
 #' consider using [ys_fill_dots()] as an alternative to passing `.default`
-#' @param .enclos an enclosing environment for evaluatingn `expr`
+#' @param .enclos an enclosing environment for evaluating `expr`
 #' 
 #' @details
 #' 
@@ -59,7 +59,7 @@ ys_filter_impl <- function(x, expr, def, import, chk_vars, enclos) {
 #' - `type`: data type `<character>`; either numeric, character, or integer
 #' - `discrete`: discrete data flag `<logical>`; yspec sets this to `TRUE`
 #'   when the `values` field is populated
-#' - `continuous`: continuous dat flag `<logical>`; yspec sets this to `TRUE`
+#' - `continuous`: continuous data flag `<logical>`; yspec sets this to `TRUE`
 #'   when the `range` field is populated
 #' - `short`: the short name `<character>`
 #' - `do_lookup`: lookup indicator; yspec sets this to `TRUE` when some or all 
@@ -78,7 +78,7 @@ ys_filter_impl <- function(x, expr, def, import, chk_vars, enclos) {
 #' @section Evaluation environment: 
 #' In order to determine if any column should get selected, `ys_filter()`, 
 #' builds an environment and evaluates `expr` in that environment. Columns are 
-#' selected only if `expr` evalutes to `TRUE` (via [isTRUE()]). 
+#' selected only if `expr` evaluates to `TRUE` (via [isTRUE()]). 
 #' 
 #' The environment is comprised of pre-existing data items in the spec (e.g. 
 #' `col` or `short`; these items are always present), data items in the enclosing
@@ -169,7 +169,7 @@ ys_filter <- function(x, expr, .default = NULL, .enclos = parent.frame()) {
 #' @details
 #' By default, this function will not overwrite data in `dots` when it already 
 #' exists. This behavior can be changed with the `.overwrite` argument. Note
-#' that when `.overwrite` is `TRUE`, all columns in the cpec will have the 
+#' that when `.overwrite` is `TRUE`, all columns in the spec will have the 
 #' same value in `dots` for the `name` getting set.
 #' 
 #' @examples
@@ -207,7 +207,7 @@ ys_fill_dots_impl <- function(x, .defaults, .overwrite) {
 #' 
 #' @param left a yspec object
 #' @param right a yspec object
-#' @param ... more yspect objects
+#' @param ... more yspec objects
 #' 
 #' @return A single yspec object
 #' 

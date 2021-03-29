@@ -14,7 +14,7 @@ ys_filter(x, expr, .default = NULL, .enclos = parent.frame())
 \item{.default}{a named list or environment containing defaults for \code{expr};
 consider using \code{\link[=ys_fill_dots]{ys_fill_dots()}} as an alternative to passing \code{.default}}
 
-\item{.enclos}{an enclosing environment for evaluatingn \code{expr}}
+\item{.enclos}{an enclosing environment for evaluating \code{expr}}
 }
 \value{
 A \code{yspec} object
@@ -31,7 +31,7 @@ querying in the filter expression:
 \item \code{type}: data type \verb{<character>}; either numeric, character, or integer
 \item \code{discrete}: discrete data flag \verb{<logical>}; yspec sets this to \code{TRUE}
 when the \code{values} field is populated
-\item \code{continuous}: continuous dat flag \verb{<logical>}; yspec sets this to \code{TRUE}
+\item \code{continuous}: continuous data flag \verb{<logical>}; yspec sets this to \code{TRUE}
 when the \code{range} field is populated
 \item \code{short}: the short name \verb{<character>}
 \item \code{do_lookup}: lookup indicator; yspec sets this to \code{TRUE} when some or all
@@ -53,7 +53,7 @@ items in the \code{dots} field.
 
 In order to determine if any column should get selected, \code{ys_filter()},
 builds an environment and evaluates \code{expr} in that environment. Columns are
-selected only if \code{expr} evalutes to \code{TRUE} (via \code{\link[=isTRUE]{isTRUE()}}).
+selected only if \code{expr} evaluates to \code{TRUE} (via \code{\link[=isTRUE]{isTRUE()}}).
 
 The environment is comprised of pre-existing data items in the spec (e.g.
 \code{col} or \code{short}; these items are always present), data items in the enclosing

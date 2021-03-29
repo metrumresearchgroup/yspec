@@ -11,7 +11,7 @@ ys_join(left, right, ...)
 
 \item{right}{a yspec object}
 
-\item{...}{more yspect objects}
+\item{...}{more yspec objects}
 }
 \value{
 A single yspec object
