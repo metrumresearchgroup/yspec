@@ -293,10 +293,11 @@ ys_rename <- function(.x, ...) {
 #' @examples
 #' 
 #' spec <- ys_help$spec()
-#' xpec <- yspec:::ys_mutate(spec, TIME = .(unit = "d"), TAD = .(unit = 'w'))
+#' xpec <- yspec:::ys_mutate(spec, TIME = list(unit = "d"), TAD = list(unit = 'w'))
 #' spec$TIME
 #' spec$TAD
 #' 
+#' @seealso [update_short()]
 ys_mutate <- function(x, ...) {
   assert_that(is_yspec(x))
   args <- list(...)
@@ -314,7 +315,7 @@ ys_mutate <- function(x, ...) {
   }
   x
 }
-. <- function(...) list(...)
+
 ys_mutate_impl <- function(x, col_name, col_new) {
   col_new <- col_new[names(col_new) %in% c("short", "unit", "label", "axis", "table")]
   if(length(col_new)==0) return(x)
