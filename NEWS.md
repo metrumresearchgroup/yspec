@@ -1,4 +1,4 @@
-# yspec (development version)
+# yspec 0.5.0
 
 - `ys_select()` will now rename columns if new names are provided (#62)
 - `ys_filter()` will subset a `yspec` object based on logical criteria (#65)
