@@ -62,3 +62,24 @@ test_that("yspec_select", {
   expect_identical(names(x), c("C", "SUBJ", "RF"))
 })
 
+test_that("expand on colon", {
+  a <- yspec:::expand_names_on_colon(c("a", "m", "p"), letters)
+  expect_false(a$any_bad)
+  expect_identical(a$cols, c("a", "m", "p"))
+  
+  b <- yspec:::expand_names_on_colon(c("a:c", "m", "p"), letters)
+  expect_false(b$any_bad)
+  expect_identical(b$cols, c("a", "b", "c", "m", "p"))
+  
+  c <- yspec:::expand_names_on_colon(c("a:c", "m", "b"), letters)
+  expect_false(c$any_bad)
+  expect_identical(c$cols, c("a", "b", "c", "m"))
+  
+  d <- yspec:::expand_names_on_colon(c("A", letters[1:2]), LETTERS)
+  expect_true(d$any_bad)
+  expect_identical(d$bad_cols, c("a", "b"))
+  
+  e <- yspec:::expand_names_on_colon(letters, LETTERS)
+  expect_true(e$any_bad)
+  expect_identical(e$bad_cols, letters)
+})

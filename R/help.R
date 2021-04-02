@@ -81,7 +81,7 @@ ys_help_setup <- function(libname, pkgname) {
 }
 # nocov end
 
-##' @inheritParams base::print
+##' @param ... not used 
 ##' @rdname ys_help
 ##' @export
 print.yhelp <- function(...) {

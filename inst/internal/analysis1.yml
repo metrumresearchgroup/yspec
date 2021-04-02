@@ -5,6 +5,9 @@ SETUP__:
   use_internal_db: true
   glue: 
     bmiunits: "kg/m$^2$"
+  flags: 
+    covariate: [AGE:SCR, HT, AST:ALT]
+  lookup_file: "look.yml"
 C:
 NUM:
 ID:
@@ -28,10 +31,12 @@ AGE: !look
   range: [18,50]
 WT: !look
   range: [40,100]
+  dots: {time_varying: true} 
 CRCL:
   label: creatinine clearance
   unit: ml/min
   range: [15,150]
+  dots: {time_varying: true}
 ALB: !look
   range: [1.2,6]
 BMI: !look
@@ -53,9 +58,10 @@ ALT:
 HT: !look
   range: [140, 222]
   unit: cm
-CP:
+CP: !look 
   short: Child-Pugh score
   values: {normal: 0, Pugh1: 1, Pugh2: 2, Pugh3: 3}
+  dots: {updated_from_lookup: false} # these dots used in tests
 TAFD:
   short: time after first dose
   unit: hours
@@ -73,6 +79,7 @@ BLQ:
 PHASE: 
   short: study phase indicator
   values: 1
+  dots: {categorical: true}
 STUDY: 
   short: study number
   values: {SAD: 1, MAD: 2, Renal: 3, Hepatic: 4}

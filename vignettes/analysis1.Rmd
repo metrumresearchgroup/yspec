@@ -2,9 +2,7 @@
 title: "Example yaml specification file"
 author: ""
 date: "`r Sys.Date()`"
-output: 
-  rmarkdown::html_vignette: 
-    keep_md: true
+output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Example yaml specification file}
   %\VignetteEngine{knitr::rmarkdown}
@@ -26,7 +24,7 @@ file <- system.file("internal", "analysis1.yml", package = "yspec")
 ```
 
 
-```{yaml, eval=FALSE, code = readLines(file)}
+```{txt, eval=FALSE, code = readLines(file)}
 
 ```
 

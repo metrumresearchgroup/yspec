@@ -25,7 +25,7 @@ file <- system.file("internal", "ysdb_internal.yml", package = "yspec")
 ```
 
 
-```{yaml, eval=FALSE, code = readLines(file)}
+```{txt, eval=FALSE, code = readLines(file)}
 
 ```
 

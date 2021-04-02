@@ -1,0 +1,5 @@
+SETUP__:
+  max_char_col: 10
+ABCDEFGHIJKLMNOPQRS:
+  type: numeric
+  short: blah

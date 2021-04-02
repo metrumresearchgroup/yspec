@@ -1,0 +1,10 @@
+SETUP__:
+  flags: 
+    set1: [a,b,c]
+a: 
+  short: test a
+y: 
+  short: test z
+z: 
+  short: test y
+
