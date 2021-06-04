@@ -132,7 +132,7 @@ yml_rm <- function(x) {
 
 ##' @export
 summary.yspec <- function(object, ...) {
-  out <- data.frame(col = seq_along(object), name=names(object))
+  out <- data.frame(col = seq_along(object), name = names(object), stringsAsFactors = FALSE)
   type <- map_chr(object, "type", .default = ".")
   out$c <- ifelse(type=="character", "+", "-")
   dec <- map(object, "decode") %>% unname %>% map_int(length)
