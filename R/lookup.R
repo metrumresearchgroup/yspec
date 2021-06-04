@@ -90,9 +90,16 @@ lookup_ysdb_file <- function(do = TRUE) {
 }
 
 merge_dots <- function(x, dots) {
-  if(!is.list(dots) || !is.list(x[["dots"]])) {
+  # nothing to merge
+  if(!is.list(dots)) {
     return(x)  
   }
+  # dots exist in lookup but not col - replace
+  if(!is.list(x[["dots"]])) {
+    x[["dots"]] <- dots
+    return(x)
+  }
+  # dots exist in lookup and in col - merge
   x[["dots"]] <- combine_list(dots, x[["dots"]])
   x
 }
