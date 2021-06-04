@@ -36,7 +36,7 @@ test_that("dots are inherited when dots aren't already existing", {
   expect_is(yam$TIME$dots, "NULL")
   expect_is(spec$TIME$dots, "list")
   expect_is(spec$TIME$dots$timecol, "logical")
-  spect <- as.data.frame(ys_filter(spec, isTRUE(timecol)), stringsAsFactors = FALSE)
+  spect <- dplyr::as_tibble(ys_filter(spec, isTRUE(timecol)))
   expect_equal(nrow(spect), 3)
   expect_equal(spect$name, c("TIME", "TAFD", "TAD"))
   expect_equal(spect$source, c("look.yml", ".", "."))
