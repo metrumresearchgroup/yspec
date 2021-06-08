@@ -1,5 +1,8 @@
 # yspec (development version)
 
+- Fix bug where dots in lookup file were not properly inherited by spec
+  columns that didn't already have a dots list (#69)
+
 # yspec 0.5.0
 
 - `ys_select()` will now rename columns if new names are provided (#62)
