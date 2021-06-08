@@ -12,7 +12,7 @@ C:
 NUM:
 ID:
 SUBJ: !look
-TIME:
+TIME: !look
   label: time after first dose
   unit: hour
 SEQ: 
@@ -65,8 +65,10 @@ CP: !look
 TAFD:
   short: time after first dose
   unit: hours
+  dots: {timecol: true}
 TAD:
   about: [time after dose, hours]
+  dots: {timecol: true}
 LDOS:
   short: last dose amount
   unit: mg
