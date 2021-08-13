@@ -12,6 +12,7 @@ ys_add_factors(
   .spec,
   ...,
   .all = TRUE,
+  .missing = NULL,
   .suffix = getOption("ys.fct.suffix", "_f")
 )
 
@@ -20,12 +21,13 @@ yspec_add_factors(
   .spec,
   ...,
   .all = TRUE,
+  .missing = NULL,
   .suffix = getOption("ys.fct.suffix", "_f")
 )
 
-ys_make_factor(values, x, strict = TRUE)
+ys_make_factor(values, x, strict = TRUE, .missing = NULL)
 
-yspec_make_factor(values, x, strict = TRUE)
+yspec_make_factor(values, x, strict = TRUE, .missing = NULL)
 }
 \arguments{
 \item{.data}{the data set to modify}
@@ -36,6 +38,10 @@ yspec_make_factor(values, x, strict = TRUE)
 
 \item{.all}{if \code{TRUE} then any column with a \code{values} attribute or  where
 the \code{make_factor} field evaluates to \code{TRUE} will be added as a factor}
+
+\item{.missing}{a label to use assign to missing values \code{NA} when making
+the factor; keep this \code{NULL} (the default) to let missing values be handled
+naturally by \code{factor()}}
 
 \item{.suffix}{used to make the column name for the factors}
 
@@ -49,7 +55,9 @@ the \code{make_factor} field evaluates to \code{TRUE} will be added as a factor}
 Add factors to data set based on spec information
 }
 \details{
-Note that \code{.suffix} can be chosen using option \code{ys.fct.suffix}.
+Note that \code{.suffix} can be chosen using option \code{ys.fct.suffix}. When the
+factor is made by \code{\link[base:factor]{base::factor()}}, the \code{exclude} argument is forced to
+\code{character(0)} so that nothing is excluded.
 }
 \examples{
 

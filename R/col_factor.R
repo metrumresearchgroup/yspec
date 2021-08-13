@@ -6,13 +6,17 @@
 #' @param ... unquoted column names for modification
 #' @param .all if `TRUE` then any column with a `values` attribute or  where 
 #' the `make_factor` field evaluates to `TRUE` will be added as a factor
-#' @param .missing 
+#' @param .missing a label to use assign to missing values `NA` when making 
+#' the factor; keep this `NULL` (the default) to let missing values be handled
+#' naturally by `factor()`
 #' @param .suffix used to make the column name for the factors
 #' @param values a vector of values to convert to a factor
 #' @param x a ycol object
 #' 
 #' @details
-#' Note that `.suffix` can be chosen using option `ys.fct.suffix`. 
+#' Note that `.suffix` can be chosen using option `ys.fct.suffix`. When the 
+#' factor is made by [base::factor()], the `exclude` argument is forced to 
+#' `character(0)` so that nothing is excluded.
 #' 
 #' @examples
 #' 
@@ -89,7 +93,7 @@ ys_make_factor <- function(values, x, strict = TRUE, .missing = NULL) {
     x[["values"]] <- c(x[["values"]], .missing)
     decode <- c(decode, .missing)
   }
-  factor(values, levels = x[["values"]], labels = decode)
+  factor(values, levels = x[["values"]], labels = decode, exclude = character(0))
 }
 
 #' @rdname ys_add_factors
