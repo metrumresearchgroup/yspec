@@ -52,3 +52,13 @@ test_that("ys_add_factors aliases yspec_add_factors", {
   expect_identical(a,b)
 })
 
+test_that("NA handling by ys_add_factors", {
+  dat1 <- ys_help$data()
+  sp <- ys_help$spec()
+  dat1$RF[c(3,10,30)] <- NA_character_
+  dat2 <- dat1
+  a <- yspec_add_factors(dat1, sp, RF)
+  expect_identical(levels(a$RF_f), sp$RF$decode)
+  b <- yspec_add_factors(dat2, sp, RF, .missing = "Missing")
+  expect_identical(levels(b$RF_f), c(sp$RF$decode, "Missing"))
+})
