@@ -49,7 +49,7 @@ naturally by \code{factor()}}
 
 \item{x}{a ycol object}
 
-\item{strict}{if `FALSE`, then an factor will be returned for any `values` type}
+\item{strict}{if `FALSE`, then a factor will be returned for any `values` type}
 }
 \description{
 Add factors to data set based on spec information

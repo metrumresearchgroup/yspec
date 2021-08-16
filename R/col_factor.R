@@ -10,8 +10,6 @@
 #' the factor; keep this `NULL` (the default) to let missing values be handled
 #' naturally by `factor()`
 #' @param .suffix used to make the column name for the factors
-#' @param values a vector of values to convert to a factor
-#' @param x a ycol object
 #' 
 #' @details
 #' Note that `.suffix` can be chosen using option `ys.fct.suffix`. When the 
@@ -69,7 +67,9 @@ ys_add_factors <- function(.data, .spec, ... ,
 #' @export
 yspec_add_factors <- ys_add_factors
 
-#' @param strict if `FALSE`, then an factor will be returned for any `values` type
+#' @param values a vector of values to convert to a factor
+#' @param x a ycol object
+#' @param strict if `FALSE`, then a factor will be returned for any `values` type
 #' @rdname ys_add_factors
 #' @export
 ys_make_factor <- function(values, x, strict = TRUE, .missing = NULL) {
