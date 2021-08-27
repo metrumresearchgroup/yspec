@@ -73,7 +73,7 @@ list_namespaces <- function(x) {
 #' 
 create_namespaces <- function(col) {
   if(!is.list(col)) return(col)
-  if(.has("namespace", col)) return(col)
+  if(.has("namespace", col)) return(col) 
   col_name <- col[["col"]]
   # see check_spec_input_col where we also split on `.` for ns information
   has_ns <- str_detect(names(col), fixed("."))
