@@ -52,7 +52,6 @@ list_namespaces <- function(x) {
 #' Find and process namespaced input
 #' 
 #' @param col a list of column data
-#' @param col_name the column name (character)
 #' 
 #' @keywords internal
 #' @noRd
@@ -72,9 +71,10 @@ list_namespaces <- function(x) {
 #' @return 
 #' `col` is returned with possibly an extra slot called `namespace` 
 #' 
-create_namespaces <- function(col, col_name = col[["col"]]) {
+create_namespaces <- function(col) {
   if(!is.list(col)) return(col)
   if(.has("namespace", col)) return(col)
+  col_name <- col[["col"]]
   # see check_spec_input_col where we also split on `.` for ns information
   has_ns <- str_detect(names(col), fixed("."))
   if(!any(has_ns)) return(col)
@@ -95,7 +95,7 @@ create_namespaces <- function(col, col_name = col[["col"]]) {
     }
   }
   if(is.list(col[["namespace"]])) {
-    col[["namespace"]] <- combine_list(col[["namespace"]],namespace)
+    col[["namespace"]] <- combine_list(col[["namespace"]], namespace)
   } else {
     col[["namespace"]] <- namespace  
   }
@@ -104,9 +104,9 @@ create_namespaces <- function(col, col_name = col[["col"]]) {
 
 #' Validate namespaced decode information
 #' 
-#' @param col a list of column data 
+#' @param col_name a list of column data 
 #' @param namespace a list of namespaced column data
-#' @param ns name of the space to evaluate
+#' @param ns name of the namespace to evaluate
 #' 
 #' @details
 #' Check to make sure that the number of `decode` values in a namespace entry
@@ -117,13 +117,13 @@ create_namespaces <- function(col, col_name = col[["col"]]) {
 #' 
 #' @keywords internal
 #' @noRd
-validate_namespace_decode <- function(col, namespace, ns) {
+validate_namespace_decode <- function(col_name, namespace, ns) {
   expected <- length(namespace[["base"]][["decode"]])
   for(i in ns) {
     if(length(namespace[[i]][["decode"]]) == expected) next
     found <- length(namespace[[i]][["decode"]])
     message("decode is not the correct length:")
-    message(" - column: ", col)
+    message(" - column: ", col_name)
     message(" - input:  ", paste0("decode.", i))
     message(" - expect: ", expected)
     message(" - actual: ", found)
