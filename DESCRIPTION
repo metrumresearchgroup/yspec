@@ -13,7 +13,6 @@ Description: Generate Define.pdf from yaml specification.
 License: GPL (>=2)
 Encoding: UTF-8
 Language: en-US
-LazyData: true
 Depends: R (>= 3.5.0)
 Imports: 
     yaml (>= 2.2),
