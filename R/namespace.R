@@ -81,7 +81,7 @@ create_namespaces <- function(col) {
   ns_input <- col[which(has_ns)]
   col <- col[which(!has_ns)]
   ns_parsed <- str_split_fixed(names(ns_input), fixed("."), 2)
-  namespace <- list()
+  namespace <- list(base = list())
   for(i in seq(nrow(ns_parsed))) {
     ns <- ns_parsed[i,2]
     field <- ns_parsed[i,1]
