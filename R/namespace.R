@@ -72,7 +72,7 @@ list_namespaces <- function(x) {
 #' @return 
 #' `col` is returned with possibly an extra slot called `namespace` 
 #' 
-create_namespaces <- function(col, col_name) {
+create_namespaces <- function(col, col_name = col[["col"]]) {
   if(!is.list(col)) return(col)
   if(.has("namespace", col)) return(col)
   # see check_spec_input_col where we also split on `.` for ns information
@@ -91,7 +91,7 @@ create_namespaces <- function(col, col_name) {
     namespace[[ns]][[field]] <- ns_input[[i]]
     namespace[["base"]][[field]] <- col[[field]]
     if(field == "decode") {
-      validate_namespace_decode(col_name, namespace)
+      validate_namespace_decode(col_name, namespace, ns)
     }
   }
   if(is.list(col[["namespace"]])) {
@@ -106,6 +106,7 @@ create_namespaces <- function(col, col_name) {
 #' 
 #' @param col a list of column data 
 #' @param namespace a list of namespaced column data
+#' @param ns name of the space to evaluate
 #' 
 #' @details
 #' Check to make sure that the number of `decode` values in a namespace entry
@@ -116,15 +117,14 @@ create_namespaces <- function(col, col_name) {
 #' 
 #' @keywords internal
 #' @noRd
-validate_namespace_decode <- function(col, namespace) {
+validate_namespace_decode <- function(col, namespace, ns) {
   expected <- length(namespace[["base"]][["decode"]])
-  ns <- names(namespace)
-  for(i in seq_along(ns)) {
+  for(i in ns) {
     if(length(namespace[[i]][["decode"]]) == expected) next
     found <- length(namespace[[i]][["decode"]])
     message("decode is not the correct length:")
     message(" - column: ", col)
-    message(" - input:  ", paste0("decode.", ns[[i]]))
+    message(" - input:  ", paste0("decode.", i))
     message(" - expect: ", expected)
     message(" - actual: ", found)
     stop(
