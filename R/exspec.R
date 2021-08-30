@@ -37,8 +37,8 @@ file_proj_ex <- function(file = "project.yml") {
 # test_spec <- function(x) {
 #   ys_load(
 #     system.file(
-#       "spec", "testthat", 
-#       x, 
+#       "spec", "testthat",
+#       x,
 #       package = "yspec"
 #     )
 #   )
