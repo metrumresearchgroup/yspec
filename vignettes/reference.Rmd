@@ -175,7 +175,62 @@ See the [ys_help] topic for more information.
   the `lookup_files` (specified in `SETUP__:`)
   - use the `!look` handler to indicate lookup
   
-  
+## Namespaces
+
+Namespaces are alternative representation of certain column data fields 
+
+- `unit`
+- `short`
+- `label`
+- `long`
+- `decode`
+- `comment`
+
+You can create namespaces by attaching a `.<name>` suffix to eligible fields. 
+
+For example, we can create a "tex" representation for `unit` like this
+
+```txt
+DV: 
+  short: dependent variable
+  unit: "microgram/mL"
+  unit.tex: "$\\mu$g/mL"
+```
+
+Here, the `unit:` entry states the value for unit in the `base` namespace, the 
+default data you get on load. Using `unit.tex:` introduces an entry for the 
+`tex` namespace. After loading the spec, you can change to this namespace using
+
+```{r, eval = FALSE}
+spec <- ys_load(...)
+spec_tex <- ys_namespace(spec, "tex") 
+```
+
+Any time you attach a `.<name>` suffix to a field, `yspec` will interpret that 
+as an attempt to enter namespace data. The user is responsible for creating 
+and organizing namespaces and naming them. `yspec` will create the `base` 
+namespace. Also, when rendering a data specification document, `yspec` will 
+attempt to switch to the `tex` namespace if it exists. Beyond that, `yspec` is 
+agnostic to the names of the namespaces you create.
+
+As another example, we can have alternate `short` names depending on whether 
+or not we are using that name to create axis titles for a plot
+
+```txt
+EGFR:
+  short: estimated creatinine clearance
+  short.plot: eGFR
+```
+
+or decode
+
+```txt
+SEX:
+  values: [0, 1]
+  decode: [male, female]
+  decode.letter: [m, f]
+```
+
 ## Defaults
 
 - If `type` is not given, then it will default to `numeric`
