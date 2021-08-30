@@ -4,7 +4,15 @@ Title: Data Specification for Pharmacometrics
 Version: 0.5.0.9001
 Authors@R: c(
        person("Kyle T", "Baron", "", "kyleb@metrumrg.com", c("aut", "cre"), comment=c(ORCID="0000-0001-7252-5656")),
-       person("Metrum Research Group", role =  c("cph"))
+       person(given = "Katherine", 
+           family = "Kay",
+           role = "ctb",
+           email = "katherinek@metrumrg.com"),  
+       person(given = "Eric", 
+           family = "Anderson",
+           role = "ctb",
+           email = "andersone@metrumrg.com"),  
+       person("Metrum Research Group", role = "cph")
        )
 Maintainer: Kyle Baron <kyleb@metrumrg.com>
 URL: https://github.com/metrumresearchgroup/yspec
