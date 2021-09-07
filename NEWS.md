@@ -1,3 +1,5 @@
+# yspec (development version)
+
 # yspec 0.5.1
 
 - Fix bug where dots in lookup file were not properly inherited by spec
