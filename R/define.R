@@ -126,7 +126,7 @@ render_define <- function(x, ...) {
 ##' @export
 render_define.yproj <- function(x, 
                                 stem = "define_working",
-                                format = c("x_table_2", "x_table","x_table_long"),
+                                format = "x_table_2",
                                 output_format = "pdf_document",
                                 output_dir = getwd(),
                                 build_dir = definetemplate(),

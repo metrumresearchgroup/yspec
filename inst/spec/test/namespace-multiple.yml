@@ -1,0 +1,13 @@
+TIME:
+  short: time
+  unit: hr
+STUDY: 
+  short: short base
+  short.plot: short plot
+  values: [1,2,3]
+  decode: ["Phase 1", "Phase 2", "Phase 3"]
+  decode.lc: [ "phase 1", "phase 2", "phase 3"]
+  decode.uc: ["PHASE 1", "PHASE 2", "PHASE 3"]
+HT: 
+  short: height
+  unit: cm

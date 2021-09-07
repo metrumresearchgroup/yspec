@@ -1,3 +1,20 @@
+# yspec 0.5.1
+
+- Fix bug where dots in lookup file were not properly inherited by spec
+  columns that didn't already have a dots list (#69)
+  
+- Fix bug in namespace creation when multiple fields include namespace info
+  (#81)
+
+- Fix bug where specification document didn't properly render when using 
+  R 4.1 (#73)
+  
+- `ys_add_factors()` now substitutes missing values (`NA`) with a character 
+  string supplied by the user prior to making the factor; the `decode` list 
+  is also updated so that the "missing" data is the last level; the string is 
+  supplied by the new argument `.missing` argument (#79)
+  
+
 # yspec 0.5.0
 
 - `ys_select()` will now rename columns if new names are provided (#62)
