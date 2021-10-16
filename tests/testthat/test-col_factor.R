@@ -62,3 +62,17 @@ test_that("NA handling by ys_add_factors", {
   b <- yspec_add_factors(dat2, sp, RF, .missing = "Missing")
   expect_identical(levels(b$RF_f), c(sp$RF$decode, "Missing"))
 })
+
+test_that("OK to have missing or extra cols in .data", {
+  dat1 <- dat2 <- ys_help$data()
+  sp <- ys_help$spec()
+  dat2$RF <- NULL
+  dat2$CP <- NULL
+  dat2$FOO <- 1
+  dat1 <- ys_add_factors(dat1, sp)
+  dat2 <- ys_add_factors(dat2, sp)
+  diff <- setdiff(names(dat1), names(dat2))
+  expect_is(dat1, "data.frame")
+  expect_is(dat2, "data.frame")
+  expect_equal(sort(diff), sort(c("RF_f", "CP_f", "RF", "CP")))
+})
