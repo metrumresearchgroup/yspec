@@ -72,6 +72,8 @@ ys_document <- function(x, type = c("working", "regulatory"), ...) {
 ##' Render a `define.pdf` document
 ##' 
 ##' `render_spec` is an alias to `render_define`.  See details.
+##' 
+##' @inheritParams ys_project
 ##'
 ##' @param x a `yproj` object or project specification file name
 ##' @param stem used to name the output file
@@ -135,23 +137,24 @@ render_define.yproj <- function(x,
                                 toc = "yes",
                                 number_sections = "yes",
                                 rmd_template = NULL,
-                                date = as.character(Sys.Date()),...) {
+                                date = as.character(Sys.Date()),
+                                sponsor = NULL, 
+                                projectnumber = NULL,
+                                ...) {
   
   if(missing(toc) & length(x)==1) toc <- "no"
   if(missing(number_sections) & length(x)==1) number_sections <- "no"
   
   meta <- get_meta(x)
   
-  sponsor <- "[[sponsor]]"
-  if(.has("sponsor", meta)) {
+  if(missing(sponsor)) {
     sponsor <- meta[["sponsor"]]  
   }
   
-  projectnumber <- "[projectnumber]"
-  if(.has("projectnumber", meta)) {
+  if(missing(projectnumber)) {
     projectnumber <- meta[["projectnumber"]] 
   }
-  
+
   sponsor <- db_quote(sponsor)
   projectnumber <- db_quote(projectnumber)
   

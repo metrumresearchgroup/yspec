@@ -158,9 +158,10 @@ csv_file_name <- function(data_path, data_stem, ext = ".csv", ...) {
 ##' 
 ##' @md
 ##' @export
-ys_project <- function(..., output=tempfile(fileext=".yml"), 
+ys_project <- function(..., output = tempfile(fileext = ".yml"), 
                        data_path = NULL, dots = list(),
-                       sponsor = "[sponsor]", projectnumber = "[projectnumber]", 
+                       sponsor = "[sponsor]", 
+                       projectnumber = "[projectnumber]", 
                        keep_spec_data = FALSE) {
   lst <- list(...)
   proj <- map(lst, assemble_proj_info)
@@ -181,16 +182,20 @@ ys_project <- function(..., output=tempfile(fileext=".yml"),
     dups <- paste0("  ", dups)
     stop("Duplicated spec names:\n", paste0(dups,collapse = "\n"))
   }
-  output <- normalPath(output,mustWork=FALSE)
+  output <- normalPath(output, mustWork = FALSE)
   if(missing(sponsor)) {
     if(.has("sponsor", meta)) {
-      sponsor <- meta$sponsor[1]  
+      if(nchar(meta[["sponsor"]][[1]]) > 0) {
+        sponsor <- meta[["sponsor"]][1]  
+      }
     }
   }
   if(missing(projectnumber)) {
     if(.has("projectnumber", meta)) {
-      projectnumber <- meta$projectnumber[1]  
-    } 
+      if(nchar(meta[["projectnumber"]][[1]]) > 0) {
+        projectnumber <- meta[["projectnumber"]][1]
+      } 
+    }
   }
   meta <- list(
     sponsor=sponsor, 
@@ -288,5 +293,5 @@ update.yproj <- function(object, projectnumber=NULL, sponsor=NULL, ...) {
   }
   
   structure(object, meta = m)
-
+  
 }

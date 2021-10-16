@@ -66,7 +66,7 @@ make_null <- function(x, name) {
   is.null(object[[name]])
 }
 
-.has <- function(name,object) {
+.has <- function(name, object) {
   !is.null(object[[name]])
 }
 
