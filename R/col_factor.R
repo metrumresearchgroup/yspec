@@ -46,9 +46,11 @@ ys_add_factors <- function(.data, .spec, ... ,
   what <- map_chr(what,as_string)
   if(length(what)==0 & isTRUE(.all)) {
     dis <- map_lgl(.spec, ~!is.null(.x[["values"]]))
-    vars <- vars_select(names(.data), names(which(dis | fct_ok)))
+    spec_cols <- names(which(dis | fct_ok))
+    spec_cols <- intersect(spec_cols, names(.data))
+    vars <- vars_select(names(.data), spec_cols)
   } else {
-    vars <- vars_select(names(.data),what) 
+    vars <- vars_select(names(.data), what) 
   }
   
   for(v in vars) {
