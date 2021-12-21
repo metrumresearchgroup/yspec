@@ -467,7 +467,7 @@ ys_prune <- function(data, spec, report = FALSE) {
   assert_that(is_yspec(spec))
   grab <- intersect(names(data), names(spec))
   if(length(grab)==0) {
-    stop("there were no names common between `data` and `spec`", call. = FALSE)  
+    stop("there are no names common between `data` and `spec`", call. = FALSE)  
   }
   grab <- order(match(grab, names(spec)))
   if(isTRUE(report)) {
