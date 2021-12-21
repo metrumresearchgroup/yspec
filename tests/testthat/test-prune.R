@@ -15,6 +15,6 @@ test_that("ys_prune selects available columns", {
   expect_equal(names(ans), names(spec2))
   expect_error(
     ys_prune(data.frame(a = 2), spec), 
-    regexp = "there were no names common between"
+    regexp = "there are no names common between"
   )
 })

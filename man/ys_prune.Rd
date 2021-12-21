@@ -34,6 +34,7 @@ head(ys_prune(data, spec))
 head(ys_prune(data, spec, report = TRUE))
 
 # Use this for final subsetting
+# It will fail if all the columns aren't there
 data <- ys_help$data()
 head(dplyr::select(data, names(spec)))
  
