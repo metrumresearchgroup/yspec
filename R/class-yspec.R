@@ -429,6 +429,56 @@ ys_add_labels <- function(data,spec,fun=label.ycol) {
   data
 }
 
+
+#' Prune a data frame, keeping columns in a yspec object
+#' 
+#' Use this to scavenge a data frame for columns that you want to keep. Do not
+#' use this for final column selection; use [dplyr::select()] instead. 
+#' 
+#' @param data a data frame with at least one column that is found in `spec`
+#' @param spec a `yspec` object
+#' @param report if `TRUE`, report mising columns
+#' 
+#' @examples
+#' data <- ys_help$data()
+#' spec <- ys_help$spec()
+#' data$STUDY <- NULL
+#' 
+#' head(ys_prune(data, spec))
+#' head(ys_prune(data, spec, report = TRUE))
+#' 
+#' # Use this for final subsetting
+#' # It will fail if all the columns aren't there
+#' data <- ys_help$data()
+#' head(dplyr::select(data, names(spec)))
+#'  
+#' @details
+#' An error is generated if there are no columns in common between `data` and 
+#' `spec`. 
+#' 
+#' @return 
+#' A data frame with common columns with `spec`, in the order they appear
+#' in `spec`. 
+#'   
+#' @md
+#' @export
+ys_prune <- function(data, spec, report = FALSE) {
+  assert_that(is.data.frame(data))
+  assert_that(is_yspec(spec))
+  grab <- intersect(names(data), names(spec))
+  if(length(grab)==0) {
+    stop("there were no names common between `data` and `spec`", call. = FALSE)  
+  }
+  grab <- order(match(grab, names(spec)))
+  if(isTRUE(report)) {
+    missing <- setdiff(names(spec), names(data))
+    for(col in missing) {
+      message("Column not found: ", col)  
+    }
+  }
+  data[, grab, drop = FALSE]
+}
+
 as_spec_list <- function(...) {
   x <- list(...)
   names(x) <- map_chr(map(x,get_meta),"name")
