@@ -64,6 +64,7 @@ add.to.row_long$command <- command__
 ##'
 ##' @param x a yspec object
 ##' @param file the full path to yaml specification file
+##' @param widths column widths in inches; must be numeric vector with length 4
 ##'
 ##' @return Character vector of latex code for the content of an FDA 
 ##' `define.pdf` document.  It includes a table of contents as well as data spec
@@ -76,13 +77,15 @@ add.to.row_long$command <- command__
 ##' 
 ##' @md
 ##' @export
-fda_table <- function(x) {
+fda_table <- function(x, widths = c(0.75, 2.1, 0.6, 2.2), ...) {
   if(!is_yspec(x)) {
     .stop("x is not a yspec object")
   }
   tab <- as_fda_table(x)
-  lengths <- c(0, 0.75, 2.1, 0.6, 2.2)
-  align <- paste0(">{\\raggedright\\arraybackslash}p{",lengths,"in}|")
+  assert_that(is.numeric(widths))
+  assert_that(length(widths)==4)
+  widths <- c(0, widths)
+  align <- paste0(">{\\raggedright\\arraybackslash}p{",widths,"in}|")
   align[2] <- paste0("|", align[2])
   xtab <- xtable(tab, align = align)
   ans <- capture.output(
@@ -322,6 +325,44 @@ render_fda_define.yspec <- function(x, ..., dots = list()) {
   render_fda_define.yproj(proj,...)  
 }
 
-
-
-
+#' Create and save a table from yspec object
+#' 
+#' The primary use case for this function is for creating TeX tables which can 
+#' be included in a report Appendix. See more in `details`.
+#' 
+#' @param spec a `yspec` object
+#' @param file the (full) output path and file name; if `file` is `NULL` 
+#' (the default) the table won't be written to file
+#' @param fun a function to format a TeX table; if `NULL` (the default), the 
+#' table will be rendered using [fda_table()]
+#' @param ... additional arguments passed to `fun`
+#' 
+#' @return 
+#' The table text generated from `fun`; if `file` was given to save the table, 
+#' then the table text is returned invisibly.
+#' 
+#' @details
+#' By default, the table code is rendered using [fda_table()]; this should be 
+#' used in most cases. [fda_table()] returns the table in the `longtable` 
+#' environment. This can be included in a report with `\input{<file.tex>}`. 
+#' 
+#' At this time, there is no mechanism for generating a caption for tables 
+#' generated using [fda_table()].
+#' 
+#' @md
+#' @export
+ys_table <- function(spec, file = NULL, fun = NULL, ...) {
+  assert_that(is_yspec(spec))
+  if(is.null(fun)) {
+    widths <- c(0.75, 1.95, 0.6, 2.15)
+    tab <- fda_table(spec, widths = widths, ...)  
+  } else {
+    assert_that(is.function(fun))
+    tab <- fun(spec, ...)
+  }
+  if(is.character(file)) {
+    writeLines(text = tab, con = file)
+    return(invisible(tab))
+  }
+  return(tab)
+}
