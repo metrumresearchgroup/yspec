@@ -186,14 +186,14 @@ ys_project <- function(..., output = tempfile(fileext = ".yml"),
   if(missing(sponsor)) {
     if(.has("sponsor", meta)) {
       if(nchar(meta[["sponsor"]][[1]]) > 0) {
-        sponsor <- meta[["sponsor"]][1]  
+        sponsor <- meta[["sponsor"]][[1]]  
       }
     }
   }
   if(missing(projectnumber)) {
     if(.has("projectnumber", meta)) {
       if(nchar(meta[["projectnumber"]][[1]]) > 0) {
-        projectnumber <- meta[["projectnumber"]][1]
+        projectnumber <- meta[["projectnumber"]][[1]]
       } 
     }
   }
