@@ -8,6 +8,8 @@ test_that("ys_prune selects available columns", {
   spec <- ys_help$spec()
   data$STUDY <- NULL
   data$TAD <- NULL
+  data$FOO <- 1
+  data$BAR <- 2
   ans <- ys_prune(data, spec)
   spec2 <- ys_select(spec, -STUDY, -TAD)
   expect_identical(class(data), class(ans))

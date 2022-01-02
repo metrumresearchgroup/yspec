@@ -437,7 +437,7 @@ ys_add_labels <- function(data,spec,fun=label.ycol) {
 #' 
 #' @param data a data frame with at least one column that is found in `spec`
 #' @param spec a `yspec` object
-#' @param report if `TRUE`, report mising columns
+#' @param report if `TRUE`, report missing columns
 #' 
 #' @examples
 #' data <- ys_help$data()

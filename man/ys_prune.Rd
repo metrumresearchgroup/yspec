@@ -11,7 +11,7 @@ ys_prune(data, spec, report = FALSE)
 
 \item{spec}{a \code{yspec} object}
 
-\item{report}{if \code{TRUE}, report mising columns}
+\item{report}{if \code{TRUE}, report missing columns}
 }
 \value{
 A data frame with common columns with \code{spec}, in the order they appear
