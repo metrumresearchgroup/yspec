@@ -2,15 +2,12 @@
 % Please edit documentation in R/fda_define.R
 \name{ys_table}
 \alias{ys_table}
-\title{Create and save a table from yspec object}
+\title{Create a table from yspec object}
 \usage{
-ys_table(spec, file = NULL, fun = NULL, ...)
+ys_table(spec, fun = NULL, ...)
 }
 \arguments{
 \item{spec}{a \code{yspec} object}
-
-\item{file}{the (full) output path and file name; if \code{file} is \code{NULL}
-(the default) the table won't be written to file}
 
 \item{fun}{a function to format a TeX table; if \code{NULL} (the default), the
 table will be rendered using \code{\link[=fda_table]{fda_table()}}}

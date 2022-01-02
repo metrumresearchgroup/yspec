@@ -65,6 +65,7 @@ add.to.row_long$command <- command__
 ##' @param x a yspec object
 ##' @param file the full path to yaml specification file
 ##' @param widths column widths in inches; must be numeric vector with length 4
+##' @param ... not currently used
 ##'
 ##' @return Character vector of latex code for the content of an FDA 
 ##' `define.pdf` document.  It includes a table of contents as well as data spec
@@ -325,14 +326,13 @@ render_fda_define.yspec <- function(x, ..., dots = list()) {
   render_fda_define.yproj(proj,...)  
 }
 
-#' Create and save a table from yspec object
+#' Create a table from yspec object
 #' 
 #' The primary use case for this function is for creating TeX tables which can 
 #' be included in a report Appendix. See more in `details`.
 #' 
 #' @param spec a `yspec` object
-#' @param file the (full) output path and file name; if `file` is `NULL` 
-#' (the default) the table won't be written to file
+#'
 #' @param fun a function to format a TeX table; if `NULL` (the default), the 
 #' table will be rendered using [fda_table()]
 #' @param ... additional arguments passed to `fun`
@@ -351,7 +351,7 @@ render_fda_define.yspec <- function(x, ..., dots = list()) {
 #' 
 #' @md
 #' @export
-ys_table <- function(spec, file = NULL, fun = NULL, ...) {
+ys_table <- function(spec, fun = NULL, ...) {
   assert_that(is_yspec(spec))
   if(is.null(fun)) {
     widths <- c(0.75, 1.95, 0.6, 2.15)
@@ -359,10 +359,6 @@ ys_table <- function(spec, file = NULL, fun = NULL, ...) {
   } else {
     assert_that(is.function(fun))
     tab <- fun(spec, ...)
-  }
-  if(is.character(file)) {
-    writeLines(text = tab, con = file)
-    return(invisible(tab))
   }
   return(tab)
 }

@@ -14,6 +14,8 @@ fda_table_file(file)
 
 \item{widths}{column widths in inches; must be numeric vector with length 4}
 
+\item{...}{not currently used}
+
 \item{file}{the full path to yaml specification file}
 }
 \value{
