@@ -465,11 +465,13 @@ ys_add_labels <- function(data,spec,fun=label.ycol) {
 ys_prune <- function(data, spec, report = FALSE) {
   assert_that(is.data.frame(data))
   assert_that(is_yspec(spec))
-  grab <- intersect(names(data), names(spec))
-  if(length(grab)==0) {
+  # spec positions for matching names in the data set
+  igrab <- sort(match(names(data), names(spec)), na.last = NA)
+  if(length(igrab)==0) {
     stop("there are no names common between `data` and `spec`", call. = FALSE)  
   }
-  grab <- order(match(grab, names(spec)))
+  # convert igrab to names in spec, ordered by spec; this is what we'll take
+  grab <- names(spec)[igrab]
   if(isTRUE(report)) {
     missing <- setdiff(names(spec), names(data))
     for(col in missing) {
