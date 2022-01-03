@@ -437,6 +437,10 @@ ys_add_labels <- function(data,spec,fun=label.ycol) {
 #' 
 #' @param data a data frame with at least one column that is found in `spec`
 #' @param spec a `yspec` object
+#' @param add additional columns to look for; this can be a comma-separated 
+#' character string or vector; if specified, these names will be treated like 
+#' any other name in `spec`, specifically missing names will be silently 
+#' ignored unless `report` is passed as `TRUE`
 #' @param report if `TRUE`, report missing columns
 #' 
 #' @examples
@@ -462,18 +466,22 @@ ys_add_labels <- function(data,spec,fun=label.ycol) {
 #'   
 #' @md
 #' @export
-ys_prune <- function(data, spec, report = FALSE) {
+ys_prune <- function(data, spec, add = NULL, report = FALSE) {
   assert_that(is.data.frame(data))
   assert_that(is_yspec(spec))
   # spec positions for matching names in the data set
-  igrab <- sort(match(names(data), names(spec)), na.last = NA)
+  target <- names(spec)
+  if(is.character(add)) {
+    target <- c(target, cvec_cs(add))  
+  }
+  igrab <- sort(match(names(data), target), na.last = NA)
   if(length(igrab)==0) {
     stop("there are no names common between `data` and `spec`", call. = FALSE)  
   }
   # convert igrab to names in spec, ordered by spec; this is what we'll take
-  grab <- names(spec)[igrab]
+  grab <- target[igrab]
   if(isTRUE(report)) {
-    missing <- setdiff(names(spec), names(data))
+    missing <- setdiff(target, names(data))
     for(col in missing) {
       message("Column not found: ", col)  
     }
