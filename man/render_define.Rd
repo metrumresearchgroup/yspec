@@ -25,6 +25,8 @@ render_define(x, ...)
   number_sections = "yes",
   rmd_template = NULL,
   date = as.character(Sys.Date()),
+  sponsor = NULL,
+  projectnumber = NULL,
   ...
 )
 
@@ -67,6 +69,10 @@ document}
 data specification document}
 
 \item{date}{used in yaml front matter}
+
+\item{sponsor}{optional project sponsor}
+
+\item{projectnumber}{optional project number in \code{...}}
 
 \item{dots}{passed to object converter}
 }
