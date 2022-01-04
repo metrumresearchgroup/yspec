@@ -21,6 +21,10 @@ test_that("ys_prune selects available columns", {
     ys_prune(data.frame(a = 2), spec), 
     regexp = "there are no names common between"
   )
+  ans <- ys_prune(data, spec, add = "BAR")
+  expect_equal(names(ans), c(names(spec2), "BAR"))
+  ans <- ys_prune(data, spec, add = "BLAH,FOO")
+  expect_equal(names(ans), c(names(spec2), "FOO"))
   expect_message(
     ans <- ys_prune(data, spec, report = TRUE), 
     regexp = "Column not found: STUDY", 

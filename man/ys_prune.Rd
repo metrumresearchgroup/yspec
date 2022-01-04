@@ -4,12 +4,17 @@
 \alias{ys_prune}
 \title{Prune a data frame, keeping columns in a yspec object}
 \usage{
-ys_prune(data, spec, report = FALSE)
+ys_prune(data, spec, add = NULL, report = FALSE)
 }
 \arguments{
 \item{data}{a data frame with at least one column that is found in \code{spec}}
 
 \item{spec}{a \code{yspec} object}
+
+\item{add}{additional columns to look for; this can be a comma-separated
+character string or vector; if specified, these names will be treated like
+any other name in \code{spec}, specifically missing names will be silently
+ignored unless \code{report} is passed as \code{TRUE}}
 
 \item{report}{if \code{TRUE}, report missing columns}
 }
