@@ -338,8 +338,7 @@ render_fda_define.yspec <- function(x, ..., dots = list()) {
 #' @param ... additional arguments passed to `fun`
 #' 
 #' @return 
-#' The table text generated from `fun`; if `file` was given to save the table, 
-#' then the table text is returned invisibly.
+#' The table text generated from `fun`.
 #' 
 #' @details
 #' By default, the table code is rendered using [fda_table()]; this should be 
@@ -347,7 +346,8 @@ render_fda_define.yspec <- function(x, ..., dots = list()) {
 #' environment. This can be included in a report with `\input{<file.tex>}`. 
 #' 
 #' At this time, there is no mechanism for generating a caption for tables 
-#' generated using [fda_table()].
+#' generated using [fda_table()]; the intended use is to include the table in 
+#' an appendix, with caption information given in plain text in the appendix.
 #' 
 #' @md
 #' @export

@@ -15,8 +15,7 @@ table will be rendered using \code{\link[=fda_table]{fda_table()}}}
 \item{...}{additional arguments passed to \code{fun}}
 }
 \value{
-The table text generated from \code{fun}; if \code{file} was given to save the table,
-then the table text is returned invisibly.
+The table text generated from \code{fun}.
 }
 \description{
 The primary use case for this function is for creating TeX tables which can
@@ -28,5 +27,6 @@ used in most cases. \code{\link[=fda_table]{fda_table()}} returns the table in t
 environment. This can be included in a report with \verb{\\input\{<file.tex>\}}.
 
 At this time, there is no mechanism for generating a caption for tables
-generated using \code{\link[=fda_table]{fda_table()}}.
+generated using \code{\link[=fda_table]{fda_table()}}; the intended use is to include the table in
+an appendix, with caption information given in plain text in the appendix.
 }
