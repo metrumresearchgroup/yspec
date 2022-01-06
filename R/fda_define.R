@@ -333,7 +333,3 @@ render_fda_define.yspec <- function(x, ..., dots = list()) {
   proj <- do.call(ys_project, dots)
   render_fda_define.yproj(proj,...)  
 }
-
-
-
-
