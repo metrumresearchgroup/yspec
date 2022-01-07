@@ -214,6 +214,7 @@ fda_define <- function(file, title="Datasets", ext=".xpt", loc=".",...) {
 ##' @param build_dir directory where the document is to be built
 ##' @inheritParams fda_define
 ##' @inheritParams rmarkdown::render 
+##' @inheritParams ys_project
 ##' @param ... passed to [rmarkdown::render()]
 ##'
 ##' @examples
@@ -254,7 +255,10 @@ render_fda_define.yproj <- function(x,
                                     format = "fda_define",
                                     output_dir = getwd(),
                                     build_dir = definetemplate(),
-                                    ext = ".xpt", loc = '.', 
+                                    ext = ".xpt", 
+                                    loc = '.', 
+                                    sponsor = NULL, 
+                                    projectnumber = NULL,
                                     ...) {
   
   output_dir <- normalPath(output_dir)
@@ -267,6 +271,14 @@ render_fda_define.yproj <- function(x,
   }
   
   meta <- get_meta(x)
+  
+  if(is.character(sponsor)) {
+    meta[["sponsor"]] <- sponsor
+  }
+  
+  if(is.character(projectnumber)) {
+    meta[["projectnumber"]] <- projectnumber
+  }
   
   yamlfile <- meta[["spec_file"]]
   

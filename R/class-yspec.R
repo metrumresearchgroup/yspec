@@ -429,6 +429,66 @@ ys_add_labels <- function(data,spec,fun=label.ycol) {
   data
 }
 
+
+#' Prune a data frame, keeping columns in a yspec object
+#' 
+#' Use this to scavenge a data frame for columns that you want to keep. Do not
+#' use this for final column selection; use [dplyr::select()] instead. 
+#' 
+#' @param data a data frame with at least one column that is found in `spec`
+#' @param spec a `yspec` object
+#' @param add additional columns to look for; this can be a comma-separated 
+#' character string or vector; if specified, these names will be treated like 
+#' any other name in `spec`, specifically missing names will be silently 
+#' ignored unless `report` is passed as `TRUE`
+#' @param report if `TRUE`, report missing columns
+#' 
+#' @examples
+#' data <- ys_help$data()
+#' spec <- ys_help$spec()
+#' data$STUDY <- NULL
+#' 
+#' head(ys_prune(data, spec))
+#' head(ys_prune(data, spec, report = TRUE))
+#' 
+#' # Use this for final subsetting
+#' # It will fail if all the columns aren't there
+#' data <- ys_help$data()
+#' head(dplyr::select(data, names(spec)))
+#'  
+#' @details
+#' An error is generated if there are no columns in common between `data` and 
+#' `spec`. 
+#' 
+#' @return 
+#' A data frame with common columns with `spec`, in the order they appear
+#' in `spec`. 
+#'   
+#' @md
+#' @export
+ys_prune <- function(data, spec, add = NULL, report = FALSE) {
+  assert_that(is.data.frame(data))
+  assert_that(is_yspec(spec))
+  # spec positions for matching names in the data set
+  target <- names(spec)
+  if(is.character(add)) {
+    target <- c(target, cvec_cs(add))  
+  }
+  igrab <- sort(match(names(data), target), na.last = NA)
+  if(length(igrab)==0) {
+    stop("there are no names common between `data` and `spec`", call. = FALSE)  
+  }
+  # convert igrab to names in spec, ordered by spec; this is what we'll take
+  grab <- target[igrab]
+  if(isTRUE(report)) {
+    missing <- setdiff(target, names(data))
+    for(col in missing) {
+      message("Column not found: ", col)  
+    }
+  }
+  data[, grab, drop = FALSE]
+}
+
 as_spec_list <- function(...) {
   x <- list(...)
   names(x) <- map_chr(map(x,get_meta),"name")

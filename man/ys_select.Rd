@@ -12,10 +12,13 @@ ys_select(.x, ...)
 \item{...}{unquoted columns to select}
 }
 \value{
-A \code{yspec} object
+A \code{yspec} object that may be length zero if no columns were selected.
 }
 \description{
 Select a subset of columns from a yspec object
+}
+\details{
+If no columns are selected, then an empty \code{yspec} object is returned.
 }
 \examples{
 
@@ -24,5 +27,7 @@ spec <- ys_help$spec()
 ys_select(spec, WT, AGE, ALB)
 
 ys_select(spec, Wt = WT, AGE)
-
+ 
+length(ys_select(spec))
+ 
 }
