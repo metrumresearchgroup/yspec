@@ -10,16 +10,21 @@
 #' ys_select(spec, WT, AGE, ALB)
 #' 
 #' ys_select(spec, Wt = WT, AGE)
+#'  
+#' length(ys_select(spec))
+#'  
+#' @details
+#' If no columns are selected, then an empty `yspec` object is returned. 
 #' 
 #' @return 
-#' A `yspec` object
+#' A `yspec` object that may be length zero if no columns were selected. 
 #' 
 #' @md
 #' @export
 ys_select <- function(.x, ...) {
   keep <- eval_select(expr(c(...)), as.list(.x))
   if(length(keep)==0) {
-    return(.x) 
+    return(.x[NULL]) 
   }
   original <- names(.x)[keep]
   ans <- .x[original]
