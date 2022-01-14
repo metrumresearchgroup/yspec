@@ -111,7 +111,7 @@ check_this_col <- function(x, col, env, control, ...) {
     }
   }
   if(sum(nchar(x$short)) > control[["max_nchar_short"]]) {
-    nmax <- control[["max_char_short"]]
+    nmax <- control[["max_nchar_short"]]
     msg <- "the 'short' field should not be longer than {nmax} characters"
     err <- c(err, as.character(glue(msg)))
   }
