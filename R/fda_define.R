@@ -347,6 +347,10 @@ render_fda_define.yspec <- function(x, ..., dots = list()) {
 #'
 #' @param fun a function to format a TeX table; if `NULL` (the default), the 
 #' table will be rendered using [fda_table()]
+#' @param widths_ passed to [fda_table()] when `fun` is `NULL`; these are 
+#' slightly modified from the [fda_table()] default (see `examples`); note 
+#' the trailing underscore in the argument name; these shouldn't need to be 
+#' changed for most use. 
 #' @param ... additional arguments passed to `fun`
 #' 
 #' @return 
@@ -361,13 +365,21 @@ render_fda_define.yspec <- function(x, ..., dots = list()) {
 #' generated using [fda_table()]; the intended use is to include the table in 
 #' an appendix, with caption information given in plain text in the appendix.
 #' 
+#' @examples
+#' spec <- ys_help$spec()
+#' tab <- ys_table(spec)
+#' writeLines(text = tab, con = tempfile(fileext=".tex"))
+#' 
+#' formals(fda_table)$widths
+#' formals(ys_table)$widths_
+#' 
 #' @md
 #' @export
-ys_table <- function(spec, fun = NULL, ...) {
+ys_table <- function(spec, fun = NULL, 
+                     widths_ = c(0.75, 1.95, 0.6, 2.15), ...) {
   assert_that(is_yspec(spec))
   if(is.null(fun)) {
-    widths <- c(0.75, 1.95, 0.6, 2.15)
-    tab <- fda_table(spec, widths = widths, ...)  
+    tab <- fda_table(spec, widths = widths_, ...)  
   } else {
     assert_that(is.function(fun))
     tab <- fun(spec, ...)

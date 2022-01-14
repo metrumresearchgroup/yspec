@@ -4,13 +4,18 @@
 \alias{ys_table}
 \title{Create a table from yspec object}
 \usage{
-ys_table(spec, fun = NULL, ...)
+ys_table(spec, fun = NULL, widths_ = c(0.75, 1.95, 0.6, 2.15), ...)
 }
 \arguments{
 \item{spec}{a \code{yspec} object}
 
 \item{fun}{a function to format a TeX table; if \code{NULL} (the default), the
 table will be rendered using \code{\link[=fda_table]{fda_table()}}}
+
+\item{widths_}{passed to \code{\link[=fda_table]{fda_table()}} when \code{fun} is \code{NULL}; these are
+slightly modified from the \code{\link[=fda_table]{fda_table()}} default (see \code{examples}); note
+the trailing underscore in the argument name; these shouldn't need to be
+changed for most use.}
 
 \item{...}{additional arguments passed to \code{fun}}
 }
@@ -29,4 +34,13 @@ environment. This can be included in a report with \verb{\\input\{<file.tex>\}}.
 At this time, there is no mechanism for generating a caption for tables
 generated using \code{\link[=fda_table]{fda_table()}}; the intended use is to include the table in
 an appendix, with caption information given in plain text in the appendix.
+}
+\examples{
+spec <- ys_help$spec()
+tab <- ys_table(spec)
+writeLines(text = tab, con = tempfile(fileext=".tex"))
+
+formals(fda_table)$widths
+formals(ys_table)$widths_
+
 }
