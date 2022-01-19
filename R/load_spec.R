@@ -76,7 +76,11 @@ check_this_col <- function(x, col, env, control, ...) {
       err <- c(err, "values field includes NULLs")  
     }
     if(any(x[["values"]] == "<yspec-not-atomic>")) {
-      err <- c(err, "values field includes non-atomic data")  
+      errx <- c(
+        "values field includes non-atomic data .... ", 
+        "yaml code possibly used brackets [ ] when braces { } were intended"
+      )
+      err <- c(err, errx)  
     }
   }
   if(.has("values", x) & .has("range",x)) {
