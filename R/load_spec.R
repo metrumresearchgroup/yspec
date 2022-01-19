@@ -72,11 +72,17 @@ check_spec_input <- function(x, .fun = check_spec_input_col,
 check_this_col <- function(x, col, env, control, ...) {
   err <- c()
   if(.has("values",x)) {
+    if(is.list(x[["values"]])) {
+      err <- c(err, "values is a list; it was likely mis-coded in the spec file")  
+    }
     if(any(x[["values"]] == "<yspec-null>")) {
       err <- c(err, "values field includes NULLs")  
     }
+    if(any(x[["values"]] == "<yspec-not-atomic>")) {
+      err <- c(err, "values field includes non-atomic data")  
+    }
   }
-  if(.has("values",x) & .has("range",x)) {
+  if(.has("values", x) & .has("range",x)) {
     err <- c(err, "column has both values and range")
   }
   if(.has("decode",x)) {
@@ -87,7 +93,6 @@ check_this_col <- function(x, col, env, control, ...) {
       )
     }
   }
-  
   if(length(x$unit) > 1) {
     err <- c(err, "the 'unit' field should not be more than length 1")  
   }
@@ -359,6 +364,7 @@ unpack_col <- function(x) {
 }
 
 sub_null <- function(x) {
+  if(!is.atomic(x)) return("<yspec-not-atomic>")
   ifelse(is.null(x), "<yspec-null>", x)
 }
 
