@@ -72,9 +72,6 @@ check_spec_input <- function(x, .fun = check_spec_input_col,
 check_this_col <- function(x, col, env, control, ...) {
   err <- c()
   if(.has("values",x)) {
-    if(is.list(x[["values"]])) {
-      err <- c(err, "values is a list; it was likely mis-coded in the spec file")  
-    }
     if(any(x[["values"]] == "<yspec-null>")) {
       err <- c(err, "values field includes NULLs")  
     }
