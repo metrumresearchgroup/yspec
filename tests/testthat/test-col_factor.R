@@ -76,3 +76,16 @@ test_that("OK to have missing or extra cols in .data", {
   expect_is(dat2, "data.frame")
   expect_equal(sort(diff), sort(c("RF_f", "CP_f", "RF", "CP")))
 })
+
+test_that("tidyselect semantics when identifying columns for factor", {
+  data <- ys_help$data()
+  spec <- ys_help$spec()
+  
+  ans <- ys_add_factors(data, spec, tidyselect::contains("RF"))
+  expect_true("RF_f" %in% names(ans))
+  
+  ans <- ys_add_factors(data, spec, BLQ:STUDY)
+  expect_true("BLQ_f" %in% names(ans))
+  expect_true("PHASE_f" %in% names(ans))
+  expect_true("STUDY_f" %in% names(ans))
+})
