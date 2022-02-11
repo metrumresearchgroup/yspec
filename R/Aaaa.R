@@ -33,7 +33,7 @@ VALID_SPEC_NAMES <- c(
   "short", "long", "about", "dots",
   "range", "longvalues", "lookup", 
   "axis", "table", "label", "make_factor", 
-  "namespace"
+  "namespace", "yesno"
 )
 
 VALID_SETUP_NAMES <- c(
