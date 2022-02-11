@@ -77,7 +77,7 @@ check_this_col <- function(x, col, env, control, ...) {
     }
     if(any(x[["values"]] == "<yspec-not-atomic>")) {
       errx <- c(
-        "values field includes non-atomic data .... ", 
+        "values field includes non-atomic data ... ", 
         "yaml code possibly used brackets [ ] when braces { } were intended"
       )
       err <- c(err, errx)  
@@ -348,7 +348,7 @@ unpack_col <- function(x) {
     if(!.has("decode",x)) {
       x$decode <- names(x$values)
     }
-    x$values <- sapply(x$values, sub_null, USE.NAMES=FALSE)
+    x$values <- sapply(x$values, sub_null_natom, USE.NAMES=FALSE)
     if(is.character(x$values)) x$type <- "character"
   }
   if(.has("source", x)) {
@@ -364,9 +364,10 @@ unpack_col <- function(x) {
   structure(x, class = "ycol")
 }
 
-sub_null <- function(x) {
+sub_null_natom <- function(x) {
   if(!is.atomic(x)) return("<yspec-not-atomic>")
-  ifelse(is.null(x), "<yspec-null>", x)
+  if(is.null(x)) return("<yspec-null>")
+  return(x)
 }
 
 col_initialize <- function(x, name) {
