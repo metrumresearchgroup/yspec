@@ -55,7 +55,7 @@ ys_get_lookup <- function(x,verbose=FALSE) {
 }
 
 get_lookup_files <- function(x) {
-  ans <- get_meta(x)[["lookup_file"]]
+  ans <- maybe_pull_meta(x, "lookup_file")
   if(is.character(ans)) {
     return(ans)
   }

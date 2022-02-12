@@ -156,12 +156,14 @@ capture_file_info <- function(x,file,where = "SETUP__") {
 
 ##' Load a data specification file
 ##'
-##' @param file name of yaml file containing specification
-##' @param data_path optional path to data sets
-##' @param data_stem optional alternate stem for data files
-##' @param verbose `logical`; print information to the console as the file
-##' is processed
-##' @param ... other arguments to update `SETUP__`
+##' @param file Name of yaml file containing specification.
+##' @param data_path Optional path to data sets.
+##' @param data_stem Optional alternate stem for data files.
+##' @param verbose Logical: print information to the console as the file
+##' is processed.
+##' @param extend Logical: if `TRUE`, extend the `yspec` object with the 
+##' file coded into `extend_file` in the `SETUP__:` block. 
+##' @param ... Other arguments to update `SETUP__`.
 ##' 
 ##' @examples
 ##' 
