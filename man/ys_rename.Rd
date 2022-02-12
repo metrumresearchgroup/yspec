@@ -2,20 +2,39 @@
 % Please edit documentation in R/ys-tidy.R
 \name{ys_rename}
 \alias{ys_rename}
-\title{Rename spec columns}
+\alias{ys_rename.yspec}
+\alias{ys_rename.data.frame}
+\title{Rename columns in a spec or data.frame}
 \usage{
 ys_rename(.x, ...)
+
+\method{ys_rename}{yspec}(.x, ...)
+
+\method{ys_rename}{data.frame}(.x, .spec, ..., .title_case = TRUE, .unit = FALSE)
 }
 \arguments{
-\item{.x}{a yspec object}
+\item{.x}{A \code{yspec} object or \code{data.frame} to rename.}
 
-\item{...}{tidy rename specification; use \code{new_name} = \code{old_name} to rename}
+\item{...}{For the \code{yspec} method, pass tidy rename syntax (\code{new = old});
+for the \code{data.frame} method, pass tidy select syntax to select columns to
+rename (new names come from the spec); see examples.}
+
+\item{.spec}{A \code{yspec} object.}
+
+\item{.title_case}{Passed to \code{\link[=ys_get_short]{ys_get_short()}} or \code{\link[=ys_get_short_unit]{ys_get_short_unit()}}.}
+
+\item{.unit}{Logical indicating if the unit should be appended to the
+short rename value.}
 }
 \value{
-A \code{yspec} object with renamed columns
+A \code{yspec} object or \code{data.frame} with renamed columns, depending on what was
+passed as \code{.x}.
 }
 \description{
-Rename spec columns
+What gets renamed depends on the first argument: either \code{yspec} object
+or \code{data.frame}. When renaming \code{yspec} object, use \code{new = old} syntax. When
+renaming columns in \code{data.frame}, pass old names only in tidy select syntax;
+the new names come from calls to \code{\link[=ys_get_short]{ys_get_short()}} or \code{\link[=ys_get_short_unit]{ys_get_short_unit()}}.
 }
 \examples{
 spec <- ys_help$spec()
@@ -23,6 +42,10 @@ spec <- ys_help$spec()
 ans <- ys_rename(spec, TIME = TAFD, RENAL = RF)
 
 tail(ans)
+
+data <- ys_help$data()
+
+ys_rename(data, spec, AGE:HT)
 
 }
 \seealso{

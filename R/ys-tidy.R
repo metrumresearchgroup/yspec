@@ -253,10 +253,21 @@ ys_join <- function(left, right, ...) {
   ans
 }
 
-#' Rename spec columns
+#' Rename columns in a spec or data.frame
 #' 
-#' @param .x a yspec object
-#' @param ... tidy rename specification; use `new_name` = `old_name` to rename
+#' What gets renamed depends on the first argument: either `yspec` object
+#' or `data.frame`. When renaming `yspec` object, use `new = old` syntax. When
+#' renaming columns in `data.frame`, pass old names only in tidy select syntax; 
+#' the new names come from calls to [ys_get_short()] or [ys_get_short_unit()].
+#' 
+#' @param .x A `yspec` object or `data.frame` to rename.
+#' @param ... For the `yspec` method, pass tidy rename syntax (`new = old`); 
+#' for the `data.frame` method, pass tidy select syntax to select columns to 
+#' rename (new names come from the spec); see examples.
+#' @param .spec A `yspec` object.
+#' @param .title_case Passed to [ys_get_short()] or [ys_get_short_unit()].
+#' @param .unit Logical indicating if the unit should be appended to the 
+#' short rename value.
 #' 
 #' @examples
 #' spec <- ys_help$spec()
@@ -265,19 +276,79 @@ ys_join <- function(left, right, ...) {
 #' 
 #' tail(ans)
 #' 
-#' @return A `yspec` object with renamed columns
+#' data <- ys_help$data()
+#' 
+#' ys_rename(data, spec, AGE:HT)
+#' 
+#' @return 
+#' A `yspec` object or `data.frame` with renamed columns, depending on what was
+#' passed as `.x`.
 #' 
 #' @seealso [ys_join()], [ys_filter()], [ys_select()]
 #' @md
 #' @export
-ys_rename <- function(.x, ...) {
-  assert_that(is_yspec(.x))
+ys_rename <- function(.x, ... ) UseMethod("ys_rename")
+
+#' @rdname ys_rename
+#' @export
+ys_rename.yspec<- function(.x, ...) {
   re <- eval_rename(expr(c(...)), as.list(.x))
   names(.x)[re] <- names(re)
   for(i in seq_along(re)) {
     .x[[re[[i]]]][["col"]] <- names(re)[[i]]
   }
   .x
+}
+#' @rdname ys_rename
+#' @export
+ys_rename.data.frame <- function(.x, .spec, ..., .title_case = TRUE, .unit = FALSE) {
+  assert_that(is_yspec(.spec))
+  re <- eval_select(expr(c(...)), .x)
+  if(isTRUE(.unit)) {
+    short <- ys_get_short_unit(.spec, title_case = .title_case)  
+  } else {
+    short <- ys_get_short(.spec, title_case = .title_case)
+  }
+  for(i in seq_along(re)) {
+    names(.x)[re[i]] <- short[names(re)[i]]
+  }
+  .x
+}
+
+#' Recode column names in a vector
+#' 
+#' Use a `yspec` object to convert a vector of column names to the short
+#' name with the unit optionally appended. 
+#' 
+#' @param col A character vector of names in `spec`. 
+#' @param spec A `yspec` object.
+#' @param ... Passed to [ys_get_short()] (when `unit` is `FALSE`) or 
+#' [ys_get_short_unit()] (when `unit` is `TRUE`).
+#' @param unit Logical indicating if the unit should be appended to the short 
+#' name.
+#' 
+#' @examples
+#' spec <- ys_help$spec()
+#' 
+#' x <- c("WT", "BAR", "SCR", "TIME", "FOO")
+#' 
+#' ys_recode(x, spec)
+#' 
+#' ys_recode(x, ys_select(spec, -TIME), unit = TRUE, title_case = TRUE)
+#' 
+#' @md
+#' @export
+ys_recode <- function(col, spec, ..., unit = FALSE) {
+  if(is.factor(col)) col <- as.character(col)
+  assert_that(is.character(col))
+  if(isTRUE(unit)) {
+    lookup <- unlist(ys_get_short_unit(spec, ...))
+  } else {
+    lookup <- unlist(ys_get_short(spec, ...))
+  }
+  targets <- match(col, names(lookup), nomatch = 0)
+  col[targets > 0] <- lookup[targets[targets > 0]]
+  col
 }
 
 #' Mutate column data
