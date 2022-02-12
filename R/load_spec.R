@@ -172,7 +172,7 @@ capture_file_info <- function(x,file,where = "SETUP__") {
 ##' 
 ##' @md
 ##' @export
-ys_load <- function(file, verbose = FALSE, ...) {
+ys_load <- function(file, verbose = FALSE, ..., extend = FALSE) {
   # not using lifecycle yet; possibly in the future
   if(!is.null(getOption("ys.col.len", NULL))) {
     warning(
@@ -181,15 +181,19 @@ ys_load <- function(file, verbose = FALSE, ...) {
       call. = FALSE
     )
   }
-  x <- ys_load_file(file, verbose = verbose,...)
+  x <- ys_load_file(file, verbose = verbose, ...)
   x <- unpack_spec(x, verbose = verbose)
+  if(isTRUE(extend)) {
+    x <- ys_load_extend(x)
+  }
   x <- add_flags(x)
   set_namespace(x, "base")
 }
 
 ##' @rdname ys_load
 ##' @export
-ys_load_file <- function(file, data_path = NULL, data_stem = NULL, verbose=FALSE, ...) {
+ys_load_file <- function(file, data_path = NULL, data_stem = NULL, 
+                         verbose = FALSE, ...) {
   if(!is.character(file)) {
     stop("'file' argument must have class character (not ", class(file)[1],")",call.=FALSE)  
   }
@@ -401,7 +405,7 @@ ys_load_meta <- function(file) {
 ##' Load a specification file, guessing the type
 ##' 
 ##' @param file a yaml file name
-##' @param ... arguments passed to [ys_load] or [ys_load_proj]
+##' @param ... arguments passed to [ys_load()] or [ys_load_proj()]
 ##' 
 ##' @examples
 ##' 

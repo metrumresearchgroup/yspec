@@ -6,7 +6,7 @@
 \alias{load_spec}
 \title{Load a data specification file}
 \usage{
-ys_load(file, verbose = FALSE, ...)
+ys_load(file, verbose = FALSE, ..., extend = FALSE)
 
 ys_load_file(file, data_path = NULL, data_stem = NULL, verbose = FALSE, ...)
 

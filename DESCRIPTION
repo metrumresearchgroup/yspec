@@ -55,6 +55,7 @@ Collate:
     'definetemplate.R'
     'err_log.R'
     'exspec.R'
+    'extend.R'
     'fda_define.R'
     'flags.R'
     'handlers.R'

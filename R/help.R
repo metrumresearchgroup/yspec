@@ -44,13 +44,13 @@ ys_view_impl <- function(dir,file) {
 
 # nocov start
 ys_help_setup <- function(libname, pkgname) {
-  spec <- function() {
-    ys_load(file())
+  spec <- function(...) {
+    ys_load(file(), ...)
   }
   file <- function() system.file("internal", "analysis1.yml", package = "yspec")
   data <- function() {
     read.csv(
-      file=csv(),
+      file = csv(),
       na.strings = '.', as.is=TRUE, stringsAsFactors=FALSE
     )
   }

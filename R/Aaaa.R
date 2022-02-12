@@ -7,7 +7,7 @@
 #' @importFrom knitr kable
 #' @importFrom xtable xtable
 #' @importFrom rlang quos set_names exprs as_string expr quo_get_expr enquo
-#' @importFrom rlang is_named 
+#' @importFrom rlang is_named
 #' @importFrom assertthat assert_that
 #' @importFrom purrr map map_chr map_df map_if map_lgl
 #' @importFrom purrr imap imap_chr map_int
@@ -37,7 +37,7 @@ VALID_SPEC_NAMES <- c(
 )
 
 VALID_SETUP_NAMES <- c(
-  "primary_key", "lookup_file", 
+  "primary_key", "lookup_file", "extend_file",
   "description", "comment", "sponsor", "projectnumber", 
   "data_path", "data_stem", "name", "spec_file", 
   "spec_path", "glue", "use_internal_db", 
