@@ -36,6 +36,17 @@ test_that("load spec with extension", {
   expect_equal(names(spec), LETTERS[1:2])
 })
 
+test_that("extend a yspec object", {
+  extension_file <- system.file("spec", "nm-extension.yml",  package = "yspec")
+  spec <- ys_help$spec()
+  prev <- names(spec)
+  spec <- ys_extend(spec, extension_file)
+  expect_is(spec, "yspec")
+  diff <- setdiff(names(spec), prev)
+  ext <- ys_load(extension_file)
+  expect_identical(diff, names(ext))
+})
+
 test_that("extension fails when common columns", {
   ext <- yspec:::temp_spec(ext_bad, "foo.yml")
   expect_error( 
@@ -49,6 +60,6 @@ test_that("extension fails when extension file doesn't exist", {
   unlink(ext, recursive = TRUE)
   expect_error(
     ys_load(file, extend = TRUE), 
-    regexp = "`extend_file` does not exist"
+    regexp = "Extension file does not exist"
   )
 })
