@@ -162,7 +162,7 @@ capture_file_info <- function(x,file,where = "SETUP__") {
 ##' @param verbose Logical: print information to the console as the file
 ##' is processed.
 ##' @param extend Logical: if `TRUE`, extend the `yspec` object with the 
-##' file coded into `extend_file` in the `SETUP__:` block. 
+##' file coded into `extend_file` in the `SETUP__:` block; see [ys_extend()].
 ##' @param ... Other arguments to update `SETUP__`.
 ##' 
 ##' @examples
@@ -186,7 +186,7 @@ ys_load <- function(file, verbose = FALSE, ..., extend = FALSE) {
   x <- ys_load_file(file, verbose = verbose, ...)
   x <- unpack_spec(x, verbose = verbose)
   if(isTRUE(extend)) {
-    x <- ys_load_extend(x)
+    x <- ys_extend(x)
   }
   x <- add_flags(x)
   set_namespace(x, "base")

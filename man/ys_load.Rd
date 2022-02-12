@@ -21,7 +21,7 @@ is processed.}
 \item{...}{Other arguments to update \code{SETUP__}.}
 
 \item{extend}{Logical: if \code{TRUE}, extend the \code{yspec} object with the
-file coded into \code{extend_file} in the \verb{SETUP__:} block.}
+file coded into \code{extend_file} in the \verb{SETUP__:} block; see \code{\link[=ys_extend]{ys_extend()}}.}
 
 \item{data_path}{Optional path to data sets.}
 

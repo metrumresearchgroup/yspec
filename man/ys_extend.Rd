@@ -4,12 +4,14 @@
 \alias{ys_extend}
 \title{Extend a yspec object}
 \usage{
-ys_extend(x, file)
+ys_extend(x, file = ys_extend_file(x))
 }
 \arguments{
 \item{x}{A \code{yspec} object.}
 
-\item{file}{The path to a yaml specification file to load and join to \code{x}.}
+\item{file}{The path to a yaml specification file to load and join to \code{x};
+if \code{file} is not passed, the \code{yspec} object will be searched for the
+\code{extend_file} attribute in \verb{SETUP__:} and will fail if it is not fould.}
 }
 \description{
 Use this function to read and join another spec file to an existing
@@ -22,10 +24,12 @@ The extension \code{yspec} object cannot contain any columns in common with the
 primary \code{yspec} object.
 }
 \examples{
-extension_file <- system.file("spec", "nm-extension.yml")
+extension_file <- system.file("spec", "nm-extension.yml", package = "yspec")
 
-spec <- yys_help$spec() 
-spec <- ys_extend(spec, extension_file)
-tail(spec)
+spec <- ys_help$spec() 
+spec2 <- ys_extend(spec, extension_file)
+tail(spec2)
+
+ys_extend(spec)
 
 }

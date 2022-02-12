@@ -11,18 +11,22 @@
 #' primary `yspec` object. 
 #' 
 #' @param x A `yspec` object. 
-#' @param file The path to a yaml specification file to load and join to `x`. 
+#' @param file The path to a yaml specification file to load and join to `x`; 
+#' if `file` is not passed, the `yspec` object will be searched for the
+#' `extend_file` attribute in `SETUP__:` and will fail if it is not fould.
 #' 
 #' @examples
-#' extension_file <- system.file("spec", "nm-extension.yml")
+#' extension_file <- system.file("spec", "nm-extension.yml", package = "yspec")
 #' 
-#' spec <- yys_help$spec() 
-#' spec <- ys_extend(spec, extension_file)
-#' tail(spec)
+#' spec <- ys_help$spec() 
+#' spec2 <- ys_extend(spec, extension_file)
+#' tail(spec2)
+#' 
+#' ys_extend(spec)
 #' 
 #' @md
 #' @export
-ys_extend <- function(x, file) {
+ys_extend <- function(x, file = ys_extend_file(x)) {
   if(!file.exists(file)) {
     stop("Extension file does not exist: ", file)
   }
@@ -38,7 +42,7 @@ ys_extend <- function(x, file) {
   c(x, extension)    
 }
 
-ys_load_extend <- function(x) {
+ys_extend_file <- function(x) {
   extend_file <- maybe_pull_meta(x, "extend_file")
   if(is.null(extend_file)) {
     stop(
@@ -50,5 +54,5 @@ ys_load_extend <- function(x) {
     stop("`extend_file` must be a single string.")  
   }
   extend_file <- file.path(pull_meta(x, "spec_path"), extend_file)
-  ys_extend(x, extend_file)
+  extend_file
 }
