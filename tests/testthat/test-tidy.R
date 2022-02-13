@@ -205,3 +205,16 @@ test_that("mutate the spec", {
   expect_error(ys_mutate(spec, list(unit = "mg")), "must be named")
   rm(ys_mutate)
 })
+
+test_that("ys_recode: recode values in a vector", {
+  spec <- ys_help$spec()
+  x <- c("WT", "WT", "ALB", "STUDY", "blah",  "WT", "RF", "RF")
+  ans <- ys_recode(x, spec)
+  chk <- c("weight", "weight", "albumin", "study number", "blah", "weight", 
+           "renal function stage", "renal function stage")
+  expect_equal(ans, chk)
+  x <- x[1:4]
+  chk <- c("Weight (kg)", "Weight (kg)", "Albumin (g/dL)", "Study Number")
+  ans <- ys_recode(x, spec, unit = TRUE, title_case = TRUE)
+  expect_equal(ans, chk)
+})
