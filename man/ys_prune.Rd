@@ -4,27 +4,26 @@
 \alias{ys_prune}
 \title{Prune a data frame, keeping columns in a yspec object}
 \usage{
-ys_prune(data, spec, add = NULL, report = FALSE)
+ys_prune(data, spec, ..., .report = FALSE)
 }
 \arguments{
-\item{data}{a data frame with at least one column that is found in \code{spec}}
+\item{data}{A data frame with at least one column that is found in \code{spec}.}
 
-\item{spec}{a \code{yspec} object}
+\item{spec}{A \code{yspec} object.}
 
-\item{add}{additional columns to look for; this can be a comma-separated
-character string or vector; if specified, these names will be treated like
-any other name in \code{spec}, specifically missing names will be silently
-ignored unless \code{report} is passed as \code{TRUE}}
+\item{...}{Additional columns carry into the output, specified using
+tidy-select syntax.}
 
-\item{report}{if \code{TRUE}, report missing columns}
+\item{.report}{If \code{TRUE}, report missing columns.}
 }
 \value{
-A data frame with common columns with \code{spec}, in the order they appear
-in \code{spec}.
+A data frame with common columns with \code{spec} and \code{...}, in the order they
+appear in \code{spec}.
 }
 \description{
-Use this to scavenge a data frame for columns that you want to keep. Do not
-use this for final column selection; use \code{\link[dplyr:select]{dplyr::select()}} instead.
+Use this to scavenge a data frame for columns that you want to keep. Select
+additional columns through \code{...}. Do not use this for final column selection;
+use \code{\link[dplyr:select]{dplyr::select()}} instead.
 }
 \details{
 An error is generated if there are no columns in common between \code{data} and
@@ -36,7 +35,13 @@ spec <- ys_help$spec()
 data$STUDY <- NULL
 
 head(ys_prune(data, spec))
-head(ys_prune(data, spec, report = TRUE))
+head(ys_prune(data, spec, .report = TRUE))
+
+data$FOO <- 1
+data$BAR <- 2
+data$YAK <- 3
+
+head(ys_prune(data, spec, YAK, FOO))
 
 # Use this for final subsetting
 # It will fail if all the columns aren't there
