@@ -10,7 +10,7 @@ ys_rename(.x, ...)
 
 \method{ys_rename}{yspec}(.x, ...)
 
-\method{ys_rename}{data.frame}(.x, .spec, ..., .title_case = TRUE, .unit = FALSE)
+\method{ys_rename}{data.frame}(.x, .spec, ..., .title_case = TRUE, .short_max = Inf, .unit = FALSE)
 }
 \arguments{
 \item{.x}{A \code{yspec} object or \code{data.frame} to rename.}
@@ -22,6 +22,8 @@ rename (new names come from the spec); see examples.}
 \item{.spec}{A \code{yspec} object.}
 
 \item{.title_case}{Passed to \code{\link[=ys_get_short]{ys_get_short()}} or \code{\link[=ys_get_short_unit]{ys_get_short_unit()}}.}
+
+\item{.short_max}{Passed to \code{\link[=ys_get_short]{ys_get_short()}} or \code{\link[=ys_get_short_unit]{ys_get_short_unit()}}.}
 
 \item{.unit}{Logical indicating if the unit should be appended to the
 short rename value.}

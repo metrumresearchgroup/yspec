@@ -266,6 +266,7 @@ ys_join <- function(left, right, ...) {
 #' rename (new names come from the spec); see examples.
 #' @param .spec A `yspec` object.
 #' @param .title_case Passed to [ys_get_short()] or [ys_get_short_unit()].
+#' @param .short_max Passed to [ys_get_short()] or [ys_get_short_unit()].
 #' @param .unit Logical indicating if the unit should be appended to the 
 #' short rename value.
 #' 
@@ -301,13 +302,18 @@ ys_rename.yspec<- function(.x, ...) {
 }
 #' @rdname ys_rename
 #' @export
-ys_rename.data.frame <- function(.x, .spec, ..., .title_case = TRUE, .unit = FALSE) {
+ys_rename.data.frame <- function(.x, .spec, ..., .title_case = TRUE, 
+                                 .short_max = Inf, .unit = FALSE) {
   assert_that(is_yspec(.spec))
   re <- eval_select(expr(c(...)), .x)
   if(isTRUE(.unit)) {
-    short <- ys_get_short_unit(.spec, title_case = .title_case)  
+    short <- ys_get_short_unit(
+      .spec, title_case = .title_case, short_max = .short_max
+    )  
   } else {
-    short <- ys_get_short(.spec, title_case = .title_case)
+    short <- ys_get_short(
+      .spec, title_case = .title_case, short_max = .short_max
+    )
   }
   for(i in seq_along(re)) {
     names(.x)[re[i]] <- short[names(re)[i]]
