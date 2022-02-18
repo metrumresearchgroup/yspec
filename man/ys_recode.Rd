@@ -12,7 +12,8 @@ ys_recode(col, spec, ..., unit = FALSE)
 \item{spec}{A \code{yspec} object.}
 
 \item{...}{Passed to \code{\link[=ys_get_short]{ys_get_short()}} (when \code{unit} is \code{FALSE}) or
-\code{\link[=ys_get_short_unit]{ys_get_short_unit()}} (when \code{unit} is \code{TRUE}).}
+\code{\link[=ys_get_short_unit]{ys_get_short_unit()}} (when \code{unit} is \code{TRUE}); specifically note that
+\code{title_case} and \code{short_max} can be passed along.}
 
 \item{unit}{Logical indicating if the unit should be appended to the short
 name.}

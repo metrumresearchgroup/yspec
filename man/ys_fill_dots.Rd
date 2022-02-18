@@ -2,17 +2,17 @@
 % Please edit documentation in R/ys-tidy.R
 \name{ys_fill_dots}
 \alias{ys_fill_dots}
-\title{Supplement data in the dots list with default values}
+\title{Supplement data in dots list with default values}
 \usage{
 ys_fill_dots(x, ..., .overwrite = FALSE)
 }
 \arguments{
-\item{x}{a yspec object}
+\item{x}{A yspec object.}
 
-\item{...}{\code{name = value} data to be added to \code{dots}}
+\item{...}{\code{name = value} data to be added to \code{dots}.}
 
-\item{.overwrite}{logical indicating whether \code{x} should be overwritten with
-data in \code{...}}
+\item{.overwrite}{Logical indicating whether \code{x} should be overwritten with
+data in \code{...}.}
 }
 \value{
 A \code{yspec} object with modified \code{.dots}

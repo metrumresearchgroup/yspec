@@ -4,7 +4,7 @@
 \alias{ys_rename}
 \alias{ys_rename.yspec}
 \alias{ys_rename.data.frame}
-\title{Rename columns in a spec or data.frame}
+\title{Rename items in a yspec object or data.frame}
 \usage{
 ys_rename(.x, ...)
 
