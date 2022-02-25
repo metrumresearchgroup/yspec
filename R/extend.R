@@ -13,7 +13,7 @@
 #' @param x A `yspec` object. 
 #' @param file The path to a yaml specification file to load and join to `x`; 
 #' if `file` is not passed, the `yspec` object will be searched for the
-#' `extend_file` attribute in `SETUP__:` and will fail if it is not fould.
+#' `extend_file` attribute in `SETUP__:` and will fail if it is not found.
 #' 
 #' @examples
 #' extension_file <- system.file("spec", "nm-extension.yml", package = "yspec")
