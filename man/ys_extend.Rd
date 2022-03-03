@@ -12,6 +12,9 @@ ys_extend(x, file = ys_extend_file(x), report = FALSE)
 \item{file}{The path to a yaml specification file to load and join to \code{x};
 if \code{file} is not passed, the \code{yspec} object will be searched for the
 \code{extend_file} attribute in \verb{SETUP__:} and will fail if it is not found.}
+
+\item{report}{Logical; if \code{TRUE}, issue message reporting the number of
+columns added via extension.}
 }
 \description{
 Use this function to read and join another spec file to an existing

@@ -16,6 +16,8 @@
 #' @param file The path to a yaml specification file to load and join to `x`; 
 #' if `file` is not passed, the `yspec` object will be searched for the
 #' `extend_file` attribute in `SETUP__:` and will fail if it is not found.
+#' @param report Logical; if `TRUE`, issue message reporting the number of 
+#' columns added via extension.
 #' 
 #' @examples
 #' extension_file <- system.file("spec", "nm-extension.yml", package = "yspec")
