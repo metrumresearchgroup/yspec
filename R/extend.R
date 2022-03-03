@@ -7,10 +7,12 @@
 #' modeling outputs (e.g. `IPRED`).
 #' 
 #' @details
-#' The extension `yspec` object cannot contain any columns in common with the 
-#' primary `yspec` object. 
+#' The extension is accomplished using [ys_join()], so any columns in the 
+#' extension spec that already exist in the primary spec are dropped. Use
+#' [ys_select()] on the the primary spec to drop columns that might be in the
+#' extension and that you want to retain in the result.
 #' 
-#' @param x A `yspec` object. 
+#' @param x A `yspec` object (the primary spec). 
 #' @param file The path to a yaml specification file to load and join to `x`; 
 #' if `file` is not passed, the `yspec` object will be searched for the
 #' `extend_file` attribute in `SETUP__:` and will fail if it is not found.
@@ -23,6 +25,12 @@
 #' tail(spec2)
 #' 
 #' ys_extend(spec)
+#' 
+#' \dontrun{
+#' # In case COL is in both the primary spec and the extension, but you want 
+#' # to retain what is in the extension
+#' spec %>% select(-COL) %>% ys_extend("extension.yml")   
+#' }
 #' 
 #' @md
 #' @export

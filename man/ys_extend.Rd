@@ -7,7 +7,7 @@
 ys_extend(x, file = ys_extend_file(x), report = FALSE)
 }
 \arguments{
-\item{x}{A \code{yspec} object.}
+\item{x}{A \code{yspec} object (the primary spec).}
 
 \item{file}{The path to a yaml specification file to load and join to \code{x};
 if \code{file} is not passed, the \code{yspec} object will be searched for the
@@ -20,8 +20,10 @@ that might be added to the data set on an ad-hoc basis or could include
 modeling outputs (e.g. \code{IPRED}).
 }
 \details{
-The extension \code{yspec} object cannot contain any columns in common with the
-primary \code{yspec} object.
+The extension is accomplished using \code{\link[=ys_join]{ys_join()}}, so any columns in the
+extension spec that already exist in the primary spec are dropped. Use
+\code{\link[=ys_select]{ys_select()}} on the the primary spec to drop columns that might be in the
+extension and that you want to retain in the result.
 }
 \examples{
 extension_file <- system.file("spec", "nm-extension.yml", package = "yspec")
@@ -31,5 +33,11 @@ spec2 <- ys_extend(spec, extension_file)
 tail(spec2)
 
 ys_extend(spec)
+
+\dontrun{
+# In case COL is in both the primary spec and the extension, but you want 
+# to retain what is in the extension
+spec \%>\% select(-COL) \%>\% ys_extend("extension.yml")   
+}
 
 }
