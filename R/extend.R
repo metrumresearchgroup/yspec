@@ -26,20 +26,18 @@
 #' 
 #' @md
 #' @export
-ys_extend <- function(x, file = ys_extend_file(x)) {
+ys_extend <- function(x, file = ys_extend_file(x), report = FALSE) {
   if(!file.exists(file)) {
     stop("Extension file does not exist: ", file)
   }
+  incoming <- length(x)
   extension <- ys_load(file, verbose = FALSE, extend = FALSE)
-  if(any(names(extension) %in% names(x))) {
-    message <- "\nNames in extension cannot also exist in the base spec:"
-    common <- intersect(names(extension), names(x))
-    common <- paste0("--| ", common, " was found in common\n")
-    all <- c(message, common)
-    all <- paste0(all, "\n")
-    stop(all, call. = FALSE)  
+  ans <- ys_join(x, extension)
+  if(isTRUE(report)) {
+    msg <- glue("Note: added {length(ans) - length(x)} columns by extension.")
+    message(msg)
   }
-  c(x, extension)    
+  ans
 }
 
 ys_extend_file <- function(x) {

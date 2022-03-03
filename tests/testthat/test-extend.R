@@ -47,14 +47,6 @@ test_that("extend a yspec object", {
   expect_identical(diff, names(ext))
 })
 
-test_that("extension fails when common columns", {
-  ext <- yspec:::temp_spec(ext_bad, "foo.yml")
-  expect_error( 
-    ys_load(file, extend = TRUE), 
-    regexp = "Names in extension cannot also exist"
-  )
-})
-
 test_that("extension fails when extension file doesn't exist", {
   ext <- yspec:::temp_spec(ext_bad, "foo.yml")
   unlink(ext, recursive = TRUE)

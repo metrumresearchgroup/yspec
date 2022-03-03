@@ -4,7 +4,7 @@
 \alias{ys_extend}
 \title{Extend a yspec object}
 \usage{
-ys_extend(x, file = ys_extend_file(x))
+ys_extend(x, file = ys_extend_file(x), report = FALSE)
 }
 \arguments{
 \item{x}{A \code{yspec} object.}
