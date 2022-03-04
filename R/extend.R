@@ -83,6 +83,6 @@ ys_extend_file <- function(x) {
   if(!(is.character(extend_file) && length(extend_file)==1)) {
     stop("`extend_file` must be a single string.")  
   }
-  extend_file <- file.path(pull_meta(x, "spec_path"), extend_file)
-  extend_file
+  ans <- file.path(pull_meta(x, "spec_path"), extend_file)
+  ans
 }
