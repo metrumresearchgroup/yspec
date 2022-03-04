@@ -34,7 +34,8 @@ yspec_make_factor(values, x, strict = TRUE, .missing = NULL)
 
 \item{.spec}{a yspec object}
 
-\item{...}{unquoted column names for modification}
+\item{...}{unquoted column names for modification; passing nothing through
+\code{...} will signal for all columns to be considered for factors}
 
 \item{.all}{if \code{TRUE} then any column with a \code{values} attribute or  where
 the \code{make_factor} field evaluates to \code{TRUE} will be added as a factor}
