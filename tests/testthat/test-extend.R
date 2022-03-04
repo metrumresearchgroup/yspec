@@ -28,7 +28,7 @@ file <- yspec:::temp_spec(main, "extend-1")
 
 test_that("load spec with extension", {
   ext <- yspec:::temp_spec(ext_good, "foo.yml")
-  spec <- ys_load(file, extend = TRUE)
+  spec <- ys_extend(ys_load(file))
   expect_is(spec, "yspec")
   expect_equal(names(spec), LETTERS[1:4])
   spec <- ys_load(file)
@@ -51,7 +51,7 @@ test_that("extension fails when extension file doesn't exist", {
   ext <- yspec:::temp_spec(ext_bad, "foo.yml")
   unlink(ext, recursive = TRUE)
   expect_error(
-    ys_load(file, extend = TRUE), 
+    ys_extend(ys_load(file)), 
     regexp = "Extension file does not exist"
   )
 })

@@ -12,12 +12,17 @@
 #' [ys_select()] on the the primary spec to drop columns that might be in the
 #' extension and that you want to retain in the result.
 #' 
+#' If there are no new columns added by extension, that indicates all columns 
+#' in the extension spec already exist in primary spec. In this case, a 
+#' warning will be generated. 
+#' 
 #' @param x A `yspec` object (the primary spec). 
 #' @param file The path to a yaml specification file to load and join to `x`; 
 #' if `file` is not passed, the `yspec` object will be searched for the
 #' `extend_file` attribute in `SETUP__:` and will fail if it is not found.
-#' @param report Logical; if `TRUE`, issue message reporting the number of 
-#' columns added via extension.
+#' @param silent Logical; if `TRUE`, issue message reporting the number of 
+#' columns added via extension; the user will alternatively be warned if there
+#' were no columns added. 
 #' 
 #' @examples
 #' extension_file <- system.file("spec", "nm-extension.yml", package = "yspec")
@@ -36,18 +41,35 @@
 #' 
 #' @md
 #' @export
-ys_extend <- function(x, file = ys_extend_file(x), report = FALSE) {
+ys_extend <- function(x, file = ys_extend_file(x), silent = FALSE) {
   if(!file.exists(file)) {
     stop("Extension file does not exist: ", file)
   }
-  incoming <- length(x)
-  extension <- ys_load(file, verbose = FALSE, extend = FALSE)
+  extension <- ys_load(file, verbose = FALSE)
+  extension <- modify(extension, extended_from, file = basename(file))
   ans <- ys_join(x, extension)
-  if(isTRUE(report)) {
-    msg <- glue("Note: added {length(ans) - length(x)} columns by extension.")
-    message(msg)
+  n_x <- length(x)
+  n_ext <- length(extension)
+  n_ans <- length(ans)
+  if(isFALSE(silent)) {
+    if(n_ans == n_x) {
+      msg <- c(
+        "The input spec object was not extended.", 
+        i = glue("Length primary:   {n_x}"), 
+        i = glue("Length extension: {n_ext}") 
+      )
+      warn(msg)
+    } else {
+      msg <- glue("Note: added {n_ans - n_x} columns by extension.")
+      message(msg)    
+    }
   }
   ans
+}
+
+extended_from <- function(x, file) {
+  x[["extended_from"]] <- file
+  x
 }
 
 ys_extend_file <- function(x) {

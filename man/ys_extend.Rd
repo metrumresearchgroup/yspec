@@ -4,7 +4,7 @@
 \alias{ys_extend}
 \title{Extend a yspec object}
 \usage{
-ys_extend(x, file = ys_extend_file(x), report = FALSE)
+ys_extend(x, file = ys_extend_file(x), silent = FALSE)
 }
 \arguments{
 \item{x}{A \code{yspec} object (the primary spec).}
@@ -13,8 +13,9 @@ ys_extend(x, file = ys_extend_file(x), report = FALSE)
 if \code{file} is not passed, the \code{yspec} object will be searched for the
 \code{extend_file} attribute in \verb{SETUP__:} and will fail if it is not found.}
 
-\item{report}{Logical; if \code{TRUE}, issue message reporting the number of
-columns added via extension.}
+\item{silent}{Logical; if \code{TRUE}, issue message reporting the number of
+columns added via extension; the user will alternatively be warned if there
+were no columns added.}
 }
 \description{
 Use this function to read and join another spec file to an existing
@@ -27,6 +28,10 @@ The extension is accomplished using \code{\link[=ys_join]{ys_join()}}, so any co
 extension spec that already exist in the primary spec are dropped. Use
 \code{\link[=ys_select]{ys_select()}} on the the primary spec to drop columns that might be in the
 extension and that you want to retain in the result.
+
+If there are no new columns added by extension, that indicates all columns
+in the extension spec already exist in primary spec. In this case, a
+warning will be generated.
 }
 \examples{
 extension_file <- system.file("spec", "nm-extension.yml", package = "yspec")

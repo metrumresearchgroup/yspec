@@ -6,7 +6,7 @@
 \alias{load_spec}
 \title{Load a data specification file}
 \usage{
-ys_load(file, verbose = FALSE, ..., extend = FALSE)
+ys_load(file, verbose = FALSE, ...)
 
 ys_load_file(file, data_path = NULL, data_stem = NULL, verbose = FALSE, ...)
 
@@ -19,9 +19,6 @@ load_spec(...)
 is processed.}
 
 \item{...}{Other arguments to update \code{SETUP__}.}
-
-\item{extend}{Logical: if \code{TRUE}, extend the \code{yspec} object with the
-file coded into \code{extend_file} in the \verb{SETUP__:} block; see \code{\link[=ys_extend]{ys_extend()}}.}
 
 \item{data_path}{Optional path to data sets.}
 
