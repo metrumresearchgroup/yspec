@@ -75,8 +75,15 @@ check_this_col <- function(x, col, env, control, ...) {
     if(any(x[["values"]] == "<yspec-null>")) {
       err <- c(err, "values field includes NULLs")  
     }
+    if(any(x[["values"]] == "<yspec-not-atomic>")) {
+      errx <- c(
+        "values field includes non-atomic data ... ", 
+        "yaml code possibly used brackets [ ] when braces { } were intended"
+      )
+      err <- c(err, errx)  
+    }
   }
-  if(.has("values",x) & .has("range",x)) {
+  if(.has("values", x) & .has("range",x)) {
     err <- c(err, "column has both values and range")
   }
   if(.has("decode",x)) {
@@ -87,7 +94,6 @@ check_this_col <- function(x, col, env, control, ...) {
       )
     }
   }
-  
   if(length(x$unit) > 1) {
     err <- c(err, "the 'unit' field should not be more than length 1")  
   }
@@ -342,7 +348,7 @@ unpack_col <- function(x) {
     if(!.has("decode",x)) {
       x$decode <- names(x$values)
     }
-    x$values <- sapply(x$values, sub_null, USE.NAMES=FALSE)
+    x$values <- sapply(x$values, sub_null_natom, USE.NAMES=FALSE)
     if(is.character(x$values)) x$type <- "character"
   }
   if(.has("source", x)) {
@@ -358,8 +364,10 @@ unpack_col <- function(x) {
   structure(x, class = "ycol")
 }
 
-sub_null <- function(x) {
-  ifelse(is.null(x), "<yspec-null>", x)
+sub_null_natom <- function(x) {
+  if(!is.atomic(x)) return("<yspec-not-atomic>")
+  if(is.null(x)) return("<yspec-null>")
+  return(x)
 }
 
 col_initialize <- function(x, name) {

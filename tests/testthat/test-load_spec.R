@@ -112,3 +112,9 @@ test_that("error to pass non-character file name", {
   expect_error(ys_load(x))
 })
 
+test_that("Error when values is mis-coded as list of lists", {
+  expect_error(
+  yspec:::test_spec_test("values-list-of-lists.yml"), 
+  regexp = "values field includes non-atomic data"
+  )
+})

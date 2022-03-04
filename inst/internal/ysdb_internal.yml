@@ -22,7 +22,7 @@ CMT:
   type: numeric
 EVID:
   short: event ID
-  values: [observation: 0, dose: 1]
+  values: {observation: 0, dose: 1}
 AMT: 
   short: dose amount
   type: numeric
@@ -39,7 +39,7 @@ SS:
     - non-steady state indicator
     - steady state indicator
 MDV:
-  values: [non-missing: 0, missing: 1]
+  values: {non-missing: 0, missing: 1}
   type: numeric
   long: missing DV indicator
   comment: per NONMEM specifications
