@@ -36,3 +36,20 @@ test_that("ys_prune selects available columns", {
     all = FALSE, fixed = TRUE
   )
 })
+
+test_that("prune can take all columns with re-ordering", {
+  spec <- ys_help$spec() 
+  data <- ys_help$data()
+  data$WT <- NULL
+  data$SCR <- NULL  
+  lbl0 <- names(data)
+  data$b <- 5
+  data$a <- 2
+  data <- data[, sample(seq(ncol(data)))]
+  ans <- ys_prune(data, spec, tidyselect::everything())  
+  lbl <- names(ans)
+  n <- length(lbl)
+  expect_equal(lbl[n], "b")
+  expect_equal(lbl[n-1], "a")
+  expect_equal(lbl[-c(n, n-1)], lbl0)
+})
