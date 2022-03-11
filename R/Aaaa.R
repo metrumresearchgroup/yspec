@@ -7,7 +7,7 @@
 #' @importFrom knitr kable
 #' @importFrom xtable xtable
 #' @importFrom rlang quos set_names exprs as_string expr quo_get_expr enquo
-#' @importFrom rlang is_named 
+#' @importFrom rlang is_named warn
 #' @importFrom assertthat assert_that
 #' @importFrom purrr map map_chr map_df map_if map_lgl
 #' @importFrom purrr imap imap_chr map_int
@@ -20,7 +20,7 @@
 #' @importFrom tools toTitleCase
 #' @importFrom crayon red green black blue bold italic
 #' @importFrom fs path_rel
-#' @importFrom stringr fixed str_detect str_split_fixed str_count fixed 
+#' @importFrom stringr fixed str_detect str_split_fixed str_count 
 #' 
 #' @include utils.R
 NULL
@@ -37,7 +37,7 @@ VALID_SPEC_NAMES <- c(
 )
 
 VALID_SETUP_NAMES <- c(
-  "primary_key", "lookup_file", 
+  "primary_key", "lookup_file", "extend_file",
   "description", "comment", "sponsor", "projectnumber", 
   "data_path", "data_stem", "name", "spec_file", 
   "spec_path", "glue", "use_internal_db", 

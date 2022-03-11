@@ -1,0 +1,8 @@
+PRED: 
+  short: population prediction
+IPRED:
+  short: individual prediction
+WRES:
+  short: weighted residual
+CWRES:
+  short: conditional weighted residual

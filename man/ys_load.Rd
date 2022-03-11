@@ -13,16 +13,16 @@ ys_load_file(file, data_path = NULL, data_stem = NULL, verbose = FALSE, ...)
 load_spec(...)
 }
 \arguments{
-\item{file}{name of yaml file containing specification}
+\item{file}{Name of yaml file containing specification.}
 
-\item{verbose}{\code{logical}; print information to the console as the file
-is processed}
+\item{verbose}{Logical: print information to the console as the file
+is processed.}
 
-\item{...}{other arguments to update \code{SETUP__}}
+\item{...}{Other arguments to update \code{SETUP__}.}
 
-\item{data_path}{optional path to data sets}
+\item{data_path}{Optional path to data sets.}
 
-\item{data_stem}{optional alternate stem for data files}
+\item{data_stem}{Optional alternate stem for data files.}
 }
 \description{
 Load a data specification file

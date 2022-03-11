@@ -39,5 +39,5 @@ test_that("dots are inherited when dots aren't already existing", {
   spect <- as.data.frame(ys_filter(spec, isTRUE(timecol)))
   expect_equal(nrow(spect), 3)
   expect_equal(spect$name, c("TIME", "TAFD", "TAD"))
-  expect_equal(spect$source, c("look.yml", ".", "."))
+  expect_equal(spect$source, c("look", ".", "."))
 })

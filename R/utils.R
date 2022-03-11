@@ -349,3 +349,9 @@ expand_names_on_colon <- function(set, valid) {
   }
   list(cols = cols, bad_cols = bad, any_bad = length(bad) > 0)
 }
+
+temp_spec <- function(text, name) {
+  file <- file.path(tempdir(), name)
+  writeLines(text, con = file)
+  return(invisible(file))
+}

@@ -132,14 +132,28 @@ yml_rm <- function(x) {
 
 ##' @export
 summary.yspec <- function(object, ...) {
-  out <- data.frame(col = seq_along(object), name = names(object), stringsAsFactors = FALSE)
+  out <- data.frame(
+    col = seq_along(object), 
+    name = names(object), 
+    stringsAsFactors = FALSE
+  )
   type <- map_chr(object, "type", .default = ".")
-  out$c <- ifelse(type=="character", "+", "-")
-  dec <- map(object, "decode") %>% unname %>% map_int(length)
-  out$d <- ifelse(dec > 0, "+", "-")
+  type <- ifelse(type=="character", "c", "-")
+  dec <- unname(map(object, "decode"))
+  dec <- map_int(dec, length)
+  dec <- ifelse(dec > 0, "d", "-")
+  out$info <- paste0(type, dec)
   out$unit <- map_chr(object, "unit", .default = ".")
   out$short <- map_chr(object, "short", .default = ".")
-  out$source <- map_chr(object, "lookup_source", .default='.')
+  out$source <- map_chr(object, "lookup_source", .default = '.')
+  ext <- map_chr(object, "extended_from", .default = ".")
+  if(any(ext != ".")) {
+    out$source[ext != '.'] <- ext[ext != '.']
+    out$info <- paste0(out$info, ifelse(ext == '.', "-", "e"))
+  } else {
+    out$info <- paste0(out$info, "-")  
+  }
+  out$source <- sub("\\.ya?ml$", "", out$source)
   out$col <- NULL
   out
 }
