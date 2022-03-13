@@ -1,17 +1,28 @@
 Package: yspec
 Type: Package
 Title: Data Specification for Pharmacometrics
-Version: 0.5.1.9100
+Version: 0.5.2
 Authors@R: c(
-       person("Kyle T", "Baron", "", "kyleb@metrumrg.com", c("aut", "cre"), comment=c(ORCID="0000-0001-7252-5656")),
+       person("Kyle T", "Baron", "", 
+              "kyleb@metrumrg.com", 
+              c("aut", "cre"), 
+              comment=c(ORCID="0000-0001-7252-5656")),
        person(given = "Katherine", 
-           family = "Kay",
-           role = "ctb",
-           email = "katherinek@metrumrg.com"),  
+              family = "Kay",
+              role = "ctb",
+              email = "katherinek@metrumrg.com"),  
        person(given = "Eric", 
-           family = "Anderson",
-           role = "ctb",
-           email = "andersone@metrumrg.com"),  
+              family = "Anderson",
+              role = "ctb",
+              email = "andersone@metrumrg.com"),  
+       person(given = "Sean",
+              family = "Wilson",
+              role = "ctb",
+              email = "copernican@gmail.com"),
+       person(given = "Samuel",
+              family = "Callisto",
+              role = "ctb",
+              email = "samc@metrumrg.com"),
        person("Metrum Research Group", role = "cph")
        )
 Maintainer: Kyle Baron <kyleb@metrumrg.com>
