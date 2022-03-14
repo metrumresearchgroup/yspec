@@ -4,13 +4,15 @@
 \alias{ys_table}
 \title{Create a table from yspec object}
 \usage{
-ys_table(spec, fun = NULL, widths_ = c(0.75, 1.95, 0.6, 2.15), ...)
+ys_table(spec, fun = NULL, tex = TRUE, widths_ = c(0.75, 1.95, 0.6, 2.15), ...)
 }
 \arguments{
 \item{spec}{a \code{yspec} object}
 
 \item{fun}{a function to format a TeX table; if \code{NULL} (the default), the
 table will be rendered using \code{\link[=fda_table]{fda_table()}}}
+
+\item{tex}{logical; if \code{TRUE}, switch to \code{tex} namespace if it exists}
 
 \item{widths_}{passed to \code{\link[=fda_table]{fda_table()}} when \code{fun} is \code{NULL}; these are
 slightly modified from the \code{\link[=fda_table]{fda_table()}} default (see \code{examples}); note
