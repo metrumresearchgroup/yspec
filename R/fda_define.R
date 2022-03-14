@@ -342,11 +342,11 @@ render_fda_define.yspec <- function(x, ..., dots = list()) {
 #' 
 #' The primary use case for this function is for creating TeX tables which can 
 #' be included in a report Appendix. See more in `details`.
-#' 
-#' @param spec a `yspec` object
 #'
+#' @param spec a `yspec` object
 #' @param fun a function to format a TeX table; if `NULL` (the default), the 
 #' table will be rendered using [fda_table()]
+#' @param tex logical; if `TRUE`, switch to `tex` namespace if it exists
 #' @param widths_ passed to [fda_table()] when `fun` is `NULL`; these are 
 #' slightly modified from the [fda_table()] default (see `examples`); note 
 #' the trailing underscore in the argument name; these shouldn't need to be 
@@ -375,9 +375,10 @@ render_fda_define.yspec <- function(x, ..., dots = list()) {
 #' 
 #' @md
 #' @export
-ys_table <- function(spec, fun = NULL, 
+ys_table <- function(spec, fun = NULL, tex = TRUE, 
                      widths_ = c(0.75, 1.95, 0.6, 2.15), ...) {
   assert_that(is_yspec(spec))
+  spec <- try_tex_namespace(spec)
   if(is.null(fun)) {
     tab <- fda_table(spec, widths = widths_, ...)  
   } else {
