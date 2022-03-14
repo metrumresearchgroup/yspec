@@ -1,3 +1,5 @@
+# yspec (development version)
+
 # yspec 0.5.2
 
 - Adds `ys_extend()` to extend a spec object with additional 
