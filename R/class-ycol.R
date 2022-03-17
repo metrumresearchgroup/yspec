@@ -14,7 +14,7 @@ print.ycol <- function(x,...) {
     if(.has("values", x)) {
       valu <- x[["values"]]
       mx <- max(nchar(valu))
-      valu <- formatC(valu,width=mx,flag="-")
+      valu <- formatC(valu, width = mx, flag = "-")
       if(.has("decode", x)) {
         valu <- paste(valu, x[["decode"]], sep = " : ")
       }

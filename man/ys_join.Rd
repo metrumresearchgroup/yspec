@@ -7,16 +7,14 @@
 ys_join(left, right, ...)
 }
 \arguments{
-\item{left}{a yspec object}
+\item{left}{A yspec object.}
 
-\item{right}{a yspec object}
+\item{right}{A yspec object.}
 
-\item{...}{more yspec objects}
+\item{...}{More yspec objects.}
 }
 \value{
-A single yspec object
-
-A single \code{yspec} object
+A single yspec object with \code{left}, \code{right} and \code{...} all joined together.
 }
 \description{
 Join yspec objects together

@@ -66,7 +66,7 @@ make_null <- function(x, name) {
   is.null(object[[name]])
 }
 
-.has <- function(name,object) {
+.has <- function(name, object) {
   !is.null(object[[name]])
 }
 
@@ -348,4 +348,10 @@ expand_names_on_colon <- function(set, valid) {
     cols <- character(0)  
   }
   list(cols = cols, bad_cols = bad, any_bad = length(bad) > 0)
+}
+
+temp_spec <- function(text, name) {
+  file <- file.path(tempdir(), name)
+  writeLines(text, con = file)
+  return(invisible(file))
 }

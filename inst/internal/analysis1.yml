@@ -8,6 +8,7 @@ SETUP__:
   flags: 
     covariate: [AGE:SCR, HT, AST:ALT]
   lookup_file: "look.yml"
+  extend_file: "analysis1-ext.yml"
 C:
 NUM:
 ID:

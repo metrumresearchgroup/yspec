@@ -3,7 +3,8 @@
 #' 
 #' @param .data the data set to modify
 #' @param .spec a yspec object
-#' @param ... unquoted column names for modification
+#' @param ... unquoted column names for modification; passing nothing through 
+#' `...` will signal for all columns to be considered for factors
 #' @param .all if `TRUE` then any column with a `values` attribute or  where 
 #' the `make_factor` field evaluates to `TRUE` will be added as a factor
 #' @param .missing a label to use assign to missing values `NA` when making 
@@ -43,12 +44,18 @@ ys_add_factors <- function(.data, .spec, ... ,
   fct_ok <- map_lgl(.spec, ~ isTRUE(.x[["make_factor"]]))
   
   what <- exprs(...)
-  what <- map_chr(what,as_string)
+  
+  if(length(what) > 0) {
+    what <- names(eval_select(expr(c(...)), .data))
+  } 
+
   if(length(what)==0 & isTRUE(.all)) {
     dis <- map_lgl(.spec, ~!is.null(.x[["values"]]))
-    vars <- vars_select(names(.data), names(which(dis | fct_ok)))
+    spec_cols <- names(which(dis | fct_ok))
+    spec_cols <- intersect(spec_cols, names(.data))
+    vars <- vars_select(names(.data), spec_cols)
   } else {
-    vars <- vars_select(names(.data),what) 
+    vars <- vars_select(names(.data), what) 
   }
   
   for(v in vars) {
@@ -56,7 +63,7 @@ ys_add_factors <- function(.data, .spec, ... ,
     .data[[newcol]] <- ys_make_factor(
       .data[[v]],
       .spec[[v]],
-      strict=!fct_ok[[v]], 
+      strict = !fct_ok[[v]], 
       .missing = .missing
     )
   }

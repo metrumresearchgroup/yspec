@@ -12,7 +12,7 @@ vignette: >
   \usepackage[utf8]{inputenc}
 ---
 
-## Syntax
+# Syntax
 
 yspec uses standard [yaml](https://en.wikipedia.org/wiki/YAML) syntax to state 
 the data set column definitions.
@@ -34,7 +34,7 @@ __NOTES__
 Instructions for including TeX in the yaml specification code are provided
 in a section below. 
 
-## Organization
+# Organization
 Save your data specification code in a file, typically with a `.yaml` 
 file extension.  
 
@@ -80,7 +80,7 @@ ys_help$export(output="assets")
 
 See the [ys_help] topic for more information.  
 
-## `SETUP__` specification fields
+# `SETUP__` specification fields
 
 - `description`: `<chr>`; a short, label-like description of the data set 
 - `projectnumber`: `<chr>` the project reference number; may be 
@@ -121,7 +121,7 @@ See the [ys_help] topic for more information.
 - `flags`: `<map>`; for each key, an array of column names where a logical 
   data item will be set in the `dots` list
 
-## Data column specification fields
+# Data column specification fields
 
 - `short: short-name` 
     - a short name for the column; don't include unit here
@@ -175,7 +175,7 @@ See the [ys_help] topic for more information.
   the `lookup_files` (specified in `SETUP__:`)
   - use the `!look` handler to indicate lookup
   
-## Namespaces
+# Namespaces
 
 Namespaces are alternative representation of certain column data fields 
 
@@ -231,13 +231,13 @@ SEX:
   decode.letter: [m, f]
 ```
 
-## Defaults
+# Defaults
 
 - If `type` is not given, then it will default to `numeric`
 
 ## Examples
 
-### Continuous values
+## Continuous values
 
 - The `about` array provides a short name and unit
 - Any time `range` is given, the data is assumed to be continuous
@@ -257,7 +257,7 @@ WT:
   range: [5,300]
 ```
 
-### Character data
+## Character data
 - Using `values` indicates discrete data
 
 ```txt
@@ -286,7 +286,7 @@ RACE:
   longvalues: true
 ```
 
-### Discrete data with decode
+## Discrete data with decode
 
 __Method 1__
 
@@ -358,7 +358,7 @@ BQL:
     - below the quantitation limit of 2 ng/ml
 ```
 
-### Look up column definition
+## Look up column definition
 
 Either fill in the `lookup` field or use the `!look` handler
 
@@ -381,7 +381,7 @@ In this example, there would be a column called `HT_INCHES` in the
 lookup file that would be imported under the name `HT`.
 
 
-### Include TeX in data specification document
+## Include TeX in data specification document
 
 Most define documents get rendered via `xtable` and the text gets processed
 by a sanitize function.  yspec implements a custom sanitize function

@@ -2,19 +2,19 @@
 % Please edit documentation in R/ys-tidy.R
 \name{ys_filter}
 \alias{ys_filter}
-\title{Subset spec items using column values}
+\title{Subset yspec items using column values}
 \usage{
 ys_filter(x, expr, .default = NULL, .enclos = parent.frame())
 }
 \arguments{
-\item{x}{a yspec object}
+\item{x}{A yspec object.}
 
-\item{expr}{an unquoted expression}
+\item{expr}{An unquoted expression.}
 
-\item{.default}{a named list or environment containing defaults for \code{expr};
-consider using \code{\link[=ys_fill_dots]{ys_fill_dots()}} as an alternative to passing \code{.default}}
+\item{.default}{A named list or environment containing defaults for \code{expr};
+consider using \code{\link[=ys_fill_dots]{ys_fill_dots()}} as an alternative to passing \code{.default}.}
 
-\item{.enclos}{an enclosing environment for evaluating \code{expr}}
+\item{.enclos}{An enclosing environment for evaluating \code{expr}.}
 }
 \value{
 A \code{yspec} object

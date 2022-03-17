@@ -20,6 +20,8 @@ render_fda_define(x, ...)
   build_dir = definetemplate(),
   ext = ".xpt",
   loc = ".",
+  sponsor = NULL,
+  projectnumber = NULL,
   ...
 )
 
@@ -56,6 +58,10 @@ be changed from default value of ".xpt" for testing purposes}
 
 \item{loc}{location to use for data set files; this should
 only be changed from default value of "." for testing purposes}
+
+\item{sponsor}{optional project sponsor}
+
+\item{projectnumber}{optional project number in \code{...}}
 
 \item{dots}{named list of arguments passed to object converter function}
 }

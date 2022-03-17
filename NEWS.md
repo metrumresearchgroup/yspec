@@ -1,3 +1,39 @@
+# yspec 0.5.2
+
+- Adds `ys_extend()` to extend a spec object with additional 
+  columns with any external yaml file; adds `extend_file` 
+  field in `SETUP__:` to identify a single file which can be 
+  automatically called upon for extension #112, #113.
+
+- `ys_add_factors()` refactored to only add factors for available 
+  columns #88, #91.
+
+- `ys_add_factors()` restores tidyselect semantics when specifying 
+  a subset of columns for adding factors #109, #110. 
+
+- Add `ys_table()` to render the spec in TeX table code to be included
+  in a report appendix #98, #104.
+
+- `ys_select()` returns an empty spec object when nothing is selected
+  #100, #101.
+
+- Add `ys_prune()` to select any data columns that appear in the spec
+  as well as other optional columns #87, #97. #99.
+
+- Add `ys_recode()` to convert a vector of data set column names to 
+  `short` version, optionally adding `unit` #86, #114.
+
+- `ys_load()` will now detect if `values` / `decode` are mis-coded as 
+  a list of lists; all items in `values` and `decode` must be atomic 
+  #106, #108.
+
+- `ys_load()` will issue more informative error message when `short` 
+  contains too many characters #102, 105. 
+
+- `ys_document()` now accepts `sponsor` and `projectnumber` arguments
+  which get passed through to the rendered define document #90, #92. 
+
+
 # yspec 0.5.1
 
 - Fix bug where dots in lookup file were not properly inherited by spec

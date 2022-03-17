@@ -1,7 +1,7 @@
-#' Select a subset of columns from a yspec object
+#' Select a subset of items from a yspec object
 #' 
-#' @param .x a yspec object
-#' @param ... unquoted columns to select
+#' @param .x A yspec object.
+#' @param ... Unquoted columns to select.
 #' 
 #' @examples
 #' 
@@ -10,16 +10,22 @@
 #' ys_select(spec, WT, AGE, ALB)
 #' 
 #' ys_select(spec, Wt = WT, AGE)
+#'  
+#' length(ys_select(spec))
+#'  
+#' @details
+#' If no columns are selected, then an empty `yspec` object is returned. 
 #' 
 #' @return 
-#' A `yspec` object
+#' A `yspec` object that may be length zero if no columns were selected. 
 #' 
 #' @md
 #' @export
 ys_select <- function(.x, ...) {
+  assert_that(is_yspec(.x))
   keep <- eval_select(expr(c(...)), as.list(.x))
   if(length(keep)==0) {
-    return(.x) 
+    return(.x[NULL]) 
   }
   original <- names(.x)[keep]
   ans <- .x[original]
@@ -40,16 +46,16 @@ ys_filter_impl <- function(x, expr, def, import, chk_vars, enclos) {
   isTRUE(eval(expr, envir = env, enclos = enclos))
 }
 
-#' Subset spec items using column values
+#' Subset yspec items using column values
 #' 
 #' The intended use is to subset based on variables define in the `dots` list, 
 #' however some internal column data is also available to query.
 #' 
-#' @param x a yspec object
-#' @param expr an unquoted expression
-#' @param .default a named list or environment containing defaults for `expr`; 
-#' consider using [ys_fill_dots()] as an alternative to passing `.default`
-#' @param .enclos an enclosing environment for evaluating `expr`
+#' @param x A yspec object.
+#' @param expr An unquoted expression.
+#' @param .default A named list or environment containing defaults for `expr`; 
+#' consider using [ys_fill_dots()] as an alternative to passing `.default`.
+#' @param .enclos An enclosing environment for evaluating `expr`.
 #' 
 #' @details
 #' 
@@ -153,7 +159,7 @@ ys_filter <- function(x, expr, .default = NULL, .enclos = parent.frame()) {
   x[ans]
 }
 
-#' Supplement data in the dots list with default values
+#' Supplement data in dots list with default values
 #' 
 #' Please avoid thinking of this function as a way to mutate `dots`.  It sort of
 #' is but not in the way you think. It really is for supplementing the spec
@@ -161,10 +167,10 @@ ys_filter <- function(x, expr, .default = NULL, .enclos = parent.frame()) {
 #' sensible values for every column in the spec. mutate will be a different 
 #' function.
 #' 
-#' @param x a yspec object
-#' @param ... `name = value` data to be added to `dots`
-#' @param .overwrite logical indicating whether `x` should be overwritten with 
-#' data in `...`
+#' @param x A yspec object.
+#' @param ... `name = value` data to be added to `dots`.
+#' @param .overwrite Logical indicating whether `x` should be overwritten with 
+#' data in `...`.
 #' 
 #' @details
 #' By default, this function will not overwrite data in `dots` when it already 
@@ -188,9 +194,9 @@ ys_fill_dots <- function(x, ..., .overwrite = FALSE) {
   modify(x, ys_fill_dots_impl, .defaults = .defaults, .overwrite = .overwrite) 
 }
 
-#' @param x a ycol object
-#' @param .defaults a named list of default values for `dots`
-#' @param .overwrite logical indicating whether x should be overwritten or not
+#' @param x A ycol object.
+#' @param .defaults A named list of default values for `dots`.
+#' @param .overwrite Logical indicating whether x should be overwritten or not.
 #' @noRd
 ys_fill_dots_impl <- function(x, .defaults, .overwrite) {
   assert_that(is_named(.defaults), msg = "defaults for `dots` must be named")
@@ -205,11 +211,9 @@ ys_fill_dots_impl <- function(x, .defaults, .overwrite) {
 
 #' Join yspec objects together
 #' 
-#' @param left a yspec object
-#' @param right a yspec object
-#' @param ... more yspec objects
-#' 
-#' @return A single yspec object
+#' @param left A yspec object.
+#' @param right A yspec object.
+#' @param ... More yspec objects.
 #' 
 #' @details
 #' All inputs must be `yspec` objects. When the `right` spec (or specs passed
@@ -229,7 +233,7 @@ ys_fill_dots_impl <- function(x, .defaults, .overwrite) {
 #' ys_join(l, r, rr)
 #' 
 #' @return 
-#' A single `yspec` object
+#' A single yspec object with `left`, `right` and `...` all joined together.
 #' 
 #' @seealso [ys_rename()], [ys_filter()], [ys_select()]
 #' @md
@@ -248,10 +252,22 @@ ys_join <- function(left, right, ...) {
   ans
 }
 
-#' Rename spec columns
+#' Rename items in a yspec object or data.frame
 #' 
-#' @param .x a yspec object
-#' @param ... tidy rename specification; use `new_name` = `old_name` to rename
+#' What gets renamed depends on the first argument: either `yspec` object
+#' or `data.frame`. When renaming `yspec` object, use `new = old` syntax. When
+#' renaming columns in `data.frame`, pass old names only in tidy select syntax; 
+#' the new names come from calls to [ys_get_short()] or [ys_get_short_unit()].
+#' 
+#' @param .x A `yspec` object or `data.frame` to rename.
+#' @param ... For the `yspec` method, pass tidy rename syntax (`new = old`); 
+#' for the `data.frame` method, pass tidy select syntax to select columns to 
+#' rename (new names come from the spec); see examples.
+#' @param .spec A `yspec` object.
+#' @param .title_case Passed to [ys_get_short()] or [ys_get_short_unit()].
+#' @param .short_max Passed to [ys_get_short()] or [ys_get_short_unit()].
+#' @param .unit Logical indicating if the unit should be appended to the 
+#' short rename value.
 #' 
 #' @examples
 #' spec <- ys_help$spec()
@@ -260,13 +276,22 @@ ys_join <- function(left, right, ...) {
 #' 
 #' tail(ans)
 #' 
-#' @return A `yspec` object with renamed columns
+#' data <- ys_help$data()
+#' 
+#' ys_rename(data, spec, AGE:HT)
+#' 
+#' @return 
+#' A `yspec` object or `data.frame` with renamed columns, depending on what was
+#' passed as `.x`.
 #' 
 #' @seealso [ys_join()], [ys_filter()], [ys_select()]
 #' @md
 #' @export
-ys_rename <- function(.x, ...) {
-  assert_that(is_yspec(.x))
+ys_rename <- function(.x, ... ) UseMethod("ys_rename")
+
+#' @rdname ys_rename
+#' @export
+ys_rename.yspec <- function(.x, ...) {
   re <- eval_rename(expr(c(...)), as.list(.x))
   names(.x)[re] <- names(re)
   for(i in seq_along(re)) {
@@ -274,11 +299,69 @@ ys_rename <- function(.x, ...) {
   }
   .x
 }
+#' @rdname ys_rename
+#' @export
+ys_rename.data.frame <- function(.x, .spec, ..., .title_case = TRUE, 
+                                 .short_max = Inf, .unit = FALSE) {
+  assert_that(is_yspec(.spec))
+  re <- eval_select(expr(c(...)), .x)
+  if(isTRUE(.unit)) {
+    short <- ys_get_short_unit(
+      .spec, title_case = .title_case, short_max = .short_max
+    )  
+  } else {
+    short <- ys_get_short(
+      .spec, title_case = .title_case, short_max = .short_max
+    )
+  }
+  for(i in seq_along(re)) {
+    names(.x)[re[i]] <- short[names(re)[i]]
+  }
+  .x
+}
 
-#' Mutate column data
+#' Recode column names in a vector
 #' 
-#' @param x a yspec object
-#' @param ... named lists of column data to update; only specific items can be 
+#' Use a `yspec` object to convert a vector of column names to the short
+#' name with the unit optionally appended. 
+#' 
+#' @param col A character vector of names in `spec`. 
+#' @param spec A `yspec` object.
+#' @param ... Passed to [ys_get_short()] (when `unit` is `FALSE`) or 
+#' [ys_get_short_unit()] (when `unit` is `TRUE`); specifically note that 
+#' `title_case` and `short_max` can be passed along.
+#' @param unit Logical indicating if the unit should be appended to the short 
+#' name.
+#' 
+#' @examples
+#' spec <- ys_help$spec()
+#' 
+#' x <- c("WT", "BAR", "SCR", "TIME", "FOO")
+#' 
+#' ys_recode(x, spec)
+#' 
+#' ys_recode(x, ys_select(spec, -TIME), unit = TRUE, title_case = TRUE)
+#' 
+#' @md
+#' @export
+ys_recode <- function(col, spec, ..., unit = FALSE) {
+  if(is.factor(col)) col <- as.character(col)
+  assert_that(is.character(col))
+  assert_that(is_yspec(spec))
+  if(isTRUE(unit)) {
+    lookup <- unlist(ys_get_short_unit(spec, ...))
+  } else {
+    lookup <- unlist(ys_get_short(spec, ...))
+  }
+  targets <- match(col, names(lookup), nomatch = 0)
+  col[targets > 0] <- lookup[targets[targets > 0]]
+  col
+}
+
+#' Mutate yspec item data
+#' 
+#' @param x A yspec object.
+#' @param ... Named lists of column data to update; only specific items can be 
 #' mutated at this time; see details.
 #' 
 #' @details 

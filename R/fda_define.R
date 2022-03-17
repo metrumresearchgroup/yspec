@@ -64,6 +64,8 @@ add.to.row_long$command <- command__
 ##'
 ##' @param x a yspec object
 ##' @param file the full path to yaml specification file
+##' @param widths column widths in inches; must be numeric vector with length 4
+##' @param ... not currently used
 ##'
 ##' @return Character vector of latex code for the content of an FDA 
 ##' `define.pdf` document.  It includes a table of contents as well as data spec
@@ -76,13 +78,15 @@ add.to.row_long$command <- command__
 ##' 
 ##' @md
 ##' @export
-fda_table <- function(x) {
+fda_table <- function(x, widths = c(0.75, 2.1, 0.6, 2.2), ...) {
   if(!is_yspec(x)) {
     .stop("x is not a yspec object")
   }
   tab <- as_fda_table(x)
-  lengths <- c(0, 0.75, 2.1, 0.6, 2.2)
-  align <- paste0(">{\\raggedright\\arraybackslash}p{",lengths,"in}|")
+  assert_that(is.numeric(widths))
+  assert_that(length(widths)==4)
+  widths <- c(0, widths)
+  align <- paste0(">{\\raggedright\\arraybackslash}p{",widths,"in}|")
   align[2] <- paste0("|", align[2])
   xtab <- xtable(tab, align = align)
   ans <- capture.output(
@@ -210,6 +214,7 @@ fda_define <- function(file, title="Datasets", ext=".xpt", loc=".",...) {
 ##' @param build_dir directory where the document is to be built
 ##' @inheritParams fda_define
 ##' @inheritParams rmarkdown::render 
+##' @inheritParams ys_project
 ##' @param ... passed to [rmarkdown::render()]
 ##'
 ##' @examples
@@ -250,7 +255,10 @@ render_fda_define.yproj <- function(x,
                                     format = "fda_define",
                                     output_dir = getwd(),
                                     build_dir = definetemplate(),
-                                    ext = ".xpt", loc = '.', 
+                                    ext = ".xpt", 
+                                    loc = '.', 
+                                    sponsor = NULL, 
+                                    projectnumber = NULL,
                                     ...) {
   
   output_dir <- normalPath(output_dir)
@@ -263,6 +271,14 @@ render_fda_define.yproj <- function(x,
   }
   
   meta <- get_meta(x)
+  
+  if(is.character(sponsor)) {
+    meta[["sponsor"]] <- sponsor
+  }
+  
+  if(is.character(projectnumber)) {
+    meta[["projectnumber"]] <- projectnumber
+  }
   
   yamlfile <- meta[["spec_file"]]
   
@@ -322,6 +338,52 @@ render_fda_define.yspec <- function(x, ..., dots = list()) {
   render_fda_define.yproj(proj,...)  
 }
 
-
-
-
+#' Create a table from yspec object
+#' 
+#' The primary use case for this function is for creating TeX tables which can 
+#' be included in a report Appendix. See more in `details`.
+#'
+#' @param spec a `yspec` object
+#' @param fun a function to format a TeX table; if `NULL` (the default), the 
+#' table will be rendered using [fda_table()]
+#' @param tex logical; if `TRUE`, switch to `tex` namespace if it exists
+#' @param widths_ passed to [fda_table()] when `fun` is `NULL`; these are 
+#' slightly modified from the [fda_table()] default (see `examples`); note 
+#' the trailing underscore in the argument name; these shouldn't need to be 
+#' changed for most use. 
+#' @param ... additional arguments passed to `fun`
+#' 
+#' @return 
+#' The table text generated from `fun`.
+#' 
+#' @details
+#' By default, the table code is rendered using [fda_table()]; this should be 
+#' used in most cases. [fda_table()] returns the table in the `longtable` 
+#' environment. This can be included in a report with `\input{<file.tex>}`. 
+#' 
+#' At this time, there is no mechanism for generating a caption for tables 
+#' generated using [fda_table()]; the intended use is to include the table in 
+#' an appendix, with caption information given in plain text in the appendix.
+#' 
+#' @examples
+#' spec <- ys_help$spec()
+#' tab <- ys_table(spec)
+#' writeLines(text = tab, con = tempfile(fileext=".tex"))
+#' 
+#' formals(fda_table)$widths
+#' formals(ys_table)$widths_
+#' 
+#' @md
+#' @export
+ys_table <- function(spec, fun = NULL, tex = TRUE, 
+                     widths_ = c(0.75, 1.95, 0.6, 2.15), ...) {
+  assert_that(is_yspec(spec))
+  spec <- try_tex_namespace(spec)
+  if(is.null(fun)) {
+    tab <- fda_table(spec, widths = widths_, ...)  
+  } else {
+    assert_that(is.function(fun))
+    tab <- fun(spec, ...)
+  }
+  return(tab)
+}

@@ -75,8 +75,15 @@ check_this_col <- function(x, col, env, control, ...) {
     if(any(x[["values"]] == "<yspec-null>")) {
       err <- c(err, "values field includes NULLs")  
     }
+    if(any(x[["values"]] == "<yspec-not-atomic>")) {
+      errx <- c(
+        "values field includes non-atomic data ... ", 
+        "yaml code possibly used brackets [ ] when braces { } were intended"
+      )
+      err <- c(err, errx)  
+    }
   }
-  if(.has("values",x) & .has("range",x)) {
+  if(.has("values", x) & .has("range",x)) {
     err <- c(err, "column has both values and range")
   }
   if(.has("decode",x)) {
@@ -87,7 +94,6 @@ check_this_col <- function(x, col, env, control, ...) {
       )
     }
   }
-  
   if(length(x$unit) > 1) {
     err <- c(err, "the 'unit' field should not be more than length 1")  
   }
@@ -111,7 +117,7 @@ check_this_col <- function(x, col, env, control, ...) {
     }
   }
   if(sum(nchar(x$short)) > control[["max_nchar_short"]]) {
-    nmax <- control[["max_char_short"]]
+    nmax <- control[["max_nchar_short"]]
     msg <- "the 'short' field should not be longer than {nmax} characters"
     err <- c(err, as.character(glue(msg)))
   }
@@ -156,12 +162,12 @@ capture_file_info <- function(x,file,where = "SETUP__") {
 
 ##' Load a data specification file
 ##'
-##' @param file name of yaml file containing specification
-##' @param data_path optional path to data sets
-##' @param data_stem optional alternate stem for data files
-##' @param verbose `logical`; print information to the console as the file
-##' is processed
-##' @param ... other arguments to update `SETUP__`
+##' @param file Name of yaml file containing specification.
+##' @param data_path Optional path to data sets.
+##' @param data_stem Optional alternate stem for data files.
+##' @param verbose Logical: print information to the console as the file
+##' is processed.
+##' @param ... Other arguments to update `SETUP__`.
 ##' 
 ##' @examples
 ##' 
@@ -181,7 +187,7 @@ ys_load <- function(file, verbose = FALSE, ...) {
       call. = FALSE
     )
   }
-  x <- ys_load_file(file, verbose = verbose,...)
+  x <- ys_load_file(file, verbose = verbose, ...)
   x <- unpack_spec(x, verbose = verbose)
   x <- add_flags(x)
   set_namespace(x, "base")
@@ -189,7 +195,8 @@ ys_load <- function(file, verbose = FALSE, ...) {
 
 ##' @rdname ys_load
 ##' @export
-ys_load_file <- function(file, data_path = NULL, data_stem = NULL, verbose=FALSE, ...) {
+ys_load_file <- function(file, data_path = NULL, data_stem = NULL, 
+                         verbose = FALSE, ...) {
   if(!is.character(file)) {
     stop("'file' argument must have class character (not ", class(file)[1],")",call.=FALSE)  
   }
@@ -342,7 +349,7 @@ unpack_col <- function(x) {
     if(!.has("decode",x)) {
       x$decode <- names(x$values)
     }
-    x$values <- sapply(x$values, sub_null, USE.NAMES=FALSE)
+    x$values <- sapply(x$values, sub_null_natom, USE.NAMES=FALSE)
     if(is.character(x$values)) x$type <- "character"
   }
   if(.has("source", x)) {
@@ -358,8 +365,10 @@ unpack_col <- function(x) {
   structure(x, class = "ycol")
 }
 
-sub_null <- function(x) {
-  ifelse(is.null(x), "<yspec-null>", x)
+sub_null_natom <- function(x) {
+  if(!is.atomic(x)) return("<yspec-not-atomic>")
+  if(is.null(x)) return("<yspec-null>")
+  return(x)
 }
 
 col_initialize <- function(x, name) {
@@ -401,7 +410,7 @@ ys_load_meta <- function(file) {
 ##' Load a specification file, guessing the type
 ##' 
 ##' @param file a yaml file name
-##' @param ... arguments passed to [ys_load] or [ys_load_proj]
+##' @param ... arguments passed to [ys_load()] or [ys_load_proj()]
 ##' 
 ##' @examples
 ##' 
