@@ -1,17 +1,28 @@
 Package: yspec
 Type: Package
 Title: Data Specification for Pharmacometrics
-Version: 0.5.1
+Version: 0.5.2
 Authors@R: c(
-       person("Kyle T", "Baron", "", "kyleb@metrumrg.com", c("aut", "cre"), comment=c(ORCID="0000-0001-7252-5656")),
+       person("Kyle T", "Baron", "", 
+              "kyleb@metrumrg.com", 
+              c("aut", "cre"), 
+              comment=c(ORCID="0000-0001-7252-5656")),
        person(given = "Katherine", 
-           family = "Kay",
-           role = "ctb",
-           email = "katherinek@metrumrg.com"),  
+              family = "Kay",
+              role = "ctb",
+              email = "katherinek@metrumrg.com"),  
        person(given = "Eric", 
-           family = "Anderson",
-           role = "ctb",
-           email = "andersone@metrumrg.com"),  
+              family = "Anderson",
+              role = "ctb",
+              email = "andersone@metrumrg.com"),  
+       person(given = "Sean",
+              family = "Wilson",
+              role = "ctb",
+              email = "copernican@gmail.com"),
+       person(given = "Samuel",
+              family = "Callisto",
+              role = "ctb",
+              email = "samc@metrumrg.com"),
        person("Metrum Research Group", role = "cph")
        )
 Maintainer: Kyle Baron <kyleb@metrumrg.com>
@@ -24,14 +35,14 @@ Language: en-US
 Depends: R (>= 3.5.0)
 Imports: 
     yaml (>= 2.2),
-    dplyr (>= 0.8.0),
+    dplyr (>= 1.0.8),
     rmarkdown (>= 1.12),
     knitr (>= 1.22),
     xtable (>= 1.8),
-    rlang (>= 0.3.4),
+    rlang (>= 1.0.1),
     assertthat,
-    purrr (>= 0.3.2),
-    glue (>= 1.3.1),
+    purrr (>= 0.3.4),
+    glue (>= 1.6.1),
     rstudioapi,
     crayon (>= 1.3.4),
     tibble, 
@@ -40,7 +51,7 @@ Imports:
     stringr
 Suggests: pander, testthat
 VignetteBuilder: knitr
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Collate: 
     'utils.R'
     'Aaaa.R'
@@ -55,6 +66,7 @@ Collate:
     'definetemplate.R'
     'err_log.R'
     'exspec.R'
+    'extend.R'
     'fda_define.R'
     'flags.R'
     'handlers.R'

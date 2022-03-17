@@ -132,14 +132,28 @@ yml_rm <- function(x) {
 
 ##' @export
 summary.yspec <- function(object, ...) {
-  out <- data.frame(col = seq_along(object), name = names(object), stringsAsFactors = FALSE)
+  out <- data.frame(
+    col = seq_along(object), 
+    name = names(object), 
+    stringsAsFactors = FALSE
+  )
   type <- map_chr(object, "type", .default = ".")
-  out$c <- ifelse(type=="character", "+", "-")
-  dec <- map(object, "decode") %>% unname %>% map_int(length)
-  out$d <- ifelse(dec > 0, "+", "-")
+  type <- ifelse(type=="character", "c", "-")
+  dec <- unname(map(object, "decode"))
+  dec <- map_int(dec, length)
+  dec <- ifelse(dec > 0, "d", "-")
+  out$info <- paste0(type, dec)
   out$unit <- map_chr(object, "unit", .default = ".")
   out$short <- map_chr(object, "short", .default = ".")
-  out$source <- map_chr(object, "lookup_source", .default='.')
+  out$source <- map_chr(object, "lookup_source", .default = '.')
+  ext <- map_chr(object, "extended_from", .default = ".")
+  if(any(ext != ".")) {
+    out$source[ext != '.'] <- ext[ext != '.']
+    out$info <- paste0(out$info, ifelse(ext == '.', "-", "e"))
+  } else {
+    out$info <- paste0(out$info, "-")  
+  }
+  out$source <- sub("\\.ya?ml$", "", out$source)
   out$col <- NULL
   out
 }
@@ -427,6 +441,70 @@ ys_add_labels <- function(data,spec,fun=label.ycol) {
     attr(data[[i]],"label") <- col_labels[[i]]
   }
   data
+}
+
+
+#' Prune a data frame, keeping columns in a yspec object
+#' 
+#' Use this to scavenge a data frame for columns that you want to keep. Select 
+#' additional columns through `...`. Do not use this for final column selection; 
+#' use [dplyr::select()] instead. 
+#' 
+#' @param data A data frame with at least one column that is found in `spec`.
+#' @param spec A `yspec` object.
+#' @param ... Additional columns carry into the output, specified using 
+#' tidy-select syntax.
+#' @param .report If `TRUE`, report missing columns.
+#' 
+#' @examples
+#' data <- ys_help$data()
+#' spec <- ys_help$spec()
+#' data$STUDY <- NULL
+#' 
+#' head(ys_prune(data, spec))
+#' head(ys_prune(data, spec, .report = TRUE))
+#' 
+#' data$FOO <- 1
+#' data$BAR <- 2
+#' data$YAK <- 3
+#' 
+#' head(ys_prune(data, spec, YAK, FOO))
+#' 
+#' # Use this for final subsetting
+#' # It will fail if all the columns aren't there
+#' data <- ys_help$data()
+#' head(dplyr::select(data, names(spec)))
+#'  
+#' @details
+#' An error is generated if there are no columns in common between `data` and 
+#' `spec`. 
+#' 
+#' @return 
+#' A data frame with common columns with `spec` and `...`, in the order they 
+#' appear in `spec`. 
+#'   
+#' @md
+#' @export
+ys_prune <- function(data, spec, ..., .report = FALSE) {
+  assert_that(is.data.frame(data))
+  assert_that(is_yspec(spec))
+  # spec positions for matching names in the data set
+  target <- names(spec)
+  re <- eval_select(expr(c(...)), data)
+  target <- unique(c(target, names(re)))
+  igrab <- sort(match(names(data), target), na.last = NA)
+  if(length(igrab)==0) {
+    stop("there are no names common between `data` and `spec`", call. = FALSE)  
+  }
+  # convert igrab to names in spec, ordered by spec; this is what we'll take
+  grab <- target[igrab]
+  if(isTRUE(.report)) {
+    missing <- setdiff(target, names(data))
+    for(col in missing) {
+      message("Column not found: ", col)  
+    }
+  }
+  data[, grab, drop = FALSE]
 }
 
 as_spec_list <- function(...) {

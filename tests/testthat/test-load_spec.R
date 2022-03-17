@@ -68,6 +68,8 @@ test_that("error if column name is greater than 8 characters", {
   options(ys.col.len = NULL)
 })
 
+
+
 test_that("error if unit, type, or short are gt length 1 issue-45", {
   expect_error(yspec:::test_spec_test("issue-45.yml"), 
                regexp="should not be more than length 1") 
@@ -89,6 +91,14 @@ test_that("error if label greater than 40 characters", {
                regexp = "should not be longer than 40 characters") 
 })
 
+test_that("error if short greater than 40 characters", {
+  lbl <- paste0(letters, collapse = " ")
+  expect_error(
+    test_spec_list(list(A = list(short = lbl))), 
+    regexp = "the 'short' field should not be longer than 40"
+  )
+})
+
 test_that("collapse source, comment, long issue-46", {
   x <- yspec:::test_spec_test("issue-46.yml") 
   x <- as.list(x)
@@ -102,3 +112,9 @@ test_that("error to pass non-character file name", {
   expect_error(ys_load(x))
 })
 
+test_that("Error when values is mis-coded as list of lists", {
+  expect_error(
+  yspec:::test_spec_test("values-list-of-lists.yml"), 
+  regexp = "values field includes non-atomic data"
+  )
+})

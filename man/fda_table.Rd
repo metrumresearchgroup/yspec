@@ -5,12 +5,16 @@
 \alias{fda_table_file}
 \title{Generate a table for FDA define.pdf document}
 \usage{
-fda_table(x)
+fda_table(x, widths = c(0.75, 2.1, 0.6, 2.2), ...)
 
 fda_table_file(file)
 }
 \arguments{
 \item{x}{a yspec object}
+
+\item{widths}{column widths in inches; must be numeric vector with length 4}
+
+\item{...}{not currently used}
 
 \item{file}{the full path to yaml specification file}
 }

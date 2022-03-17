@@ -1,0 +1,13 @@
+SETUP__:
+  max_nchar_short: 1000
+  max_nchar_col: 20
+WRES: 
+  short: weighted residuals
+CWRES: 
+  short: conditional weighted residuals
+IPRED: 
+  short: individual prediction
+PRED: 
+  short: population prediction
+LDV: 
+  short: log DV
