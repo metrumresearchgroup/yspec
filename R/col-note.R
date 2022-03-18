@@ -26,7 +26,6 @@
 #' if `.to_string` is `FALSE`.
 #' 
 #' @examples
-#' 
 #' spec <- ys_help$spec()
 #' 
 #' ys_col_note(spec, AST, ALT, SCR, .unit = TRUE) 

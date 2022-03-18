@@ -52,7 +52,6 @@ column name. The column definition can be generated from the \code{short} name
 or the \code{label} (but note that these could frequently be the same).
 }
 \examples{
-
 spec <- ys_help$spec()
 
 ys_col_note(spec, AST, ALT, SCR, .unit = TRUE) 
