@@ -10,7 +10,7 @@
 #' @param .unit logical; if `TRUE`, then append the unit surrounded by parens
 #' to the column definition.
 #' @param .title_case logical; if `TRUE` then the column definition text is 
-#' passed through [tools::toTitleCaase()].
+#' passed through [tools::toTitleCase()].
 #' @param .sep a separator character for columns. 
 #' @param .to_string logical; if `TRUE`, then a single string is returned. 
 #' @param .width if `numeric` and `.to_string` is `TRUE`, then the result is 
