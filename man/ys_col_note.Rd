@@ -8,9 +8,12 @@ ys_col_note(
   .spec,
   ...,
   .unit = FALSE,
-  .sep = "; ",
+  .title_case = FALSE,
+  .sep = ": ",
   .to_string = TRUE,
-  .width = NULL
+  .collapse = "; ",
+  .width = NULL,
+  .type = c("short", "label")
 )
 }
 \arguments{
@@ -18,21 +21,35 @@ ys_col_note(
 
 \item{...}{passed to \code{\link[=ys_select]{ys_select()}}.}
 
-\item{.unit}{passed to \code{\link[=ys_get_short]{ys_get_short()}} or \code{\link[=ys_get_short_unit]{ys_get_short_unit()}}.}
+\item{.unit}{logical; if \code{TRUE}, then append the unit surrounded by parens
+to the column definition.}
 
-\item{.sep}{a separator character for columns.}
+\item{.title_case}{logical; if \code{TRUE} then the column definition text is
+passed through \code{\link[tools:toTitleCase]{tools::toTitleCase()}}.}
 
-\item{.to_string}{logical; if \code{TRUE}, then a single string is returned.}
+\item{.sep}{a string to separate column name and column definition;
+usually a space should be included as the terminal character (see default)}
+
+\item{.to_string}{logical; if \code{TRUE}, then a single string is returned}
+
+\item{.collapse}{a string to separate items when \code{.to_string} is \code{TRUE};
+usually a space should be included as the terminal character (see default)}
 
 \item{.width}{if \code{numeric} and \code{.to_string} is \code{TRUE}, then the result is
 passed through \code{\link[base:strwrap]{base::strwrap()}}.}
+
+\item{.type}{selects if the column definition is generated from calling
+\code{\link[=ys_get_short]{ys_get_short()}} or \code{\link[=ys_get_label]{ys_get_label()}}}
 }
 \value{
 A string of length one when \code{.to_string} is \code{TRUE} or a character vector
 if \code{.to_string} is \code{FALSE}.
 }
 \description{
-Create table note text for abbreviated columns
+Produces a string with \verb{<col-name>: <col-definition>} format which can be
+included in a table note providing a more informative definition with the
+column name. The column definition can be generated from the \code{short} name
+or the \code{label} (but note that these could frequently be the same).
 }
 \examples{
 

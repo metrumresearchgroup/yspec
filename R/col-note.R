@@ -11,8 +11,11 @@
 #' to the column definition.
 #' @param .title_case logical; if `TRUE` then the column definition text is 
 #' passed through [tools::toTitleCase()].
-#' @param .sep a separator character for columns. 
-#' @param .to_string logical; if `TRUE`, then a single string is returned. 
+#' @param .sep a string to separate column name and column definition;
+#' usually a space should be included as the terminal character (see default)
+#' @param .to_string logical; if `TRUE`, then a single string is returned
+#' @param .collapse a string to separate items when `.to_string` is `TRUE`; 
+#' usually a space should be included as the terminal character (see default)
 #' @param .width if `numeric` and `.to_string` is `TRUE`, then the result is 
 #' passed through [base::strwrap()].
 #' @param .type selects if the column definition is generated from calling 
@@ -31,8 +34,8 @@
 #' @md
 #' @export
 ys_col_note <- function(.spec, ..., .unit = FALSE, .title_case = FALSE, 
-                        .sep = "; ", .to_string = TRUE, .width = NULL, 
-                        .type = c("short", "label")) {
+                        .sep = ": ", .to_string = TRUE, .collapse = "; ", 
+                        .width = NULL, .type = c("short", "label")) {
   .spec <- ys_select(.spec, ...) 
   if(length(.spec)==0) return(NULL)
   .type <- match.arg(.type)
@@ -49,9 +52,9 @@ ys_col_note <- function(.spec, ..., .unit = FALSE, .title_case = FALSE,
     u <- ys_get_unit(.spec, parens = TRUE)
     sh <- paste0(sh, " ", u)
   }
-  ans <- paste0(names(.spec), ": ", unname(sh))
+  ans <- paste0(names(.spec), .sep, unname(sh))
   if(isTRUE(.to_string)) {
-    ans <- paste0(ans, collapse = .sep)
+    ans <- paste0(ans, collapse = .collapse)
     if(is.numeric(.width)) {
       ans <- strwrap(ans, width = .width) 
     }
