@@ -61,6 +61,7 @@ Collate:
     'class-ycol.R'
     'class-yproject.R'
     'class-yspec.R'
+    'col-note.R'
     'col_factor.R'
     'define.R'
     'definetemplate.R'
