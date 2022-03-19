@@ -28,18 +28,18 @@ to the column definition.}
 passed through \code{\link[tools:toTitleCase]{tools::toTitleCase()}}.}
 
 \item{.sep}{a string to separate column name and column definition;
-usually a space should be included as the terminal character (see default)}
+usually a space should be included as the terminal character (see default).}
 
-\item{.to_string}{logical; if \code{TRUE}, then a single string is returned}
+\item{.to_string}{logical; if \code{TRUE}, then a single string is returned.}
 
 \item{.collapse}{a string to separate items when \code{.to_string} is \code{TRUE};
-usually a space should be included as the terminal character (see default)}
+usually a space should be included as the terminal character (see default).}
 
 \item{.width}{if \code{numeric} and \code{.to_string} is \code{TRUE}, then the result is
 passed through \code{\link[base:strwrap]{base::strwrap()}}.}
 
 \item{.type}{selects if the column definition is generated from calling
-\code{\link[=ys_get_short]{ys_get_short()}} or \code{\link[=ys_get_label]{ys_get_label()}}}
+\code{\link[=ys_get_short]{ys_get_short()}} or \code{\link[=ys_get_label]{ys_get_label()}}.}
 }
 \value{
 A string of length one when \code{.to_string} is \code{TRUE} or a character vector

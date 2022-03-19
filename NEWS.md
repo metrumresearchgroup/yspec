@@ -1,5 +1,9 @@
 # yspec (development version)
 
+- Add `ys_col_note()` to generate a string of column names and definitions
+  based on `short` or `label`; use this when column names appear in a table 
+  and require explanation in a a footnote #119, #120.
+
 # yspec 0.5.2
 
 - Adds `ys_extend()` to extend a spec object with additional 
