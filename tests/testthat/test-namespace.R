@@ -3,7 +3,7 @@ library(testthat)
 library(dplyr)
 
 context("test-namespace")
-works <- system.file("spec", "test", "namespace-works.yaml", package = "yspec [YSP-TEST-0086]")
+works <- system.file("spec", "test", "namespace-works.yaml", package = "yspec")
 
 
 test_that("load a yaml file and parse namespaces [YSP-TEST-0076]", {
@@ -41,7 +41,7 @@ test_that("alternate decode in namespace [YSP-TEST-0079]", {
   expect_equal(b$SEX$decode, c("male", "female"))
   file <- system.file(
     "spec", "test", "namespace-error-decode.yaml", 
-    package = "yspec [YSP-TEST-0086]"
+    package = "yspec"
   )
   expect_error(ys_load(file), msg = "decode is not the correct length")
 })

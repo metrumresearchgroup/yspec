@@ -22,7 +22,7 @@ test_that("error if null values [YSP-TEST-0059]", {
 test_that("decodes, named list [YSP-TEST-0060]", {
   l <- list(NAME  = list(values = list(A=1,B=2), type = "character"))
   x <- test_spec_list(l)
-  expect_is(x, "yspec [YSP-TEST-0086]")
+  expect_is(x, "yspec")
   expect_equal(x$NAME$decode, c("A", "B"))
   expect_equal(x$NAME$values, c(A=1,B=2))
   expect_equal(x$NAME$type,"character")

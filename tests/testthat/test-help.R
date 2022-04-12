@@ -28,7 +28,7 @@ test_that("help object printing [YSP-TEST-0049]", {
 
 test_that("help object usage [YSP-TEST-0050]", {
   x <- ys_help$spec()
-  expect_is(x,"yspec [YSP-TEST-0086]")
+  expect_is(x,"yspec")
   x <- ys_help$csv()
   expect_equal(basename(x), "analysis1.csv")
   x <- ys_help$file()

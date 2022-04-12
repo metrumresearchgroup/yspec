@@ -6,7 +6,7 @@ context("test-define")
 test_that("define [YSP-TEST-0031]", {
   
   sp <- load_spec_ex(("DEM104101F_PK.yml"))
-  expect_is(sp, "yspec [YSP-TEST-0086]")
+  expect_is(sp, "yspec")
   pr <- ys_project(sp)
   
   out <- suppressWarnings(

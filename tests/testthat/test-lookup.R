@@ -5,7 +5,7 @@ library(yspec)
 context("test-lookup")
 
 test_that("lookup with internal db [YSP-TEST-0073]", {
-  file <- system.file("spec", "lookup", "spec.yml",package = "yspec [YSP-TEST-0086]")
+  file <- system.file("spec", "lookup", "spec.yml",package = "yspec")
   spec <- ys_load(file)
   
   expect_equal(spec$A$values,1)
@@ -18,7 +18,7 @@ test_that("lookup with internal db [YSP-TEST-0073]", {
 })
 
 test_that("lookup without internal db [YSP-TEST-0074]", {
-  file <- system.file("spec", "lookup", "spec_nodb.yml",package = "yspec [YSP-TEST-0086]")
+  file <- system.file("spec", "lookup", "spec_nodb.yml",package = "yspec")
   expect_warning(ys_load(file), "not find lookup data for AGE")
   spec <- suppressWarnings(ys_load(file))
   expect_equal(spec$A$values, 1)

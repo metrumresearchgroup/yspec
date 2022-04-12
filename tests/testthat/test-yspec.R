@@ -10,15 +10,15 @@ context("test-yspec")
 spec <- load_spec_ex(file = "spec.yml")
 
 test_that("yspec object [YSP-TEST-0134]", {
-  expect_is(spec, "yspec [YSP-TEST-0086]")
+  expect_is(spec, "yspec")
   expect_true(is.list(spec))
   cl <- purrr::map_chr(spec, class)
-  expect_true(all(cl=="ycol [YSP-TEST-0122]"))
+  expect_true(all(cl=="ycol"))
 })
 
 test_that("yspec methods [YSP-TEST-0135]", {
   expect_is(as.list(spec), "list")
-  expect_is(spec$WT, "ycol [YSP-TEST-0122]")
+  expect_is(spec$WT, "ycol")
   expect_identical(spec$WT$col, "WT")
   expect_identical(spec$WT,spec[["WT"]])
   expect_equal(spec$EGFR$range, c(10,300))
@@ -74,7 +74,7 @@ test_that("testing input columns [YSP-TEST-0140]", {
                regexp = "the length of values is not equal to the length of decode")
 })
 
-file <- system.file("spec", "test_lookup.yml", package = "yspec [YSP-TEST-0086]")
+file <- system.file("spec", "test_lookup.yml", package = "yspec")
 
 test_that("column data is merged when lookup is true [YSP-TEST-0141]", {
   raw <- yspec:::try_yaml(file)
@@ -95,7 +95,7 @@ test_that("column data is not merged when lookup is false [YSP-TEST-0142]", {
 
 test_that("combine two specs [YSP-TEST-0143]", {
   dat <- ys_help$spec()
-  intn <- system.file("internal", "post.yml", package = "yspec [YSP-TEST-0086]")
+  intn <- system.file("internal", "post.yml", package = "yspec")
   post <- ys_load(intn)
   spec <- c(dat,post)
   expect_identical(names(spec), c(names(dat),names(post)))
