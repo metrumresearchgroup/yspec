@@ -6,7 +6,7 @@ context("test-glue")
 
 yt <- test_spec_list
 
-test_that("TeX code is properly glued", {
+test_that("TeX code is properly glued [YSP-TEST-0045]", {
   l <- list(FOO = list(unit = "<<mug>>"))
   set <- list(glue = list(mug = "$\\mu$g"))
   sp <- yt(l,set)

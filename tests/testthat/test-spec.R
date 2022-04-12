@@ -2,13 +2,13 @@ library(yspec)
 
 context("text-spec")
 
-test_that("yspec", {
+test_that("yspec [YSP-TEST-0086]", {
   sp <- load_spec_ex(("DEM104101F_PK.yml"))  
   expect_is(as.list(sp),"list")
   txt <- capture.output(sp)
   expect_true(grepl(" *ID", txt[4]))
-  expect_is(sp$WT, "ycol")
-  expect_is(sp[["WT"]],"ycol")
+  expect_is(sp$WT, "ycol [YSP-TEST-0122]")
+  expect_is(sp[["WT"]],"ycol [YSP-TEST-0122]")
   expect_is(as.data.frame(sp), "data.frame")
   expect_is(head(sp), "data.frame")
   expect_is(tail(sp), "data.frame")

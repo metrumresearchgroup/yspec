@@ -3,10 +3,10 @@ library(testthat)
 
 context("test-define")
 
-test_that("define", {
+test_that("define [YSP-TEST-0031]", {
   
   sp <- load_spec_ex(("DEM104101F_PK.yml"))
-  expect_is(sp, "yspec")
+  expect_is(sp, "yspec [YSP-TEST-0086]")
   pr <- ys_project(sp)
   
   out <- suppressWarnings(
@@ -24,7 +24,7 @@ test_that("define", {
 
 # test_that("md_outline", {
 #   sp <- load_spec_ex(("DEM104101F_PK.yml"))
-#   expect_is(sp, "yspec")
+#   expect_is(sp, "yspec [YSP-TEST-0086]")
 #   pr <- ys_project(sp)
 #   expect_is(pr,"yproj")
 #   yamlfile <- pull_meta(pr,"spec_file")

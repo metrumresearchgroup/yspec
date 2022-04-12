@@ -4,7 +4,7 @@ library(testthat)
 
 context("test-flags")
 
-test_that("set flags in SETUP__", {
+test_that("set flags in SETUP__ [YSP-TEST-0041]", {
   sp <- yspec:::test_spec_test("flags.yaml")
   expect_true(sp$h$dots$set1)
   expect_true(sp$i$dots$set1)
@@ -20,21 +20,21 @@ test_that("set flags in SETUP__", {
   expect_identical(a,b)
 })
 
-test_that("flags error when col not found", {
+test_that("flags error when col not found [YSP-TEST-0042]", {
   expect_error(
     yspec:::test_spec_test("flags-error.yaml"), 
     regexp = "names not found in spec:\n - b\n - c"
   )
 })
 
-test_that("flags - warn when exists and overwrite", {
+test_that("flags - warn when exists and overwrite [YSP-TEST-0043]", {
   expect_warning( 
     yspec:::test_spec_test("flags-warn-exists.yml"), 
     regexp = "but is not logical type"
   )
 })
 
-test_that("flags are propagated from lookup file", {
+test_that("flags are propagated from lookup file [YSP-TEST-0044]", {
   spec <- ys_help$spec()
   expect_true(spec$CP$dots$covariate)
   just_cp <- ys_filter(spec, covariate)

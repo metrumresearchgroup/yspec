@@ -9,16 +9,16 @@ context("test-yspec")
 
 spec <- load_spec_ex(file = "spec.yml")
 
-test_that("yspec object", {
-  expect_is(spec, "yspec")
+test_that("yspec object [YSP-TEST-0134]", {
+  expect_is(spec, "yspec [YSP-TEST-0086]")
   expect_true(is.list(spec))
   cl <- purrr::map_chr(spec, class)
-  expect_true(all(cl=="ycol"))
+  expect_true(all(cl=="ycol [YSP-TEST-0122]"))
 })
 
-test_that("yspec methods", {
+test_that("yspec methods [YSP-TEST-0135]", {
   expect_is(as.list(spec), "list")
-  expect_is(spec$WT, "ycol")
+  expect_is(spec$WT, "ycol [YSP-TEST-0122]")
   expect_identical(spec$WT$col, "WT")
   expect_identical(spec$WT,spec[["WT"]])
   expect_equal(spec$EGFR$range, c(10,300))
@@ -30,13 +30,13 @@ test_that("yspec methods", {
   expect_true(grepl("^ STUDY", pr[14]))
 })
 
-test_that("misc helpers", {
+test_that("misc helpers [YSP-TEST-0136]", {
   expect_equal(yspec:::yml_rm("foo.yml"), "foo")
   expect_equal(yspec:::yml_rm("foo.yaml"), "foo")
   expect_equal(yspec:::yml_rm("foo.txt"), "foo.txt")
 })
 
-test_that("ycol accessors", {
+test_that("ycol accessors [YSP-TEST-0137]", {
   expect_identical("kg", yspec:::unit(spec$WT))
   expect_identical("10 to 300", yspec:::Range(spec$EGFR))
   expect_identical("character", yspec:::type(spec$HAIR))
@@ -47,7 +47,7 @@ test_that("ycol accessors", {
   expect_identical("<none>", yspec:::lookup(spec$DV))
 })
 
-test_that("spec object meta data", {
+test_that("spec object meta data [YSP-TEST-0138]", {
   meta <- get_meta(spec)
   expect_is(meta[["spec_file"]], "character")
   expect_is(meta[["spec_path"]], "character")
@@ -56,7 +56,7 @@ test_that("spec object meta data", {
   expect_identical(basename(meta[["spec_file"]]), "spec.yml")
 })
 
-test_that("testing input data", {
+test_that("testing input data [YSP-TEST-0139]", {
   expect_error(.test_load("foo"),
                regexp = "names not found")
   expect_error(.test_load("foo", 1, 2, 3),
@@ -65,7 +65,7 @@ test_that("testing input data", {
                regexp = "invalid column field")
 })
 
-test_that("testing input columns", {
+test_that("testing input columns [YSP-TEST-0140]", {
   expect_error(.test_load("foo", values = c(1,2,3),
                           range = c(0,100)),
                regexp = "both values and range")
@@ -74,9 +74,9 @@ test_that("testing input columns", {
                regexp = "the length of values is not equal to the length of decode")
 })
 
-file <- system.file("spec", "test_lookup.yml", package = "yspec")
+file <- system.file("spec", "test_lookup.yml", package = "yspec [YSP-TEST-0086]")
 
-test_that("column data is merged when lookup is true", {
+test_that("column data is merged when lookup is true [YSP-TEST-0141]", {
   raw <- yspec:::try_yaml(file)
   mspec <- load_spec_ex(file = "test_lookup.yml")
   look <- yspec:::ys_get_lookup(mspec)
@@ -85,7 +85,7 @@ test_that("column data is merged when lookup is true", {
   expect_identical(mspec$BMI$unit, look$BMI$unit)
 })
 
-test_that("column data is not merged when lookup is false", {
+test_that("column data is not merged when lookup is false [YSP-TEST-0142]", {
   raw <- yspec:::try_yaml(file)
   mspec <- load_spec_ex(file = "test_lookup.yml")
   look <- yspec:::ys_get_lookup(mspec)
@@ -93,15 +93,15 @@ test_that("column data is not merged when lookup is false", {
   expect_identical(mspec$BMI$unit, look$BMI$unit)
 })
 
-test_that("combine two specs", {
+test_that("combine two specs [YSP-TEST-0143]", {
   dat <- ys_help$spec()
-  intn <- system.file("internal", "post.yml", package = "yspec")
+  intn <- system.file("internal", "post.yml", package = "yspec [YSP-TEST-0086]")
   post <- ys_load(intn)
   spec <- c(dat,post)
   expect_identical(names(spec), c(names(dat),names(post)))
 })
 
-test_that("add column labels", {
+test_that("add column labels [YSP-TEST-0144]", {
   spec <- ys_help$spec()
   data <- ys_help$data()
   

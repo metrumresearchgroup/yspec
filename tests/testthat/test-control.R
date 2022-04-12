@@ -3,7 +3,7 @@ library(testthat)
 
 context("test-control.R")
 
-test_that("control defaults", {
+test_that("control defaults [YSP-TEST-0028]", {
   ans <- yspec:::ys_control_defaults()
   expect_length(ans, 3)
   expect_true("max_nchar_label" %in% names(ans))
@@ -14,7 +14,7 @@ test_that("control defaults", {
   expect_equal(ans[["max_nchar_col"]], 8)
 })
 
-test_that("wrong types are detected", {
+test_that("wrong types are detected [YSP-TEST-0029]", {
   meta <- list(max_nchar_label = "forty")
   expect_error(
     yspec:::get_spec_control(meta), 

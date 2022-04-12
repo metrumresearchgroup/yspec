@@ -3,7 +3,7 @@ library(testthat)
 
 context("test-define-help")
 
-test_that("values eq decode output", {
+test_that("values eq decode output [YSP-TEST-0030]", {
   spec <- ys_help$spec()
   ans <- yspec:::pack_codes(spec$SEQ)
   expect_equal(ans, "0 = observation, 1 = dose")
