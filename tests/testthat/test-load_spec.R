@@ -62,7 +62,7 @@ test_that("error if column name is greater than 8 characters [YSP-TEST-0065]", {
   expect_error(ld("long_column.yml"), "more than 8 characters long")
   options(ys.col.len = 100)
   expect_warning(
-    x <- ys_load(ys_help$file()), 
+    x = ys_load(ys_help$file()), 
     "The option `ys.col.len` has been deprecated; please use"
   )
   options(ys.col.len = NULL)
