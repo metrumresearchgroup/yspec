@@ -10,7 +10,7 @@ YSP-S002:
   ProductRisk: low-risk
   tests: YSP-TEST-0052
 YSP-S003:
-  name: 'Extract column names and information for NONMEM $INPUT '
+  name: Extract column names and information for NONMEM $INPUT
   description: "As a user, I want to automatically extract information to population
     `$INPUT` in a NONMEM control stream\r\n\r\n- Extract column names in order\r\n-
     Add `=DROP` to columns that are character\r\n- Append short name\r\n- Include
@@ -29,16 +29,22 @@ YSP-S005:
   description: As a user, I want to be able to select a subset of columns from a yspec
     object
   ProductRisk: low-risk
-  tests: YSP-TEST-0084
+  tests: 
+  - YSP-TEST-0084
+  - YSP-TEST-0120
 YSP-S006:
-  name: axis_col_labs doesn’t do title case or short max
+  name: axis labels are generated in title case
   description: As a user, I want to get axis labels in title case and / or limited
-    max length; the function will pass `title_case` and `short_max` along to short
-    function
+    max length
   ProductRisk: low-risk
   tests:
+  - YSP-TEST-0001
+  - YSP-TEST-0002
   - YSP-TEST-0003
   - YSP-TEST-0004
+  - YSP-TEST-0005
+  - YSP-TEST-0006
+  - YSP-TEST-0007
 YSP-S007:
   name: Report bad values for discrete column data out of range
   description: As I user, I want to have out-of-range values in discrete data columns
@@ -107,6 +113,14 @@ YSP-S014:
   - YSP-TEST-0098
   - YSP-TEST-0099
   - YSP-TEST-0100
+  - YSP-TEST-0101
+  - YSP-TEST-0102
+  - YSP-TEST-0103
+  - YSP-TEST-0104
+  - YSP-TEST-0105
+  - YSP-TEST-0106
+  - YSP-TEST-0107
+  - YSP-TEST-0108
 YSP-S015:
   name: Flags
   description: As a user, i want to be able to create groups of columns by adding
@@ -177,8 +191,6 @@ YSP-S025:
   ProductRisk: low-risk
   tests:
   - YSP-TEST-0072
-  - '> spec <- ys_load("inst/spec/test/values-list-of-lists.yml")'
-  - values field includes non-atomic data
 YSP-S026:
   name: tidyselect semantics for ys_add_factors
   description: As a user, I want to use tidyselect semantics with ys_add_factors
@@ -190,9 +202,8 @@ YSP-S027:
     another `yspec` object loaded form a named yaml specification file.
   ProductRisk: low-risk
   tests:
-  - load spec with extensionload spec with extension
+  - YSP-TEST-0036
   - YSP-TEST-0037
-  - extension fails when common columns
   - YSP-TEST-0038
 YSP-S028:
   name: Generate string with column defs for inclusion in table footnote
@@ -204,3 +215,86 @@ YSP-S028:
   - YSP-TEST-0124
   - YSP-TEST-0125
   - YSP-TEST-0126
+YSP-S029:
+  name: Read in yaml file with correct formatting
+  description: As a user, I want yspec to read in a yaml file and create an R object
+  ProductRisk: low-risk
+  tests:
+  - YSP-TEST-0057
+  - YSP-TEST-0058
+  - YSP-TEST-0059
+  - YSP-TEST-0060
+  - YSP-TEST-0061
+  - YSP-TEST-0062
+  - YSP-TEST-0063
+  - YSP-TEST-0064
+  - YSP-TEST-0065
+  - YSP-TEST-0066
+  - YSP-TEST-0067
+  - YSP-TEST-0068
+  - YSP-TEST-0069
+  - YSP-TEST-0070
+  - YSP-TEST-0071
+  - YSP-TEST-0072
+  - YSP-TEST-0086
+  - YSP-TEST-0134
+  - YSP-TEST-0135
+  - YSP-TEST-0136
+  - YSP-TEST-0137
+  - YSP-TEST-0138
+  - YSP-TEST-0139
+  - YSP-TEST-0140
+  - YSP-TEST-0141
+  - YSP-TEST-0142
+  - YSP-TEST-0143
+  - YSP-TEST-0144
+YSP-S030:
+  name: Character columns are factors
+  description: As a user, I want character columns to be read in as factors
+  ProductRisk: low-risk
+  tests:
+  - YSP-TEST-0020
+  - YSP-TEST-0021
+  - YSP-TEST-0022
+  - YSP-TEST-0023
+  - YSP-TEST-0024
+  - YSP-TEST-0025
+  - YSP-TEST-0026
+  - YSP-TEST-0027
+YSP-S031:
+  name: Data checks via check_data() and ys_check()
+  description: As a user, I want to ensure the column names in the data set are identical to the names in the spec object
+  ProductRisk: low-risk
+  tests:
+  - YSP-TEST-0009
+  - YSP-TEST-0010
+  - YSP-TEST-0011
+  - YSP-TEST-0012
+  - YSP-TEST-0013
+  - YSP-TEST-0014
+  - YSP-TEST-0015
+  - YSP-TEST-0016
+  - YSP-TEST-0017
+  - YSP-TEST-0018
+  - YSP-TEST-0019
+YSP-S032:
+  name: Update spec from console
+  description: As a user, I want to be able to update the project number, sponsor, and/or a parameter
+  ProductRisk: low-risk
+  tests:
+  - YSP-TEST-0109
+  - YSP-TEST-0110
+  - YSP-TEST-0111
+  - YSP-TEST-0112
+  - YSP-TEST-0113
+YSP-S033:
+  name: Fetch specific parameters/data from spec file
+  description: As a user, I want to be able to fetch units, values, labels, and other relevant data coded in a spec file.
+  ProductRisk: low-risk
+  tests:
+  - YSP-TEST-0128
+  - YSP-TEST-0129
+  - YSP-TEST-0130
+  - YSP-TEST-0131
+  - YSP-TEST-0132
+  - YSP-TEST-0133
