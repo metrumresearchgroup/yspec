@@ -4,7 +4,7 @@ library(testthat)
 
 context("test-define")
 
-test_that("ys_table returns report table code", {
+test_that("ys_table returns report table code [YSP-TEST-0127]", {
   spec <- ys_help$spec()
   tex <- ys_table(spec)
   expect_is(tex, "character")

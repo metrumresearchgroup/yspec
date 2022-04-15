@@ -6,14 +6,14 @@ context("test-namespace")
 works <- system.file("spec", "test", "namespace-works.yaml", package = "yspec")
 
 
-test_that("load a yaml file and parse namespaces", {
+test_that("load a yaml file and parse namespaces [YSP-TEST-0076]", {
   spec <- ys_load(works)
   expect_message(ys_namespace(spec), msg = "namespaces:")
   ns <- pull_meta(spec, "namespace")
   expect_equal(ns, c("base", "plot", "tex"))
 })
 
-test_that("switch to tex namespace", {
+test_that("switch to tex namespace [YSP-TEST-0077]", {
   spec <- ys_load(works)
   a <- spec
   b <- ys_namespace(a, "tex")
@@ -26,7 +26,7 @@ test_that("switch to tex namespace", {
   expect_identical(c, b)
 })
 
-test_that("revert to base namespace", {
+test_that("revert to base namespace [YSP-TEST-0078]", {
   spec <- ys_load(works)
   a <- spec
   b <- ys_namespace(a, "tex")
@@ -34,7 +34,7 @@ test_that("revert to base namespace", {
   expect_equal(a,c)
 })
 
-test_that("alternate decode in namespace", {
+test_that("alternate decode in namespace [YSP-TEST-0079]", {
   a <- ys_load(works)
   b <- ys_namespace(a, "plot")
   expect_equal(a$SEX$decode, c("m", "f"))
@@ -46,7 +46,7 @@ test_that("alternate decode in namespace", {
   expect_error(ys_load(file), msg = "decode is not the correct length")
 })
 
-test_that("multiple namespaces are handled properly", {
+test_that("multiple namespaces are handled properly [YSP-TEST-0080]", {
   x <- yspec:::test_spec_test("namespace-multiple.yml")
   plot <- ys_namespace(x, "plot")
   expect_identical(x$STUDY$short, "short base")

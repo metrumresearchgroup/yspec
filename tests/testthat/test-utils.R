@@ -3,18 +3,18 @@ library(yspec)
 
 context("test-utils")
 
-test_that("double quoting", {
+test_that("double quoting [YSP-TEST-0114]", {
   expect_identical('"a"', yspec:::db_quote("a"))
 })
 
-test_that("err_file", {
+test_that("err_file [YSP-TEST-0115]", {
   expect_error(
     yspec:::err_file("foo.txt", "this is an error"), 
     regexp = "this is an error"
   )  
 })
 
-test_that("list operations", {
+test_that("list operations [YSP-TEST-0116]", {
   a <- list(a = 1, b = 2, c = 3)
   b <- list(b = 4, d = 5)
   
@@ -28,17 +28,17 @@ test_that("list operations", {
   expect_equal(x,yspec:::update_list(a,b))
 })
 
-test_that("make_null", {
+test_that("make_null [YSP-TEST-0117]", {
   a <- list(list(x = 1, y = 2, z = 3))
   b <- yspec:::make_null(a, "y")
   expect_equal(b, list(list(x = 1, z = 3)))
 })
 
-test_that(".stop", {
+test_that(".stop [YSP-TEST-0118]", {
   expect_error(yspec:::.stop("abcde"), regexp="abcde")
 })
 
-test_that("sanitizers", {
+test_that("sanitizers [YSP-TEST-0119]", {
   x <- "a _ b & c % d ^"
   ans <- ys_sanitize(x)
   expect_identical(ans, "a \\_ b \\& c \\% d \\verb|^|")
@@ -51,7 +51,7 @@ test_that("sanitizers", {
 })
 
 
-test_that("yspec_select", {
+test_that("yspec_select [YSP-TEST-0120]", {
   spec <- ys_help$spec()
   x <- yspec_select_discrete(spec)
   expect_identical(
@@ -62,7 +62,7 @@ test_that("yspec_select", {
   expect_identical(names(x), c("C", "SUBJ", "RF"))
 })
 
-test_that("expand on colon", {
+test_that("expand on colon [YSP-TEST-0121]", {
   a <- yspec:::expand_names_on_colon(c("a", "m", "p"), letters)
   expect_false(a$any_bad)
   expect_identical(a$cols, c("a", "m", "p"))
