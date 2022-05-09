@@ -2,7 +2,7 @@ library(yspec)
 
 context("text-spec")
 
-test_that("yspec", {
+test_that("yspec [YSP-TEST-0086]", {
   sp <- load_spec_ex(("DEM104101F_PK.yml"))  
   expect_is(as.list(sp),"list")
   txt <- capture.output(sp)

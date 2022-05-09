@@ -5,7 +5,7 @@ context("test-col_factor")
 
 spec <- load_spec_ex()
 
-test_that("factor is generated from spec", {
+test_that("factor is generated from spec [YSP-TEST-0020]", {
   
   data <- data.frame(WT  = rnorm(30), 
                      SEX = rbinom(30, 1, 0.5), 
@@ -17,7 +17,7 @@ test_that("factor is generated from spec", {
   expect_equal(levels(data$SEX_f), c("male", "female"))
 })
 
-test_that("factor is generated from ycol object", {
+test_that("factor is generated from ycol object [YSP-TEST-0021]", {
   sex <- rbinom(100, 1, 0.5)
   fact <- ys_make_factor(sex, spec$SEX)
   expect_is(fact, "factor")
@@ -25,11 +25,11 @@ test_that("factor is generated from ycol object", {
   
 })
 
-test_that("error making factor from continuous data", {
+test_that("error making factor from continuous data [YSP-TEST-0022]", {
    expect_error(yspec_make_factor(c(1,2,3,4), spec$WT))
 })
 
-test_that("make all factors", {
+test_that("make all factors [YSP-TEST-0023]", {
   dat <- ys_help$data()
   sp <- ys_help$spec()
   
@@ -44,7 +44,7 @@ test_that("make all factors", {
   expect_true(all(cl=="factor"))
 })
 
-test_that("ys_add_factors aliases yspec_add_factors", {
+test_that("ys_add_factors aliases yspec_add_factors [YSP-TEST-0024]", {
   dat <- ys_help$data()
   sp <- ys_help$spec()
   a <- yspec_add_factors(dat,sp)
@@ -52,7 +52,7 @@ test_that("ys_add_factors aliases yspec_add_factors", {
   expect_identical(a,b)
 })
 
-test_that("NA handling by ys_add_factors", {
+test_that("NA handling by ys_add_factors [YSP-TEST-0025]", {
   dat1 <- ys_help$data()
   sp <- ys_help$spec()
   dat1$RF[c(3,10,30)] <- NA_character_
@@ -63,7 +63,7 @@ test_that("NA handling by ys_add_factors", {
   expect_identical(levels(b$RF_f), c(sp$RF$decode, "Missing"))
 })
 
-test_that("OK to have missing or extra cols in .data", {
+test_that("OK to have missing or extra cols in .data [YSP-TEST-0026]", {
   dat1 <- dat2 <- ys_help$data()
   sp <- ys_help$spec()
   dat2$RF <- NULL
@@ -77,7 +77,7 @@ test_that("OK to have missing or extra cols in .data", {
   expect_equal(sort(diff), sort(c("RF_f", "CP_f", "RF", "CP")))
 })
 
-test_that("tidyselect semantics when identifying columns for factor", {
+test_that("tidyselect semantics when identifying columns for factor [YSP-TEST-0027]", {
   data <- ys_help$data()
   spec <- ys_help$spec()
   

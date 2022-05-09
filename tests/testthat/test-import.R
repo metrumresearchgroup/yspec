@@ -5,13 +5,13 @@ context("test-import")
 
 .sp <- yspec:::test_spec_test
 
-test_that("import - identical spec", {
+test_that("import - identical spec [YSP-TEST-0051]", {
   a <- .sp("import-issue-84.yml")
   b <- .sp("DEM104101F_PKPD.yml")
   expect_identical(as.list(a),as.list(b))
 })
 
-test_that("import - meta data is not imported", {
+test_that("import - meta data is not imported [YSP-TEST-0052]", {
   a <- .sp("import-issue-84.yml")
   b <- .sp("DEM104101F_PKPD.yml")
   expect_identical(pull_meta(a,"name"), "import-issue-84")
@@ -19,7 +19,7 @@ test_that("import - meta data is not imported", {
   expect_identical(basename(pull_meta(a,"spec_file")), "import-issue-84.yml")
 })
 
-test_that("import - identical spec with additional column", {
+test_that("import - identical spec with additional column [YSP-TEST-0053]", {
   a <- .sp("import-issue-84.yml")
   b <- .sp("import-add-issue-84.yml")
   expect_identical(

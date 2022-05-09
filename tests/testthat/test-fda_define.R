@@ -6,7 +6,7 @@ library(testthat)
 
 context("test-fda_define")
 
-test_that("fda_define", {
+test_that("fda_define [YSP-TEST-0039]", {
   sp <- load_spec_ex(("DEM104101F_PK.yml"))
   pr <- ys_project(sp)
   met <- get_meta(pr)
@@ -14,7 +14,7 @@ test_that("fda_define", {
   expect_is(tex,"character")
 })
 
-test_that("data_stem is respected in regulatory define", {
+test_that("data_stem is respected in regulatory define [YSP-TEST-0040]", {
   spec <- yspec:::test_spec_test("issue-35.yml")
   proj <- ys_project(spec)
   m <- get_meta(proj)
