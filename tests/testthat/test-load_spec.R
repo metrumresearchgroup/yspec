@@ -119,3 +119,19 @@ test_that("Error when values is mis-coded as list of lists [YSP-TEST-0072]", {
   )
 })
 
+test_that("ys_load - only assume character type if type is NULL [YSP-TEST-0145]", {
+  spec <- yspec:::test_spec_list(
+    list(A = list(values = letters[1:3]))
+  )
+  expect_equal(spec$A$type, "character")
+  
+  spec <- yspec:::test_spec_list(
+    list(A = list(values = c(1,2,3), type = "integer"))
+  )
+  expect_equal(spec$A$type, "integer")
+  
+  spec <- yspec:::test_spec_list(
+    list(A = list(values = letters[1:3], type = "integer"))
+  )
+  expect_equal(spec$A$type, "integer")
+})
