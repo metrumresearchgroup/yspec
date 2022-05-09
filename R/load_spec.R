@@ -350,7 +350,9 @@ unpack_col <- function(x) {
       x$decode <- names(x$values)
     }
     x$values <- sapply(x$values, sub_null_natom, USE.NAMES=FALSE)
-    if(is.character(x$values)) x$type <- "character"
+    if(is.character(x$values) && .no("type", x)) {
+      x$type <- "character"
+    }
   }
   if(.has("source", x)) {
     x$source <- paste0(x$source, collapse = " ")  
