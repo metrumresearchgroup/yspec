@@ -1,3 +1,13 @@
+YSP-S034:
+  name: ys_load - only assume character type if type is NULL
+  description: > 
+    As a user, I want yspec to infer that type is character for discrete 
+    data when type is missing and the values field has type character.
+  ProductRisk: low-risk
+  tests: YSP-TEST-0145
+
+
+# --------
 YSP-S001:
   name: Make ys_get_short_unit return list
   description: ys_get_short_unit returns list not character vector

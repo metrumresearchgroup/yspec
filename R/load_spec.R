@@ -333,9 +333,6 @@ unpack_col <- function(x) {
   if(.no("short",x)) {
     x[["short"]] <- x[["col"]]
   }
-  if(.no("type", x)) {
-    x[["type"]] <- "numeric"
-  }
   x <- unpack_about(x)
   x$continuous <- .has("range",x)
   if(x$continuous) {
@@ -349,8 +346,13 @@ unpack_col <- function(x) {
     if(!.has("decode",x)) {
       x$decode <- names(x$values)
     }
-    x$values <- sapply(x$values, sub_null_natom, USE.NAMES=FALSE)
-    if(is.character(x$values)) x$type <- "character"
+    x$values <- sapply(x$values, sub_null_natom, USE.NAMES = FALSE)
+    if(is.character(x$values) && .no("type", x)) {
+      x$type <- "character"
+    }
+  }
+  if(.no("type", x)) {
+    x[["type"]] <- "numeric"
   }
   if(.has("source", x)) {
     x$source <- paste0(x$source, collapse = " ")  

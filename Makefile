@@ -5,6 +5,9 @@ TARBALL=${PACKAGE}_${VERSION}.tar.gz
 PKGDIR=.
 CHKDIR=.
 
+testn: 
+	Rscript inst/validation/latest.R
+
 # development cycle - bumps the version and tags based on version
 bump-dev:
 	Rscript -e 'usethis::use_version("dev")'
