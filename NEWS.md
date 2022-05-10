@@ -1,4 +1,4 @@
-# yspec (development version)
+# yspec 0.5.3
 
 - Fix bug where character `type` was inferred whenever `values` were character,
   overrriding what the user specified; now, only infer when user doesn't 
