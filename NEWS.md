@@ -8,6 +8,9 @@
   based on `short` or `label`; use this when column names appear in a table 
   and require explanation in a a footnote (#119, #120).
 
+- Put stories in yaml format; add script to build validation docs from the
+  yaml file (#123, #124).
+
 
 # yspec 0.5.2
 
