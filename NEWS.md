@@ -1,8 +1,13 @@
 # yspec (development version)
 
+- Fix bug where character `type` was inferred whenever `values` were character,
+  overrriding what the user specified; now, only infer when user doesn't 
+  specify `type` (#129).
+
 - Add `ys_col_note()` to generate a string of column names and definitions
   based on `short` or `label`; use this when column names appear in a table 
-  and require explanation in a a footnote #119, #120.
+  and require explanation in a a footnote (#119, #120).
+
 
 # yspec 0.5.2
 
