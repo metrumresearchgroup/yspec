@@ -3,7 +3,7 @@ library(testthat)
 
 context("test-prune")
 
-test_that("ys_prune selects available columns", {
+test_that("ys_prune selects available columns [YSP-TEST-0082]", {
   data <- ys_help$data()
   spec <- ys_help$spec()
   data$STUDY <- NULL
@@ -37,7 +37,7 @@ test_that("ys_prune selects available columns", {
   )
 })
 
-test_that("prune can take all columns with re-ordering", {
+test_that("prune can take all columns with re-ordering [YSP-TEST-0083]", {
   spec <- ys_help$spec() 
   data <- ys_help$data()
   data$WT <- NULL

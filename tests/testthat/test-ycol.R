@@ -2,7 +2,7 @@ library(yspec)
 
 context("test-ycol")
 
-test_that("ycol", {
+test_that("ycol [YSP-TEST-0122]", {
   sp <- load_spec_ex(("DEM104101F_PK.yml"))  
   txt <- capture.output(sp$WT)
   expect_true(grepl("WT", txt[2]))

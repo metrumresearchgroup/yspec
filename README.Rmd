@@ -1,0 +1,181 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = ".",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# yspec
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+Use yspec to document analysis data sets and utilize data attributes in a 
+modeling and simulation workflow.
+
+## Installation
+
+You can install the development version of yspec from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("metrumresearchgroup/yspec")
+```
+
+## Create a yspec object
+
+Before or while programming an analysis data set, write out data definitions
+in [yaml](https://yaml.org/) format:
+
+```{r, message = FALSE, warning = FALSE}
+library(yspec)
+library(dplyr)
+library(tidyr)
+
+readLines("inst/internal/analysis1.yml")[1:20] %>% writeLines()
+```
+
+Now use yspec to read that into a object in R
+
+```{r example}
+spec <- ys_load("inst/internal/analysis1.yml")
+```
+
+Query this object to get a sense of what is in the data overall
+
+```{r}
+head(spec)
+```
+
+or on a column by column basis for continuous data
+
+```{r}
+spec$WT
+```
+
+as well as categorical data
+
+```{r}
+spec$BLQ
+```
+
+And we can render a `define.pdf` file as well
+
+
+```{r, include = TRUE, echo=FALSE, out.width = 600, out.height = 558.85}
+knitr:::include_graphics("man/figures/define.png")
+```
+
+## Using yspec
+
+This section illustrates a few examples for how yspec might be used 
+(other than creating `define.pdf`). 
+
+To make it easier to get started with yspec, we've included example data and 
+corresponding yspec object in the package
+
+```{r}
+data <- ys_help$data()
+spec <- ys_help$spec()
+```
+
+
+### Add factors
+
+When you have discrete data, "decodes" can be provided and used to create 
+factors in the data. We have that for the RF column
+
+```{r}
+spec$RF
+```
+
+Now we'll have a column called `RF_f` which is a factor version of `RF`
+```{r}
+ys_add_factors(data, spec, RF) %>% count(RF, RF_f)
+```
+
+### Recode
+
+Every column can have a "short" name; for `WT` it is 
+
+```{r}
+spec$WT$short
+```
+
+Every continuous data can also have a unit; again for `WT`
+```{r}
+spec$WT$unit
+```
+
+We use the spec to "recode" using this information. First create a data summary
+in long format
+
+```{r}
+summ <- 
+  data %>% 
+  select(WT, ALB, AGE) %>% 
+  pivot_longer(everything()) %>%
+  group_by(name) %>% 
+  summarise(Mean = mean(value), Sd = sd(value))
+
+summ  
+```
+
+To recode, pull the information from `spec`
+
+```{r}
+summ %>% 
+  mutate(name = ys_recode(name, spec,  unit = TRUE, title_case = TRUE))
+```
+
+## Manipulating yspec
+
+There are several functions for working on your yspec object
+
+
+Select some columns
+```{r}
+body_size <- ys_select(spec, WT, BMI, HT)
+
+body_size
+```
+
+Filter based on some `flags` that were set
+
+```{r}
+ys_filter(spec, covariate)
+```
+
+Rename
+
+```{r}
+spec %>% ys_select(BWT = WT, AGE, SCR) 
+```
+
+## Projects
+
+An analysis project typically has several data sets that can be documented 
+together. We make a project like this
+
+```{r}
+pk   <- ys_load("inst/spec/DEM104101F_PK.yml")
+pkpd <- ys_load("inst/spec/DEM104101F_PKPD.yml")
+ae   <- ys_load("inst/spec/DEM104101F_AE.yml")
+```
+
+```{r}
+proj <- ys_project(pk, pkpd, ae)
+proj
+```
+
+This object can be rendered into a single `define.pdf` document.
+
+

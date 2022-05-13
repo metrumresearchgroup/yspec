@@ -1,7 +1,7 @@
 Package: yspec
 Type: Package
 Title: Data Specification for Pharmacometrics
-Version: 0.5.2
+Version: 0.5.3
 Authors@R: c(
        person("Kyle T", "Baron", "", 
               "kyleb@metrumrg.com", 
@@ -61,6 +61,7 @@ Collate:
     'class-ycol.R'
     'class-yproject.R'
     'class-yspec.R'
+    'col-note.R'
     'col_factor.R'
     'define.R'
     'definetemplate.R'

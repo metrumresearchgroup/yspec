@@ -26,7 +26,7 @@ B:
 
 file <- yspec:::temp_spec(main, "extend-1")
 
-test_that("load spec with extension", {
+test_that("load spec with extension [YSP-TEST-0036]", {
   ext <- yspec:::temp_spec(ext_good, "foo.yml")
   spec <- ys_extend(ys_load(file))
   expect_is(spec, "yspec")
@@ -36,7 +36,7 @@ test_that("load spec with extension", {
   expect_equal(names(spec), LETTERS[1:2])
 })
 
-test_that("extend a yspec object", {
+test_that("extend a yspec object [YSP-TEST-0037]", {
   extension_file <- system.file("spec", "nm-extension.yml",  package = "yspec")
   spec <- ys_help$spec()
   prev <- names(spec)
@@ -47,7 +47,7 @@ test_that("extend a yspec object", {
   expect_identical(diff, names(ext))
 })
 
-test_that("extension fails when extension file doesn't exist", {
+test_that("extension fails when extension file doesn't exist [YSP-TEST-0038]", {
   ext <- yspec:::temp_spec(ext_bad, "foo.yml")
   unlink(ext, recursive = TRUE)
   expect_error(

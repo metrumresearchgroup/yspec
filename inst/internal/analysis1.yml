@@ -77,8 +77,8 @@ MDV:
 BLQ:
   short: below limit of quantification
   values: 
-    above QL: 1
-    below Q: 0
+    above QL: 0
+    below QL: 1
 PHASE: 
   short: study phase indicator
   values: 1
