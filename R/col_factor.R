@@ -32,6 +32,8 @@
 #' 
 #' head(ys_add_factors(data, spec))
 #' 
+#' @seealso [ys_factors()]
+#' 
 #' @md
 #' @export
 ys_add_factors <- function(.data, .spec, ... , 
@@ -106,3 +108,80 @@ ys_make_factor <- function(values, x, strict = TRUE, .missing = NULL) {
 #' @rdname ys_add_factors
 #' @export
 yspec_make_factor <- ys_make_factor
+
+
+#' Convert columns to factors
+#' 
+#' This function works like [ys_add_factors()] with the difference that 
+#' the original columns become factors (retaining the original column names)
+#' and the original columns are retained with a suffix. You can think of this 
+#' as a more convenient form of `ys_add_factors(..., .suffix = "")`. 
+#' 
+#' @inheritParams ys_add_factors
+#' @param .keep_values logical; if `TRUE`, value columns will be retained with
+#' a `.suffix`.
+#' @param .suffix a suffix to be added to original columns (holding values).
+#' @param .keep_order logical; if `TRUE`, then data set columns will be 
+#' put in original order. 
+#' 
+#' @return
+#' The original data frame is returned with columns converted to factors
+#' and (possibly) additional columns storing values. 
+#' 
+#' @examples
+#' 
+#' library(dplyr)
+#' 
+#' spec <- ys_help$spec()
+#' data <- ys_help$data()
+#' 
+#' data <- ys_factors(data, spec)
+#' 
+#' head(data, 5)
+#' 
+#' spec$EVID
+#' 
+#' count(data, EVID, EVID_v)
+#' 
+#' @seealso [ys_add_factors()]
+#' @md
+#' @export
+ys_factors <- function(data, spec, ...,  
+                       .keep_values = TRUE, 
+                       .suffix = "_v", 
+                       .keep_order = TRUE) {
+  
+  assert_that(is.data.frame(data))
+  assert_that(is_yspec(spec))
+  
+  if(is.null(.suffix)) .keep_values <- FALSE
+  
+  incoming_names <- names(data)
+  
+  tag <- "__ys@fct__"
+  
+  data <- ys_add_factors(data, spec, ..., .suffix = tag)
+  
+  fct_cols <- which(grepl(tag, names(data), fixed = TRUE))
+  if(length(fct_cols)==0) return(data)
+  fct_names <- names(data)[fct_cols]
+  
+  col_names <- sub(tag, "", names(data)[fct_cols], fixed = TRUE)
+  col_cols <- match(col_names, names(data))
+  
+  names(data)[fct_cols] <- col_names
+  
+  if(isTRUE(.keep_values)) {
+    names(data)[col_cols] <- paste0(col_names, .suffix) 
+  } else {
+    data[,col_cols] <- NULL 
+  }
+  
+  if(isTRUE(.keep_order)) {
+    new_names <- names(data)
+    select_names <- unique(c(incoming_names, new_names))
+    return(data[, select_names])
+  }
+  
+  return(data)
+}
