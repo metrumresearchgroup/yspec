@@ -162,13 +162,18 @@ ys_factors <- function(data, spec, ...,
   
   data <- ys_add_factors(data, spec, ..., .suffix = tag)
   
+  # Column indices that contain new factors
   fct_cols <- which(grepl(tag, names(data), fixed = TRUE))
   if(length(fct_cols)==0) return(data)
+  # Mangled names of columns that contain new factors
   fct_names <- names(data)[fct_cols]
   
+  # Original names of columns to be converted
   col_names <- sub(tag, "", names(data)[fct_cols], fixed = TRUE)
+  # Indices of original columns
   col_cols <- match(col_names, names(data))
   
+  # Set names back to original
   names(data)[fct_cols] <- col_names
   
   if(isTRUE(.keep_values)) {
@@ -177,6 +182,7 @@ ys_factors <- function(data, spec, ...,
     data[,col_cols] <- NULL 
   }
   
+  # Restore column order
   if(isTRUE(.keep_order)) {
     new_names <- names(data)
     select_names <- unique(c(incoming_names, new_names))
