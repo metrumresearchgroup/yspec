@@ -4,14 +4,7 @@
 \alias{ys_factors}
 \title{Convert columns to factors}
 \usage{
-ys_factors(
-  data,
-  spec,
-  ...,
-  .keep_values = TRUE,
-  .suffix = "_v",
-  .keep_order = TRUE
-)
+ys_factors(data, spec, ..., .keep_values = TRUE, .suffix = "_v")
 }
 \arguments{
 \item{data}{the data set to modify}
@@ -25,9 +18,6 @@ ys_factors(
 a \code{.suffix}.}
 
 \item{.suffix}{a suffix to be added to original columns (holding values).}
-
-\item{.keep_order}{logical; if \code{TRUE}, then data set columns will be
-put in original order.}
 }
 \value{
 The original data frame is returned with columns converted to factors

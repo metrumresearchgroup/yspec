@@ -50,7 +50,7 @@ ys_add_factors <- function(.data, .spec, ... ,
   if(length(what) > 0) {
     what <- names(eval_select(expr(c(...)), .data))
   } 
-
+  
   if(length(what)==0 & isTRUE(.all)) {
     dis <- map_lgl(.spec, ~!is.null(.x[["values"]]))
     spec_cols <- names(which(dis | fct_ok))
@@ -121,8 +121,6 @@ yspec_make_factor <- ys_make_factor
 #' @param .keep_values logical; if `TRUE`, value columns will be retained with
 #' a `.suffix`.
 #' @param .suffix a suffix to be added to original columns (holding values).
-#' @param .keep_order logical; if `TRUE`, then data set columns will be 
-#' put in original order. 
 #' 
 #' @return
 #' The original data frame is returned with columns converted to factors
@@ -148,8 +146,7 @@ yspec_make_factor <- ys_make_factor
 #' @export
 ys_factors <- function(data, spec, ...,  
                        .keep_values = TRUE, 
-                       .suffix = "_v", 
-                       .keep_order = TRUE) {
+                       .suffix = "_v") {
   
   assert_that(is.data.frame(data))
   assert_that(is_yspec(spec))
@@ -158,7 +155,7 @@ ys_factors <- function(data, spec, ...,
   
   incoming_names <- names(data)
   
-  tag <- "__ys@fct__"
+  tag <- "__ys@factors__"
   
   data <- ys_add_factors(data, spec, ..., .suffix = tag)
   
@@ -183,11 +180,9 @@ ys_factors <- function(data, spec, ...,
   }
   
   # Restore column order
-  if(isTRUE(.keep_order)) {
-    new_names <- names(data)
-    select_names <- unique(c(incoming_names, new_names))
-    return(data[, select_names])
-  }
+  new_names <- names(data)
+  select_names <- unique(c(incoming_names, new_names))
+  data <- data[, select_names]
   
   return(data)
 }

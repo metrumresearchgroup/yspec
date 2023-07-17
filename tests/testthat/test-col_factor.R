@@ -136,24 +136,6 @@ test_that("ys_factors discard original values", {
   expect_identical(data1, data2)
 })
 
-test_that("ys_factors optional retain column order", {
-  data <- ys_help$data()  
-  spec <- ys_help$spec()
-  
-  data1 <- ys_factors(data, spec, EVID, MDV)
-  data2 <- ys_factors(data, spec, EVID, MDV, .keep_order = FALSE)
-  
-  original <- names(data1)
-  original <- original[!grepl("_v", original, fixed = TRUE)]
-  expect_identical(names(data), original)
-  
-  w <- which(names(data)=="MDV") # 25
-  expect_identical(names(data)[w], names(data1)[w])
-  expect_true(names(data)[w]=="MDV")
-  expect_true(names(data1)[w]=="MDV")
-  expect_true(names(data2)[w]=="MDV_v")
-})
-
 test_that("ys_factors will convert everything", {
   data <- ys_help$data()  
   spec <- ys_help$spec()
