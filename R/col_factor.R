@@ -157,6 +157,12 @@ ys_factors <- function(data, spec, ...,
   
   tag <- "__ys@factors__"
   
+  # Don't modify anything that is already a factor
+  factors <- which(sapply(data, is.factor))
+  already_factors <- names(data)[factors]
+  
+  data0 <- data
+  
   data <- ys_add_factors(data, spec, ..., .suffix = tag)
   
   # Column indices that contain new factors
@@ -167,17 +173,34 @@ ys_factors <- function(data, spec, ...,
   
   # Original names of columns to be converted
   col_names <- sub(tag, "", names(data)[fct_cols], fixed = TRUE)
+  if(length(already_factors) > 0) {
+    col_names <- col_names[setdiff(col_names, already_factors)]
+  }
+
   # Indices of original columns
   col_cols <- match(col_names, names(data))
-  
-  # Set names back to original
-  names(data)[fct_cols] <- col_names
+
+  # Nothing left to work on; everything was already a factor
+  if(length(col_names)==0) {
+    data <- data[, !(grepl(tag, names(data), fixed = TRUE))]
+    return(data)
+  }
   
   if(isTRUE(.keep_values)) {
     names(data)[col_cols] <- paste0(col_names, .suffix) 
-  } else {
+  } 
+  
+  # Set names back to original
+  if(length(col_names) > 0) {
+    names(data)[fct_cols] <- col_names
+  }
+  
+  if(!isTRUE(.keep_values)) {
     data[,col_cols] <- NULL 
   }
+  
+  # Drop any tagged columns
+  data <- data[, !(grepl(tag, names(data), fixed = TRUE))]
   
   # Restore column order
   new_names <- names(data)
