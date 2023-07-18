@@ -161,4 +161,14 @@ test_that("call ys_factors more than once on a data frame", {
   data2 <- ys_factors(data, spec)
   data3 <- ys_factors(data2, spec)
   expect_identical(data2, data3)
+  
+  labs <- names(data)
+  data4 <- ys_factors(data, spec, EVID)
+  expect_identical(names(data4), c(labs, "EVID_v"))
+  data5 <- ys_factors(data4, spec, CP, EVID)
+  expect_identical(names(data5), c(labs, "EVID_v", "CP_v"))
+  
+  data6 <- ys_factors(data5, spec)
+  data7 <- ys_factors(data6, spec)
+  expect_identical(data6, data7)
 })

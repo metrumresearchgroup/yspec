@@ -126,6 +126,14 @@ yspec_make_factor <- ys_make_factor
 #' The original data frame is returned with columns converted to factors
 #' and (possibly) additional columns storing values. 
 #' 
+#' @details
+#' Factor conversion will only take place on source columns that _aren't_
+#' already factors. That is, if a column in `data` is already a factor, it 
+#' will be ignored. This means the function can be called multiple times on 
+#' the same input data, but once a column is converted to factor, it will 
+#' cannot be converted again in subsequent calls. 
+#' 
+#' 
 #' @examples
 #' 
 #' library(dplyr)
@@ -161,8 +169,6 @@ ys_factors <- function(data, spec, ...,
   factors <- which(sapply(data, is.factor))
   already_factors <- names(data)[factors]
   
-  data0 <- data
-  
   data <- ys_add_factors(data, spec, ..., .suffix = tag)
   
   # Column indices that contain new factors
@@ -173,13 +179,18 @@ ys_factors <- function(data, spec, ...,
   
   # Original names of columns to be converted
   col_names <- sub(tag, "", names(data)[fct_cols], fixed = TRUE)
+  
+  # If an incoming column is factor, we ignore; need to adjust both 
+  # col_names and fct_cols
   if(length(already_factors) > 0) {
-    col_names <- col_names[setdiff(col_names, already_factors)]
+    drop <- col_names %in% already_factors
+    col_names <- col_names[!drop]
+    fct_cols <- fct_cols[!drop]
   }
-
+  
   # Indices of original columns
   col_cols <- match(col_names, names(data))
-
+  
   # Nothing left to work on; everything was already a factor
   if(length(col_names)==0) {
     data <- data[, !(grepl(tag, names(data), fixed = TRUE))]
@@ -191,9 +202,7 @@ ys_factors <- function(data, spec, ...,
   } 
   
   # Set names back to original
-  if(length(col_names) > 0) {
-    names(data)[fct_cols] <- col_names
-  }
+  names(data)[fct_cols] <- col_names
   
   if(!isTRUE(.keep_values)) {
     data[,col_cols] <- NULL 

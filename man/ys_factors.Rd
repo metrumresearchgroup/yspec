@@ -29,6 +29,13 @@ the original columns become factors (retaining the original column names)
 and the original columns are retained with a suffix. You can think of this
 as a more convenient form of \code{ys_add_factors(..., .suffix = "")}.
 }
+\details{
+Factor conversion will only take place on source columns that \emph{aren't}
+already factors. That is, if a column in \code{data} is already a factor, it
+will be ignored. This means the function can be called multiple times on
+the same input data, but once a column is converted to factor, it will
+cannot be converted again in subsequent calls.
+}
 \examples{
 
 library(dplyr)
