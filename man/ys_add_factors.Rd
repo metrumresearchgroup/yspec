@@ -76,3 +76,6 @@ spec <- ys_help$spec()
 head(ys_add_factors(data, spec))
 
 }
+\seealso{
+\code{\link[=ys_factors]{ys_factors()}}
+}

@@ -32,6 +32,8 @@
 #' 
 #' head(ys_add_factors(data, spec))
 #' 
+#' @seealso [ys_factors()]
+#' 
 #' @md
 #' @export
 ys_add_factors <- function(.data, .spec, ... , 
@@ -48,7 +50,7 @@ ys_add_factors <- function(.data, .spec, ... ,
   if(length(what) > 0) {
     what <- names(eval_select(expr(c(...)), .data))
   } 
-
+  
   if(length(what)==0 & isTRUE(.all)) {
     dis <- map_lgl(.spec, ~!is.null(.x[["values"]]))
     spec_cols <- names(which(dis | fct_ok))
@@ -106,3 +108,114 @@ ys_make_factor <- function(values, x, strict = TRUE, .missing = NULL) {
 #' @rdname ys_add_factors
 #' @export
 yspec_make_factor <- ys_make_factor
+
+
+#' Convert columns to factors
+#' 
+#' This function works like [ys_add_factors()] with the difference that 
+#' the original columns become factors (retaining the original column names)
+#' and the original columns are retained with a suffix. You can think of this 
+#' as a more convenient form of `ys_add_factors(..., .suffix = "")`. 
+#' 
+#' @inheritParams ys_add_factors
+#' @param .keep_values logical; if `TRUE`, value columns will be retained with
+#' a `.suffix`.
+#' @param .suffix a suffix to be added to original columns (holding values).
+#' 
+#' @return
+#' The original data frame is returned with columns converted to factors
+#' and (possibly) additional columns storing values. 
+#' 
+#' @details
+#' Factor conversion will only take place on source columns that _aren't_
+#' already factors. That is, if a column in `data` is already a factor, it 
+#' will be ignored. This means the function can be called multiple times on 
+#' the same input data, but once a column is converted to factor, it will 
+#' cannot be converted again in subsequent calls. 
+#' 
+#' 
+#' @examples
+#' 
+#' library(dplyr)
+#' 
+#' spec <- ys_help$spec()
+#' data <- ys_help$data()
+#' 
+#' data <- ys_factors(data, spec)
+#' 
+#' head(data, 5)
+#' 
+#' spec$EVID
+#' 
+#' count(data, EVID, EVID_v)
+#' 
+#' @seealso [ys_add_factors()]
+#' @md
+#' @export
+ys_factors <- function(data, spec, ...,  
+                       .keep_values = TRUE, 
+                       .suffix = "_v") {
+  
+  assert_that(is.data.frame(data))
+  assert_that(is_yspec(spec))
+  
+  if(isTRUE(.keep_values) && identical(.suffix, "")) .suffix <- NULL
+  if(is.null(.suffix)) .keep_values <- FALSE
+  
+  incoming_names <- names(data)
+  
+  tag <- "__ys@factors__"
+  
+  # Don't modify anything that is already a factor
+  factors <- which(sapply(data, is.factor))
+  already_factors <- names(data)[factors]
+  
+  data <- ys_add_factors(data, spec, ..., .suffix = tag)
+  
+  # Column indices that contain new factors
+  fct_cols <- which(grepl(tag, names(data), fixed = TRUE))
+  if(length(fct_cols)==0) return(data)
+  # Mangled names of columns that contain new factors
+  fct_names <- names(data)[fct_cols]
+  
+  # Original names of columns to be converted
+  col_names <- sub(tag, "", names(data)[fct_cols], fixed = TRUE)
+  
+  # If an incoming column is factor, we ignore; need to adjust both 
+  # col_names and fct_cols
+  if(length(already_factors) > 0) {
+    drop <- col_names %in% already_factors
+    col_names <- col_names[!drop]
+    fct_cols <- fct_cols[!drop]
+  }
+  
+  # Indices of original columns
+  col_cols <- match(col_names, names(data))
+  
+  # Nothing left to work on; everything was already a factor
+  if(length(col_names)==0) {
+    data <- data[, !(grepl(tag, names(data), fixed = TRUE))]
+    return(data)
+  }
+  
+  if(isTRUE(.keep_values)) {
+    names(data)[col_cols] <- paste0(col_names, .suffix) 
+  } 
+  
+  # Set names back to original
+  names(data)[fct_cols] <- col_names
+  
+  if(!isTRUE(.keep_values)) {
+    data[,col_cols] <- NULL 
+  }
+  
+  # Drop any tagged columns
+  data <- data[, !(grepl(tag, names(data), fixed = TRUE))]
+  
+  # Restore column order
+  new_names <- names(data)
+  select_names <- unique(c(incoming_names, new_names))
+  data <- data[, select_names]
+  
+  return(data)
+}

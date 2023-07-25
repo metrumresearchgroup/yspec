@@ -89,3 +89,94 @@ test_that("tidyselect semantics when identifying columns for factor [YSP-TEST-00
   expect_true("PHASE_f" %in% names(ans))
   expect_true("STUDY_f" %in% names(ans))
 })
+
+test_that("ys_factors converts originals to factors", {
+  data <- ys_help$data()  
+  spec <- ys_help$spec()
+  
+  expect_true(is.numeric(data$EVID))
+  expect_false("EVID_v" %in% names(data))
+  
+  data <- ys_factors(data, spec, EVID)
+  expect_is(data$EVID, "factor")
+  expect_equal(levels(data$EVID), spec$EVID$decode)
+  
+  expect_true("EVID_v" %in% names(data))
+  
+  expect_error(ys_factors(data, spec, KYLE), 
+               "Column `KYLE` doesn't exist.")
+})
+
+test_that("ys_factors retains original values by default", {
+  data0 <- ys_help$data()  
+  spec <- ys_help$spec()
+
+  expect_false("EVID_v" %in% names(data0))
+  
+  data <- ys_factors(data0, spec, EVID)
+
+  expect_true("EVID_v" %in% names(data))
+  expect_equal(unique(data$EVID_v), c(1,0))
+  
+  data <- ys_factors(data0, spec, EVID, .suffix = "values")
+  expect_true("EVIDvalues" %in% names(data))
+})
+
+test_that("ys_factors discard original values", {
+  data <- ys_help$data()  
+  spec <- ys_help$spec()
+  
+  data1 <- ys_factors(data, spec, .keep_values = FALSE)
+  expect_identical(names(data), names(data1))
+  
+  expect_true(is.numeric(data$EVID))
+  expect_true(is.factor(data1$EVID))
+  
+  data2 <- ys_factors(data, spec, .suffix = NULL)
+  expect_identical(data1, data2)
+})
+
+test_that("ys_factors will convert everything", {
+  data <- ys_help$data()  
+  spec <- ys_help$spec()
+  
+  decode  <- purrr::map(spec, "decode")
+  mkf     <- purrr::map(spec, "make_factor")
+  decode  <- purrr::compact(decode)
+  mkf     <- purrr::compact(mkf)
+  ndecode <- length(decode) + length(mkf)
+  
+  data <- ys_factors(data, spec)
+  values <- names(data)[grep("_v", names(data), fixed = TRUE)]
+  expect_equal(length(values), ndecode)
+  
+  nw <- data[, sapply(data, is.factor)]
+  expect_equal(ncol(nw), ndecode)
+})
+
+test_that("call ys_factors more than once on a data frame", {
+  data <- ys_help$data()  
+  spec <- ys_help$spec()
+  
+  data2 <- ys_factors(data, spec)
+  data3 <- ys_factors(data2, spec)
+  expect_identical(data2, data3)
+  
+  labs <- names(data)
+  data4 <- ys_factors(data, spec, EVID)
+  expect_identical(names(data4), c(labs, "EVID_v"))
+  data5 <- ys_factors(data4, spec, CP, EVID)
+  expect_identical(names(data5), c(labs, "EVID_v", "CP_v"))
+  
+  data6 <- ys_factors(data5, spec)
+  data7 <- ys_factors(data6, spec)
+  expect_identical(data6, data7)
+})
+
+test_that("don't keep values when suffix is empty", {
+  data <- ys_help$data()  
+  spec <- ys_help$spec()
+  data <- ys_factors(data, spec, .suffix = "")
+  expect_is(data$EVID, "factor")
+  expect_null(data$EVID_v)
+})
