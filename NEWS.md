@@ -1,4 +1,7 @@
-# yspec (development version)
+# yspec 0.6.0
+
+- Adds `ys_factors()` to _replace_ data set columns with their factor version, 
+  optionally retaining the orignal values in new columns (#141).
 
 # yspec 0.5.3
 

@@ -1,7 +1,7 @@
 Package: yspec
 Type: Package
 Title: Data Specification for Pharmacometrics
-Version: 0.5.3.9001
+Version: 0.6.0
 Authors@R: c(
        person("Kyle T", "Baron", "", 
               "kyleb@metrumrg.com", 
