@@ -176,7 +176,7 @@ test_that("call ys_factors more than once on a data frame", {
 test_that("don't keep values when suffix is empty", {
   data <- ys_help$data()  
   spec <- ys_help$spec()
-  data <- ys_factors(data, spec, .suffix = "", .keep_values = "")
+  data <- ys_factors(data, spec, .suffix = "")
   expect_is(data$EVID, "factor")
   expect_null(data$EVID_v)
 })
