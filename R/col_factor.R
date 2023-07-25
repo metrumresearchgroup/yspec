@@ -159,6 +159,7 @@ ys_factors <- function(data, spec, ...,
   assert_that(is.data.frame(data))
   assert_that(is_yspec(spec))
   
+  if(isTRUE(.keep_values) && identical(.suffix, "")) .suffix <- NULL
   if(is.null(.suffix)) .keep_values <- FALSE
   
   incoming_names <- names(data)
