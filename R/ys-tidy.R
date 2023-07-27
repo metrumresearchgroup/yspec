@@ -244,7 +244,7 @@ ys_join <- function(left, right, ...) {
   assert_that(is_yspec(right))
   take <- setdiff(names(right), names(left))
   if(length(take)==0) return(left)
-  right <- ys_select(right, take)
+  right <- ys_select(right, all_of(take))
   ans <- c(left, right)
   for(addl in list(...)) {
     ans <- ys_join(ans,addl)

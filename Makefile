@@ -54,7 +54,7 @@ check-package:
 
 test:
 	make install
-	Rscript -e 'testthat:::test_dir("tests")'
+	Rscript -e 'testthat::test_local()'
 
 spelling:
 	make doc

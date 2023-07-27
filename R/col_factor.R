@@ -55,9 +55,9 @@ ys_add_factors <- function(.data, .spec, ... ,
     dis <- map_lgl(.spec, ~!is.null(.x[["values"]]))
     spec_cols <- names(which(dis | fct_ok))
     spec_cols <- intersect(spec_cols, names(.data))
-    vars <- vars_select(names(.data), spec_cols)
+    vars <- vars_select(names(.data), all_of(spec_cols))
   } else {
-    vars <- vars_select(names(.data), what) 
+    vars <- vars_select(names(.data), all_of(what)) 
   }
   
   for(v in vars) {

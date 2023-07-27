@@ -1,3 +1,8 @@
+# yspec (development version)
+
+- Use `all_of()` when tidy selecting; this will suppress warnings in 
+  `ys_extend()` and `ys_add_factors()` (#145).
+
 # yspec 0.6.0
 
 - Adds `ys_factors()` to _replace_ data set columns with their factor version, 
@@ -6,7 +11,7 @@
 # yspec 0.5.3
 
 - Fix bug where character `type` was inferred whenever `values` were character,
-  overrriding what the user specified; now, only infer when user doesn't 
+  overriding what the user specified; now, only infer when user doesn't 
   specify `type` (#129).
 
 - Add `ys_col_note()` to generate a string of column names and definitions
