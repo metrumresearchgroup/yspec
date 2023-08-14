@@ -1,4 +1,4 @@
-# yspec (development version)
+# yspec 0.6.1
 
 - Use `all_of()` when tidy selecting; this will suppress warnings in 
   `ys_extend()` and `ys_add_factors()` (#145).
