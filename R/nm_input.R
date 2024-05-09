@@ -28,7 +28,49 @@ chunk_and_indent <- function(x,indent,width) {
 #' nm_input(spec)
 #' @md
 #' @export
-nm_input <- function(spec,width = 60,cat=TRUE) {
+nm_input <- function(spec, .width = 65, .cat = TRUE, .long = FALSE,
+                     .drop = NULL, ...) {
+  if(isTRUE(.long)) {
+    out <- nm_input_long(spec, .width = .width)  
+  } else {
+    out <- nm_input_wide(spec, .width = .width, .drop = .drop, ...)  
+  }
+  ans <- c("$INPUT", out)
+  if(isTRUE(.cat)) cat(ans, sep = "\n")
+  return(invisible(ans))
+}
+
+nm_input_wide <- function(spec, .drop = NULL, .width = 65, ...) {
+  n <- names(spec)
+  pos <- eval_rename(expr(c(...)), data = as.list(spec))
+  pos <- pos[!names(pos) == n[pos]]
+  drop <- cvec_cs(.drop)
+  if(!all(drop %in% names(spec))) {
+    baddrop <- setdiff(drop, names(spec))
+    baddrop <- paste0("Column `", baddrop, "` doesn't exist.")
+    names(baddrop) <- rep("x", length(baddrop))
+    abort(
+      "Can't drop columns that don't exist.", 
+      body = baddrop, 
+      use_cli_format = TRUE
+    )
+  }
+  type <- map_chr(spec, "type")
+  drop <- c(drop, n[type=="character" & n != "C"]) 
+  drop <- unique(drop)
+  drop <- drop[drop %in% n]
+  pos <- pos[!names(pos) %in% drop]
+  n[pos] <- paste0(names(pos), "=", n[pos])
+  dropn <- match(drop, n)
+  if(length(drop)) {
+    n[dropn] <- paste0(n[dropn], "=DROP")    
+  }
+  n <- paste0(n, collapse = " ")
+  n <- strwrap(n, width = .width)
+  n
+}
+
+nm_input_long <- function(spec, .width) {
   col <- map_chr(spec, "col")
   chr <- map_chr(spec, "type") == "character"
   col2 <- paste0(col, ifelse(chr & col != "C", "=DROP", ""))
@@ -39,7 +81,7 @@ nm_input <- function(spec,width = 60,cat=TRUE) {
   is_chr <- map_lgl(spec, ~.x$type=="character")
   details <- map_chr(spec, pack_codes)
   details[is_chr] <- ""
-  short <- ys_get_short(spec, .aslist=FALSE)
+  short <- ys_get_short(spec, .aslist = FALSE)
   df <- tibble(
     col = col, 
     col2 = col2, 
@@ -49,12 +91,10 @@ nm_input <- function(spec,width = 60,cat=TRUE) {
   )
   df <- mutate(
     df, 
-    details = map_chr(details, chunk_and_indent, indent = mx, width = width)
+    details = map_chr(details, chunk_and_indent, indent = mx, width = .width)
   )
   df <- mutate(df, rhs = trimws(paste0(short," ", details)))
   out <- paste0(df$col2, df$spc, df$rhs)
   out <- unlist(strsplit(out, "\n"))
-  ans <- c("$INPUT",out)
-  if(isTRUE(cat)) cat(ans, sep = "\n")
-  return(invisible(ans))
+  out
 }
