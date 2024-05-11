@@ -4,27 +4,49 @@
 \alias{nm_input}
 \title{Write columns and column information for NONMEM $INPUT block}
 \usage{
-nm_input(spec, width = 60, cat = TRUE)
+nm_input(
+  spec,
+  .width = 65,
+  .cat = TRUE,
+  .long = FALSE,
+  .drop = NULL,
+  .decodes = FALSE,
+  ...
+)
 }
 \arguments{
-\item{spec}{a yspec object}
+\item{spec}{a yspec object.}
 
-\item{width}{number of characters}
+\item{.width}{number of characters.}
 
-\item{cat}{if \code{TRUE}, the text is sent to the console with \code{\link[=cat]{cat()}}}
+\item{.cat}{if \code{TRUE}, the text is sent to the console with \code{\link[=cat]{cat()}}.}
+
+\item{.long}{if \code{TRUE}, produce \verb{$INPUT} in long, verbose format.}
+
+\item{.drop}{a character vector or comma-separated string of columns to
+drop in the \verb{$INPUT} listing.}
+
+\item{.decodes}{if \code{TRUE}, print \code{value} and \code{decode} information where
+available for discrete column data; this is only printed when \code{.long = TRUE}.}
+
+\item{...}{unquoted column rename pairs with format
+\verb{<new name> = <old name>}.}
 }
 \value{
 A character vector of text forming the \verb{$INPUT} block (including
 the \verb{$INPUT} part).
 }
 \description{
-Column names are written to the console one-per-line on the
-left hand side of a NONMEM comment character (\verb{;}) and
-a description of the column is written on the right hand
-side.  The description includes the short name and values
-with decodes for non-character columns.
+The default output is in wide format, including only the column names as
+well as any rename or drop syntax. The long format puts one column
+on a different line and includes the short name and optionally column
+decode information. See examples.
 }
 \examples{
 spec <- ys_help$spec()
 nm_input(spec)
+nm_input(spec, DOSE = AMT, .drop = "ALT,BMI")
+nm_input(spec, .long = TRUE)
+nm_input(spec, .long = TRUE, .decodes = TRUE)
+
 }

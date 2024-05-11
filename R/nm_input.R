@@ -7,13 +7,38 @@ chunk_and_indent <- function(x,indent,width) {
   paste0("\n",paste0(chunked,collapse = "\n"))
 }
 
+make_input_names <- function(spec, drop, ...) {
+  n <- names(spec)
+  pos <- eval_rename(expr(c(...)), data = as.list(spec))
+  pos <- pos[!names(pos) == n[pos]]
+  type <- map_chr(spec, "type")
+  drop <- c(drop, n[type=="character" & n != "C"]) 
+  drop <- unique(drop)
+  # Don't rename columns that are getting dropped
+  pos <- pos[!n[pos] %in% drop]
+  # Check that we don't have duplicate column names
+  unique <- c(names(pos), n[-pos])
+  # Ok to reuse a name if it is getting dropped
+  unique <- setdiff(unique, drop)
+  if(anyDuplicated(unique)) {
+    dup <- unique[duplicated(unique)]
+    names(dup) <- "x"
+    abort("Duplicated input names", body = dup)
+  }
+  n[pos] <- paste0(names(pos), "=", n[pos])
+  dropn <- match(drop, n)
+  if(length(drop)) {
+    n[dropn] <- paste0(n[dropn], "=DROP")    
+  }
+  n
+}
+
 #' Write columns and column information for NONMEM $INPUT block
 #' 
-#' Column names are written to the console one-per-line on the 
-#' left hand side of a NONMEM comment character (`;`) and 
-#' a description of the column is written on the right hand 
-#' side.  The description includes the short name and values 
-#' with decodes for non-character columns. 
+#' The default output is in wide format, including only the column names as 
+#' well as any rename or drop syntax. The long format puts one column 
+#' on a different line and includes the short name and optionally column 
+#' decode information. See examples.
 #' 
 #' @param spec a yspec object.
 #' @param .width number of characters.
@@ -21,6 +46,8 @@ chunk_and_indent <- function(x,indent,width) {
 #' @param .long if `TRUE`, produce `$INPUT` in long, verbose format.
 #' @param .drop a character vector or comma-separated string of columns to 
 #' drop in the `$INPUT` listing.
+#' @param .decodes if `TRUE`, print `value` and `decode` information where 
+#' available for discrete column data; this is only printed when `.long = TRUE`. 
 #' @param ... unquoted column rename pairs with format 
 #' `<new name> = <old name>`.
 #' 
@@ -33,28 +60,16 @@ chunk_and_indent <- function(x,indent,width) {
 #' nm_input(spec)
 #' nm_input(spec, DOSE = AMT, .drop = "ALT,BMI")
 #' nm_input(spec, .long = TRUE)
+#' nm_input(spec, .long = TRUE, .decodes = TRUE)
 #' 
 #' @md
 #' @export
 nm_input <- function(spec, .width = 65, .cat = TRUE, .long = FALSE,
-                     .drop = NULL, ...) {
-  if(isTRUE(.long)) {
-    out <- nm_input_long(spec, .width = .width)  
-  } else {
-    out <- nm_input_wide(spec, .width = .width, .drop = .drop, ...)  
-  }
-  ans <- c("$INPUT", out)
-  if(isTRUE(.cat)) cat(ans, sep = "\n")
-  return(invisible(ans))
-}
-
-nm_input_wide <- function(spec, .drop = NULL, .width = 65, ...) {
-  n <- names(spec)
-  pos <- eval_rename(expr(c(...)), data = as.list(spec))
-  pos <- pos[!names(pos) == n[pos]]
-  drop <- cvec_cs(.drop)
-  if(!all(drop %in% names(spec))) {
-    baddrop <- setdiff(drop, names(spec))
+                     .drop = NULL, .decodes = FALSE, ...) {
+  
+  .drop <- cvec_cs(.drop)
+  if(!all(.drop %in% names(spec))) {
+    baddrop <- setdiff(.drop, names(spec))
     baddrop <- paste0("Column `", baddrop, "` doesn't exist.")
     names(baddrop) <- rep("x", length(baddrop))
     abort(
@@ -63,35 +78,41 @@ nm_input_wide <- function(spec, .drop = NULL, .width = 65, ...) {
       use_cli_format = TRUE
     )
   }
-  type <- map_chr(spec, "type")
-  drop <- c(drop, n[type=="character" & n != "C"]) 
-  drop <- unique(drop)
-  drop <- drop[drop %in% n]
-  pos <- pos[!names(pos) %in% drop]
-  n[pos] <- paste0(names(pos), "=", n[pos])
-  dropn <- match(drop, n)
-  if(length(drop)) {
-    n[dropn] <- paste0(n[dropn], "=DROP")    
+  if(isTRUE(.long)) {
+    out <- nm_input_long(spec, .drop = .drop, .width = .width, 
+                         .decodes = .decodes, ...)  
+  } else {
+    out <- nm_input_wide(spec, .drop = .drop, .width = .width, ...)  
   }
-  n <- paste0(n, collapse = " ")
-  n <- strwrap(n, width = .width)
-  n
+  ans <- c("$INPUT", out)
+  if(isTRUE(.cat)) cat(ans, sep = "\n")
+  return(invisible(ans))
 }
 
-nm_input_long <- function(spec, .width) {
-  col <- map_chr(spec, "col")
-  chr <- map_chr(spec, "type") == "character"
-  col2 <- paste0(col, ifelse(chr & col != "C", "=DROP", ""))
-  mx <- max(nchar(col2))
-  col2 <- formatC(col2, width = mx, flag = "-")
-  has_values <- map_lgl(spec, ~!is.null(.x$values))
-  has_decode <- map_lgl(spec, ~!is.null(.x$decode))
-  is_chr <- map_lgl(spec, ~.x$type=="character")
-  details <- map_chr(spec, pack_codes)
-  details[is_chr] <- ""
+nm_input_wide <- function(spec, .drop = NULL, .width = 65, ...) {
+  ans <- make_input_names(spec, .drop, ...)
+  ans <- paste0(ans, collapse = " ")
+  ans <- strwrap(ans, width = .width)
+  ans
+}
+
+nm_input_long <- function(spec, .drop, .width, .decodes, ...) {
+  col <- make_input_names(spec, .drop, ...)
+  mx <- max(nchar(col))
+  col2 <- formatC(col, width = mx, flag = "-")
+  details <- NULL
+  if(isTRUE(.decodes)) {
+    has_values <- map_lgl(spec, ~!is.null(.x$values))
+    has_decode <- map_lgl(spec, ~!is.null(.x$decode))
+    is_chr <- map_lgl(spec, ~.x$type=="character")
+    details <- map_chr(spec, pack_codes)
+    details[is_chr] <- ""
+  } else {
+    details <- rep("", length(spec))  
+  }
   short <- ys_get_short(spec, .aslist = FALSE)
   df <- tibble(
-    col = col, 
+    col = map_chr(spec, "col"), 
     col2 = col2, 
     spc = " ; ", 
     short = short, 
@@ -103,6 +124,6 @@ nm_input_long <- function(spec, .width) {
   )
   df <- mutate(df, rhs = trimws(paste0(short," ", details)))
   out <- paste0(df$col2, df$spc, df$rhs)
-  out <- unlist(strsplit(out, "\n"))
+  out <- unlist(strsplit(out, "\n"), use.names=FALSE)
   out
 }
