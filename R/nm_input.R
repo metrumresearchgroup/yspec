@@ -15,9 +15,14 @@ chunk_and_indent <- function(x,indent,width) {
 #' side.  The description includes the short name and values 
 #' with decodes for non-character columns. 
 #' 
-#' @param spec a yspec object
-#' @param width number of characters
-#' @param cat if `TRUE`, the text is sent to the console with [cat()]
+#' @param spec a yspec object.
+#' @param .width number of characters.
+#' @param .cat if `TRUE`, the text is sent to the console with [cat()].
+#' @param .long if `TRUE`, produce `$INPUT` in long, verbose format.
+#' @param .drop a character vector or comma-separated string of columns to 
+#' drop in the `$INPUT` listing.
+#' @param ... unquoted column rename pairs with format 
+#' `<new name> = <old name>`.
 #' 
 #' @return 
 #' A character vector of text forming the `$INPUT` block (including 
@@ -26,6 +31,9 @@ chunk_and_indent <- function(x,indent,width) {
 #' @examples
 #' spec <- ys_help$spec()
 #' nm_input(spec)
+#' nm_input(spec, DOSE = AMT, .drop = "ALT,BMI")
+#' nm_input(spec, .long = TRUE)
+#' 
 #' @md
 #' @export
 nm_input <- function(spec, .width = 65, .cat = TRUE, .long = FALSE,
