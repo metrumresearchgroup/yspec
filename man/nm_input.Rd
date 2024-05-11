@@ -2,7 +2,7 @@
 % Please edit documentation in R/nm_input.R
 \name{nm_input}
 \alias{nm_input}
-\title{Write columns and column information for NONMEM $INPUT block}
+\title{Create NONMEM $INPUT block code from yspec object}
 \usage{
 nm_input(
   spec,
@@ -17,14 +17,15 @@ nm_input(
 \arguments{
 \item{spec}{a yspec object.}
 
-\item{.width}{number of characters.}
+\item{.width}{passed to \code{\link[base:strwrap]{base::strwrap()}} to limit the output line length.}
 
 \item{.cat}{if \code{TRUE}, the text is sent to the console with \code{\link[=cat]{cat()}}.}
 
 \item{.long}{if \code{TRUE}, produce \verb{$INPUT} in long, verbose format.}
 
 \item{.drop}{a character vector or comma-separated string of columns to
-drop in the \verb{$INPUT} listing.}
+drop in the \verb{$INPUT} listing; columns with character type are automatically
+dropped, so there is no need to list them here.}
 
 \item{.decodes}{if \code{TRUE}, print \code{value} and \code{decode} information where
 available for discrete column data; this is only printed when \code{.long = TRUE}.}
@@ -37,10 +38,16 @@ A character vector of text forming the \verb{$INPUT} block (including
 the \verb{$INPUT} part).
 }
 \description{
+Extract column names from the yspec object and format for inclusion in
+a NONMEM control stream, potentially renaming or dropping columns.
 The default output is in wide format, including only the column names as
-well as any rename or drop syntax. The long format puts one column
+well as any rename or drop information. The long format puts one column
 on a different line and includes the short name and optionally column
 decode information. See examples.
+}
+\details{
+Columns with character type are automatically dropped; there is no need
+to list these under the \code{.drop} argument.
 }
 \examples{
 spec <- ys_help$spec()

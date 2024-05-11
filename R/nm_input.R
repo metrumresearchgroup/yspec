@@ -19,11 +19,11 @@ make_input_names <- function(spec, drop, ...) {
   # Check that we don't have duplicate column names
   unique <- c(names(pos), n[-pos])
   # Ok to reuse a name if it is getting dropped
-  unique <- setdiff(unique, drop)
+  unique <- unique[!unique %in% drop]
   if(anyDuplicated(unique)) {
     dup <- unique[duplicated(unique)]
     names(dup) <- "x"
-    abort("Duplicated input names", body = dup)
+    abort("Duplicated input names are not allowed.", body = dup)
   }
   n[pos] <- paste0(names(pos), "=", n[pos])
   dropn <- match(drop, n)
@@ -33,23 +33,30 @@ make_input_names <- function(spec, drop, ...) {
   n
 }
 
-#' Write columns and column information for NONMEM $INPUT block
+#' Create NONMEM $INPUT block code from yspec object
 #' 
+#' Extract column names from the yspec object and format for inclusion in 
+#' a NONMEM control stream, potentially renaming or dropping columns. 
 #' The default output is in wide format, including only the column names as 
-#' well as any rename or drop syntax. The long format puts one column 
+#' well as any rename or drop information. The long format puts one column 
 #' on a different line and includes the short name and optionally column 
 #' decode information. See examples.
 #' 
 #' @param spec a yspec object.
-#' @param .width number of characters.
+#' @param .width passed to [base::strwrap()] to limit the output line length.
 #' @param .cat if `TRUE`, the text is sent to the console with [cat()].
 #' @param .long if `TRUE`, produce `$INPUT` in long, verbose format.
 #' @param .drop a character vector or comma-separated string of columns to 
-#' drop in the `$INPUT` listing.
+#' drop in the `$INPUT` listing; columns with character type are automatically 
+#' dropped, so there is no need to list them here.
 #' @param .decodes if `TRUE`, print `value` and `decode` information where 
 #' available for discrete column data; this is only printed when `.long = TRUE`. 
 #' @param ... unquoted column rename pairs with format 
 #' `<new name> = <old name>`.
+#' 
+#' @details
+#' Columns with character type are automatically dropped; there is no need 
+#' to list these under the `.drop` argument.
 #' 
 #' @return 
 #' A character vector of text forming the `$INPUT` block (including 
