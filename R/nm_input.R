@@ -38,17 +38,17 @@ make_input_names <- function(spec, drop, ...) {
 #' Extract column names from the yspec object and format for inclusion in 
 #' a NONMEM control stream, potentially renaming or dropping columns. 
 #' The default output is in wide format, including only the column names as 
-#' well as any rename or drop information. The long format puts one column 
+#' well as any rename or drop information. The long format puts each column 
 #' on a different line and includes the short name and optionally column 
 #' decode information. See examples.
 #' 
 #' @param spec a yspec object.
 #' @param .width passed to [base::strwrap()] to limit the output line length.
 #' @param .cat if `TRUE`, the text is sent to the console with [cat()].
-#' @param .long if `TRUE`, produce `$INPUT` in long, verbose format.
 #' @param .drop a character vector or comma-separated string of columns to 
 #' drop in the `$INPUT` listing; columns with character type are automatically 
 #' dropped, so there is no need to list them here.
+#' @param .long if `TRUE`, produce `$INPUT` in long, verbose format.
 #' @param .decodes if `TRUE`, print `value` and `decode` information where 
 #' available for discrete column data; this is only printed when `.long = TRUE`. 
 #' @param ... unquoted column rename pairs with format 

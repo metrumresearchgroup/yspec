@@ -41,7 +41,7 @@ the \verb{$INPUT} part).
 Extract column names from the yspec object and format for inclusion in
 a NONMEM control stream, potentially renaming or dropping columns.
 The default output is in wide format, including only the column names as
-well as any rename or drop information. The long format puts one column
+well as any rename or drop information. The long format puts each column
 on a different line and includes the short name and optionally column
 decode information. See examples.
 }
