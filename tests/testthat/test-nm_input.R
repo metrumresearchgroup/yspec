@@ -7,7 +7,7 @@ context("test-nm_input")
 sp <- ys_help$spec()
 
 test_that("input text is formed from spec [YSP-TEST-0081]", {
-  txt <- nm_input(sp, cat = FALSE)
+  txt <- nm_input(sp, .cat = FALSE)
   expect_is(txt, "character")
   n <- length(txt[substr(txt, 1, 1) != " "])
   expect_equal(n-1, length(sp))
