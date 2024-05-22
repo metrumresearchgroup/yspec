@@ -1,10 +1,9 @@
 # yspec 0.6.2
 
-
 ## Breaking changes
 
 - `nm_input()` was significantly refactored to produce output more typically seen 
-  in practice as well as adding some convenience features
+  in practice as well as adding some convenience features (#150).
     - the default output is now wide format
     - data set labels can get renamed with `<new name> = <old name>` syntax, passed
       under `...`
@@ -15,7 +14,6 @@
     - the previous long output can be recreated using `.long = TRUE`
     - the `.decodes` argument was added to control appearance of categorical data 
       decode information in the long output
-
 
 # yspec 0.6.1
 
