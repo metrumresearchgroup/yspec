@@ -1,4 +1,19 @@
-# yspec (development version)
+# yspec 0.6.2
+
+## Breaking changes
+
+- `nm_input()` was significantly refactored to produce output more typically seen 
+  in practice as well as adding some convenience features (#150).
+    - the default output is now wide format
+    - data set labels can get renamed with `<new name> = <old name>` syntax, passed
+      under `...`
+    - columns with type `<character>` are dropped by default
+    - the `cat` argument was renamed `.cat`
+    - the `.drop` argument was added to indicate a group of data items to drop 
+      from the problem
+    - the previous long output can be recreated using `.long = TRUE`
+    - the `.decodes` argument was added to control appearance of categorical data 
+      decode information in the long output
 
 # yspec 0.6.1
 
@@ -8,7 +23,7 @@
 # yspec 0.6.0
 
 - Adds `ys_factors()` to _replace_ data set columns with their factor version, 
-  optionally retaining the orignal values in new columns (#141).
+  optionally retaining the original values in new columns (#141).
 
 # yspec 0.5.3
 
