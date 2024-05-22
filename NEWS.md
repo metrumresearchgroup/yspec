@@ -1,4 +1,4 @@
-# yspec (development version)
+# yspec 0.6.2
 
 # yspec 0.6.1
 
