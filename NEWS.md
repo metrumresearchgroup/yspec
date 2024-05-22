@@ -3,7 +3,7 @@
 
 ## Breaking changes
 
-- `nm_input` was significantly refactored to produce output more typically seen 
+- `nm_input()` was significantly refactored to produce output more typically seen 
   in practice as well as adding some convenience features
     - the default output is now wide format
     - data set labels can get renamed with `<new name> = <old name>` syntax, passed
