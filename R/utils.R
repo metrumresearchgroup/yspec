@@ -1,6 +1,6 @@
 
 
-merge.list <- function(x,y,..., open=FALSE,
+merge_list <- function(x,y,..., open=FALSE,
                        warn=FALSE, context="object") {
   
   y <- as.list(y)

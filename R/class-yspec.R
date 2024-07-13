@@ -516,3 +516,69 @@ as_spec_list <- function(...) {
 }
 
 is.spec_list <- function(x) inherits(x,"spec_list")
+
+#' Extract vector of values from discrete data columns
+#' 
+#' @param x a yspec object. 
+#' @param col the name of a column to extract. 
+#' @param drop values to drop; can be integer positions or decode labels.
+#' @param named if `TRUE`, return will be named with decode labels if they
+#' exist. 
+#' 
+#' @export
+get_values <- function(x, ...) UseMethod("get_values")
+
+#' @rdname get_values
+#' @export
+get_values.yspec <- function(x, col, ...) {
+  if(length(col) != 1) {
+    abort("`col` must be length 1.")  
+  }
+  if(!is.character(col)) {
+    abort("`col` must have character type.")  
+  }
+  if(!col %in% names(x)) {
+    abort(glue::glue("column {col} not found in `x`."))  
+  }
+  x <- x[[col]]
+  get_values(x)
+}
+
+#' @rdname get_values
+#' @export
+get_values.ycol <- function(x, drop = NULL, named = TRUE, ...) {
+  if(!isTRUE(x$discrete)) {
+    abort(glue::glue("column `{col}` is not discrete."))  
+  }
+  ans <- x$values
+  if(is.null(x$decode)) {
+    decode <- as.character(seq(length(ans)))
+    named <- FALSE
+  } else {
+    decode <- x$decode  
+  }
+  if(is.numeric(drop)) {
+    if(!all(drop %in% seq_along(ans))) {
+      abort("numeric `drop` is out of bounds.")  
+    }
+    ans <- ans[-drop]
+    decode <- decode[-drop]
+  }
+  if(!length(ans)) {
+    abort("all values were dropped; nothing to return.")  
+  }
+  if(!isTRUE(named)) {
+    return(unname(ans)  )
+  }
+  names(ans) <- decode
+  if(is.character(drop)) {
+    if(!all(drop %in% names(ans))) {
+      abort("`drop` name is not in the decode vector.")  
+    }
+    ans <- ans[setdiff(names(ans), drop)]
+  }
+  if(!isTRUE(named)) {
+    ans <- unname(ans)  
+  }
+  ans
+}

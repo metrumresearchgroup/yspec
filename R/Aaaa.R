@@ -101,7 +101,6 @@ VALID_NS_NAMES <- c(
 #' maximum number of characters allowable in a column name. This options has 
 #' been deprecated.  Please use `max_char_col` in `SETUP__:` instead.
 #' 
-#' @docType package
 #' @md
 #' @name yspec
-NULL
+"_PACKAGE"
