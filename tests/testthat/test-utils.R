@@ -24,7 +24,7 @@ test_that("list operations [YSP-TEST-0116]", {
   x <- yspec:::update_list(a,b)
   expect_equal(x, list(a = 1, b = 4, c = 3))
   
-  x <- yspec:::merge.list(a,b)
+  x <- yspec:::merge_list(a,b)
   expect_equal(x,yspec:::update_list(a,b))
 })
 

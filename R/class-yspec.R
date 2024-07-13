@@ -516,3 +516,121 @@ as_spec_list <- function(...) {
 }
 
 is.spec_list <- function(x) inherits(x,"spec_list")
+
+#' Extract vector of values from discrete data columns. 
+#' 
+#' @param x a yspec object. 
+#' @param select decode labels or inter positions to retain using tidyselect 
+#' syntax; it is impossible to select items based on the `value` itself; 
+#' see **Details**.
+#' 
+#' @return 
+#' The `yspec` method returns a named list of all column values data; non-discrete
+#' data columns are skipped. The `ycol` method returns a vector of values which is 
+#' named of `decodes` were provided. `ys_mget_values()` returns a named list of
+#' values for each column passed under `...`. See **Examples*.
+#' 
+#' @details
+#' Only discrete column types can be targeted for extracting values. When 
+#' extracting with `ys_get_values()`, the default behavior is to return 
+#' everything in the `values` list. When calling the `ycol` method for 
+#' `ys_get_values()`, the `select` argument can be used to limit which 
+#' `values` are returned. This selection can always be done by integer position
+#' (e.g., pass `-1` to drop the first position). When `decodes` are available, 
+#' the selection can also be done based on the decode value, but in this case, 
+#' the selection _can't_ be done according to the `value`. When there are no 
+#' decodes available, then yspec will take the values to be the decodes also, 
+#' allowing the user to select based on those `values`. Note that, in this 
+#' case, the selection is always done passing `character` data to `select`, 
+#' not `numeric``. Please see the **Examples**.
+#' 
+#' @examples
+#' spec <- ys_help$spec()
+#' 
+#' spek <- ys_select(spec, RF, WT, STUDY, AGE, CP) 
+#' ys_get_values(spek)
+#' 
+#' ys_get_values(spec$RF)
+#' 
+#' ys_get_values(spec$RF, -1)
+#' 
+#' ys_get_values(spec$RF, -Severe)
+#' 
+#' ys_get_values(spec$RF, Moderate)
+#' 
+#' ys_get_values(spec$STUDY, everything())
+#' 
+#' # This drops `value = 0` (the first position) rather than `value = 1` (the second position)
+#' ys_get_values(spec$BLQ, -1)
+#' 
+#' # Examples when there are no decodes
+#' spec$PHASE$values <- c(300, 200, 100)
+#' spec$PHASE$decodes <- NULL
+#' 
+#' ## select 300
+#' ys_get_values(spec$PHASE, 1)
+#' 
+#' ## also selects 300
+#' ys_get_values(spec$PHASE, "300")
+#' 
+#' ## Don't select 100
+#' ys_get_values(spec$PHASE, -3)
+#' 
+#' ## Also don't select 100
+#' ys_get_values(spec$PHASE, -"100")
+#' 
+#' ys_get_values(spec$STUDY, 2)
+#' 
+#' ys_mget_values(spec, RF = -Severe, EVID = -1, MDV = everything())
+#' 
+#' ys_get_values(spec$BLQ, -`below QL`)
+#'  
+#' ys_get_values(spec$BLQ, contains("below"))  
+#' 
+#' @export
+ys_get_values <- function(x, ...) UseMethod("ys_get_values")
+
+#' @rdname ys_get_values
+#' @export
+ys_get_values.yspec <- function(x, ...) {
+  dis <- keep(x, ~ isTRUE(.x$discrete))
+  map(dis, ys_get_values, ...)
+}
+
+#' @rdname ys_get_values
+#' @export
+ys_get_values.ycol <- function(x, select = everything(), ...) {
+  if(!isTRUE(x$discrete)) {
+    abort(glue::glue("column `{col}` is not discrete."))  
+  }
+  ans <- x$values
+  if(is.null(x$decode)) {
+    decode <- ans
+  } else {
+    decode <- x$decode  
+  }
+  names(ans) <- decode
+  selected <- tidyselect::eval_select(enquo(select), ans)
+  ans <- ans[selected]
+  if(!length(ans)) {
+    abort("no values were selected.")  
+  }
+  return(ans)
+  ans
+}
+
+#' @param ... named items to pass to `ys_get_values()` as `select`.
+#' @rdname ys_get_values
+#' @export
+ys_mget_values <- function(x, ...) {
+  dots <- exprs(...)
+  out <- vector(mode = "list", length = length(dots))
+  for(i in seq_along(dots)) {
+    col <- names(dots)[i]
+    w <- ys_select(x, all_of(col))
+    val <- ys_get_values(w[[1]], !!dots[[i]])
+    out[[i]] <- val
+  }
+  names(out) <- names(dots)
+  out
+}

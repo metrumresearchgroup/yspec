@@ -51,7 +51,7 @@ Imports:
     stringr
 Suggests: pander, testthat
 VignetteBuilder: knitr
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 Collate: 
     'utils.R'
     'Aaaa.R'
