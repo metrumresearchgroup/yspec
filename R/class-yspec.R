@@ -521,9 +521,22 @@ is.spec_list <- function(x) inherits(x,"spec_list")
 #' 
 #' @param x a yspec object. 
 #' @param col the name of a column to extract. 
-#' @param drop values to drop; can be integer positions or decode labels.
+#' @param select decode labels or inter positions to retain using tidyselect 
+#' syntax.
 #' @param named if `TRUE`, return will be named with decode labels if they
 #' exist. 
+#' 
+#' @examples
+#' spec <- ys_help$spec()
+#' 
+#' get_values(spec$RF)
+#' 
+#' get_values(spec$RF, -1)
+#' 
+#' get_values(spec$RF, -Severe)
+#' 
+#' get_values(spec$RF, Moderate)
+#' 
 #' 
 #' @export
 get_values <- function(x, ...) UseMethod("get_values")
@@ -546,7 +559,7 @@ get_values.yspec <- function(x, col, ...) {
 
 #' @rdname get_values
 #' @export
-get_values.ycol <- function(x, drop = NULL, named = TRUE, ...) {
+get_values.ycol <- function(x, select = everything(), named = TRUE, ...) {
   if(!isTRUE(x$discrete)) {
     abort(glue::glue("column `{col}` is not discrete."))  
   }
@@ -557,28 +570,14 @@ get_values.ycol <- function(x, drop = NULL, named = TRUE, ...) {
   } else {
     decode <- x$decode  
   }
-  if(is.numeric(drop)) {
-    if(!all(drop %in% seq_along(ans))) {
-      abort("numeric `drop` is out of bounds.")  
-    }
-    ans <- ans[-drop]
-    decode <- decode[-drop]
-  }
+  names(ans) <- decode
+  selected <- tidyselect::eval_select(enquo(select), ans)
+  ans <- ans[selected]
   if(!length(ans)) {
-    abort("all values were dropped; nothing to return.")  
+    abort("no values were selected.")  
   }
   if(!isTRUE(named)) {
     return(unname(ans)  )
-  }
-  names(ans) <- decode
-  if(is.character(drop)) {
-    if(!all(drop %in% names(ans))) {
-      abort("`drop` name is not in the decode vector.")  
-    }
-    ans <- ans[setdiff(names(ans), drop)]
-  }
-  if(!isTRUE(named)) {
-    ans <- unname(ans)  
   }
   ans
 }

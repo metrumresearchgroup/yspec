@@ -10,18 +10,32 @@ get_values(x, ...)
 
 \method{get_values}{yspec}(x, col, ...)
 
-\method{get_values}{ycol}(x, drop = NULL, named = TRUE, ...)
+\method{get_values}{ycol}(x, select = everything(), named = TRUE, ...)
 }
 \arguments{
 \item{x}{a yspec object.}
 
 \item{col}{the name of a column to extract.}
 
-\item{drop}{values to drop; can be integer positions or decode labels.}
+\item{select}{decode labels or inter positions to retain using tidyselect 
+syntax.}
 
 \item{named}{if `TRUE`, return will be named with decode labels if they
 exist.}
 }
 \description{
 Extract vector of values from discrete data columns
+}
+\examples{
+spec <- ys_help$spec()
+
+get_values(spec$RF)
+
+get_values(spec$RF, -1)
+
+get_values(spec$RF, -Severe)
+
+get_values(spec$RF, Moderate)
+
+
 }
