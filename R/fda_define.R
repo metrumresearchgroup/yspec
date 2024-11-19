@@ -98,10 +98,7 @@ fda_table <- function(x, widths = c(0.75, 2.1, 0.6, 2.2), ...) {
       sanitize.text.function = getOption("ys.sanitize", ys_sanitize)
     )
   )
-  glu <- get_meta(x)[["glue"]]
-  if(is.list(glu)) {
-    ans <- sapply(ans, glue, .envir = glu, .open = .glopen, .close = .glclose)
-  }
+  ans <- yspec_glue(x, ans)
   unname(ans)
 }
 

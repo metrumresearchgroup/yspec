@@ -34,10 +34,7 @@ x_table <- function(x,...) {
       sanitize.text.function = getOption("ys.sanitize", ys_sanitize)
     )
   )
-  glu <- get_meta(x)[["glue"]]
-  if(is.list(glu)) {
-    ans <- sapply(ans, glue, .envir = glu, .open = .glopen, .close = .glclose)
-  }
+  ans <- yspec_glue(x, ans)
   ans
 }
 
@@ -61,10 +58,7 @@ x_table_long <- function(x,...) {
       sanitize.text.function = getOption("ys.sanitize", ys_sanitize)
     )
   )
-  glu <- get_meta(x)[["glue"]]
-  if(is.list(glu)) {
-    ans <- sapply(ans, glue, .envir = glu, .open = .glopen, .close = .glclose)
-  }
+  ans <- yspec_glue(x, ans)
   ans
 }
 
@@ -105,11 +99,7 @@ pander_table <- function(x, ...) {
     split.cells = c("22%","15%","22%","41%"),
     style = "multiline"
   )
-  glu <- get_meta(x)[["glue"]]
-  
-  if(is.list(glu)) {
-    ans <- sapply(ans, glue, .envir = glu, .open = .glopen, .close = .glclose)
-  }
+  ans <- yspec_glue(x, ans)
   
   ans
 }

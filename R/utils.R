@@ -355,3 +355,15 @@ temp_spec <- function(text, name) {
   writeLines(text, con = file)
   return(invisible(file))
 }
+
+yspec_glue <- function(spec, txt) {
+  glu <- get_meta(spec)[["glue"]]
+  if (is.list(glu)) {
+    txt <- sapply(
+      txt, glue,
+      .envir = glu, .open = .glopen, .close = .glclose
+    )
+  }
+
+  return(txt)
+}
