@@ -360,8 +360,8 @@ yspec_glue <- function(spec, txt) {
   glu <- get_meta(spec)[["glue"]]
   if (is.list(glu)) {
     txt <- sapply(
-      txt, glue,
-      .envir = glu, .open = .glopen, .close = .glclose
+      txt, glue::glue_data,
+      .x = glu, .envir = emptyenv(), .open = .glopen, .close = .glclose
     )
   }
 

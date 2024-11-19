@@ -18,7 +18,7 @@ x_table_2_details <- function(x) {
 x_table_2_table_row <- function(x,details_fun) {
   unit <- NULL
   if(.has("unit",x)) {
-    unit <- glue::glue(" ({unit})", .envir = x)
+    unit <- glue::glue_data(x, " ({unit})", .envir = emptyenv())
   }
   short <- paste0(label.ycol(x,default = "short"),unit)
   ans <- tibble( 
