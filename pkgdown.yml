@@ -1,0 +1,16 @@
+pandoc: 3.1.11
+pkgdown: 2.1.1
+pkgdown_sha: ~
+articles:
+  analysis1: analysis1.html
+  extract: extract.html
+  label: label.html
+  lookup: lookup.html
+  project: project.html
+  reference: reference.html
+  ysdb_internal: ysdb_internal.html
+  yspec: yspec.html
+last_built: 2024-12-18T23:11Z
+urls:
+  reference: https://metrumresearchgroup.github.io/yspec/reference
+  article: https://metrumresearchgroup.github.io/yspec/articles
