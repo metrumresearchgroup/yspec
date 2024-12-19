@@ -1,6 +1,7 @@
 inst/WORDLIST
 Untitled\.R
 \_pkgdown\.yml
+^pkgdown$
 yspec\.Rcheck
 CONTRIBUTING.md
 ^spec.*\.pdf$

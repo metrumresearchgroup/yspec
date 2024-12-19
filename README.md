@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# yspec
+# yspec <a href="https://metrumresearchgroup.github.io/yspec"><img src="man/figures/logo.png" align="right" width="135px" alt="yspec website" /></a>
 
 <!-- badges: start -->
 <!-- badges: end -->

@@ -35,12 +35,17 @@ jobs:
           use-public-rspm: true
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck
+          extra-packages: |
+            any::pkgdown
+            any::rcmdcheck
           upgrade: 'TRUE'
       - name: Install pdflatex
         shell: bash
         run: sudo apt-get install texlive-latex-base texlive-fonts-extra
       - uses: r-lib/actions/check-r-package@v2
+      - name: Check pkgdown
+        shell: Rscript {0}
+        run: pkgdown::check_pkgdown()
   release:
     if: github.ref_type == 'tag'
     name: Upload release
