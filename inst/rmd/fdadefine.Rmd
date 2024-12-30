@@ -5,7 +5,6 @@ sponsor: <sponsor>
 projectnumber: <projectnumber>
 author: <author>
 geometry: "margin=1in"
-linkcolor: magenta
 output:
   pdf_document:
     number_sections: true
