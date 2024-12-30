@@ -111,3 +111,12 @@ ys_get_short_unit <- function(x, .aslist = TRUE, parens = TRUE, ...) {
   if(.aslist) ans <- as.list(ans)
   ans
 }
+
+#' Extract a flag from yspec meta data
+#' 
+#' 
+ys_get_flag <- function(x, flag) {
+  
+  met <- pull_meta(x, "flags")  
+  
+}
