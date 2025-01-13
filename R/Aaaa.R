@@ -1,6 +1,6 @@
 #' @importFrom yaml yaml.load_file as.yaml
 #' @importFrom dplyr filter %>% bind_rows
-#' @importFrom tidyselect vars_select eval_select eval_rename all_of
+#' @importFrom tidyselect vars_select eval_select eval_rename all_of everything
 #' @importFrom tibble tibble as_tibble
 #' @importFrom dplyr mutate if_else .data desc rowwise
 #' @importFrom rmarkdown render pdf_document html_document
@@ -101,7 +101,6 @@ VALID_NS_NAMES <- c(
 #' maximum number of characters allowable in a column name. This options has 
 #' been deprecated.  Please use `max_char_col` in `SETUP__:` instead.
 #' 
-#' @docType package
 #' @md
 #' @name yspec
-NULL
+"_PACKAGE"

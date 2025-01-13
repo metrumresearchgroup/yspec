@@ -64,6 +64,57 @@ test_that("short is limited to n characters [YSP-TEST-0133]", {
   expect_identical(sh2$WT, "WT")
 })
 
+test_that("ys get values - yspec", {
+  spx <- ys_select(sp, AGE, STUDY, RF, WT, ALB, CP, PHASE)  
+  x <- ys_get_values(spx)
+  expect_is(x, "list")
+  expect_named(x)
+  expect_equal(names(x), c("STUDY", "RF", "CP", "PHASE"))
+  expect_equivalent(spx$CP$values, x$CP)
+})
 
+test_that("ys get values - ycol", {
+  x0 <- ys_get_values(sp)
+  x <- ys_get_values(sp$CP)
+  expect_is(x, "integer")
+  expect_identical(x0$CP, x)
+  expect_length(x, 4)
+  expect_named(x)
+  
+  x <- ys_get_values(sp$CP, -Pugh2)
+  expect_length(x, 3)
+  expect_equivalent(x, c(0, 1, 3))
+  
+  x <- ys_get_values(sp$STUDY, -3)
+  expect_length(x, 3)
+  expect_equivalent(x, c(1, 2, 4))
+  
+  x <- ys_get_values(sp$STUDY, everything())
+  expect_identical(x, x0$STUDY)
+  
+  sp$PHASE$values <- c(300, 200, 100)
+  sp$PHASE$decode <- NULL
+  
+  x <- ys_get_values(sp$PHASE, -2)
+  expect_equivalent(x, c(300, 100))
+  
+  x <- ys_get_values(sp$PHASE, -"200")
+  expect_equivalent(x, c(300, 100))
+  
+  expect_error(ys_get_values(sp$PHASE, -200), "Location 200 doesn't exist")
 
+  expect_error(ys_get_values(sp$STUDY, 0), "no values were selected")
+})
 
+test_that("ys mget values", {
+  x00 <- ys_get_values(sp)
+  x0 <- ys_mget_values(sp, STUDY = everything(), RF = -1, CP = 2)
+  
+  expect_identical(x00$STUDY, x0$STUDY)
+  
+  x <- ys_get_values(sp$RF, -1)
+  expect_identical(x, x0$RF)
+  
+  x <- ys_get_values(sp$CP, 2)
+  expect_equal(x, x0$CP)
+})
