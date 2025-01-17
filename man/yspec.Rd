@@ -2,6 +2,7 @@
 % Please edit documentation in R/Aaaa.R
 \docType{package}
 \name{yspec}
+\alias{yspec-package}
 \alias{yspec}
 \title{yspec: data specification documents from yaml}
 \description{
@@ -55,3 +56,25 @@ maximum number of characters allowable in a column name. This options has
 been deprecated.  Please use \code{max_char_col} in \verb{SETUP__:} instead.
 }
 
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://metrumresearchgroup.github.io/yspec}
+  \item \url{https://github.com/metrumresearchgroup/yspec}
+  \item Report bugs at \url{https://github.com/metrumresearchgroup/yspec/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Kyle T Baron \email{kyleb@metrumrg.com} (\href{https://orcid.org/0000-0001-7252-5656}{ORCID})
+
+Other contributors:
+\itemize{
+  \item Katherine Kay \email{katherinek@metrumrg.com} [contributor]
+  \item Eric Anderson \email{andersone@metrumrg.com} [contributor]
+  \item Sean Wilson \email{copernican@gmail.com} [contributor]
+  \item Samuel Callisto \email{samc@metrumrg.com} [contributor]
+  \item Metrum Research Group [copyright holder]
+}
+
+}
