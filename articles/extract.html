@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">yspec</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.6.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.6.3</span>
       </span>
     </div>
 
@@ -106,9 +106,9 @@
       <h1 data-toc-skip>Extract data from a yspec object</h1>
                         <h4 data-toc-skip class="author"></h4>
             
-            <h4 data-toc-skip class="date">2024-12-19</h4>
+            <h4 data-toc-skip class="date">2025-01-17</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/metrumresearchgroup/yspec/blob/scratch/deploy-site/vignettes/extract.Rmd" class="external-link"><code>vignettes/extract.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/metrumresearchgroup/yspec/blob/0.6.3/vignettes/extract.Rmd" class="external-link"><code>vignettes/extract.Rmd</code></a></small>
       <div class="hidden name"><code>extract.Rmd</code></div>
 
     </div>
@@ -128,11 +128,8 @@ object.</p>
 <code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html" class="external-link">opts_chunk</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span>comment <span class="op">=</span> <span class="st">'.'</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://purrr.tidyverse.org/" class="external-link">purrr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></code></pre></div>
-<pre><code>. Error in get(paste0(generic, ".", class), envir = get_method_env()) : 
-.   object 'type_sum.accel' not found</code></pre>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://metrumresearchgroup.github.io/yspec">yspec</a></span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://metrumresearchgroup.github.io/yspec">yspec</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="basic">Basic<a class="anchor" aria-label="anchor" href="#basic"></a>
@@ -140,7 +137,7 @@ object.</p>
 <p>First, recall that the yspec object is just a list. We can use map to
 get information out of that list. For example, to find the types of all
 the columns in the data set use <code>purrr:::map</code></p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spec</span> <span class="op">&lt;-</span> <span class="va">ys_help</span><span class="op">$</span><span class="fu">spec</span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">spec</span>, <span class="st">"type"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span></code></pre></div>
@@ -160,7 +157,7 @@ the columns in the data set use <code>purrr:::map</code></p>
 . [1] "numeric"</code></pre>
 <p>If we wanted some column information in csv format we could also
 do</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">spec</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">.x</span><span class="op">[[</span><span class="st">"col"</span><span class="op">]</span><span class="op">]</span>,<span class="va">.x</span><span class="op">[[</span><span class="st">"short"</span><span class="op">]</span><span class="op">]</span>,<span class="va">.x</span><span class="op">[[</span><span class="st">"type"</span><span class="op">]</span><span class="op">]</span>,sep<span class="op">=</span><span class="st">','</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span></code></pre></div>
 <pre><code>. $C
 . [1] "C,comment character,character"
@@ -183,7 +180,7 @@ map across the list and ask for the unit field. Many columns don’t have
 units and we’d get <code>NULL</code> back if we just mapped. The
 <code>ys_get_unit</code> function subs in blank character data items
 when <code>unit</code> is <code>NULL</code>.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ys_get_unit.html">ys_get_unit</a></span><span class="op">(</span><span class="va">spec</span>, parens <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>.                C              NUM               ID             SUBJ 
 .               ""               ""               ""               "" 
@@ -206,7 +203,7 @@ when <code>unit</code> is <code>NULL</code>.</p>
 <h2 id="get-labels">Get labels<a class="anchor" aria-label="anchor" href="#get-labels"></a>
 </h2>
 <p>We can also get labels</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ys_get_label.html">ys_get_label</a></span><span class="op">(</span><span class="va">spec</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span></code></pre></div>
 <pre><code>. $C
 . [1] "comment character"
@@ -221,7 +218,7 @@ when <code>unit</code> is <code>NULL</code>.</p>
 <h2 id="get-short">Get short<a class="anchor" aria-label="anchor" href="#get-short"></a>
 </h2>
 <p>We can also get the short name</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ys_get_short.html">ys_get_short</a></span><span class="op">(</span><span class="va">spec</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span></code></pre></div>
 <pre><code>. $C
 . [1] "comment character"
@@ -237,7 +234,7 @@ when <code>unit</code> is <code>NULL</code>.</p>
 </h2>
 <p>This function returns a string with both the <code>unit</code> and
 <code>short</code></p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ys_get_short_unit.html">ys_get_short_unit</a></span><span class="op">(</span><span class="va">spec</span>, parens <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">as.list</span></span></code></pre></div>
 <pre><code>. $C
 . [1] "comment character"
@@ -262,7 +259,7 @@ meta information is stored as a list in the <code>meta</code> attribute
 of the <code>yspec</code> list. It can be accessed with
 <code>get_meta</code>. This returns a list with the various pieces of
 meta data.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_meta.html">get_meta</a></span><span class="op">(</span><span class="va">spec</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span></code></pre></div>
 <pre><code>. $description
 . [1] "Example PopPK analysis data set"
@@ -273,15 +270,15 @@ meta data.</p>
 . $projectnumber
 . [1] "EXAMPK1011F"</code></pre>
 <p>You an pull a single piece of meta data with</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/pull_meta.html">pull_meta</a></span><span class="op">(</span><span class="va">spec</span>, <span class="st">"projectnumber"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>. [1] "EXAMPK1011F"</code></pre>
 <div class="section level3">
 <h3 id="what-is-in-the-meta-data">What is in the meta data?<a class="anchor" aria-label="anchor" href="#what-is-in-the-meta-data"></a>
 </h3>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_meta.html">get_meta</a></span><span class="op">(</span><span class="va">spec</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span></code></pre></div>
 <pre><code>.  [1] "description"     "sponsor"         "projectnumber"   "use_internal_db"
 .  [5] "glue"            "flags"           "lookup_file"     "extend_file"    

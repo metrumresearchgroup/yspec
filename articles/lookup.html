@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">yspec</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.6.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.6.3</span>
       </span>
     </div>
 
@@ -106,9 +106,9 @@
       <h1 data-toc-skip>Project-wide column definitions</h1>
                         <h4 data-toc-skip class="author"></h4>
             
-            <h4 data-toc-skip class="date">2024-12-19</h4>
+            <h4 data-toc-skip class="date">2025-01-17</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/metrumresearchgroup/yspec/blob/scratch/deploy-site/vignettes/lookup.Rmd" class="external-link"><code>vignettes/lookup.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/metrumresearchgroup/yspec/blob/0.6.3/vignettes/lookup.Rmd" class="external-link"><code>vignettes/lookup.Rmd</code></a></small>
       <div class="hidden name"><code>lookup.Rmd</code></div>
 
     </div>
@@ -207,11 +207,8 @@ the following in our specification file</p>
 <span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>  values: 55378</span></code></pre></div>
 <p>We can read this data in and have the columns defined</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://metrumresearchgroup.github.io/yspec">yspec</a></span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in get(paste0(generic, ".", class), envir = get_method_env()) : </span></span>
-<span><span class="co">##   object 'type_sum.accel' not found</span></span></code></pre>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://metrumresearchgroup.github.io/yspec">yspec</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">spec</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ys_load.html">ys_load</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span>
 <span></span>
@@ -232,7 +229,7 @@ the following in our specification file</p>
 <p>This all can get confusing about where each column is coming from.
 You can audit the spec object and find you where a lookup event
 happened</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ys_lookup_source.html">ys_lookup_source</a></span><span class="op">(</span><span class="va">spec</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 8 × 2</span></span></span>
 <span><span class="co">##   col      lookup_source    </span></span>
@@ -250,7 +247,7 @@ base and that the one column (<code>ZIP_CODE</code>) came by our own
 specification.</p>
 <p>You can also re-create the lookup object (just a named list) for a
 specification object. Just click open the arrow to see the output.</p>
-<details><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<details><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ys_get_lookup.html">ys_get_lookup</a></span><span class="op">(</span><span class="va">spec</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## List of 23</span></span>
 <span><span class="co">##  $ C      :List of 6</span></span>
