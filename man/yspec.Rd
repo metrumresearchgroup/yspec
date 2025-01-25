@@ -59,6 +59,7 @@ been deprecated.  Please use \code{max_char_col} in \verb{SETUP__:} instead.
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://metrumresearchgroup.github.io/yspec}
   \item \url{https://github.com/metrumresearchgroup/yspec}
   \item Report bugs at \url{https://github.com/metrumresearchgroup/yspec/issues}
 }
