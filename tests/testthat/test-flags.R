@@ -42,3 +42,47 @@ test_that("flags are propagated from lookup file [YSP-TEST-0044]", {
   expect_false(spec$CP$dots$updated_from_lookup)
   expect_true(spec$CP$dots$came_from_lookup)
 })
+
+test_that("flags are extracted as list", {
+  spec <- ys_help$spec()
+  
+  met <- pull_meta(spec, "flags")
+  x <- ys_flags(spec)
+  expect_identical(names(met), names(x))
+  
+  x <- ys_flags(spec, covariate, times)
+  expect_identical(names(x), c("covariate", "times"))
+  expect_identical(x$covariate, met$covariate)
+  expect_identical(x$times, met$times)
+  
+  x <- ys_flags(spec, covariate:times)
+  expect_identical(x, met)
+  
+  expect_error(ys_flags(spec, abc), "Column `abc` doesn't exist.")
+})
+
+test_that("flags are extracted as character vector", {
+  spec <- ys_help$spec()
+  
+  met <- pull_meta(spec, "flags")
+  
+  x <- ys_flags_chr(spec)
+  met_chr <- unlist(met, use.names = FALSE)
+  expect_identical(x, met_chr)
+  
+  x <- ys_flags_chr(spec, times, covariate)
+  expect_null(names(x))
+  met_chr <- unlist(met[c("times", "covariate")], use.names = FALSE)
+  expect_identical(x, met_chr)
+})
+
+test_that("select from spec via flags", {
+  spec <- ys_help$spec()
+  
+  sspec <- ys_select_fl(spec, covariate, nm)
+  cols <- ys_flags_chr(spec, covariate, nm)
+  
+  expect_identical(names(sspec), cols)
+  
+  expect_error(ys_select_fl(spec, abc), "Column `abc` doesn't exist.")
+})
