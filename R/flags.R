@@ -57,3 +57,58 @@ add_flags <- function(x) {
   }
   x
 }
+
+#' Extract flags from yspec meta data
+#' 
+#' Use `ys_flags_chr()` to get a character vector of all columns returned by 
+#' `ys_flags()`.
+#' 
+#' @param x a yspec object. 
+#' @param ... tidy-select specification of flag names to select.
+#' 
+#' @return 
+#' `ys_flags()` returns a named list of flag column names. `ys_flags_chr()`
+#' returns a character vector of all flag columns returned by `ys_flags()`.
+#' 
+#' @examples
+#' 
+#' ys_flags(spec, nm)
+#' 
+#' ys_flags_chr(spec, nm) 
+#' 
+#' @export
+ys_flags <- function(x, ...) {
+  flags <- pull_meta(x, "flags") 
+  pos <- tidyselect::eval_select(expr(c(...)), flags)
+  if(length(pos)) {
+    flags <- flags[pos]  
+  }
+  flags
+}
+
+#' @rdname ys_flags
+#' @export
+ys_flags_chr <- function(x, ...) {
+  flags <- ys_flags(x, ...)
+  unlist(flags, use.names = FALSE)
+}
+
+#' Select items from a yspec object via flags
+#' 
+#' @inheritParams ys_flags_chr
+#' 
+#' @return 
+#' A yspec object containing columns named in passed through `...`. 
+#' 
+#' @examples
+#' 
+#' spec <- ys_help$spec()
+#' 
+#' ys_select_fl(spec, nm, times)
+#' 
+#' @export
+ys_select_fl <- function(x, ...) {
+  what <- ys_flags_chr(x, ...)
+  ys_select(x, tidyselect::all_of(what))
+}
+  
