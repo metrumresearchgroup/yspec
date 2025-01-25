@@ -24,6 +24,8 @@ Use \code{ys_flags_chr()} to get a character vector of all columns returned by
 }
 \examples{
 
+spec <- ys_help$spec()
+
 ys_flags(spec, nm)
 
 ys_flags_chr(spec, nm) 

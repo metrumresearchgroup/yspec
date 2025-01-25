@@ -72,6 +72,8 @@ add_flags <- function(x) {
 #' 
 #' @examples
 #' 
+#' spec <- ys_help$spec()
+#' 
 #' ys_flags(spec, nm)
 #' 
 #' ys_flags_chr(spec, nm) 
