@@ -76,6 +76,9 @@ add_flags <- function(x) {
 #' 
 #' ys_flags_chr(spec, nm) 
 #' 
+#' @seealso [ys_select_fl()]
+#' 
+#' @md
 #' @export
 ys_flags <- function(x, ...) {
   flags <- pull_meta(x, "flags") 
@@ -86,6 +89,7 @@ ys_flags <- function(x, ...) {
   flags
 }
 
+#' @md
 #' @rdname ys_flags
 #' @export
 ys_flags_chr <- function(x, ...) {
@@ -106,6 +110,9 @@ ys_flags_chr <- function(x, ...) {
 #' 
 #' ys_select_fl(spec, nm, times)
 #' 
+#' @seealso [ys_flags()], [ys_flags_chr()]
+#' 
+#' @md
 #' @export
 ys_select_fl <- function(x, ...) {
   what <- ys_flags_chr(x, ...)
