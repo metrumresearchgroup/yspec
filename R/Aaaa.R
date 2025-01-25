@@ -104,4 +104,4 @@ VALID_NS_NAMES <- c(
 #' @docType package
 #' @md
 #' @name yspec
-NULL
+"_PACKAGE"
