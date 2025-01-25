@@ -407,13 +407,12 @@ yspec_yml_file.default <- function(x,...) {
 #' Add label attribute to data set columns
 #' 
 #' 
-#' @param data a `data.frame` to label
-#' @param spec yspec object for `data`
-#' @param fun the function to use for forming `label`
+#' @param data a `data.frame` to label.
+#' @param spec yspec object for `data`.
+#' @param fun the function to use for forming `label`.
 #' 
 #' @details
-#' An error is generated if the names of `data` are not identical to names 
-#' of `spec`. 
+#' Only columns in common between `data` and `spec` are labeled in the output.
 #' 
 #' If the user passes `fun` to generate a custom label, the function must take
 #' a single argument, the column `ycol` object, and must return the label for 
@@ -442,7 +441,6 @@ ys_add_labels <- function(data, spec, fun = label.ycol) {
   }
   data
 }
-
 
 #' Prune a data frame, keeping columns in a yspec object
 #' 
