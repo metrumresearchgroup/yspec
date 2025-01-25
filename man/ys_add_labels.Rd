@@ -4,21 +4,27 @@
 \alias{ys_add_labels}
 \title{Add label attribute to data set columns}
 \usage{
-ys_add_labels(data, spec, fun = label.ycol)
+ys_add_labels(data, spec, fun = label.ycol, strict = TRUE)
 }
 \arguments{
-\item{data}{a \code{data.frame} to label}
+\item{data}{a \code{data.frame} to label.}
 
-\item{spec}{yspec object for \code{data}}
+\item{spec}{yspec object for \code{data}.}
 
-\item{fun}{the function to use for forming \code{label}}
+\item{fun}{the function to use for forming \code{label}.}
+
+\item{strict}{if \code{TRUE}, generate an error when \code{data} names do not match
+the \code{spec} names; otherwise, only common names are labeled.}
 }
 \description{
-Add label attribute to data set columns
+This is commonly done prior to saving data to SASxport or other formats
+that will track label metadata for a data column.
 }
 \details{
-An error is generated if the names of \code{data} are not identical to names
-of \code{spec}.
+By default, an error is generated when the column names of the data set
+are not identical to the column names in the spec. Set \code{strict = FALSE} to
+bypass this error and label only columns that are in common between \code{data}
+and \code{spec}.
 
 If the user passes \code{fun} to generate a custom label, the function must take
 a single argument, the column \code{ycol} object, and must return the label for
