@@ -1,5 +1,6 @@
 
-
+#' @noRd
+#' @export
 merge.list <- function(x,y,..., open=FALSE,
                        warn=FALSE, context="object") {
   
