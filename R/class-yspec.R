@@ -432,13 +432,13 @@ yspec_yml_file.default <- function(x,...) {
 #' 
 #' @md
 #' @export
-ys_add_labels <- function(data,spec,fun=label.ycol) {
+ys_add_labels <- function(data, spec, fun = label.ycol) {
   assert_that(inherits(data,"data.frame"))
   assert_that(inherits(spec,"yspec"))
-  assert_that(identical(names(data),names(spec)))
-  col_labels <- map_chr(spec,fun)
-  for(i in seq_along(data)) {
-    attr(data[[i]],"label") <- col_labels[[i]]
+  col_labels <- map_chr(spec, fun)
+  col_labels <- col_labels[names(col_labels) %in% names(data)]
+  for(col in names(col_labels)) {
+    attr(data[[col]], "label") <- col_labels[[col]]
   }
   data
 }
