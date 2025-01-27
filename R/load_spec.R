@@ -93,6 +93,13 @@ check_this_col <- function(x, col, env, control, ...) {
         "the length of values is not equal to the length of decode"
       )
     }
+    if(any(x[["decode"]] == "<yspec-not-atomic>")) {
+      errx <- c(
+        "decode field includes non-atomic data ... ", 
+        "yaml code possibly used brackets [ ] when braces { } were intended"
+      )
+      err <- c(err, errx)  
+    }
   }
   if(length(x$unit) > 1) {
     err <- c(err, "the 'unit' field should not be more than length 1")  
@@ -347,6 +354,9 @@ unpack_col <- function(x) {
       x$decode <- names(x$values)
     }
     x$values <- sapply(x$values, sub_null_natom, USE.NAMES = FALSE)
+    if(length(x$decode)) {
+      x$decode <- sapply(x$decode, sub_null_natom, USE.NAMES = FALSE)
+    }
     if(is.character(x$values) && .no("type", x)) {
       x$type <- "character"
     }
