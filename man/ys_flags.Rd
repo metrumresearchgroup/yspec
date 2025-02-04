@@ -32,5 +32,5 @@ ys_flags_chr(spec, nm)
 
 }
 \seealso{
-\code{\link[=ys_select_fl]{ys_select_fl()}}
+\code{\link[=ys_select_fl]{ys_select_fl()}}, \code{\link[=ys_factors_fl]{ys_factors_fl()}}
 }

@@ -53,5 +53,5 @@ count(data, EVID, EVID_v)
 
 }
 \seealso{
-\code{\link[=ys_add_factors]{ys_add_factors()}}
+\code{\link[=ys_add_factors]{ys_add_factors()}}, \code{\link[=ys_factors_fl]{ys_factors_fl()}}
 }

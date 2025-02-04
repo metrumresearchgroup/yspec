@@ -78,7 +78,7 @@ add_flags <- function(x) {
 #' 
 #' ys_flags_chr(spec, nm) 
 #' 
-#' @seealso [ys_select_fl()]
+#' @seealso [ys_select_fl()], [ys_factors_fl()]
 #' 
 #' @md
 #' @export

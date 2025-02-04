@@ -77,5 +77,5 @@ head(ys_add_factors(data, spec))
 
 }
 \seealso{
-\code{\link[=ys_factors]{ys_factors()}}
+\code{\link[=ys_factors]{ys_factors()}}, \code{\link[=ys_factors_fl]{ys_factors_fl()}}
 }

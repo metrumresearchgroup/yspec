@@ -32,7 +32,7 @@
 #' 
 #' head(ys_add_factors(data, spec))
 #' 
-#' @seealso [ys_factors()]
+#' @seealso [ys_factors()], [ys_factors_fl()]
 #' 
 #' @md
 #' @export
@@ -149,7 +149,7 @@ yspec_make_factor <- ys_make_factor
 #' 
 #' count(data, EVID, EVID_v)
 #' 
-#' @seealso [ys_add_factors()]
+#' @seealso [ys_add_factors()], [ys_factors_fl()]
 #' @md
 #' @export
 ys_factors <- function(data, spec, ...,  
