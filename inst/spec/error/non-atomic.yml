@@ -1,0 +1,14 @@
+WT: 
+  type: numeric
+  range: [45,145]
+  short: weight
+FLAG: 
+  short: analysis flag
+  values: [0, 1,-99]
+  decode: [No, Yes, Missing]
+READY:
+  short: ready flag
+  values: [No, yes, Not sure]
+SEQ: 
+  label: data type
+  values: {observation: 0, dose: 1}
