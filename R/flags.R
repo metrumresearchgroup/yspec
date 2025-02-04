@@ -126,9 +126,9 @@ ys_select_fl <- function(x, ...) {
 
 #' Add factors based on flags
 #' 
-#' The user passes a data set to modify, a `yspec` object, and 
-#' the names of flags in the yspec object to create factors
-#' in the data set using [ys_flags()].
+#' The user passes a data set to modify, a `yspec` object, and the names of 
+#' flags in the yspec object to create factors in the data set using 
+#' [ys_factors()].
 #' 
 #' @inheritParams ys_factors
 #' @param ... tidy-select specification of flag names to select.

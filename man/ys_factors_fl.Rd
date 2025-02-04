@@ -14,9 +14,9 @@ ys_factors_fl(data, spec, ...)
 \item{...}{tidy-select specification of flag names to select.}
 }
 \description{
-The user passes a data set to modify, a \code{yspec} object, and
-the names of flags in the yspec object to create factors
-in the data set using \code{\link[=ys_flags]{ys_flags()}}.
+The user passes a data set to modify, a \code{yspec} object, and the names of
+flags in the yspec object to create factors in the data set using
+\code{\link[=ys_factors]{ys_factors()}}.
 }
 \details{
 Only eligible columns will be considered for factor creation (either
