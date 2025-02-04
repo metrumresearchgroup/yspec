@@ -166,5 +166,5 @@ ys_factors_fl <- function(data, spec, ..., .strict = TRUE) {
   if(!length(flags)) {
     abort("No flags could be selected for creating factors.")  
   }
-  ys_factors(data, spec, all_of(flags))
+  ys_factors(data, spec, any_of(flags))
 }
