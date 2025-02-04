@@ -160,7 +160,7 @@ ys_select_fl <- function(x, ...) {
 ys_factors_fl <- function(data, spec, ...) {
   flags <- ys_flags_chr(spec, ...)
   fct_ok <- map_lgl(spec, ~ isTRUE(.x[["make_factor"]]))
-  has_values <- map_lgl(spec, ~!is.null(.x[["values"]]))
+  has_values <- !map_lgl(spec, ~ is.null(.x[["values"]]))
   eligible <- names(which(has_values | fct_ok))
   flags <- intersect(flags, eligible)
   if(!length(flags)) {

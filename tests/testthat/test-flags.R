@@ -106,3 +106,26 @@ test_that("Rename when selecting flags", {
   expect_length(ans, 2)
   expect_equal(names(ans), c("nonmem", "covariates"))
 })
+
+test_that("Add factors based on flags", {
+  spec <- ys_help$spec()
+  data <- ys_help$data()
+  
+  fl <- ys_flags(spec)
+  
+  ans <- ys_factors_fl(data, spec, cat)
+  diff <- setdiff(names(ans), names(data))
+  expect_equal(diff, paste0(fl$cat, "_v"))
+  expect_is(ans[[fl$cat[1]]], "factor")
+  expect_is(ans[[fl$cat[2]]], "factor")
+  
+  ans2 <- ys_factors_fl(data, spec, cat, covariate)
+  expect_identical(ans, ans2)
+
+  # Nothing that can be a factor
+  expect_error(ys_factors_fl(data, spec, covariate), "No flags could be selected")
+  
+  # Flag doesn't exist
+  expect_error(ys_factors_fl(data, spec, kyle), "Column `kyle` doesn't exist")
+
+})
