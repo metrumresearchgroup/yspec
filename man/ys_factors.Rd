@@ -7,12 +7,12 @@
 ys_factors(data, spec, ..., .keep_values = TRUE, .suffix = "_v")
 }
 \arguments{
-\item{data}{the data set to modify}
+\item{data}{the data set to modify.}
 
-\item{spec}{a yspec object}
+\item{spec}{a yspec object.}
 
 \item{...}{unquoted column names for modification; passing nothing through
-\code{...} will signal for all columns to be considered for factors}
+\code{...} will signal for all columns to be considered for factors.}
 
 \item{.keep_values}{logical; if \code{TRUE}, value columns will be retained with
 a \code{.suffix}.}

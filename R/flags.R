@@ -122,3 +122,49 @@ ys_select_fl <- function(x, ...) {
   what <- ys_flags_chr(x, ...)
   ys_select(x, tidyselect::all_of(what))
 }
+
+
+#' Add factors based on flags
+#' 
+#' The user passes a data set to modify, a `yspec` object, and 
+#' the names of flags in the yspec object to create factors
+#' in the data set using [ys_flags()].
+#' 
+#' @inheritParams ys_factors
+#' @param ... tidy-select specification of flag names to select.
+#' 
+#' @details
+#' Only eligible columns will be considered for factor creation (either 
+#' a `values` field is present or the `make_factor` flag is set). 
+#' Therefore, a flag containing a general list of data columns 
+#' (potentially continuous and discrete) could be passed without 
+#' generating an error. 
+#' 
+#' @examples
+#' data <- ys_help$data()
+#' spec <- ys_help$spec()
+#' 
+#' names(ys_flags(spec))
+#' 
+#' data <- ys_factors_fl(data, spec, cat)
+#' 
+#' head(data, 2)
+#' 
+#' data <- ys_factors_fl(data, spec, covariate)
+#' 
+#' head(data, 2)
+#' 
+#' @seealso [ys_factors()], [ys_add_factors()]
+#' @md
+#' @export
+ys_factors_fl <- function(data, spec, ..., .strict = TRUE) {
+  flags <- ys_flags_chr(spec, ...)
+  fct_ok <- map_lgl(spec, ~ isTRUE(.x[["make_factor"]]))
+  has_values <- map_lgl(spec, ~!is.null(.x[["values"]]))
+  eligible <- names(which(has_values | fct_ok))
+  flags <- intersect(flags, eligible)
+  if(!length(flags)) {
+    abort("No flags could be selected for creating factors.")  
+  }
+  ys_factors(data, spec, all_of(flags))
+}
