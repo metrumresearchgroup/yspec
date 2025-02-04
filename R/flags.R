@@ -150,14 +150,14 @@ ys_select_fl <- function(x, ...) {
 #' 
 #' head(data, 2)
 #' 
-#' data <- ys_factors_fl(data, spec, covariate)
+#' data <- ys_factors_fl(data, spec, covariate, nm)
 #' 
 #' head(data, 2)
 #' 
 #' @seealso [ys_factors()], [ys_add_factors()]
 #' @md
 #' @export
-ys_factors_fl <- function(data, spec, ..., .strict = TRUE) {
+ys_factors_fl <- function(data, spec, ...) {
   flags <- ys_flags_chr(spec, ...)
   fct_ok <- map_lgl(spec, ~ isTRUE(.x[["make_factor"]]))
   has_values <- map_lgl(spec, ~!is.null(.x[["values"]]))

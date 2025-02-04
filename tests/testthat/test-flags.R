@@ -55,7 +55,7 @@ test_that("flags are extracted as list", {
   expect_identical(x$covariate, met$covariate)
   expect_identical(x$times, met$times)
   
-  x <- ys_flags(spec, covariate:times)
+  x <- ys_flags(spec, covariate:cat)
   expect_identical(x, met)
   
   expect_error(ys_flags(spec, abc), "Column `abc` doesn't exist.")

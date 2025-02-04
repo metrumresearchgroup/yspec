@@ -4,7 +4,7 @@
 \alias{ys_factors_fl}
 \title{Add factors based on flags}
 \usage{
-ys_factors_fl(data, spec, ..., .strict = TRUE)
+ys_factors_fl(data, spec, ...)
 }
 \arguments{
 \item{data}{the data set to modify.}
@@ -35,7 +35,7 @@ data <- ys_factors_fl(data, spec, cat)
 
 head(data, 2)
 
-data <- ys_factors_fl(data, spec, covariate)
+data <- ys_factors_fl(data, spec, covariate, nm)
 
 head(data, 2)
 
