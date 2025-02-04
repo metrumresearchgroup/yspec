@@ -84,11 +84,14 @@ add_flags <- function(x) {
 #' @export
 ys_flags <- function(x, ...) {
   flags <- pull_meta(x, "flags") 
-  pos <- tidyselect::eval_select(expr(c(...)), flags)
-  if(length(pos)) {
-    flags <- flags[pos]  
+  if (!length(match.call(expand.dots = FALSE)$...)) {
+    return(flags)
   }
-  flags
+  Expr <- expr(c(...))
+  pos <- eval_select(expr(c(...)), flags)
+  res <- flags[pos]
+  names(res) <- names(pos)
+  res
 }
 
 #' @md
@@ -120,4 +123,3 @@ ys_select_fl <- function(x, ...) {
   what <- ys_flags_chr(x, ...)
   ys_select(x, tidyselect::all_of(what))
 }
-  

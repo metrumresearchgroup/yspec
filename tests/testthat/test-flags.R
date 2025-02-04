@@ -86,3 +86,23 @@ test_that("select from spec via flags", {
   
   expect_error(ys_select_fl(spec, abc), "Column `abc` doesn't exist.")
 })
+
+test_that("No result with selection helper returns zero-length list", {
+  spec <- ys_help$spec()  
+  ans <- ys_flags(spec, contains("foobert"))
+  expect_is(ans, "list")
+  expect_length(ans, 0)
+  
+  ans <- ys_flags(spec, contains("foobert"), contains("covar"))
+  expect_is(ans, "list")
+  expect_length(ans, 1)
+  expect_equal(names(ans), "covariate")
+})
+
+test_that("Rename when selecting flags", {
+  spec <- ys_help$spec()
+  ans <- ys_flags(spec, nonmem = nm, covariates = covariate)
+  expect_is(ans, "list")
+  expect_length(ans, 2)
+  expect_equal(names(ans), c("nonmem", "covariates"))
+})
