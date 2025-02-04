@@ -87,7 +87,6 @@ ys_flags <- function(x, ...) {
   if (!length(match.call(expand.dots = FALSE)$...)) {
     return(flags)
   }
-  Expr <- expr(c(...))
   pos <- eval_select(expr(c(...)), flags)
   res <- flags[pos]
   names(res) <- names(pos)
