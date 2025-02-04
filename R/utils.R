@@ -1,8 +1,11 @@
 
-#' @noRd
-#' @export
-merge.list <- function(x,y,..., open=FALSE,
+merge.list <- function() stop()
+
+
+merge_list <- function(x,y,..., open=FALSE,
                        warn=FALSE, context="object") {
+  
+  stopifnot("`x` must be a list." = is.list(x))
   
   y <- as.list(y)
   
