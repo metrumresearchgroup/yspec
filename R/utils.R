@@ -1,4 +1,4 @@
-# Replaces old merge.list(strict = TRUE) functionality
+# Replaces old merge.list(open = FALSE) functionality
 combine_list <- function(left, right) {
   if(length(right)==0) return(left)
   if(!all(is.list(left),is.list(right))) {
