@@ -30,21 +30,21 @@ ys_make_factor(values, x, strict = TRUE, .missing = NULL)
 yspec_make_factor(values, x, strict = TRUE, .missing = NULL)
 }
 \arguments{
-\item{.data}{the data set to modify}
+\item{.data}{the data set to modify.}
 
-\item{.spec}{a yspec object}
+\item{.spec}{a yspec object.}
 
 \item{...}{unquoted column names for modification; passing nothing through
-\code{...} will signal for all columns to be considered for factors}
+\code{...} will signal for all columns to be considered for factors.}
 
 \item{.all}{if \code{TRUE} then any column with a \code{values} attribute or  where
-the \code{make_factor} field evaluates to \code{TRUE} will be added as a factor}
+the \code{make_factor} field evaluates to \code{TRUE} will be added as a factor.}
 
 \item{.missing}{a label to use assign to missing values \code{NA} when making
 the factor; keep this \code{NULL} (the default) to let missing values be handled
-naturally by \code{factor()}}
+naturally by \code{factor()}.}
 
-\item{.suffix}{used to make the column name for the factors}
+\item{.suffix}{used to make the column name for the factors.}
 
 \item{values}{a vector of values to convert to a factor}
 
@@ -77,5 +77,5 @@ head(ys_add_factors(data, spec))
 
 }
 \seealso{
-\code{\link[=ys_factors]{ys_factors()}}
+\code{\link[=ys_factors]{ys_factors()}}, \code{\link[=ys_factors_fl]{ys_factors_fl()}}
 }

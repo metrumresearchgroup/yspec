@@ -42,3 +42,90 @@ test_that("flags are propagated from lookup file [YSP-TEST-0044]", {
   expect_false(spec$CP$dots$updated_from_lookup)
   expect_true(spec$CP$dots$came_from_lookup)
 })
+
+test_that("flags are extracted as list", {
+  spec <- ys_help$spec()
+  
+  met <- pull_meta(spec, "flags")
+  x <- ys_flags(spec)
+  expect_identical(names(met), names(x))
+  
+  x <- ys_flags(spec, covariate, times)
+  expect_identical(names(x), c("covariate", "times"))
+  expect_identical(x$covariate, met$covariate)
+  expect_identical(x$times, met$times)
+  
+  x <- ys_flags(spec, covariate:cat)
+  expect_identical(x, met)
+  
+  expect_error(ys_flags(spec, abc), "Column `abc` doesn't exist.")
+})
+
+test_that("flags are extracted as character vector", {
+  spec <- ys_help$spec()
+  
+  met <- pull_meta(spec, "flags")
+  
+  x <- ys_flags_chr(spec)
+  met_chr <- unlist(met, use.names = FALSE)
+  expect_identical(x, met_chr)
+  
+  x <- ys_flags_chr(spec, times, covariate)
+  expect_null(names(x))
+  met_chr <- unlist(met[c("times", "covariate")], use.names = FALSE)
+  expect_identical(x, met_chr)
+})
+
+test_that("select from spec via flags", {
+  spec <- ys_help$spec()
+  
+  sspec <- ys_select_fl(spec, covariate, nm)
+  cols <- ys_flags_chr(spec, covariate, nm)
+  
+  expect_identical(names(sspec), cols)
+  
+  expect_error(ys_select_fl(spec, abc), "Column `abc` doesn't exist.")
+})
+
+test_that("No result with selection helper returns zero-length list", {
+  spec <- ys_help$spec()  
+  ans <- ys_flags(spec, contains("foobert"))
+  expect_is(ans, "list")
+  expect_length(ans, 0)
+  
+  ans <- ys_flags(spec, contains("foobert"), contains("covar"))
+  expect_is(ans, "list")
+  expect_length(ans, 1)
+  expect_equal(names(ans), "covariate")
+})
+
+test_that("Rename when selecting flags", {
+  spec <- ys_help$spec()
+  ans <- ys_flags(spec, nonmem = nm, covariates = covariate)
+  expect_is(ans, "list")
+  expect_length(ans, 2)
+  expect_equal(names(ans), c("nonmem", "covariates"))
+})
+
+test_that("Add factors based on flags", {
+  spec <- ys_help$spec()
+  data <- ys_help$data()
+  
+  fl <- ys_flags(spec)
+  
+  ans <- ys_factors_fl(data, spec, cat)
+  diff <- setdiff(names(ans), names(data))
+  expect_equal(diff, paste0(fl$cat, "_v"))
+  expect_is(ans[[fl$cat[1]]], "factor")
+  expect_is(ans[[fl$cat[2]]], "factor")
+  
+  ans2 <- ys_factors_fl(data, spec, cat, covariate)
+  expect_identical(ans, ans2)
+
+  # Nothing that can be a factor
+  expect_error(ys_factors_fl(data, spec, covariate), "No flags could be selected")
+  
+  # Flag doesn't exist
+  expect_error(ys_factors_fl(data, spec, kyle), "Column `kyle` doesn't exist")
+
+})

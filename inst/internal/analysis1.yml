@@ -7,6 +7,9 @@ SETUP__:
     bmiunits: "kg/m$^2$"
   flags: 
     covariate: [AGE:SCR, HT, AST:ALT]
+    nm: [ID, TIME, CMT, AMT, MDV]
+    times: [TIME, TAD]
+    cat: [SEQ, STUDY]
   lookup_file: "look.yml"
   extend_file: "analysis1-ext.yml"
 C:
