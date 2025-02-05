@@ -1,29 +1,4 @@
-
-
-merge.list <- function(x,y,..., open=FALSE,
-                       warn=FALSE, context="object") {
-  
-  y <- as.list(y)
-  
-  ## Merge two lists
-  common <- intersect(names(x), names(y))
-  
-  x[common] <- y[common]
-  
-  if(open)  {
-    nw <- !is.element(names(y),names(x)) #| names(y) == wild
-    x <- c(x,y[nw])
-  } else {
-    if(length(common)==0 & warn) {
-      warning(
-        paste0("Found nothing to update: ", context),
-        call.=FALSE
-      )
-    }
-  }
-  x
-}
-
+# Replaces old merge.list(open = FALSE) functionality
 combine_list <- function(left, right) {
   if(length(right)==0) return(left)
   if(!all(is.list(left),is.list(right))) {

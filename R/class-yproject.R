@@ -261,7 +261,7 @@ unpack_meta_yproj <- function(x,...) {
     meta[["data_path"]] <- "../data/derived"
   }
   updates <- list(...)
-  meta <- merge.list(meta,updates)
+  meta <- update_list(meta,updates)
   structure(x, meta = meta)
 }
 
