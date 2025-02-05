@@ -1,16 +1,16 @@
 
 #' Add factors to data set based on spec information
 #' 
-#' @param .data the data set to modify
-#' @param .spec a yspec object
+#' @param .data the data set to modify.
+#' @param .spec a yspec object.
 #' @param ... unquoted column names for modification; passing nothing through 
-#' `...` will signal for all columns to be considered for factors
+#' `...` will signal for all columns to be considered for factors.
 #' @param .all if `TRUE` then any column with a `values` attribute or  where 
-#' the `make_factor` field evaluates to `TRUE` will be added as a factor
+#' the `make_factor` field evaluates to `TRUE` will be added as a factor.
 #' @param .missing a label to use assign to missing values `NA` when making 
 #' the factor; keep this `NULL` (the default) to let missing values be handled
-#' naturally by `factor()`
-#' @param .suffix used to make the column name for the factors
+#' naturally by `factor()`.
+#' @param .suffix used to make the column name for the factors.
 #' 
 #' @details
 #' Note that `.suffix` can be chosen using option `ys.fct.suffix`. When the 
@@ -32,7 +32,7 @@
 #' 
 #' head(ys_add_factors(data, spec))
 #' 
-#' @seealso [ys_factors()]
+#' @seealso [ys_factors()], [ys_factors_fl()]
 #' 
 #' @md
 #' @export
@@ -149,7 +149,7 @@ yspec_make_factor <- ys_make_factor
 #' 
 #' count(data, EVID, EVID_v)
 #' 
-#' @seealso [ys_add_factors()]
+#' @seealso [ys_add_factors()], [ys_factors_fl()]
 #' @md
 #' @export
 ys_factors <- function(data, spec, ...,  

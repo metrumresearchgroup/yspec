@@ -30,6 +30,20 @@ test_that("yspec methods [YSP-TEST-0135]", {
   expect_true(grepl("^ STUDY", pr[14]))
 })
 
+test_that("summary.yspec handles zero-length object", {
+  expect_identical(
+    summary(spec[NULL]),
+    data.frame(
+      name = character(),
+      info = character(),
+      unit = character(),
+      short = character(),
+      source = character(),
+      stringsAsFactors = FALSE
+    )
+  )
+})
+
 test_that("misc helpers [YSP-TEST-0136]", {
   expect_equal(yspec:::yml_rm("foo.yml"), "foo")
   expect_equal(yspec:::yml_rm("foo.yaml"), "foo")

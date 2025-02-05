@@ -150,7 +150,7 @@ summary.yspec <- function(object, ...) {
   if(any(ext != ".")) {
     out$source[ext != '.'] <- ext[ext != '.']
     out$info <- paste0(out$info, ifelse(ext == '.', "-", "e"))
-  } else {
+  } else if (length(out$info)) {
     out$info <- paste0(out$info, "-")  
   }
   out$source <- sub("\\.ya?ml$", "", out$source)
