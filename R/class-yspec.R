@@ -413,7 +413,8 @@ yspec_yml_file.default <- function(x,...) {
 #' @param spec yspec object for `data`.
 #' @param fun the function to use for forming `label`.
 #' @param strict if `TRUE`, generate an error when `data` names do not match 
-#' the `spec` names; otherwise, only common names are labeled.
+#' the `spec` names; otherwise, only data items in common between `data`
+#' and `spec` will be labeled.
 #' 
 #' @details
 #' By default, an error is generated when the column names of the data set 
@@ -430,9 +431,9 @@ yspec_yml_file.default <- function(x,...) {
 #' 
 #' data <- ys_help$data()
 #' 
-#' data <- ys_add_labels(data,spec)
+#' data <- ys_add_labels(data, spec)
 #' 
-#' sapply(data,attr,"label")
+#' sapply(data, attr, "label")
 #' 
 #' str(data[,1:5])
 #' 

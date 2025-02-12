@@ -14,7 +14,8 @@ ys_add_labels(data, spec, fun = label.ycol, strict = TRUE)
 \item{fun}{the function to use for forming \code{label}.}
 
 \item{strict}{if \code{TRUE}, generate an error when \code{data} names do not match
-the \code{spec} names; otherwise, only common names are labeled.}
+the \code{spec} names; otherwise, only data items in common between \code{data}
+and \code{spec} will be labeled.}
 }
 \description{
 This is commonly done prior to saving data to SASxport or other formats
@@ -35,9 +36,9 @@ spec <- ys_help$spec()
 
 data <- ys_help$data()
 
-data <- ys_add_labels(data,spec)
+data <- ys_add_labels(data, spec)
 
-sapply(data,attr,"label")
+sapply(data, attr, "label")
 
 str(data[,1:5])
 
