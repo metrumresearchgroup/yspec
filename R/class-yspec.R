@@ -412,9 +412,9 @@ yspec_yml_file.default <- function(x,...) {
 #' @param data a `data.frame` to label.
 #' @param spec yspec object for `data`.
 #' @param fun the function to use for forming `label`.
-#' @param strict if `TRUE`, generate an error when `data` names do not match 
-#' the `spec` names; otherwise, only data items in common between `data`
-#' and `spec` will be labeled.
+#' @param strict if `TRUE`, generate an error when `data` names are not identical
+#' to `spec` names (including order); otherwise, only data items in common between 
+#' `data` and `spec` (in any order) will be labeled.
 #' 
 #' @details
 #' By default, an error is generated when the column names of the data set 
@@ -442,10 +442,10 @@ yspec_yml_file.default <- function(x,...) {
 ys_add_labels <- function(data, spec, fun = label.ycol, strict = TRUE) {
   assert_that(inherits(data,"data.frame"))
   assert_that(inherits(spec,"yspec"))
-  col_labels <- map_chr(spec, fun)
   if(isTRUE(strict)) {
     assert_that(identical(names(data), names(spec)))  
   }
+  col_labels <- map_chr(spec, fun)
   col_labels <- col_labels[names(col_labels) %in% names(data)]
   if(!length(col_labels)) {
     warn("No columns were labeled.")
