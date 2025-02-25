@@ -406,14 +406,21 @@ yspec_yml_file.default <- function(x,...) {
 
 #' Add label attribute to data set columns
 #' 
+#' This is commonly done prior to saving data to SASxport or other formats
+#' that will track label metadata for a data column.
 #' 
-#' @param data a `data.frame` to label
-#' @param spec yspec object for `data`
-#' @param fun the function to use for forming `label`
+#' @param data a `data.frame` to label.
+#' @param spec yspec object for `data`.
+#' @param fun the function to use for forming `label`.
+#' @param strict if `TRUE`, generate an error when `data` names are not identical
+#' to `spec` names (including order); otherwise, only data items in common between 
+#' `data` and `spec` (in any order) will be labeled.
 #' 
 #' @details
-#' An error is generated if the names of `data` are not identical to names 
-#' of `spec`. 
+#' By default, an error is generated when the column names of the data set 
+#' are not identical to the column names in the spec. Set `strict = FALSE` to
+#' bypass this error and label only columns that are in common between `data`
+#' and `spec`.
 #' 
 #' If the user passes `fun` to generate a custom label, the function must take
 #' a single argument, the column `ycol` object, and must return the label for 
@@ -424,25 +431,31 @@ yspec_yml_file.default <- function(x,...) {
 #' 
 #' data <- ys_help$data()
 #' 
-#' data <- ys_add_labels(data,spec)
+#' data <- ys_add_labels(data, spec)
 #' 
-#' sapply(data,attr,"label")
+#' sapply(data, attr, "label")
 #' 
 #' str(data[,1:5])
 #' 
 #' @md
 #' @export
-ys_add_labels <- function(data,spec,fun=label.ycol) {
+ys_add_labels <- function(data, spec, fun = label.ycol, strict = TRUE) {
   assert_that(inherits(data,"data.frame"))
   assert_that(inherits(spec,"yspec"))
-  assert_that(identical(names(data),names(spec)))
-  col_labels <- map_chr(spec,fun)
-  for(i in seq_along(data)) {
-    attr(data[[i]],"label") <- col_labels[[i]]
+  if(isTRUE(strict)) {
+    assert_that(identical(names(data), names(spec)))  
+  }
+  col_labels <- map_chr(spec, fun)
+  col_labels <- col_labels[names(col_labels) %in% names(data)]
+  if(!length(col_labels)) {
+    warn("No columns were labeled.")
+    return(data)
+  }
+  for(col in names(col_labels)) {
+    attr(data[[col]], "label") <- col_labels[[col]]
   }
   data
 }
-
 
 #' Prune a data frame, keeping columns in a yspec object
 #' 

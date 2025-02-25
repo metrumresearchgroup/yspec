@@ -134,3 +134,28 @@ test_that("add column labels [YSP-TEST-0144]", {
   expect_error(ys_add_labels(datamix,spec), "names\\(data\\) not identical to")
 })
 
+test_that("add labels without all the columns", {
+  data <- ys_help$data()
+  spec <- ys_help$spec()
+  
+  set.seed(98765)
+  data <- data[sample(names(data))]
+  expect_error(ys_add_labels(data, spec), "names\\(data\\) not identical")
+  
+  data$MDV <- NULL
+  data$RF <- NULL
+  expect_error(ys_add_labels(data, spec), "names\\(data\\) not identical")
+  
+  data <- ys_add_labels(data, spec, strict = FALSE)
+  expect_is(data, "data.frame")
+  labels <- lapply(data, attr, which = "label")
+  
+  # No labels are NULL
+  nulls <- sapply(labels, is.null)
+  expect_false(any(nulls))
+  
+  # Form a label list and confirm labels are correct
+  confirm <- lapply(spec, yspec:::label.ycol)
+  confirm <- confirm[names(data)]
+  expect_equal(confirm, labels)
+})
