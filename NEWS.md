@@ -1,4 +1,16 @@
-# yspec (development version)
+# yspec 0.7.0
+
+- Added utilities to work with flags in the spec (#166), including 
+  - `ys_flags()` to extract a named list of flag data
+  - `ys_flags_chr()` to extract a character vector of flagged data names
+  - `ys_select_fl()` to select from a `yspec` object based on flagged
+    data names
+  - `ys_factors_fl()` to create factors in a data frame based on flagged 
+    data names
+
+- `ys_add_labels()` gains a `strict` argument, allowing the user to label
+  any data frame if there is at least one name in common between the `spec`
+  and the data frame (#167).
 
 # yspec 0.6.3
 
