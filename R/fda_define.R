@@ -21,7 +21,7 @@ pack_codes <- function(x) {
 as_fda_table_row <- function(x) {
   variable <- x[["col"]]
   label <- label(x, default = "short")
-  if(.has("unit", x)) {
+  if(.has("unit", x) && nchar(x$unit) > 0) {
     label <- paste0(label, " (unit: ", x$unit, ")")
   }
   tibble(
