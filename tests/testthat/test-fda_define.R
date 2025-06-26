@@ -27,4 +27,13 @@ test_that("data_stem is respected in regulatory define [YSP-TEST-0040]", {
   expect_equal(basename(pr$xpt_file),paste0(pr$data_stem,".xpt"))
 })
 
-
+test_that("skip printing unit in define.pdf when blank", {
+  spec <- yspec:::test_spec_test("no-unit.yaml")
+  proj <- ys_project(spec)
+  m <- get_meta(proj)
+  ans <- fda_define(m$spec_file)
+  ans <- ans[grepl("^[A,B,C] \\&", ans)]
+  expect_no_match(ans[1], "unit")
+  expect_match(ans[2], "unit: ng/mL", fixed = TRUE)
+  expect_no_match(ans[3], "unit")
+})
