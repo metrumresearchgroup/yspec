@@ -134,9 +134,9 @@ fda_content_table <- function(x, ext=".xpt", loc=".") {
 
 ##' @rdname fda_table
 ##' @export
-fda_table_file <- function(file) {
+fda_table_file <- function(file, ns = c("tex", "define")) {
   x <- load_spec(file)
-  x <- try_tex_namespace(x)
+  x <- try_this_namespace(x, ns)
   fda_table(x)
 }
 
@@ -158,19 +158,19 @@ fda_content_table_loc <- function(data_file,loc) {
 
 ##' Generate content for FDA define document
 ##'
-##' @param file full path to define yaml file
-##' @param title used in yaml front matter
+##' @param file full path to define yaml file.
+##' @param title used in yaml front matter.
 ##' @param ext data set file extension to include; this should only 
-##' be changed from default value of ".xpt" for testing purposes
+##' be changed from default value of ".xpt" for testing purposes.
 ##' @param loc location to use for data set files; this should 
-##' only be changed from default value of "." for testing purposes
-##' @param ... arguments passed to rendering functions; see
-##' details
+##' only be changed from default value of "." for testing purposes.
+##' @param ns character vector of namespaces to invoke prior to rendering the 
+##' document.
+##' @param ... arguments passed to rendering functions; see **Details**.
 ##'
 ##' @return
-##' A character vector of in markdown format.  Wrap
-##' [fda_define()] in [writeLines()] and
-##' render `asis` in an Rmarkdown document.
+##' A character vector of in markdown format.  Wrap [fda_define()] in 
+##' [writeLines()] and render `asis` in an Rmarkdown document.
 ##'
 ##' @examples
 ##' proj <- file_proj_ex()
@@ -183,7 +183,8 @@ fda_content_table_loc <- function(data_file,loc) {
 ##' @seealso [fda_table()]
 ##' @md
 ##' @export
-fda_define <- function(file, title="Datasets", ext=".xpt", loc=".",...) {
+fda_define <- function(file, title="Datasets", ext=".xpt", loc=".", 
+                       ns = c("tex", "define"), ...) {
   
   x <- load_spec_proj(file)
   
@@ -194,7 +195,7 @@ fda_define <- function(file, title="Datasets", ext=".xpt", loc=".",...) {
   specs <- map(x, function(this) {
     title <- paste0(this$description, " (`", this$data_file, "`)")
     header <- paste0("## ", title, " \\label{", this$name,"}")
-    c(header, "\\noindent", " ", "  ", fda_table_file(this$spec_file))
+    c(header, "\\noindent", " ", "  ", fda_table_file(this$spec_file, ns = ns))
   })
   c(main, contents, flatten_chr(specs))
 }
@@ -256,6 +257,7 @@ render_fda_define.yproj <- function(x,
                                     loc = '.', 
                                     sponsor = NULL, 
                                     projectnumber = NULL,
+                                    ns = c("tex", "define"),
                                     ...) {
   
   output_dir <- normalPath(output_dir)
@@ -300,7 +302,9 @@ render_fda_define.yproj <- function(x,
   
   ys_regulatory_markup_ <- basename(tempfile(fileext="aeiou"))
   env <- new.env()
-  env[[ys_regulatory_markup_]] <- format_fun(yamlfile, ext=ext, loc=loc)
+  env[[ys_regulatory_markup_]] <- format_fun(
+    yamlfile, ext = ext, loc = loc, ns = ns
+  )
   
   rmd <- system.file("rmd", "fdadefine.Rmd", package = "yspec")
   
@@ -340,15 +344,16 @@ render_fda_define.yspec <- function(x, ..., dots = list()) {
 #' The primary use case for this function is for creating TeX tables which can 
 #' be included in a report Appendix. See more in `details`.
 #'
-#' @param spec a `yspec` object
+#' @param spec a `yspec` object.
 #' @param fun a function to format a TeX table; if `NULL` (the default), the 
-#' table will be rendered using [fda_table()]
-#' @param tex logical; if `TRUE`, switch to `tex` namespace if it exists
+#' table will be rendered using [fda_table()].
+#' @param tex logical; if `TRUE`, switch to `tex` namespace; see `ns` argument.
+#' @param ns character vector of namespaces to load before generating tables.
 #' @param widths_ passed to [fda_table()] when `fun` is `NULL`; these are 
 #' slightly modified from the [fda_table()] default (see `examples`); note 
 #' the trailing underscore in the argument name; these shouldn't need to be 
 #' changed for most use. 
-#' @param ... additional arguments passed to `fun`
+#' @param ... additional arguments passed to `fun`.
 #' 
 #' @return 
 #' The table text generated from `fun`.
@@ -377,7 +382,11 @@ ys_table <- function(spec, fun = NULL,
                      ns = c("tex", "define"),
                      widths_ = c(0.75, 1.95, 0.6, 2.15), ...) {
   assert_that(is_yspec(spec))
-  spec <- try_tex_namespace(spec)
+  assert_that(is.character(ns))
+  if(isTRUE(tex)) {
+    ns <- unique(c("tex", ns))  
+  }
+  spec <- try_this_namespace(spec, namespace = ns)
   if(is.null(fun)) {
     tab <- fda_table(spec, widths = widths_, ...)  
   } else {

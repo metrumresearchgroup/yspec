@@ -76,6 +76,7 @@ TAD:
 LDOS:
   short: last dose amount
   unit: mg
+  unit.define: milligrams
 MDV:
 BLQ:
   short: below limit of quantification

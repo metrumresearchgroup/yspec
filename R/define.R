@@ -37,7 +37,7 @@ call_format_fun <- function(yamlfile,
 ##' please note that the document **title**, **author**, and **date** can 
 ##' be set, along with the name of the output document, the working document 
 ##' build directory, and several other aspects of the document can be set
-##' in the call to [ys_document]. 
+##' in the call to [ys_document()]. 
 ##' 
 ##' @section latex requirements:
 ##' 
@@ -140,6 +140,7 @@ render_define.yproj <- function(x,
                                 date = as.character(Sys.Date()),
                                 sponsor = NULL, 
                                 projectnumber = NULL,
+                                ns = c("tex", "define"),
                                 ...) {
   
   if(missing(toc) & length(x)==1) toc <- "no"
@@ -174,7 +175,14 @@ render_define.yproj <- function(x,
   ys_working_markup_ <- basename(tempfile(fileext="aeiou"))
   
   env <- new.env()
-  env[[ys_working_markup_]] <- define_for_rmd(yamlfile,format,x,meta,tex=TRUE) 
+  env[[ys_working_markup_]] <- define_for_rmd( 
+    yamlfile,
+    format,
+    x,
+    meta,
+    tex = TRUE, 
+    ns = ns
+  ) 
   
   file <- normalPath(paste0(stem, ".Rmd"),mustWork=FALSE)
   
@@ -244,7 +252,8 @@ render_spec.yspec <- function(x, stem = get_meta(x)[["name"]], ..., dots = list(
 ##' @keywords internal
 ##' @md
 ##' @export
-define_for_rmd <- function(x,form_,proj=NULL,meta=NULL,tex=TRUE) {
+define_for_rmd <- function(x, form_, proj = NULL, meta = NULL, tex = TRUE, 
+                           ns = c("tex", "define")) {
   
   if(is.character(form_)) {
     format_fun <- get(form_, mode = "function")
@@ -269,8 +278,10 @@ define_for_rmd <- function(x,form_,proj=NULL,meta=NULL,tex=TRUE) {
   }
   
   if(isTRUE(tex)) {
-    specs <- map(specs, try_tex_namespace)
+    ns <- c("tex", ns)
   }
+  
+  specs <- map(specs, .f = try_this_namespace, namespace = ns)
   
   tex <- imap(proj, .f = function(xi,.name) {
     description <- proj[[.name]][["description"]]
