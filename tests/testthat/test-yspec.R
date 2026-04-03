@@ -117,12 +117,15 @@ test_that("combine two specs [YSP-TEST-0143]", {
 
 test_that("add column labels [YSP-TEST-0144]", {
   spec <- ys_help$spec()
+  ns <- c("define", "label_xpt")
+  # Expecting ys_add_labels to switch to label_xpt namespace
+  spec2 <- yspec:::try_this_namespace(spec, ns)
   data <- ys_help$data()
   
   data2 <- ys_add_labels(data,spec)
   labs2 <- purrr::map(data2, attr, "label")
-  expect_identical(labs2$WT,yspec:::label.ycol(spec$WT))
-  expect_identical(labs2$STUDY,yspec:::label.ycol(spec$STUDY))
+  expect_identical(labs2$WT,yspec:::label.ycol(spec2$WT))
+  expect_identical(labs2$STUDY,yspec:::label.ycol(spec2$STUDY))
   
   data3 <- ys_add_labels(data,spec,function(x) x$short)
   labs3 <- purrr::map(data3, attr, "label")
@@ -137,6 +140,8 @@ test_that("add column labels [YSP-TEST-0144]", {
 test_that("add labels without all the columns", {
   data <- ys_help$data()
   spec <- ys_help$spec()
+  # Expecting ys_add_labels to switch to label_xpt namespace
+  spec2 <- yspec:::try_this_namespace(spec, c("define", "label_xpt"))
   
   set.seed(98765)
   data <- data[sample(names(data))]
@@ -155,7 +160,7 @@ test_that("add labels without all the columns", {
   expect_false(any(nulls))
   
   # Form a label list and confirm labels are correct
-  confirm <- lapply(spec, yspec:::label.ycol)
+  confirm <- lapply(spec2, yspec:::label.ycol)
   confirm <- confirm[names(data)]
   expect_equal(confirm, labels)
 })

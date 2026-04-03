@@ -4,7 +4,13 @@
 \alias{ys_add_labels}
 \title{Add label attribute to data set columns}
 \usage{
-ys_add_labels(data, spec, fun = label.ycol, strict = TRUE)
+ys_add_labels(
+  data,
+  spec,
+  fun = label.ycol,
+  strict = TRUE,
+  ns = c("define", "label_xpt")
+)
 }
 \arguments{
 \item{data}{a \code{data.frame} to label.}
@@ -13,9 +19,12 @@ ys_add_labels(data, spec, fun = label.ycol, strict = TRUE)
 
 \item{fun}{the function to use for forming \code{label}.}
 
-\item{strict}{if \code{TRUE}, generate an error when \code{data} names are not identical
-to \code{spec} names (including order); otherwise, only data items in common between
-\code{data} and \code{spec} (in any order) will be labeled.}
+\item{strict}{if \code{TRUE}, generate an error when \code{data} names are not
+identical to \code{spec} names (including order); otherwise, only data items in
+common between \code{data} and \code{spec} (in any order) will be labeled.}
+
+\item{ns}{character vector of namespaces to try to invoke prior to labeling
+the data set.}
 }
 \description{
 This is commonly done prior to saving data to SASxport or other formats

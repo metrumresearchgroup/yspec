@@ -89,6 +89,8 @@ PHASE:
   dots: {categorical: true}
 STUDY: 
   short: study number
+  label: study ID number
+  label.label_xpt: Unique study identifier
   values: {SAD: 1, MAD: 2, Renal: 3, Hepatic: 4}
 RF: 
   short: renal function stage
