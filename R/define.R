@@ -10,10 +10,13 @@ call_format_fun <- function(yamlfile,
 
 ##' Render a document from one or more specification objects
 ##' 
-##' This function is a wrapper around [render_define()] and [render_fda_define()].
+##' This function is a wrapper around [render_define()] and 
+##' [render_fda_define()].
 ##' 
-##' @param x a spec or project object
-##' @param type the document type
+##' @param x a spec or project object.
+##' @param type the document type.
+##' @param ns a character vector of namespaces to invoke prior to rendering the 
+##' document.
 ##' @param ... passed to [render_define()] or [render_fda_define()]; it is important
 ##' to review these help topics to see what other aspects of the document 
 ##' can be specified; see also `details` here.
@@ -60,13 +63,16 @@ call_format_fun <- function(yamlfile,
 ##' @seealso [render_define()], [render_fda_define()]
 ##' @md
 ##' @export
-ys_document <- function(x, type = c("working", "regulatory"), ...) {
+ys_document <- function(x, type = c("working", "regulatory"), 
+                        ns = c("tex", "define"), ...) {
   if(is.character(x)) {
-    return(ys_document(load_spec_any(x), type = type, ...))  
+    return(ys_document(load_spec_any(x), type = type, ns = ns, ...))  
   }
   type <- match.arg(type)
-  if(type=="regulatory") return(render_fda_define(x,...))
-  render_define(x,...)
+  if(type=="regulatory") {
+    return(render_fda_define(x, ns = ns, ...))
+  }
+  render_define(x, ns = ns, ...)
 }
 
 ##' Render a `define.pdf` document
@@ -75,23 +81,25 @@ ys_document <- function(x, type = c("working", "regulatory"), ...) {
 ##' 
 ##' @inheritParams ys_project
 ##'
-##' @param x a `yproj` object or project specification file name
-##' @param stem used to name the output file
+##' @param x a `yproj` object or project specification file name.
+##' @param stem used to name the output file.
 ##' @param format the name of a function that will generate code formatting
-##' the data specification information
-##' @param output_format passed to [rmarkdown::render()]
-##' @param output_dir passed to [rmarkdown::render()]
+##' the data specification information.
+##' @param output_format passed to [rmarkdown::render()].
+##' @param output_dir passed to [rmarkdown::render()].
 ##' @param build_dir directory where `rmarkdown` should build the
-##' document
-##' @param title used in yaml front matter
-##' @param author used in yaml front matter
-##' @param toc used in yaml front matter
-##' @param number_sections used in yaml front matter
+##' document.
+##' @param title used in yaml front matter.
+##' @param author used in yaml front matter.
+##' @param toc used in yaml front matter.
+##' @param number_sections used in yaml front matter.
 ##' @param rmd_template full path to rmarkdown file to be used to template the 
-##' data specification document
-##' @param date used in yaml front matter
-##' @param dots passed to object converter
-##' @param ... passed to [rmarkdown::render()]
+##' data specification document.
+##' @param date used in yaml front matter.
+##' @param dots passed to object converter.
+##' @param ns character vector of namespaces to invoke prior to rendering the 
+##' document.
+##' @param ... passed to [rmarkdown::render()].
 ##' 
 ##'
 ##' @details

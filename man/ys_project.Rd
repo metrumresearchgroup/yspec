@@ -26,22 +26,22 @@ ys_project_file(
 as_proj_spec(...)
 }
 \arguments{
-\item{...}{yspec objects or file names of yaml specification files}
+\item{...}{yspec objects or file names of yaml specification files.}
 
-\item{output}{the name and path where the project file is to be written}
+\item{output}{the name and path where the project file is to be written.}
 
-\item{data_path}{optional data path}
+\item{data_path}{optional data path.}
 
-\item{dots}{used to update \code{SETUP__} block data items}
+\item{dots}{used to update \code{SETUP__} block data items.}
 
-\item{sponsor}{optional project sponsor}
+\item{sponsor}{optional project sponsor.}
 
-\item{projectnumber}{optional project number in \code{...}}
+\item{projectnumber}{optional project number in \code{...}.}
 
 \item{keep_spec_data}{if \code{TRUE}, then the specification data is saved in the
-meta space of the project object}
+meta space of the project object.}
 
-\item{where}{directory containing the specification files if listed}
+\item{where}{directory containing the specification files if listed.}
 }
 \value{
 an object of class yproj

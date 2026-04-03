@@ -129,15 +129,15 @@ csv_file_name <- function(data_path, data_stem, ext = ".csv", ...) {
 
 ##' Create a project object from data spec objects
 ##' 
-##' @param ... yspec objects or file names of yaml specification files
-##' @param output the name and path where the project file is to be written
-##' @param where directory containing the specification files if listed
-##' @param data_path optional data path
-##' @param dots used to update `SETUP__` block data items
-##' @param sponsor optional project sponsor
-##' @param projectnumber optional project number in `...`
+##' @param ... yspec objects or file names of yaml specification files.
+##' @param output the name and path where the project file is to be written.
+##' @param where directory containing the specification files if listed.
+##' @param data_path optional data path.
+##' @param dots used to update `SETUP__` block data items.
+##' @param sponsor optional project sponsor.
+##' @param projectnumber optional project number in `...`.
 ##' @param keep_spec_data if `TRUE`, then the specification data is saved in the 
-##' meta space of the project object
+##' meta space of the project object.
 ##' @return an object of class yproj
 ##' 
 ##' @details

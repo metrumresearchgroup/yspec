@@ -4,19 +4,23 @@
 \alias{ys_document}
 \title{Render a document from one or more specification objects}
 \usage{
-ys_document(x, type = c("working", "regulatory"), ...)
+ys_document(x, type = c("working", "regulatory"), ns = c("tex", "define"), ...)
 }
 \arguments{
-\item{x}{a spec or project object}
+\item{x}{a spec or project object.}
 
-\item{type}{the document type}
+\item{type}{the document type.}
+
+\item{ns}{a character vector of namespaces to invoke prior to rendering the
+document.}
 
 \item{...}{passed to \code{\link[=render_define]{render_define()}} or \code{\link[=render_fda_define]{render_fda_define()}}; it is important
 to review these help topics to see what other aspects of the document
 can be specified; see also \code{details} here.}
 }
 \description{
-This function is a wrapper around \code{\link[=render_define]{render_define()}} and \code{\link[=render_fda_define]{render_fda_define()}}.
+This function is a wrapper around \code{\link[=render_define]{render_define()}} and
+\code{\link[=render_fda_define]{render_fda_define()}}.
 }
 \details{
 Select \code{type} of "working` for a working document that contains more
@@ -36,7 +40,7 @@ it is important to review arguments to those functions as well.  Specifically,
 please note that the document \strong{title}, \strong{author}, and \strong{date} can
 be set, along with the name of the output document, the working document
 build directory, and several other aspects of the document can be set
-in the call to \link{ys_document}.
+in the call to \code{\link[=ys_document]{ys_document()}}.
 }
 \section{latex requirements}{
 

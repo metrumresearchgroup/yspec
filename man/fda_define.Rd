@@ -4,26 +4,34 @@
 \alias{fda_define}
 \title{Generate content for FDA define document}
 \usage{
-fda_define(file, title = "Datasets", ext = ".xpt", loc = ".", ...)
+fda_define(
+  file,
+  title = "Datasets",
+  ext = ".xpt",
+  loc = ".",
+  ns = c("tex", "define"),
+  ...
+)
 }
 \arguments{
-\item{file}{full path to define yaml file}
+\item{file}{full path to define yaml file.}
 
-\item{title}{used in yaml front matter}
+\item{title}{used in yaml front matter.}
 
 \item{ext}{data set file extension to include; this should only
-be changed from default value of ".xpt" for testing purposes}
+be changed from default value of ".xpt" for testing purposes.}
 
 \item{loc}{location to use for data set files; this should
-only be changed from default value of "." for testing purposes}
+only be changed from default value of "." for testing purposes.}
 
-\item{...}{arguments passed to rendering functions; see
-details}
+\item{ns}{character vector of namespaces to invoke prior to rendering the
+document.}
+
+\item{...}{arguments passed to rendering functions; see \strong{Details}.}
 }
 \value{
-A character vector of in markdown format.  Wrap
-\code{\link[=fda_define]{fda_define()}} in \code{\link[=writeLines]{writeLines()}} and
-render \code{asis} in an Rmarkdown document.
+A character vector of in markdown format.  Wrap \code{\link[=fda_define]{fda_define()}} in
+\code{\link[=writeLines]{writeLines()}} and render \code{asis} in an Rmarkdown document.
 }
 \description{
 Generate content for FDA define document

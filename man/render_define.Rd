@@ -27,6 +27,7 @@ render_define(x, ...)
   date = as.character(Sys.Date()),
   sponsor = NULL,
   projectnumber = NULL,
+  ns = c("tex", "define"),
   ...
 )
 
@@ -41,40 +42,43 @@ render_spec(x, ...)
 \method{render_spec}{yspec}(x, stem = get_meta(x)[["name"]], ..., dots = list())
 }
 \arguments{
-\item{x}{a \code{yproj} object or project specification file name}
+\item{x}{a \code{yproj} object or project specification file name.}
 
-\item{...}{passed to \code{\link[rmarkdown:render]{rmarkdown::render()}}}
+\item{...}{passed to \code{\link[rmarkdown:render]{rmarkdown::render()}}.}
 
-\item{stem}{used to name the output file}
+\item{stem}{used to name the output file.}
 
 \item{format}{the name of a function that will generate code formatting
-the data specification information}
+the data specification information.}
 
-\item{output_format}{passed to \code{\link[rmarkdown:render]{rmarkdown::render()}}}
+\item{output_format}{passed to \code{\link[rmarkdown:render]{rmarkdown::render()}}.}
 
-\item{output_dir}{passed to \code{\link[rmarkdown:render]{rmarkdown::render()}}}
+\item{output_dir}{passed to \code{\link[rmarkdown:render]{rmarkdown::render()}}.}
 
 \item{build_dir}{directory where \code{rmarkdown} should build the
-document}
+document.}
 
-\item{title}{used in yaml front matter}
+\item{title}{used in yaml front matter.}
 
-\item{author}{used in yaml front matter}
+\item{author}{used in yaml front matter.}
 
-\item{toc}{used in yaml front matter}
+\item{toc}{used in yaml front matter.}
 
-\item{number_sections}{used in yaml front matter}
+\item{number_sections}{used in yaml front matter.}
 
 \item{rmd_template}{full path to rmarkdown file to be used to template the
-data specification document}
+data specification document.}
 
-\item{date}{used in yaml front matter}
+\item{date}{used in yaml front matter.}
 
-\item{sponsor}{optional project sponsor}
+\item{sponsor}{optional project sponsor.}
 
-\item{projectnumber}{optional project number in \code{...}}
+\item{projectnumber}{optional project number in \code{...}.}
 
-\item{dots}{passed to object converter}
+\item{ns}{character vector of namespaces to invoke prior to rendering the
+document.}
+
+\item{dots}{passed to object converter.}
 }
 \description{
 \code{render_spec} is an alias to \code{render_define}.  See details.

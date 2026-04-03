@@ -22,6 +22,7 @@ render_fda_define(x, ...)
   loc = ".",
   sponsor = NULL,
   projectnumber = NULL,
+  ns = c("tex", "define"),
   ...
 )
 
@@ -54,14 +55,17 @@ provided will create any necessary directories if they do not exist.}
 \item{build_dir}{directory where the document is to be built}
 
 \item{ext}{data set file extension to include; this should only
-be changed from default value of ".xpt" for testing purposes}
+be changed from default value of ".xpt" for testing purposes.}
 
 \item{loc}{location to use for data set files; this should
-only be changed from default value of "." for testing purposes}
+only be changed from default value of "." for testing purposes.}
 
-\item{sponsor}{optional project sponsor}
+\item{sponsor}{optional project sponsor.}
 
-\item{projectnumber}{optional project number in \code{...}}
+\item{projectnumber}{optional project number in \code{...}.}
+
+\item{ns}{character vector of namespaces to invoke prior to rendering the
+document.}
 
 \item{dots}{named list of arguments passed to object converter function}
 }
