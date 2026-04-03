@@ -136,8 +136,16 @@ validate_namespace_decode <- function(col_name, namespace, ns) {
 }
 
 try_tex_namespace <- function(x) {
-  if("tex" %in% pull_meta(x, "namespace")) {
-    x <- ys_namespace(x, "tex")  
+  try_this_namespace(x, "tex")
+}
+
+try_this_namespace <- function(x, namespace) {
+  assert_that(is.character(namespace))
+  meta_ns <- pull_meta(x, "namespace")
+  for(ns in namespace) {
+    if(ns %in% meta_ns) {
+      x <- ys_namespace(x, ns)  
+    }
   }
   x
 }

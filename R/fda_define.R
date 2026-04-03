@@ -372,7 +372,9 @@ render_fda_define.yspec <- function(x, ..., dots = list()) {
 #' 
 #' @md
 #' @export
-ys_table <- function(spec, fun = NULL, tex = TRUE, 
+ys_table <- function(spec, fun = NULL, 
+                     tex = TRUE, 
+                     ns = c("tex", "define"),
                      widths_ = c(0.75, 1.95, 0.6, 2.15), ...) {
   assert_that(is_yspec(spec))
   spec <- try_tex_namespace(spec)
