@@ -10,13 +10,16 @@ fda_table(x, widths = c(0.75, 2.1, 0.6, 2.2), ...)
 fda_table_file(file, ns = c("tex", "define"))
 }
 \arguments{
-\item{x}{a yspec object}
+\item{x}{a \code{yspec} object.}
 
-\item{widths}{column widths in inches; must be numeric vector with length 4}
+\item{widths}{column widths in inches; must be numeric vector with length 4.}
 
-\item{...}{not currently used}
+\item{...}{not currently used.}
 
-\item{file}{the full path to yaml specification file}
+\item{file}{the full path to yaml specification file.}
+
+\item{ns}{character vector of namespaces to invoke prior to rendering the
+document.}
 }
 \value{
 Character vector of latex code for the content of an FDA

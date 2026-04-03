@@ -16,7 +16,7 @@ call_format_fun <- function(yamlfile,
 ##' @param x a spec or project object.
 ##' @param type the document type.
 ##' @param ns a character vector of namespaces to invoke prior to rendering the 
-##' document.
+##' document; or pass `NULL` to use no namespaces.
 ##' @param ... passed to [render_define()] or [render_fda_define()]; it is important
 ##' to review these help topics to see what other aspects of the document 
 ##' can be specified; see also `details` here.
@@ -68,6 +68,7 @@ ys_document <- function(x, type = c("working", "regulatory"),
   if(is.character(x)) {
     return(ys_document(load_spec_any(x), type = type, ns = ns, ...))  
   }
+  assert_that(is.character(ns) || is.null(ns))
   type <- match.arg(type)
   if(type=="regulatory") {
     return(render_fda_define(x, ns = ns, ...))
@@ -256,7 +257,10 @@ render_spec.yspec <- function(x, stem = get_meta(x)[["name"]], ..., dots = list(
 ##' contents
 ##' @param proj a project object from which to render
 ##' @param meta meta data list 
-##' @param tex logical; if `TRUE` then try to switch to `tex` namespace if it exists
+##' @param tex logical; if `TRUE` then try to switch to `tex` namespace if 
+##' it exists.
+##' @param ns a character vector of namespaces to invoke prior to generating the
+##' document.
 ##' @keywords internal
 ##' @md
 ##' @export
@@ -285,8 +289,8 @@ define_for_rmd <- function(x, form_, proj = NULL, meta = NULL, tex = TRUE,
     specs <- map(file_names,load_spec)
   }
   
-  if(isTRUE(tex)) {
-    ns <- c("tex", ns)
+  if(isTRUE(tex) && is.charcter(ns)) {
+    ns <- unique(c("tex", ns))
   }
   
   specs <- map(specs, .f = try_this_namespace, namespace = ns)

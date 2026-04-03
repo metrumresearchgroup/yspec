@@ -62,10 +62,12 @@ add.to.row_long$command <- command__
 
 ##' Generate a table for FDA define.pdf document
 ##'
-##' @param x a yspec object
-##' @param file the full path to yaml specification file
-##' @param widths column widths in inches; must be numeric vector with length 4
-##' @param ... not currently used
+##' @param x a `yspec` object.
+##' @param file the full path to yaml specification file.
+##' @param widths column widths in inches; must be numeric vector with length 4.
+##' @param ns character vector of namespaces to invoke prior to rendering the 
+##' document.
+##' @param ... not currently used.
 ##'
 ##' @return Character vector of latex code for the content of an FDA 
 ##' `define.pdf` document.  It includes a table of contents as well as data spec
@@ -202,14 +204,14 @@ fda_define <- function(file, title="Datasets", ext=".xpt", loc=".",
 
 ##' Render a define.pdf document conforming to FDA standards
 ##'
-##' @param x a yaml specification file name or a yproj object
-##' @param stem used to name the output document
-##' @param title a title for the document
-##' @param date the document date
-##' @param author the document author
-##' @param format function to generate the define text
-##' @param dots named list of arguments passed to object converter function
-##' @param build_dir directory where the document is to be built
+##' @param x a yaml specification file name or a `yproj` object.
+##' @param stem used to name the output document.
+##' @param title a title for the document.
+##' @param date the document date.
+##' @param author the document author.
+##' @param format function to generate the define text.
+##' @param dots named list of arguments passed to object converter function.
+##' @param build_dir directory where the document is to be built.
 ##' @inheritParams fda_define
 ##' @inheritParams rmarkdown::render 
 ##' @inheritParams ys_project
@@ -382,8 +384,8 @@ ys_table <- function(spec, fun = NULL,
                      ns = c("tex", "define"),
                      widths_ = c(0.75, 1.95, 0.6, 2.15), ...) {
   assert_that(is_yspec(spec))
-  assert_that(is.character(ns))
-  if(isTRUE(tex)) {
+  assert_that(is.character(ns) || is.null(ns))
+  if(isTRUE(tex) && is.character(ns)) {
     ns <- unique(c("tex", ns))  
   }
   spec <- try_this_namespace(spec, namespace = ns)

@@ -23,7 +23,11 @@ contents}
 
 \item{meta}{meta data list}
 
-\item{tex}{logical; if \code{TRUE} then try to switch to \code{tex} namespace if it exists}
+\item{tex}{logical; if \code{TRUE} then try to switch to \code{tex} namespace if
+it exists.}
+
+\item{ns}{a character vector of namespaces to invoke prior to generating the
+document.}
 }
 \description{
 This function is for internal use by \code{\link[=render_define]{render_define()}}.

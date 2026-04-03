@@ -140,7 +140,9 @@ try_tex_namespace <- function(x) {
 }
 
 try_this_namespace <- function(x, namespace) {
+  if(is.null(namespace)) return(x)
   assert_that(is.character(namespace))
+  namspace <- unique(namespace)
   meta_ns <- pull_meta(x, "namespace")
   for(ns in namespace) {
     if(ns %in% meta_ns) {

@@ -31,19 +31,19 @@ render_fda_define(x, ...)
 \method{render_fda_define}{yspec}(x, ..., dots = list())
 }
 \arguments{
-\item{x}{a yaml specification file name or a yproj object}
+\item{x}{a yaml specification file name or a \code{yproj} object.}
 
 \item{...}{passed to \code{\link[rmarkdown:render]{rmarkdown::render()}}}
 
-\item{stem}{used to name the output document}
+\item{stem}{used to name the output document.}
 
-\item{title}{a title for the document}
+\item{title}{a title for the document.}
 
-\item{date}{the document date}
+\item{date}{the document date.}
 
-\item{author}{the document author}
+\item{author}{the document author.}
 
-\item{format}{function to generate the define text}
+\item{format}{function to generate the define text.}
 
 \item{output_dir}{The output directory for the rendered \code{output_file}.
 This allows for a choice of an alternate directory to which the output file
@@ -52,7 +52,7 @@ If a path is provided with a filename in \code{output_file} the directory
 specified here will take precedence. Please note that any directory path
 provided will create any necessary directories if they do not exist.}
 
-\item{build_dir}{directory where the document is to be built}
+\item{build_dir}{directory where the document is to be built.}
 
 \item{ext}{data set file extension to include; this should only
 be changed from default value of ".xpt" for testing purposes.}
@@ -67,7 +67,7 @@ only be changed from default value of "." for testing purposes.}
 \item{ns}{character vector of namespaces to invoke prior to rendering the
 document.}
 
-\item{dots}{named list of arguments passed to object converter function}
+\item{dots}{named list of arguments passed to object converter function.}
 }
 \description{
 Render a define.pdf document conforming to FDA standards
