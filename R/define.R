@@ -289,7 +289,7 @@ define_for_rmd <- function(x, form_, proj = NULL, meta = NULL, tex = TRUE,
     specs <- map(file_names,load_spec)
   }
   
-  if(isTRUE(tex) && is.charcter(ns)) {
+  if(isTRUE(tex) && is.character(ns)) {
     ns <- unique(c("tex", ns))
   }
   

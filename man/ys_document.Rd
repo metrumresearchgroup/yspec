@@ -12,7 +12,7 @@ ys_document(x, type = c("working", "regulatory"), ns = c("tex", "define"), ...)
 \item{type}{the document type.}
 
 \item{ns}{a character vector of namespaces to invoke prior to rendering the
-document.}
+document; or pass \code{NULL} to use no namespaces.}
 
 \item{...}{passed to \code{\link[=render_define]{render_define()}} or \code{\link[=render_fda_define]{render_fda_define()}}; it is important
 to review these help topics to see what other aspects of the document
