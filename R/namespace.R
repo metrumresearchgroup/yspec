@@ -139,13 +139,18 @@ try_tex_namespace <- function(x) {
   try_this_namespace(x, "tex")
 }
 
-try_this_namespace <- function(x, namespace) {
+try_this_namespace <- function(x, namespace, notify = FALSE) {
   if(is.null(namespace)) return(x)
   assert_that(is.character(namespace))
   namspace <- unique(namespace)
   meta_ns <- pull_meta(x, "namespace")
+  notify <- isTRUE(notify)
   for(ns in namespace) {
     if(ns %in% meta_ns) {
+      if(notify) {
+        msg <- "loading namespace: {ns}."
+        inform(glue(msg))
+      }
       x <- ys_namespace(x, ns)  
     }
   }
