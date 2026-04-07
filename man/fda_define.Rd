@@ -4,14 +4,7 @@
 \alias{fda_define}
 \title{Generate content for FDA define document}
 \usage{
-fda_define(
-  file,
-  title = "Datasets",
-  ext = ".xpt",
-  loc = ".",
-  ns = c("tex", "define"),
-  ...
-)
+fda_define(file, title = "Datasets", ext = ".xpt", loc = ".", ns = "tex", ...)
 }
 \arguments{
 \item{file}{full path to define yaml file.}

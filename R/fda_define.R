@@ -136,7 +136,7 @@ fda_content_table <- function(x, ext=".xpt", loc=".") {
 
 ##' @rdname fda_table
 ##' @export
-fda_table_file <- function(file, ns = c("tex", "define")) {
+fda_table_file <- function(file, ns = "tex") {
   x <- load_spec(file)
   x <- try_this_namespace(x, ns)
   fda_table(x)
@@ -186,7 +186,7 @@ fda_content_table_loc <- function(data_file,loc) {
 ##' @md
 ##' @export
 fda_define <- function(file, title="Datasets", ext=".xpt", loc=".", 
-                       ns = c("tex", "define"), ...) {
+                       ns = "tex", ...) {
   
   x <- load_spec_proj(file)
   
@@ -386,7 +386,7 @@ ys_table <- function(spec, fun = NULL,
   assert_that(is_yspec(spec))
   assert_that(is.character(ns) || is.null(ns))
   if(is.character(ns)) {
-    warn_if_missing_namespace(spec, ns)
+    warn_if_missing_namespace(spec, setdiff(ns, "tex"))
   }
   if(isTRUE(tex) && !is.null(ns)) {
     ns <- unique(c("tex", ns))  

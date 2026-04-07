@@ -7,7 +7,7 @@
 \usage{
 fda_table(x, widths = c(0.75, 2.1, 0.6, 2.2), ...)
 
-fda_table_file(file, ns = c("tex", "define"))
+fda_table_file(file, ns = "tex")
 }
 \arguments{
 \item{x}{a \code{yspec} object.}
