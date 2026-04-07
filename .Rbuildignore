@@ -20,3 +20,4 @@ dev
 ^docs$
 ^\.github$
 vignettes/*\.pdf
+^\.vscode$
