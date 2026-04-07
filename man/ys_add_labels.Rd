@@ -4,13 +4,7 @@
 \alias{ys_add_labels}
 \title{Add label attribute to data set columns}
 \usage{
-ys_add_labels(
-  data,
-  spec,
-  fun = label.ycol,
-  strict = TRUE,
-  ns = c("define", "label_xpt")
-)
+ys_add_labels(data, spec, fun = label.ycol, strict = TRUE, ns = NULL)
 }
 \arguments{
 \item{data}{a \code{data.frame} to label.}

@@ -27,7 +27,7 @@ render_define(x, ...)
   date = as.character(Sys.Date()),
   sponsor = NULL,
   projectnumber = NULL,
-  ns = c("tex", "define"),
+  ns = "tex",
   ...
 )
 

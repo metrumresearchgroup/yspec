@@ -117,15 +117,13 @@ test_that("combine two specs [YSP-TEST-0143]", {
 
 test_that("add column labels [YSP-TEST-0144]", {
   spec <- ys_help$spec()
-  ns <- c("define", "label_xpt")
-  # Expecting ys_add_labels to switch to label_xpt namespace
-  spec2 <- yspec:::try_this_namespace(spec, ns)
   data <- ys_help$data()
-  
+
+  # default ns = NULL: no namespace applied, labels from base spec
   data2 <- ys_add_labels(data,spec)
   labs2 <- purrr::map(data2, attr, "label")
-  expect_identical(labs2$WT,yspec:::label.ycol(spec2$WT))
-  expect_identical(labs2$STUDY,yspec:::label.ycol(spec2$STUDY))
+  expect_identical(labs2$WT,yspec:::label.ycol(spec$WT))
+  expect_identical(labs2$STUDY,yspec:::label.ycol(spec$STUDY))
   
   data3 <- ys_add_labels(data,spec,function(x) x$short)
   labs3 <- purrr::map(data3, attr, "label")
@@ -140,8 +138,6 @@ test_that("add column labels [YSP-TEST-0144]", {
 test_that("add labels without all the columns", {
   data <- ys_help$data()
   spec <- ys_help$spec()
-  # Expecting ys_add_labels to switch to label_xpt namespace
-  spec2 <- yspec:::try_this_namespace(spec, c("define", "label_xpt"))
 
   set.seed(98765)
   data <- data[sample(names(data))]
@@ -159,8 +155,8 @@ test_that("add labels without all the columns", {
   nulls <- sapply(labels, is.null)
   expect_false(any(nulls))
 
-  # Form a label list and confirm labels are correct
-  confirm <- lapply(spec2, yspec:::label.ycol)
+  # default ns = NULL: confirm labels match base spec (no namespace applied)
+  confirm <- lapply(spec, yspec:::label.ycol)
   confirm <- confirm[names(data)]
   expect_equal(confirm, labels)
 })
@@ -168,17 +164,16 @@ test_that("add labels without all the columns", {
 test_that("ns argument applies namespace before labeling", {
   data <- ys_help$data()
   spec <- ys_help$spec()
-  
-  
+
   # STUDY has label.label_xpt = "Unique study identifier" and base label = "study ID number"
-  # default ns = c("define", "label_xpt") -> label_xpt namespace applied
+  # default ns = NULL -> no namespace, base label used
   data1 <- ys_add_labels(data, spec)
-  expect_identical(attr(data1$STUDY, "label"), "Unique study identifier")
-  
-  # ns = NULL -> no namespace, base label used
-  data2 <- ys_add_labels(data, spec, ns = NULL)
-  expect_identical(attr(data2$STUDY, "label"), "study ID number")
-  
+  expect_identical(attr(data1$STUDY, "label"), "study ID number")
+
+  # ns = c("define", "label_xpt") -> label_xpt namespace applied
+  data2 <- ys_add_labels(data, spec, ns = c("define", "label_xpt"))
+  expect_identical(attr(data2$STUDY, "label"), "Unique study identifier")
+
   # ns = "define" -> define namespace applied, no label.define for STUDY -> base label used
   data3 <- ys_add_labels(data, spec, ns = "define")
   expect_identical(attr(data3$STUDY, "label"), "study ID number")

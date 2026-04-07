@@ -22,7 +22,7 @@ render_fda_define(x, ...)
   loc = ".",
   sponsor = NULL,
   projectnumber = NULL,
-  ns = c("tex", "define"),
+  ns = "tex",
   ...
 )
 

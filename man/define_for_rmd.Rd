@@ -4,14 +4,7 @@
 \alias{define_for_rmd}
 \title{Generate code for a generic define document}
 \usage{
-define_for_rmd(
-  x,
-  form_,
-  proj = NULL,
-  meta = NULL,
-  tex = TRUE,
-  ns = c("tex", "define")
-)
+define_for_rmd(x, form_, proj = NULL, meta = NULL, tex = TRUE, ns = "tex")
 }
 \arguments{
 \item{x}{a project file name}

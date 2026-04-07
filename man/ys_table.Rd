@@ -8,7 +8,7 @@ ys_table(
   spec,
   fun = NULL,
   tex = TRUE,
-  ns = c("tex", "define"),
+  ns = "tex",
   widths_ = c(0.75, 1.95, 0.6, 2.15),
   ...
 )
