@@ -445,7 +445,7 @@ ys_add_labels <- function(data, spec, fun = label.ycol, strict = TRUE,
                           ns = NULL) {
   assert_that(inherits(data, "data.frame"))
   assert_that(inherits(spec, "yspec"))
-  assert_that(is.character(ns) || is.null(ns))
+  assert_that(is.null(ns) || is.character(ns))
   if(isTRUE(strict)) {
     assert_that(identical(names(data), names(spec)))  
   }
