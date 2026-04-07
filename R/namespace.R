@@ -22,7 +22,7 @@ ys_namespace <- function(x, namespace = NULL) {
   for(ns in namespace) {
     assert_that(
       ns %in% available_namespaces, 
-      msg = glue("`{ns}` is not a namespace in this specification object")
+      msg = glue("`{ns}` is not a namespace in this specification object.")
     )
     x <- modify(x, switch_namespace, ns = ns, scan_for = VALID_NS_NAMES)
   }
@@ -139,20 +139,15 @@ try_tex_namespace <- function(x) {
   try_this_namespace(x, "tex")
 }
 
-try_this_namespace <- function(x, namespace, notify = FALSE) {
+try_this_namespace <- function(x, namespace) {
   if(is.null(namespace)) return(x)
   assert_that(is.character(namespace))
   namspace <- unique(namespace)
   meta_ns <- pull_meta(x, "namespace")
-  notify <- isTRUE(notify)
   for(ns in namespace) {
     if(ns %in% meta_ns) {
-      if(notify) {
-        msg <- "loading namespace: {ns}."
-        inform(glue(msg))
-      }
       x <- ys_namespace(x, ns)  
-    }
+    } 
   }
   x
 }
@@ -167,4 +162,17 @@ set_namespace <- function(x, ns) {
     return(structure(x, namespace = ns))  
   }
   structure(x, namespace = c(current_namespace(x), ns))
+}
+
+warn_if_missing_namespace <- function(x, ns) {
+  ret <- invisible(NULL)
+  meta_ns <- pull_meta(x, "namespace")
+  if(!is.character(meta_ns)) return(ret)
+  bad <- setdiff(ns, meta_ns)
+  if(!length(bad)) return(ret)
+  for(i in bad) {
+    msg <- c("x" = glue("`{i}` is not a namespace in this model specification object."))
+    warn(msg)
+  }
+  ret
 }

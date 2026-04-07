@@ -442,7 +442,7 @@ yspec_yml_file.default <- function(x,...) {
 #' @md
 #' @export
 ys_add_labels <- function(data, spec, fun = label.ycol, strict = TRUE, 
-                          ns = c("define", "label_xpt")) {
+                          ns = NULL) {
   assert_that(inherits(data, "data.frame"))
   assert_that(inherits(spec, "yspec"))
   assert_that(is.character(ns) || is.null(ns))

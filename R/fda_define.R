@@ -259,7 +259,7 @@ render_fda_define.yproj <- function(x,
                                     loc = '.', 
                                     sponsor = NULL, 
                                     projectnumber = NULL,
-                                    ns = c("tex", "define"),
+                                    ns = "tex",
                                     ...) {
   
   output_dir <- normalPath(output_dir)
@@ -381,11 +381,14 @@ render_fda_define.yspec <- function(x, ..., dots = list()) {
 #' @export
 ys_table <- function(spec, fun = NULL, 
                      tex = TRUE, 
-                     ns = c("tex", "define"),
+                     ns = "tex",
                      widths_ = c(0.75, 1.95, 0.6, 2.15), ...) {
   assert_that(is_yspec(spec))
   assert_that(is.character(ns) || is.null(ns))
-  if(isTRUE(tex) && is.character(ns)) {
+  if(is.character(ns)) {
+    warn_if_missing_namespace(spec, ns)
+  }
+  if(isTRUE(tex) && !is.null(ns)) {
     ns <- unique(c("tex", ns))  
   }
   spec <- try_this_namespace(spec, namespace = ns)

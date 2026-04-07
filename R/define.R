@@ -64,11 +64,15 @@ call_format_fun <- function(yamlfile,
 ##' @md
 ##' @export
 ys_document <- function(x, type = c("working", "regulatory"), 
-                        ns = c("tex", "define"), ...) {
+                        ns = "tex", ...) {
   if(is.character(x)) {
     return(ys_document(load_spec_any(x), type = type, ns = ns, ...))  
   }
   assert_that(is.character(ns) || is.null(ns))
+  if(is.character(ns)) {
+    ns <- cvec_cs(ns)
+    warn_if_missing_namespace(x, setdiff(ns, "tex"))
+  }
   type <- match.arg(type)
   if(type=="regulatory") {
     return(render_fda_define(x, ns = ns, ...))
@@ -149,7 +153,7 @@ render_define.yproj <- function(x,
                                 date = as.character(Sys.Date()),
                                 sponsor = NULL, 
                                 projectnumber = NULL,
-                                ns = c("tex", "define"),
+                                ns = "tex",
                                 ...) {
   
   if(missing(toc) & length(x)==1) toc <- "no"
@@ -265,7 +269,7 @@ render_spec.yspec <- function(x, stem = get_meta(x)[["name"]], ..., dots = list(
 ##' @md
 ##' @export
 define_for_rmd <- function(x, form_, proj = NULL, meta = NULL, tex = TRUE, 
-                           ns = c("tex", "define")) {
+                           ns = "tex") {
   
   if(is.character(form_)) {
     format_fun <- get(form_, mode = "function")

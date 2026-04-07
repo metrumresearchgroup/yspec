@@ -17,18 +17,23 @@ test_that("ys_table returns report table code [YSP-TEST-0127]", {
 
 test_that("ns argument sets namespace prior to generating table", {
   spec <- ys_help$spec()
-  # first, with default namespace
+  
+  # default: ns = "tex", tex = TRUE -> tex namespace applied
+  # LDOS has no unit.tex, so base unit "mg" is used
+  # DV has unit.tex = "$\mu$g/L"
   tex <- ys_table(spec)
-  tex <- tex[grepl("LDOS", tex)]
-  expect_match(tex, "unit: milligram", fixed = TRUE)
-  # now, remove define
-  tex <- ys_table(spec, ns = "tex")
-  tex1 <- tex[grepl("LDOS", tex)]
-  expect_match(tex1, "unit: mg", fixed = TRUE)
-  tex2 <- tex[grepl("dependent", tex)]
-  expect_match(tex2, "unit: $\\mu$g", fixed = TRUE)
-  # Pass NULL
+  expect_match(tex[grepl("LDOS", tex)], "unit: mg", fixed = TRUE)
+  expect_match(tex[grepl("dependent", tex)], "unit: $\\mu$g", fixed = TRUE)
+  
+  # ns = "define": unique(c("tex", "define")) -> both applied
+  # LDOS has unit.define = "milligrams"; DV still gets unit.tex
+  tex <- ys_table(spec, ns = "define")
+  expect_match(tex[grepl("LDOS", tex)], "unit: milligram", fixed = TRUE)
+  expect_match(tex[grepl("dependent", tex)], "unit: $\\mu$g", fixed = TRUE)
+  
+  # ns = NULL: no namespace applied, base values used
+  # DV base unit is "micrograms/L"
   tex <- ys_table(spec, ns = NULL)
-  tex <- tex[grepl("dependent", tex)]
-  expect_match(tex, "unit: micrograms/L", fixed = TRUE)
+  expect_match(tex[grepl("LDOS", tex)], "unit: mg", fixed = TRUE)
+  expect_match(tex[grepl("dependent", tex)], "unit: micrograms/L", fixed = TRUE)
 })
