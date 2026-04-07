@@ -138,6 +138,7 @@ fda_content_table <- function(x, ext=".xpt", loc=".") {
 ##' @export
 fda_table_file <- function(file, ns = "tex") {
   x <- load_spec(file)
+  assert_that(is.character(ns) || is.null(ns))
   x <- try_this_namespace(x, ns)
   fda_table(x)
 }
