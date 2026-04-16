@@ -2,7 +2,7 @@
 % Please edit documentation in R/ys-gg-labs.R
 \name{ys_gg_labs}
 \alias{ys_gg_labs}
-\title{Automatically label ggplot axes from a yspec object or other source}
+\title{Automatically label ggplot aesthetics from a yspec object or other source}
 \usage{
 ys_gg_labs(
   spec = NULL,
@@ -10,30 +10,45 @@ ys_gg_labs(
   x = NULL,
   y = NULL,
   fill = NULL,
+  colour = NULL,
+  color = NULL,
   col = NULL,
+  linetype = NULL,
   lty = NULL,
   shape = NULL,
   ...
 )
 }
 \arguments{
-\item{spec}{a yspec object; axis data is generated through a call to 
+\item{spec}{a yspec object; label data is generated through a call to
 [ys_get_short_unit()].}
 
-\item{labs}{a named list of axis title data; names correspond to columns 
+\item{labs}{a named list of label data; names correspond to columns
 in the data used to make the plot; overrides `spec`.}
 
-\item{x}{passed to [ggplot2::labs()] if character.}
+\item{x}{override label for the x aesthetic; if `NULL`, resolved from `spec`
+or `labs`.}
 
-\item{y}{passed to [ggplot2::labs()] if character.}
+\item{y}{override label for the y aesthetic; if `NULL`, resolved from `spec`
+or `labs`.}
 
-\item{fill}{passed to [ggplot2::labs()] if character.}
+\item{fill}{override label for the fill aesthetic; if `NULL`, resolved from
+`spec` or `labs`.}
 
-\item{col}{passed to [ggplot2::labs()] if character.}
+\item{colour}{override label for the colour aesthetic; if `NULL`, resolved
+from `spec` or `labs`. `color` and `col` are accepted as aliases.}
 
-\item{lty}{passed to [ggplot2::labs()] if character.}
+\item{color}{alias for `colour`.}
 
-\item{shape}{passed to [ggplot2::labs()] if character.}
+\item{col}{alias for `colour`.}
+
+\item{linetype}{override label for the linetype aesthetic; if `NULL`,
+resolved from `spec` or `labs`. `lty` is accepted as an alias.}
+
+\item{lty}{alias for `linetype`.}
+
+\item{shape}{override label for the shape aesthetic; if `NULL`, resolved from
+`spec` or `labs`.}
 
 \item{...}{additional arguments passed to [ggplot2::labs()].}
 }
@@ -41,5 +56,5 @@ in the data used to make the plot; overrides `spec`.}
 A gg object that can be added to a ggplot with `+`.
 }
 \description{
-Automatically label ggplot axes from a yspec object or other source
+Automatically label ggplot aesthetics from a yspec object or other source
 }

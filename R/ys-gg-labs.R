@@ -1,24 +1,37 @@
-#' Automatically label ggplot axes from a yspec object or other source
+#' Automatically label ggplot aesthetics from a yspec object or other source
 #'
-#' @param spec a yspec object; axis data is generated through a call to 
+#' @param spec a yspec object; label data is generated through a call to
 #' [ys_get_short_unit()].
-#' @param labs a named list of axis title data; names correspond to columns 
+#' @param labs a named list of label data; names correspond to columns
 #' in the data used to make the plot; overrides `spec`.
-#' @param x passed to [ggplot2::labs()] if character.
-#' @param y passed to [ggplot2::labs()] if character.
-#' @param fill passed to [ggplot2::labs()] if character.
-#' @param col passed to [ggplot2::labs()] if character.
-#' @param lty passed to [ggplot2::labs()] if character. 
-#' @param shape passed to [ggplot2::labs()] if character.
+#' @param x override label for the x aesthetic; if `NULL`, resolved from `spec`
+#' or `labs`.
+#' @param y override label for the y aesthetic; if `NULL`, resolved from `spec`
+#' or `labs`.
+#' @param fill override label for the fill aesthetic; if `NULL`, resolved from
+#' `spec` or `labs`.
+#' @param colour override label for the colour aesthetic; if `NULL`, resolved
+#' from `spec` or `labs`. `color` and `col` are accepted as aliases.
+#' @param linetype override label for the linetype aesthetic; if `NULL`,
+#' resolved from `spec` or `labs`. `lty` is accepted as an alias.
+#' @param shape override label for the shape aesthetic; if `NULL`, resolved from
+#' `spec` or `labs`.
+#' @param color alias for `colour`.
+#' @param col alias for `colour`.
+#' @param lty alias for `linetype`.
 #' @param ... additional arguments passed to [ggplot2::labs()].
 #'
 #' @return A gg object that can be added to a ggplot with `+`.
 #' @export
-ys_gg_labs <- function(spec = NULL, 
-                       labs = list(), 
+ys_gg_labs <- function(spec = NULL,
+                       labs = list(),
                        x = NULL, y = NULL,
-                       fill = NULL, col = NULL,
-                       lty = NULL, shape = NULL, ...) {
+                       fill = NULL,
+                       colour = NULL, color = NULL, col = NULL,
+                       linetype = NULL, lty = NULL,
+                       shape = NULL, ...) {
+  colour <- colour %||% color %||% col
+  linetype <- linetype %||% lty
   envir <- list()
   if(is_yspec(spec)) {
     envir <- c(envir, ys_get_short_unit(spec))
@@ -27,12 +40,12 @@ ys_gg_labs <- function(spec = NULL,
   envir <- envir[!duplicated(names(envir))]
   structure(
     list(
-      envir = envir, 
+      envir = envir,
       x = x,
       y = y,
-      fill = fill, 
-      col = col, 
-      lty = lty,
+      fill = fill,
+      colour = colour,
+      linetype = linetype,
       shape = shape,
       extra = list(...)
     ),
@@ -97,11 +110,11 @@ ggplot_add.ys_gg_labs <- function(object, p, object_name) {
   }
 
   if(is.character(c_var)) {
-    args$colour <- resolve_label(c_var, object, "col")
+    args$colour <- resolve_label(c_var, object, "colour")
   }
-  
+
   if(is.character(l_var)) {
-    args$lty <- resolve_label(l_var, object, "lty")
+    args$linetype <- resolve_label(l_var, object, "linetype")
   }
   
   if(is.character(s_var)) {
