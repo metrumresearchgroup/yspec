@@ -105,10 +105,3 @@ VALID_NS_NAMES <- c(
 #' @md
 #' @name yspec
 "_PACKAGE"
-
-.onLoad <- function(libname, pkgname) {
-  registerS3method(
-    "ggplot_add", "ys_gg_labs", ggplot_add.ys_gg_labs,
-    envir = asNamespace("ggplot2")
-  )
-}

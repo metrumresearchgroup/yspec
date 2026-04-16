@@ -37,7 +37,7 @@ ys_gg_labs <- function(spec = NULL,
   )
 }
 
-#' @export
+#' @exportS3Method ggplot2::ggplot_add
 ggplot_add.ys_gg_labs <- function(object, p, object_name) {
   stopifnot(requireNamespace("ggplot2", quietly = TRUE))
   
