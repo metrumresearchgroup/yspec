@@ -16,8 +16,9 @@
 #' @export
 ys_gg_labs <- function(spec = NULL, 
                        labs = list(), 
-                       xcol = NULL, ycol = NULL, 
-                       xlab = NULL, ylab = NULL, ...) {
+                       x = NULL, y = NULL,
+                       fill = NULL, col = NULL,
+                       lty = NULL, ...) {
   envir <- list()
   if(is_yspec(spec)) {
     envir <- c(envir, ys_get_short_unit(spec))
@@ -27,14 +28,27 @@ ys_gg_labs <- function(spec = NULL,
   structure(
     list(
       envir = envir, 
-      xcol = xcol, 
-      ycol = ycol, 
-      xlab = xlab,
-      ylab = ylab, 
+      x = x,
+      y = y,
+      fill = fill, 
+      col = col, 
+      lty = lty,
       extra = list(...)
     ),
     class = "ys_gg_labs"
   )
+}
+
+strip_factor <- function(var) {
+  fct <- grepl("factor", var, fixed  = TRUE)
+  if(!fct) return(var)
+  vars <- all.vars(str2lang(var), functions = TRUE)  
+  vars <- vars[vars != "factor"]
+  if(length(vars)==1) {
+    vars  
+  } else {
+    var  
+  }
 }
 
 #' @exportS3Method ggplot2::ggplot_add
@@ -52,14 +66,18 @@ ggplot_add.ys_gg_labs <- function(object, p, object_name) {
   
   x_var <- aes_name(mapping$x)
   y_var <- aes_name(mapping$y)
+  f_var <- aes_name(mapping$fill)
+  c_var <- aes_name(mapping$colour)
+  l_var <- aes_name(mapping$linetype)
   
   # Resolve display labels via lookup table, with fallback
-  resolve_label <- function(var, envir, col = NULL) {
-    if (is.null(var)) return(NULL)
-    if(is.character(col)) {
-      stopifnot("column not found" = col %in% names(envir))
-      return(envir[[col]])  
+  resolve_label <- function(var, object, what) {
+    if(is.character(object[[what]])) {
+      return(object[[what]])  
     }
+    envir <- object$envir
+    if (is.null(var)) return(NULL)
+    var <- strip_factor(var)
     if (!is.null(envir) && !is.null(envir[[var]])) {
       envir[[var]]
     } else {
@@ -67,22 +85,28 @@ ggplot_add.ys_gg_labs <- function(object, p, object_name) {
     }
   }
   
-  if(is.character(object$xlab)) {
-    x_lab <- object$xlab
-  } else {
-    x_lab <- resolve_label(x_var, object$envir, col = object$xcol)  
-  }
-  
-  if(is.character(object$ylab)) {
-    y_lab <- object$ylab
-  } else {
-    y_lab <- resolve_label(y_var, object$envir, col = object$ycol)  
-  }
+  x_lab <- resolve_label(x_var, object, "x")
+  y_lab <- resolve_label(y_var, object, "y")
 
   lab_args <- c(
     list(x = x_lab, y = y_lab),
     object$extra
   )
+  
+  if(is.character(f_var)) {
+    f_lab <- resolve_label(f_var, object, "fill")
+    lab_args$fill <- f_lab
+  }
+
+  if(is.character(c_var)) {
+    c_lab <- resolve_label(c_var, object, "col")
+    lab_args$colour <- c_lab
+  }
+  
+  if(is.character(l_var)) {
+    l_lab <- resolve_label(l_var, object, "lty")
+    lab_args$lty <- l_lab
+  }
   
   p + do.call(ggplot2::labs, lab_args)
 }
