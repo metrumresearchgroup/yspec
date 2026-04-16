@@ -49,9 +49,9 @@ Imports:
     tidyselect, 
     fs, 
     stringr
-Suggests: pander, testthat
+Suggests: pander, testthat, ggplot2
 VignetteBuilder: knitr
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Collate: 
     'utils.R'
     'Aaaa.R'
@@ -82,4 +82,5 @@ Collate:
     'split_col.R'
     'x_table_2.R'
     'ys-get.R'
+    'ys-gg-labs.R'
     'ys-tidy.R'
