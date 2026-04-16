@@ -19,8 +19,8 @@ p0 <-
   ggplot2::geom_point()
 
 test_that("label x- and y- from the spec", {
-  expect_null(ggplot2::get_labs(p0)$x)
-  expect_null(ggplot2::get_labs(p0)$y)
+  expect_equal(ggplot2::get_labs(p0)$x, "TIME")
+  expect_equal(ggplot2::get_labs(p0)$y, "DV")
 
   p <- p0 + ys_gg_labs(spec)
   expect_equal(ggplot2::get_labs(p)$x, "Time (hour)")
