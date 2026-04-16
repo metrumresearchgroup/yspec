@@ -7,10 +7,12 @@
 ys_gg_labs(
   spec = NULL,
   labs = list(),
-  xcol = NULL,
-  ycol = NULL,
-  xlab = NULL,
-  ylab = NULL,
+  x = NULL,
+  y = NULL,
+  fill = NULL,
+  col = NULL,
+  lty = NULL,
+  shape = NULL,
   ...
 )
 }
@@ -21,15 +23,17 @@ ys_gg_labs(
 \item{labs}{a named list of axis title data; names correspond to columns 
 in the data used to make the plot; overrides `spec`.}
 
-\item{xcol}{the name of the x-axis data column; overrides `labs` and `spec`.}
+\item{x}{passed to [ggplot2::labs()] if character.}
 
-\item{ycol}{the name of the y-axis data column; overrides `labs` and `spec`.}
+\item{y}{passed to [ggplot2::labs()] if character.}
 
-\item{xlab}{the complete title to use for the x-axis; overrides `xcol` and 
-`spec`.}
+\item{fill}{passed to [ggplot2::labs()] if character.}
 
-\item{ylab}{the complete title to use for the y-axis; overrides `ycol` and 
-`spec`.}
+\item{col}{passed to [ggplot2::labs()] if character.}
+
+\item{lty}{passed to [ggplot2::labs()] if character.}
+
+\item{shape}{passed to [ggplot2::labs()] if character.}
 
 \item{...}{additional arguments passed to [ggplot2::labs()].}
 }

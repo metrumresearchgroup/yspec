@@ -4,12 +4,12 @@
 #' [ys_get_short_unit()].
 #' @param labs a named list of axis title data; names correspond to columns 
 #' in the data used to make the plot; overrides `spec`.
-#' @param xcol the name of the x-axis data column; overrides `labs` and `spec`.
-#' @param ycol the name of the y-axis data column; overrides `labs` and `spec`.
-#' @param xlab the complete title to use for the x-axis; overrides `xcol` and 
-#' `spec`.
-#' @param ylab the complete title to use for the y-axis; overrides `ycol` and 
-#' `spec`. 
+#' @param x passed to [ggplot2::labs()] if character.
+#' @param y passed to [ggplot2::labs()] if character.
+#' @param fill passed to [ggplot2::labs()] if character.
+#' @param col passed to [ggplot2::labs()] if character.
+#' @param lty passed to [ggplot2::labs()] if character. 
+#' @param shape passed to [ggplot2::labs()] if character.
 #' @param ... additional arguments passed to [ggplot2::labs()].
 #'
 #' @return A gg object that can be added to a ggplot with `+`.
@@ -18,7 +18,7 @@ ys_gg_labs <- function(spec = NULL,
                        labs = list(), 
                        x = NULL, y = NULL,
                        fill = NULL, col = NULL,
-                       lty = NULL, ...) {
+                       lty = NULL, shape = NULL, ...) {
   envir <- list()
   if(is_yspec(spec)) {
     envir <- c(envir, ys_get_short_unit(spec))
@@ -33,13 +33,14 @@ ys_gg_labs <- function(spec = NULL,
       fill = fill, 
       col = col, 
       lty = lty,
+      shape = shape,
       extra = list(...)
     ),
     class = "ys_gg_labs"
   )
 }
 
-strip_factor <- function(var) {
+strip_factor_call <- function(var) {
   fct <- grepl("factor", var, fixed  = TRUE)
   if(!fct) return(var)
   vars <- all.vars(str2lang(var), functions = TRUE)  
@@ -69,6 +70,7 @@ ggplot_add.ys_gg_labs <- function(object, p, object_name) {
   f_var <- aes_name(mapping$fill)
   c_var <- aes_name(mapping$colour)
   l_var <- aes_name(mapping$linetype)
+  s_var <- aes_name(mapping$shape)
   
   # Resolve display labels via lookup table, with fallback
   resolve_label <- function(var, object, what) {
@@ -77,7 +79,7 @@ ggplot_add.ys_gg_labs <- function(object, p, object_name) {
     }
     envir <- object$envir
     if (is.null(var)) return(NULL)
-    var <- strip_factor(var)
+    var <- strip_factor_call(var)
     if (!is.null(envir) && !is.null(envir[[var]])) {
       envir[[var]]
     } else {
@@ -85,28 +87,28 @@ ggplot_add.ys_gg_labs <- function(object, p, object_name) {
     }
   }
   
-  x_lab <- resolve_label(x_var, object, "x")
-  y_lab <- resolve_label(y_var, object, "y")
+  args <- list()
 
-  lab_args <- c(
-    list(x = x_lab, y = y_lab),
-    object$extra
-  )
-  
+  args$x <- resolve_label(x_var, object, "x")
+  args$y <- resolve_label(y_var, object, "y")
+
   if(is.character(f_var)) {
-    f_lab <- resolve_label(f_var, object, "fill")
-    lab_args$fill <- f_lab
+    args$fill <- resolve_label(f_var, object, "fill")
   }
 
   if(is.character(c_var)) {
-    c_lab <- resolve_label(c_var, object, "col")
-    lab_args$colour <- c_lab
+    args$colour <- resolve_label(c_var, object, "col")
   }
   
   if(is.character(l_var)) {
-    l_lab <- resolve_label(l_var, object, "lty")
-    lab_args$lty <- l_lab
+    args$lty <- resolve_label(l_var, object, "lty")
   }
+  
+  if(is.character(s_var)) {
+    args$shape <- resolve_label(s_var, object, "shape")
+  }
+
+  lab_args <- c(args, object$extra)
   
   p + do.call(ggplot2::labs, lab_args)
 }
