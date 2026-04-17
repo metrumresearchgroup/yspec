@@ -81,7 +81,7 @@ test_that("label colour", {
 
 test_that("label fill", {
   p0 <-
-    ggplot2::ggplot(data, ggplot2::aes(TIME, DV, fill = factor(CP))) +
+    ggplot2::ggplot(data, ggplot2::aes(RF, DV, fill = factor(CP))) +
     ggplot2::geom_boxplot()
   p <- p0 + ys_gg_labs(spec)
   expect_equal(ggplot2::get_labs(p)$fill, "Child-Pugh score")
@@ -139,7 +139,7 @@ test_that("layer-level colour is labelled", {
 
 test_that("layer-level fill is labelled", {
   p0 <-
-    ggplot2::ggplot(data, ggplot2::aes(TIME, DV)) +
+    ggplot2::ggplot(data, ggplot2::aes(RF, DV)) +
     ggplot2::geom_boxplot(ggplot2::aes(fill = factor(CP)))
   p <- p0 + ys_gg_labs(spec)
   expect_equal(ggplot2::get_labs(p)$fill, "Child-Pugh score")
@@ -171,6 +171,44 @@ test_that("all aesthetics at layer level are labelled", {
   expect_equal(ggplot2::get_labs(p)$colour, "Child-Pugh score")
 })
 
+test_that("warn when same aesthetic maps to two spec-matched variables", {
+  d2 <- filter(data, ID == 2) |> mutate(TAFD = TIME)
+  p0 <-
+    ggplot2::ggplot(data, ggplot2::aes(TIME, DV)) +
+    ggplot2::geom_point(data = d2, ggplot2::aes(TAFD, DV))
+  expect_warning(
+    p0 + ys_gg_labs(spec),
+    regexp = "Aesthetic 'x'.*TIME.*TAFD"
+  )
+})
+
+test_that("no warning when only one variable is spec-matched", {
+  d2 <- filter(data, ID == 2) |> rename(CONC = DV)
+  p0 <-
+    ggplot2::ggplot(data, ggplot2::aes(TIME, DV)) +
+    ggplot2::geom_point(data = d2, ggplot2::aes(TIME, CONC))
+  expect_no_warning(p0 + ys_gg_labs(spec))
+})
+
+test_that("warn = FALSE suppresses conflicting-aesthetic warning", {
+  d2 <- filter(data, ID == 2) |> mutate(TAFD = TIME)
+  p0 <-
+    ggplot2::ggplot(data, ggplot2::aes(TIME, DV)) +
+    ggplot2::geom_point(data = d2, ggplot2::aes(TAFD, DV))
+  expect_no_warning(p0 + ys_gg_labs(spec, warn = FALSE))
+  p <- suppressWarnings(p0 + ys_gg_labs(spec))
+  p2 <- p0 + ys_gg_labs(spec, warn = FALSE)
+  expect_equal(ggplot2::get_labs(p)$x, ggplot2::get_labs(p2)$x)
+})
+
+test_that("no warning when user passes aesthetic directly", {
+  d2 <- filter(data, ID == 2) |> mutate(TAFD = TIME)
+  p0 <-
+    ggplot2::ggplot(data, ggplot2::aes(TIME, DV)) +
+    ggplot2::geom_point(data = d2, ggplot2::aes(TAFD, DV))
+  expect_no_warning(p0 + ys_gg_labs(spec, x = "My time label"))
+})
+
 test_that("top-level mapping wins over layer-level", {
   d2 <- data[data$ID==1, c("TIME", "DV")]
   names(d2) <- c("TAFO", "CONC")
@@ -179,7 +217,7 @@ test_that("top-level mapping wins over layer-level", {
     ggplot2::ggplot(data, ggplot2::aes(TIME, DV)) + 
     ggplot2::geom_point(ggplot2::aes(colour = factor(CP))) +
     ggplot2::geom_point(data = d2, ggplot2::aes(TAFO, CONC), color = "black")
-  p <- p0 + ys_gg_labs(spec, labs)
+  p <- p0 + ys_gg_labs(spec, labs, warn = FALSE)
   expect_equal(ggplot2::get_labs(p)$colour, "Child-Pugh score")
   expect_equal(ggplot2::get_labs(p)$x, "Time (hour)")
   expect_equal(ggplot2::get_labs(p)$y, "Concentration (ng/mL)")

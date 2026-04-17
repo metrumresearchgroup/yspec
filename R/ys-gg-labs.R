@@ -104,7 +104,7 @@ resolve_aes_label <- function(aes, all_mappings, object) {
   if(length(qs) == 0) return(NULL)
   vars <- vapply(qs, aes_name, character(1))
   labels <- vapply(vars, resolve_label, character(1), envir = object$envir)
-  if(!isTRUE(object$warn)) return(labels[1])
+  if(!isTRUE(object$warn)) return(labels[[1]])
   vars_stripped <- vapply(vars, strip_factor_call, character(1))
   in_envir <- vapply(vars_stripped, \(v) !is.null(object$envir[[v]]), logical(1))
   if(sum(in_envir) > 1 && length(unique(labels[in_envir])) > 1) {
@@ -117,7 +117,7 @@ resolve_aes_label <- function(aes, all_mappings, object) {
       call. = FALSE
     )
   }
-  labels[1]
+  labels[[1]]
 }
 
 #' @exportS3Method ggplot2::ggplot_add
