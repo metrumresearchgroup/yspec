@@ -126,3 +126,53 @@ test_that("label shape", {
   p <- p0 + ys_gg_labs(spec, shape = "test shape")
   expect_equal(ggplot2::get_labs(p)$shape, "test shape")
 })
+
+test_that("layer-level colour is labelled", {
+  p0 <-
+    ggplot2::ggplot(data, ggplot2::aes(TIME, DV)) +
+    ggplot2::geom_point(ggplot2::aes(colour = factor(CP)))
+  p <- p0 + ys_gg_labs(spec)
+  expect_equal(ggplot2::get_labs(p)$colour, "Child-Pugh score")
+})
+
+test_that("layer-level fill is labelled", {
+  p0 <-
+    ggplot2::ggplot(data, ggplot2::aes(TIME, DV)) +
+    ggplot2::geom_boxplot(ggplot2::aes(fill = factor(CP)))
+  p <- p0 + ys_gg_labs(spec)
+  expect_equal(ggplot2::get_labs(p)$fill, "Child-Pugh score")
+})
+
+test_that("layer-level shape is labelled", {
+  p0 <-
+    ggplot2::ggplot(data, ggplot2::aes(TIME, DV)) +
+    ggplot2::geom_point(ggplot2::aes(shape = factor(CP)))
+  p <- p0 + ys_gg_labs(spec)
+  expect_equal(ggplot2::get_labs(p)$shape, "Child-Pugh score")
+})
+
+test_that("layer-level linetype is labelled", {
+  p0 <-
+    ggplot2::ggplot(data, ggplot2::aes(TIME, DV)) +
+    ggplot2::geom_line(ggplot2::aes(linetype = factor(CP)))
+  p <- p0 + ys_gg_labs(spec)
+  expect_equal(ggplot2::get_labs(p)$linetype, "Child-Pugh score")
+})
+
+test_that("all aesthetics at layer level are labelled", {
+  p0 <-
+    ggplot2::ggplot() +
+    ggplot2::geom_point(data = data, ggplot2::aes(TIME, DV, colour = factor(CP)))
+  p <- p0 + ys_gg_labs(spec)
+  expect_equal(ggplot2::get_labs(p)$x, "Time (hour)")
+  expect_equal(ggplot2::get_labs(p)$y, "Concentration (ng/mL)")
+  expect_equal(ggplot2::get_labs(p)$colour, "Child-Pugh score")
+})
+
+test_that("top-level mapping wins over layer-level", {
+  p0 <-
+    ggplot2::ggplot(data, ggplot2::aes(TIME, DV, colour = factor(CP))) +
+    ggplot2::geom_point(ggplot2::aes(colour = STUDY))
+  p <- p0 + ys_gg_labs(spec)
+  expect_equal(ggplot2::get_labs(p)$colour, "Child-Pugh score")
+})

@@ -69,8 +69,13 @@ strip_factor_call <- function(var) {
 ggplot_add.ys_gg_labs <- function(object, p, object_name) {
   stopifnot(requireNamespace("ggplot2", quietly = TRUE))
   
-  # Extract aesthetic mappings from the plot
-  mapping <- p$mapping
+  # Extract aesthetic mappings from the plot (top-level wins over layers)
+  layer_mappings <- do.call(c, lapply(p$layers, function(l) l$mapping))
+  if(length(layer_mappings)) {
+    names(layer_mappings) <- sub("^.*\\.", "", names(layer_mappings))
+  }
+  mapping <- c(p$mapping, layer_mappings)
+  mapping <- mapping[!duplicated(names(mapping))]
   
   # Helper: resolve a variable name from a quosure
   aes_name <- function(q) {
