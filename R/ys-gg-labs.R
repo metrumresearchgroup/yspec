@@ -28,6 +28,8 @@
 #'   library(ggplot2)
 #'   
 #'   spec <- ys_help$spec()
+#' 
+#'   spec <- update_short(spec, TIME = "Time")
 #'   
 #'   data <- ys_help$data()
 #'   
