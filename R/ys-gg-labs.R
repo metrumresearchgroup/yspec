@@ -11,9 +11,9 @@
 #' @param fill override label for the fill aesthetic; if `NULL`, resolved from
 #' `spec` or `labs`.
 #' @param colour override label for the colour aesthetic; if `NULL`, resolved
-#' from `spec` or `labs`. `color` and `col` are accepted as aliases.
+#' from `spec` or `labs`; `color` and `col` are accepted as aliases.
 #' @param linetype override label for the linetype aesthetic; if `NULL`,
-#' resolved from `spec` or `labs`. `lty` is accepted as an alias.
+#' resolved from `spec` or `labs`; `lty` is accepted as an alias.
 #' @param shape override label for the shape aesthetic; if `NULL`, resolved from
 #' `spec` or `labs`.
 #' @param color alias for `colour`.
@@ -22,6 +22,21 @@
 #' @param ... additional arguments passed to [ggplot2::labs()].
 #'
 #' @return A gg object that can be added to a ggplot with `+`.
+#' 
+#' @examples
+#' if(requireNamespace("ggplot2")) {
+#'   library(ggplot2)
+#'   
+#'   spec <- ys_help$spec()
+#'   
+#'   data <- ys_help$data()
+#'   
+#'   p <- ggplot(data, aes(TIME, DV)) + geom_point()
+#'   
+#'   p + ys_gg_labs(spec)
+#' }
+#' 
+#' @md
 #' @export
 ys_gg_labs <- function(spec = NULL,
                        labs = list(),
@@ -67,20 +82,18 @@ strip_factor_call <- function(var) {
 
 #' @exportS3Method ggplot2::ggplot_add
 ggplot_add.ys_gg_labs <- function(object, p, object_name) {
-  stopifnot(requireNamespace("ggplot2", quietly = TRUE))
+  
+  assert_that(requireNamespace("ggplot2"))
   
   # Extract aesthetic mappings from the plot (top-level wins over layers)
-  layer_mappings <- do.call(c, lapply(p$layers, function(l) l$mapping))
-  if(length(layer_mappings)) {
-    names(layer_mappings) <- sub("^.*\\.", "", names(layer_mappings))
-  }
+  layer_mappings <- do.call(c, lapply(unname(p$layers), \(l) l$mapping))
   mapping <- c(p$mapping, layer_mappings)
   mapping <- mapping[!duplicated(names(mapping))]
   
   # Helper: resolve a variable name from a quosure
   aes_name <- function(q) {
-    if (is.null(q)) return(NULL)
-    rlang::as_label(q)
+    if(is.null(q)) return(NULL)
+    as_label(q)
   }
   
   x_var <- aes_name(mapping$x)
@@ -106,26 +119,23 @@ ggplot_add.ys_gg_labs <- function(object, p, object_name) {
   }
   
   args <- list()
-
+  
   args$x <- resolve_label(x_var, object, "x")
   args$y <- resolve_label(y_var, object, "y")
-
+  
   if(is.character(f_var)) {
     args$fill <- resolve_label(f_var, object, "fill")
   }
-
   if(is.character(c_var)) {
     args$colour <- resolve_label(c_var, object, "colour")
   }
-
   if(is.character(l_var)) {
     args$linetype <- resolve_label(l_var, object, "linetype")
   }
-  
   if(is.character(s_var)) {
     args$shape <- resolve_label(s_var, object, "shape")
   }
-
+  
   lab_args <- c(args, object$extra)
   
   p + do.call(ggplot2::labs, lab_args)

@@ -21,40 +21,54 @@ ys_gg_labs(
 }
 \arguments{
 \item{spec}{a yspec object; label data is generated through a call to
-[ys_get_short_unit()].}
+\code{\link[=ys_get_short_unit]{ys_get_short_unit()}}.}
 
 \item{labs}{a named list of label data; names correspond to columns
-in the data used to make the plot; overrides `spec`.}
+in the data used to make the plot; overrides \code{spec}.}
 
-\item{x}{override label for the x aesthetic; if `NULL`, resolved from `spec`
-or `labs`.}
+\item{x}{override label for the x aesthetic; if \code{NULL}, resolved from \code{spec}
+or \code{labs}.}
 
-\item{y}{override label for the y aesthetic; if `NULL`, resolved from `spec`
-or `labs`.}
+\item{y}{override label for the y aesthetic; if \code{NULL}, resolved from \code{spec}
+or \code{labs}.}
 
-\item{fill}{override label for the fill aesthetic; if `NULL`, resolved from
-`spec` or `labs`.}
+\item{fill}{override label for the fill aesthetic; if \code{NULL}, resolved from
+\code{spec} or \code{labs}.}
 
-\item{colour}{override label for the colour aesthetic; if `NULL`, resolved
-from `spec` or `labs`. `color` and `col` are accepted as aliases.}
+\item{colour}{override label for the colour aesthetic; if \code{NULL}, resolved
+from \code{spec} or \code{labs}; \code{color} and \code{col} are accepted as aliases.}
 
-\item{color}{alias for `colour`.}
+\item{color}{alias for \code{colour}.}
 
-\item{col}{alias for `colour`.}
+\item{col}{alias for \code{colour}.}
 
-\item{linetype}{override label for the linetype aesthetic; if `NULL`,
-resolved from `spec` or `labs`. `lty` is accepted as an alias.}
+\item{linetype}{override label for the linetype aesthetic; if \code{NULL},
+resolved from \code{spec} or \code{labs}; \code{lty} is accepted as an alias.}
 
-\item{lty}{alias for `linetype`.}
+\item{lty}{alias for \code{linetype}.}
 
-\item{shape}{override label for the shape aesthetic; if `NULL`, resolved from
-`spec` or `labs`.}
+\item{shape}{override label for the shape aesthetic; if \code{NULL}, resolved from
+\code{spec} or \code{labs}.}
 
-\item{...}{additional arguments passed to [ggplot2::labs()].}
+\item{...}{additional arguments passed to \code{\link[ggplot2:labs]{ggplot2::labs()}}.}
 }
 \value{
-A gg object that can be added to a ggplot with `+`.
+A gg object that can be added to a ggplot with \code{+}.
 }
 \description{
 Automatically label ggplot aesthetics from a yspec object or other source
+}
+\examples{
+if(requireNamespace("ggplot2")) {
+  library(ggplot2)
+  
+  spec <- ys_help$spec()
+  
+  data <- ys_help$data()
+  
+  p <- ggplot(data, aes(TIME, DV)) + geom_point()
+  
+  p + ys_gg_labs(spec)
+}
+
 }

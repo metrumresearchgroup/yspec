@@ -8,8 +8,10 @@ context("test-ys-gg-labs")
 
 data <- ys_help$data()
 spec <- ys_help$spec()
+
 spec <- update_short(spec, DV = "Concentration", TIME = "Time")
 spec$DV$unit <- "ng/mL"
+
 labs <- list(
   TIME = "Time after first dose"
 )
@@ -170,9 +172,15 @@ test_that("all aesthetics at layer level are labelled", {
 })
 
 test_that("top-level mapping wins over layer-level", {
+  d2 <- data[data$ID==1, c("TIME", "DV")]
+  names(d2) <- c("TAFO", "CONC")
+  labs <- list(TAFO = "Time after first something", CONC  = "Drug concentration")
   p0 <-
-    ggplot2::ggplot(data, ggplot2::aes(TIME, DV, colour = factor(CP))) +
-    ggplot2::geom_point(ggplot2::aes(colour = STUDY))
-  p <- p0 + ys_gg_labs(spec)
+    ggplot2::ggplot(data, ggplot2::aes(TIME, DV)) + 
+    ggplot2::geom_point(ggplot2::aes(colour = factor(CP))) +
+    ggplot2::geom_point(data = d2, ggplot2::aes(TAFO, CONC), color = "black")
+  p <- p0 + ys_gg_labs(spec, labs)
   expect_equal(ggplot2::get_labs(p)$colour, "Child-Pugh score")
+  expect_equal(ggplot2::get_labs(p)$x, "Time (hour)")
+  expect_equal(ggplot2::get_labs(p)$y, "Concentration (ng/mL)")
 })
