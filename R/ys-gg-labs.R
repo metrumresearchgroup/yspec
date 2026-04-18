@@ -9,17 +9,13 @@
 #' `labs`; wrap in [I()] to use the string as a literal label.
 #' @param y label for the y aesthetic; see `x`.
 #' @param fill label for the fill aesthetic; see `x`.
-#' @param colour label for the colour aesthetic; see `x`; `color` and `col` are
-#' accepted as aliases.
-#' @param linetype label for the linetype aesthetic; see `x`; `lty` is accepted
-#' as an alias.
+#' @param colour,color,col label for the colour aesthetic; see `x`.
+#' @param linetype,lty label for the linetype aesthetic; see `x`.
 #' @param shape label for the shape aesthetic; see `x`.
-#' @param color alias for `colour`.
-#' @param col alias for `colour`.
-#' @param lty alias for `linetype`.
 #' @param warn if `TRUE` (default), warn when the same aesthetic is mapped to
 #' multiple variables that each have a spec entry but resolve to different
 #' labels.
+#' @param short_max passed to [ys_get_short_unit()].
 #' @param ... additional arguments passed to [ggplot2::labs()].
 #'
 #' @return A gg object that can be added to a ggplot with `+`.
@@ -41,19 +37,25 @@
 #' 
 #' @md
 #' @export
-ys_gg_labs <- function(spec = NULL,
+ys_gg_spec <- function(spec = NULL,
                        labs = list(),
                        x = NULL, y = NULL,
                        fill = NULL,
                        colour = NULL, color = NULL, col = NULL,
                        linetype = NULL, lty = NULL,
                        shape = NULL,
-                       warn = TRUE, ...) {
+                       warn = TRUE, 
+                       short_max = Inf, 
+                       ...) {
   colour <- colour %||% color %||% col
   linetype <- linetype %||% lty
   envir <- list()
   if(is_yspec(spec)) {
-    envir <- c(envir, ys_get_short_unit(spec))
+    envir <- c(envir, ys_get_short_unit(spec, short_max = short_max))
+  }
+  if(length(labs)) {
+    assert_that(is.list(labs))
+    assert_that(is_named(labs))
   }
   envir <- c(labs, envir)
   envir <- envir[!duplicated(names(envir))]

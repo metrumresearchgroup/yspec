@@ -27,29 +27,19 @@ ys_gg_labs(
 \item{labs}{a named list of label data; names correspond to columns
 in the data used to make the plot; overrides \code{spec}.}
 
-\item{x}{override label for the x aesthetic; if \code{NULL}, resolved from \code{spec}
-or \code{labs}.}
+\item{x}{label for the x aesthetic. If \code{NULL}, resolved via the mapped
+column name. Pass a column name as a plain string to look it up in \code{spec} or
+\code{labs}; wrap in \code{\link[=I]{I()}} to use the string as a literal label.}
 
-\item{y}{override label for the y aesthetic; if \code{NULL}, resolved from \code{spec}
-or \code{labs}.}
+\item{y}{label for the y aesthetic; see \code{x}.}
 
-\item{fill}{override label for the fill aesthetic; if \code{NULL}, resolved from
-\code{spec} or \code{labs}.}
+\item{fill}{label for the fill aesthetic; see \code{x}.}
 
-\item{colour}{override label for the colour aesthetic; if \code{NULL}, resolved
-from \code{spec} or \code{labs}; \code{color} and \code{col} are accepted as aliases.}
+\item{colour, color, col}{label for the colour aesthetic; see \code{x}.}
 
-\item{color}{alias for \code{colour}.}
+\item{linetype, lty}{label for the linetype aesthetic; see \code{x}.}
 
-\item{col}{alias for \code{colour}.}
-
-\item{linetype}{override label for the linetype aesthetic; if \code{NULL},
-resolved from \code{spec} or \code{labs}; \code{lty} is accepted as an alias.}
-
-\item{lty}{alias for \code{linetype}.}
-
-\item{shape}{override label for the shape aesthetic; if \code{NULL}, resolved from
-\code{spec} or \code{labs}.}
+\item{shape}{label for the shape aesthetic; see \code{x}.}
 
 \item{warn}{if \code{TRUE} (default), warn when the same aesthetic is mapped to
 multiple variables that each have a spec entry but resolve to different
