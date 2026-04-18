@@ -4,18 +4,16 @@
 #' [ys_get_short_unit()].
 #' @param labs a named list of label data; names correspond to columns
 #' in the data used to make the plot; overrides `spec`.
-#' @param x override label for the x aesthetic; if `NULL`, resolved from `spec`
-#' or `labs`.
-#' @param y override label for the y aesthetic; if `NULL`, resolved from `spec`
-#' or `labs`.
-#' @param fill override label for the fill aesthetic; if `NULL`, resolved from
-#' `spec` or `labs`.
-#' @param colour override label for the colour aesthetic; if `NULL`, resolved
-#' from `spec` or `labs`; `color` and `col` are accepted as aliases.
-#' @param linetype override label for the linetype aesthetic; if `NULL`,
-#' resolved from `spec` or `labs`; `lty` is accepted as an alias.
-#' @param shape override label for the shape aesthetic; if `NULL`, resolved from
-#' `spec` or `labs`.
+#' @param x label for the x aesthetic. If `NULL`, resolved via the mapped
+#' column name. Pass a column name as a plain string to look it up in `spec` or
+#' `labs`; wrap in [I()] to use the string as a literal label.
+#' @param y label for the y aesthetic; see `x`.
+#' @param fill label for the fill aesthetic; see `x`.
+#' @param colour label for the colour aesthetic; see `x`; `color` and `col` are
+#' accepted as aliases.
+#' @param linetype label for the linetype aesthetic; see `x`; `lty` is accepted
+#' as an alias.
+#' @param shape label for the shape aesthetic; see `x`.
 #' @param color alias for `colour`.
 #' @param col alias for `colour`.
 #' @param lty alias for `linetype`.
@@ -99,7 +97,11 @@ resolve_label <- function(var, envir) {
 }
 
 resolve_aes_label <- function(aes, all_mappings, object) {
-  if(is.character(object[[aes]])) return(object[[aes]])
+  val <- object[[aes]]
+  if(is.character(val)) {
+    if(inherits(val, "AsIs")) return(as.character(val))
+    return(object$envir[[val]])
+  }
   qs <- all_mappings[names(all_mappings) == aes]
   if(length(qs) == 0) return(NULL)
   vars <- vapply(qs, aes_name, character(1))

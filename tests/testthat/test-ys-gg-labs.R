@@ -36,7 +36,7 @@ test_that("labs overrides spec for x- and y-", {
 })
 
 test_that("force in x- or y-", {
-  p <- p0 + ys_gg_labs(spec, labs, x = "A", y = "B")
+  p <- p0 + ys_gg_labs(spec, labs, x = I("A"), y = I("B"))
   expect_equal(ggplot2::get_labs(p)$x, "A")
   expect_equal(ggplot2::get_labs(p)$y, "B")
 })
@@ -75,7 +75,7 @@ test_that("label colour", {
     ggplot2::geom_point()
   p <- p0 + ys_gg_labs(spec)
   expect_equal(ggplot2::get_labs(p)$colour, "Child-Pugh score")
-  p <- p0 + ys_gg_labs(spec, colour = "test colour")
+  p <- p0 + ys_gg_labs(spec, colour = I("test colour"))
   expect_equal(ggplot2::get_labs(p)$colour, "test colour")
 })
 
@@ -85,7 +85,7 @@ test_that("label fill", {
     ggplot2::geom_boxplot()
   p <- p0 + ys_gg_labs(spec)
   expect_equal(ggplot2::get_labs(p)$fill, "Child-Pugh score")
-  p <- p0 + ys_gg_labs(spec, fill = "test fill")
+  p <- p0 + ys_gg_labs(spec, fill = I("test fill"))
   expect_equal(ggplot2::get_labs(p)$fill, "test fill")
 })
 
@@ -95,7 +95,7 @@ test_that("label linetype", {
     ggplot2::geom_line()
   p <- p0 + ys_gg_labs(spec)
   expect_equal(ggplot2::get_labs(p)$linetype, "Child-Pugh score")
-  p <- p0 + ys_gg_labs(spec, linetype = "test linetype")
+  p <- p0 + ys_gg_labs(spec, linetype = I("test linetype"))
   expect_equal(ggplot2::get_labs(p)$linetype, "test linetype")
 })
 
@@ -103,9 +103,9 @@ test_that("col, color, and colour are equivalent", {
   p0 <-
     ggplot2::ggplot(data, ggplot2::aes(TIME, DV, colour = factor(CP))) +
     ggplot2::geom_point()
-  p1 <- p0 + ys_gg_labs(spec, colour = "test colour")
-  p2 <- p0 + ys_gg_labs(spec, col = "test colour")
-  p3 <- p0 + ys_gg_labs(spec, color = "test colour")
+  p1 <- p0 + ys_gg_labs(spec, colour = I("test colour"))
+  p2 <- p0 + ys_gg_labs(spec, col = I("test colour"))
+  p3 <- p0 + ys_gg_labs(spec, color = I("test colour"))
   expect_equal(ggplot2::get_labs(p1)$colour, ggplot2::get_labs(p2)$colour)
   expect_equal(ggplot2::get_labs(p1)$colour, ggplot2::get_labs(p3)$colour)
 })
@@ -114,8 +114,8 @@ test_that("lty and linetype are equivalent", {
   p0 <-
     ggplot2::ggplot(data, ggplot2::aes(TIME, DV, linetype = factor(CP))) +
     ggplot2::geom_line()
-  p1 <- p0 + ys_gg_labs(spec, linetype = "test linetype")
-  p2 <- p0 + ys_gg_labs(spec, lty = "test linetype")
+  p1 <- p0 + ys_gg_labs(spec, linetype = I("test linetype"))
+  p2 <- p0 + ys_gg_labs(spec, lty = I("test linetype"))
   expect_equal(ggplot2::get_labs(p1)$linetype, ggplot2::get_labs(p2)$linetype)
 })
 
@@ -125,7 +125,7 @@ test_that("label shape", {
     ggplot2::geom_point()
   p <- p0 + ys_gg_labs(spec)
   expect_equal(ggplot2::get_labs(p)$shape, "Child-Pugh score")
-  p <- p0 + ys_gg_labs(spec, shape = "test shape")
+  p <- p0 + ys_gg_labs(spec, shape = I("test shape"))
   expect_equal(ggplot2::get_labs(p)$shape, "test shape")
 })
 
@@ -206,7 +206,7 @@ test_that("no warning when user passes aesthetic directly", {
   p0 <-
     ggplot2::ggplot(data, ggplot2::aes(TIME, DV)) +
     ggplot2::geom_point(data = d2, ggplot2::aes(TAFD, DV))
-  expect_no_warning(p0 + ys_gg_labs(spec, x = "My time label"))
+  expect_no_warning(p0 + ys_gg_labs(spec, x = I("My time label")))
 })
 
 test_that("top-level mapping wins over layer-level", {

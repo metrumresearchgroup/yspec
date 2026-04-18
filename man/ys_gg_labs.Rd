@@ -16,6 +16,7 @@ ys_gg_labs(
   linetype = NULL,
   lty = NULL,
   shape = NULL,
+  warn = TRUE,
   ...
 )
 }
@@ -50,6 +51,10 @@ resolved from \code{spec} or \code{labs}; \code{lty} is accepted as an alias.}
 \item{shape}{override label for the shape aesthetic; if \code{NULL}, resolved from
 \code{spec} or \code{labs}.}
 
+\item{warn}{if \code{TRUE} (default), warn when the same aesthetic is mapped to
+multiple variables that each have a spec entry but resolve to different
+labels.}
+
 \item{...}{additional arguments passed to \code{\link[ggplot2:labs]{ggplot2::labs()}}.}
 }
 \value{
@@ -63,6 +68,8 @@ if(requireNamespace("ggplot2")) {
   library(ggplot2)
   
   spec <- ys_help$spec()
+
+  spec <- update_short(spec, TIME = "Time")
   
   data <- ys_help$data()
   
