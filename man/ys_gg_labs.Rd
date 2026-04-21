@@ -5,7 +5,7 @@
 \title{Automatically label ggplot aesthetics from a yspec object or other source}
 \usage{
 ys_gg_labs(
-  spec = NULL,
+  spec = list(),
   labs = list(),
   x = NULL,
   y = NULL,
@@ -16,7 +16,8 @@ ys_gg_labs(
   linetype = NULL,
   lty = NULL,
   shape = NULL,
-  warn = TRUE,
+  quietly = FALSE,
+  short_max = Inf,
   ...
 )
 }
@@ -41,9 +42,11 @@ column name. Pass a column name as a plain string to look it up in \code{spec} o
 
 \item{shape}{label for the shape aesthetic; see \code{x}.}
 
-\item{warn}{if \code{TRUE} (default), warn when the same aesthetic is mapped to
+\item{quietly}{if \code{FALSE}, inform when the same aesthetic is mapped to
 multiple variables that each have a spec entry but resolve to different
 labels.}
+
+\item{short_max}{passed to \code{\link[=ys_get_short_unit]{ys_get_short_unit()}}.}
 
 \item{...}{additional arguments passed to \code{\link[ggplot2:labs]{ggplot2::labs()}}.}
 }

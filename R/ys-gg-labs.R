@@ -12,7 +12,7 @@
 #' @param colour,color,col label for the colour aesthetic; see `x`.
 #' @param linetype,lty label for the linetype aesthetic; see `x`.
 #' @param shape label for the shape aesthetic; see `x`.
-#' @param warn if `TRUE` (default), warn when the same aesthetic is mapped to
+#' @param quietly if `FALSE`, inform when the same aesthetic is mapped to
 #' multiple variables that each have a spec entry but resolve to different
 #' labels.
 #' @param short_max passed to [ys_get_short_unit()].
@@ -37,27 +37,32 @@
 #' 
 #' @md
 #' @export
-ys_gg_spec <- function(spec = NULL,
+ys_gg_labs <- function(spec = list(),
                        labs = list(),
                        x = NULL, y = NULL,
                        fill = NULL,
                        colour = NULL, color = NULL, col = NULL,
                        linetype = NULL, lty = NULL,
                        shape = NULL,
-                       warn = TRUE, 
+                       quietly = FALSE, 
                        short_max = Inf, 
                        ...) {
   colour <- colour %||% color %||% col
   linetype <- linetype %||% lty
-  envir <- list()
   if(is_yspec(spec)) {
-    envir <- c(envir, ys_get_short_unit(spec, short_max = short_max))
+    spec <- ys_get_short_unit(spec, short_max = short_max)
+  }
+  envir <- list()
+  if(length(spec)) {
+    assert_that(is.list(spec))
+    assert_that(is_named(spec))
+    envir <- spec
   }
   if(length(labs)) {
     assert_that(is.list(labs))
     assert_that(is_named(labs))
+    envir <- c(labs, envir)
   }
-  envir <- c(labs, envir)
   envir <- envir[!duplicated(names(envir))]
   structure(
     list(
@@ -68,7 +73,7 @@ ys_gg_spec <- function(spec = NULL,
       colour = colour,
       linetype = linetype,
       shape = shape,
-      warn = warn,
+      quietly = quietly,
       extra = list(...)
     ),
     class = "ys_gg_labs"
@@ -108,17 +113,16 @@ resolve_aes_label <- function(aes, all_mappings, object) {
   if(length(qs) == 0) return(NULL)
   vars <- vapply(qs, aes_name, character(1))
   labels <- vapply(vars, resolve_label, character(1), envir = object$envir)
-  if(!isTRUE(object$warn)) return(labels[[1]])
+  if(isTRUE(object$quietly)) return(labels[[1]])
   vars_stripped <- vapply(vars, strip_factor_call, character(1))
   in_envir <- vapply(vars_stripped, \(v) !is.null(object$envir[[v]]), logical(1))
   if(sum(in_envir) > 1 && length(unique(labels[in_envir])) > 1) {
-    warning(
+    inform(
       paste0(
         "Aesthetic '", aes, "' is mapped to multiple variables (",
         paste(vars, collapse = ", "),
         ") that resolve to different labels; label for '", vars[1], "' will be used."
-      ),
-      call. = FALSE
+      )
     )
   }
   labels[[1]]
