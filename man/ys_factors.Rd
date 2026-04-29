@@ -34,7 +34,8 @@ Factor conversion will only take place on source columns that \emph{aren't}
 already factors. That is, if a column in \code{data} is already a factor, it
 will be ignored. This means the function can be called multiple times on
 the same input data, but once a column is converted to factor, it will
-cannot be converted again in subsequent calls.
+cannot be converted again in subsequent calls. Any attributes on the source
+column are retained on the converted factor column.
 }
 \examples{
 
