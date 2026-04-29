@@ -59,7 +59,7 @@ Add factors to data set based on spec information
 Note that \code{.suffix} can be chosen using option \code{ys.fct.suffix}. When the
 factor is made by \code{\link[base:factor]{base::factor()}}, the \code{exclude} argument is forced to
 \code{character(0)} so that nothing is excluded. Any attributes on the source
-column re retained on the new factor column.
+column are retained on the new factor column.
 }
 \examples{
 

@@ -16,7 +16,7 @@
 #' Note that `.suffix` can be chosen using option `ys.fct.suffix`. When the
 #' factor is made by [base::factor()], the `exclude` argument is forced to
 #' `character(0)` so that nothing is excluded. Any attributes on the source
-#' column re retained on the new factor column.
+#' column are retained on the new factor column.
 #' 
 #' @examples
 #' 
@@ -137,8 +137,8 @@ yspec_make_factor <- ys_make_factor
 #' already factors. That is, if a column in `data` is already a factor, it
 #' will be ignored. This means the function can be called multiple times on
 #' the same input data, but once a column is converted to factor, it will
-#' cannot be converted again in subsequent calls. Any attributes on the source
-#' column are retained on the converted factor column.
+#' not be converted again in subsequent calls. Any attributes on the 
+#' source column are retained on the converted factor column.
 #' 
 #' 
 #' @examples
