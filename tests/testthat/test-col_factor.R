@@ -174,9 +174,28 @@ test_that("call ys_factors more than once on a data frame", {
 })
 
 test_that("don't keep values when suffix is empty", {
-  data <- ys_help$data()  
+  data <- ys_help$data()
   spec <- ys_help$spec()
   data <- ys_factors(data, spec, .suffix = "")
   expect_is(data$EVID, "factor")
   expect_null(data$EVID_v)
+})
+
+test_that("column attributes are retained after factor conversion", {
+  data <- ys_help$data()
+  spec <- ys_help$spec()
+
+  data$EVID <- structure(data$EVID, label = "Event ID", units = ".")
+
+  # ys_make_factor
+  result <- ys_make_factor(data$EVID, spec$EVID)
+  expect_equal(attr(result, "label"), "Event ID")
+  expect_equal(attr(result, "units"), ".")
+  expect_is(result, "factor")
+
+  # ys_add_factors
+  data2 <- ys_add_factors(data, spec, EVID)
+  expect_equal(attr(data2$EVID_f, "label"), "Event ID")
+  expect_equal(attr(data2$EVID_f, "units"), ".")
+  expect_is(data2$EVID_f, "factor")
 })

@@ -13,9 +13,10 @@
 #' @param .suffix used to make the column name for the factors.
 #' 
 #' @details
-#' Note that `.suffix` can be chosen using option `ys.fct.suffix`. When the 
-#' factor is made by [base::factor()], the `exclude` argument is forced to 
-#' `character(0)` so that nothing is excluded.
+#' Note that `.suffix` can be chosen using option `ys.fct.suffix`. When the
+#' factor is made by [base::factor()], the `exclude` argument is forced to
+#' `character(0)` so that nothing is excluded. Any attributes on the source
+#' column are retained on the new factor column.
 #' 
 #' @examples
 #' 
@@ -85,6 +86,7 @@ ys_make_factor <- function(values, x, strict = TRUE, .missing = NULL) {
   if(is.factor(values)) {
     return(values)
   }
+  saved_attrs <- attributes(values)
   if(is.null(x[["values"]])) {
     if(!strict) return(factor(values))
     stop("column: ", x[["col"]], " - values field is not found", call. = FALSE)
@@ -95,14 +97,18 @@ ys_make_factor <- function(values, x, strict = TRUE, .missing = NULL) {
   if(is.null(x[["decode"]])) {
     decode <- x[["values"]]
   } else {
-    decode <- x[["decode"]]  
+    decode <- x[["decode"]]
   }
   if(!is.null(.missing) && anyNA(values)) {
     values[is.na(values)] <- .missing
     x[["values"]] <- c(x[["values"]], .missing)
     decode <- c(decode, .missing)
   }
-  factor(values, levels = x[["values"]], labels = decode, exclude = character(0))
+  result <- factor(values, levels = x[["values"]], labels = decode, exclude = character(0))
+  if(!length(saved_attrs)) return(result)
+  saved_attrs[c("levels", "class")] <- NULL
+  attributes(result) <- c(attributes(result), saved_attrs)
+  result
 }
 
 #' @rdname ys_add_factors
@@ -128,10 +134,11 @@ yspec_make_factor <- ys_make_factor
 #' 
 #' @details
 #' Factor conversion will only take place on source columns that _aren't_
-#' already factors. That is, if a column in `data` is already a factor, it 
-#' will be ignored. This means the function can be called multiple times on 
-#' the same input data, but once a column is converted to factor, it will 
-#' cannot be converted again in subsequent calls. 
+#' already factors. That is, if a column in `data` is already a factor, it
+#' will be ignored. This means the function can be called multiple times on
+#' the same input data, but once a column is converted to factor, it will
+#' not be converted again in subsequent calls. Any attributes on the 
+#' source column are retained on the converted factor column.
 #' 
 #' 
 #' @examples
