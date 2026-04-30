@@ -211,9 +211,9 @@ ys_fill_dots_impl <- function(x, .defaults, .overwrite) {
 
 #' Join yspec objects together
 #' 
-#' @param left A yspec object.
-#' @param right A yspec object.
-#' @param ... More yspec objects.
+#' @param left a yspec object.
+#' @param right a yspec object.
+#' @param ... more yspec objects.
 #' 
 #' @details
 #' All inputs must be `yspec` objects. When the `right` spec (or specs passed

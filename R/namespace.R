@@ -1,9 +1,10 @@
 #' Change namespace
 #' 
-#' @param x a `yspec` object
-#' @param namespace namespace name (character) to switch to
+#' @param x a `yspec` object.
+#' @param namespace namespace name (character) to switch to.
 #'  
-#' @return the `yspec` object (`x`) is returned, possibly modified
+#' @return the `yspec` object (`x`) is returned, possibly modified.
+#' @md
 #' @export
 ys_namespace <- function(x, namespace = NULL) {
   assert_that(is_yspec(x))
@@ -45,7 +46,7 @@ list_namespaces <- function(x) {
   ns <- map(x, "namespace")
   ns <- keep(ns, is.list)
   ns <- map(ns, names)
-  ns <- sort(unique(flatten_chr(ns)))  
+  ns <- unique(flatten_chr(ns))
   ns
 }
 

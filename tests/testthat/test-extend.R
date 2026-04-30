@@ -55,3 +55,20 @@ test_that("extension fails when extension file doesn't exist [YSP-TEST-0038]", {
     regexp = "Extension file does not exist"
   )
 })
+
+# See test-tidy.R for join
+test_that("namespace is merged on extension", {
+  spec1 <- yspec::test_spec_list(list(                                                                                     
+    A = list(unit = "ng", unit.pk = "ng/mL", unit.table = "\\frac{ng}{mL}"),                                                           
+    B = list(short = "Dose amount")                                                                   
+  ))
+  expect_equal(pull_meta(spec1, "namespace"), c("base", "pk", "table"))
+  ext <- yaml::as.yaml(list(                                                                                     
+    AUC = list(short = "AUC", short.ss = "AUC,ss"),                                                           
+    CMIN = list(short = "Cmin")                                                                   
+  ))
+  temp <- tempfile()
+  writeLines(text = ext, temp)
+  spec2 <- ys_extend(spec1, file = temp, silent = TRUE)
+  expect_equal(pull_meta(spec2, "namespace"), c("base", "pk", "table", "ss"))
+})

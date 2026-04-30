@@ -172,6 +172,22 @@ test_that("join two or more spec objects [YSP-TEST-0105]", {
   expect_equal(names(ans), c("WT", "BMI", "HT", "AGE"))
 })
 
+# See test-extend.R for extension
+test_that("namespace is merged on join", {
+  spec1 <- yspec::test_spec_list(list(                                                                                     
+    A = list(unit = "ng", unit.pk = "ng/mL", unit.table = "\\frac{ng}{mL}"),                                                           
+    B = list(short = "Dose amount")                                                                   
+  ))
+  expect_equal(pull_meta(spec1, "namespace"), c("base", "pk", "table"))
+  spec2 <- yspec::test_spec_list(list(                                                                                     
+    AUC = list(short = "AUC", short.ss = "AUC,ss"),                                                           
+    CMIN = list(short = "Cmin")                                                                   
+  ))  
+  expect_equal(pull_meta(spec2, "namespace"), c("base", "ss"))
+  spec3 <- ys_join(spec1, spec2)
+  expect_equal(pull_meta(spec3, "namespace"), c("base", "pk", "table", "ss"))
+})
+
 test_that("fill dots [YSP-TEST-0106]", {
   spec <- ys_help$spec()
   spec2 <- ys_fill_dots(spec, a = TRUE, b = FALSE)
