@@ -1,0 +1,23 @@
+url: https://metrumresearchgroup.github.io/yspec
+navbar:
+  components:
+    intro: 
+      text: Get started
+      href: articles/yspec.html
+    articles:
+      text: Articles
+      menu:
+      - text: Yaml specification reference
+        href: articles/reference.html
+      - text: Example yaml specification file
+        href: articles/analysis1.html
+      - text: Project-wide column definitions
+        href: articles/lookup.html
+      - text: Internal Column Lookup Database
+        href: articles/ysdb_internal.html
+      - text: Project object and define document
+        href: articles/project.html
+      - text: Label the columns in a data set
+        href: articles/label.html
+      - text: Extract data from a yspec object
+        href: articles/extract.html
