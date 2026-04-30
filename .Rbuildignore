@@ -21,3 +21,4 @@ dev
 ^\.github$
 vignettes/*\.pdf
 ^\.vscode$
+^CLAUDE\.md$
