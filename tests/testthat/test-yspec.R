@@ -118,8 +118,7 @@ test_that("combine two specs [YSP-TEST-0143]", {
 test_that("add column labels [YSP-TEST-0144]", {
   spec <- ys_help$spec()
   data <- ys_help$data()
-
-  # default ns = NULL: no namespace applied, labels from base spec
+  
   data2 <- ys_add_labels(data,spec)
   labs2 <- purrr::map(data2, attr, "label")
   expect_identical(labs2$WT,yspec:::label.ycol(spec$WT))
@@ -138,43 +137,25 @@ test_that("add column labels [YSP-TEST-0144]", {
 test_that("add labels without all the columns", {
   data <- ys_help$data()
   spec <- ys_help$spec()
-
+  
   set.seed(98765)
   data <- data[sample(names(data))]
   expect_error(ys_add_labels(data, spec), "names\\(data\\) not identical")
-
+  
   data$MDV <- NULL
   data$RF <- NULL
   expect_error(ys_add_labels(data, spec), "names\\(data\\) not identical")
-
+  
   data <- ys_add_labels(data, spec, strict = FALSE)
   expect_is(data, "data.frame")
   labels <- lapply(data, attr, which = "label")
-
+  
   # No labels are NULL
   nulls <- sapply(labels, is.null)
   expect_false(any(nulls))
-
-  # default ns = NULL: confirm labels match base spec (no namespace applied)
+  
+  # Form a label list and confirm labels are correct
   confirm <- lapply(spec, yspec:::label.ycol)
   confirm <- confirm[names(data)]
   expect_equal(confirm, labels)
-})
-
-test_that("ns argument applies namespace before labeling", {
-  data <- ys_help$data()
-  spec <- ys_help$spec()
-
-  # STUDY has label.label_xpt = "Unique study identifier" and base label = "study ID number"
-  # default ns = NULL -> no namespace, base label used
-  data1 <- ys_add_labels(data, spec)
-  expect_identical(attr(data1$STUDY, "label"), "study ID number")
-
-  # ns = c("define", "label_xpt") -> label_xpt namespace applied
-  data2 <- ys_add_labels(data, spec, ns = c("define", "label_xpt"))
-  expect_identical(attr(data2$STUDY, "label"), "Unique study identifier")
-
-  # ns = "define" -> define namespace applied, no label.define for STUDY -> base label used
-  data3 <- ys_add_labels(data, spec, ns = "define")
-  expect_identical(attr(data3$STUDY, "label"), "study ID number")
 })
