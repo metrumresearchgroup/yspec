@@ -246,8 +246,14 @@ ys_join <- function(left, right, ...) {
   if(length(take)==0) return(left)
   right <- ys_select(right, all_of(take))
   ans <- c(left, right)
+  left_ns <- list_namespaces(left)
+  right_ns <- list_namespaces(right)
+  ns <- unique(c(left_ns, right_ns))
+  meta <- get_meta(left)
+  meta[["namespace"]] <- ns
+  ans <- put_meta(ans, meta)
   for(addl in list(...)) {
-    ans <- ys_join(ans,addl)
+    ans <- ys_join(ans, addl)
   }
   ans
 }

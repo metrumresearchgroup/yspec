@@ -176,6 +176,11 @@ get_meta <- function(x) {
   ans
 }
 
+put_meta <- function(x, meta) {
+  attr(x, "meta") <- meta
+  x
+}
+
 #' Pull a single item from the meta data object
 #' 
 #' @param x a yspec object

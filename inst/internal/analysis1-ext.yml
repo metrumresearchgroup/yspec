@@ -11,3 +11,16 @@ PRED:
   short: population prediction
 LDV: 
   short: log DV
+AUC: 
+  short: AUC
+  short.ss: AUC,ss
+  unit: mg*hr/mL
+  unit.tex: mg$\cdot$hr/mL
+CMIN: 
+  short: Cmin
+  short.ss: Cmin,ss
+  unit: ng/mL
+CMAX: 
+  short: Cmax
+  short.ss: Cmax,ss
+  unit: ng/mL
