@@ -347,16 +347,15 @@ render_fda_define.yspec <- function(x, ..., dots = list()) {
 #' The primary use case for this function is for creating TeX tables which can 
 #' be included in a report Appendix. See more in `details`.
 #'
-#' @param spec a `yspec` object.
+#' @param spec a `yspec` object
 #' @param fun a function to format a TeX table; if `NULL` (the default), the 
-#' table will be rendered using [fda_table()].
-#' @param tex logical; if `TRUE`, switch to `tex` namespace; see `ns` argument.
-#' @param ns character vector of namespaces to load before generating tables.
+#' table will be rendered using [fda_table()]
+#' @param tex logical; if `TRUE`, switch to `tex` namespace if it exists
 #' @param widths_ passed to [fda_table()] when `fun` is `NULL`; these are 
 #' slightly modified from the [fda_table()] default (see `examples`); note 
 #' the trailing underscore in the argument name; these shouldn't need to be 
 #' changed for most use. 
-#' @param ... additional arguments passed to `fun`.
+#' @param ... additional arguments passed to `fun`
 #' 
 #' @return 
 #' The table text generated from `fun`.
@@ -380,19 +379,10 @@ render_fda_define.yspec <- function(x, ..., dots = list()) {
 #' 
 #' @md
 #' @export
-ys_table <- function(spec, fun = NULL, 
-                     tex = TRUE, 
-                     ns = "tex",
+ys_table <- function(spec, fun = NULL, tex = TRUE, 
                      widths_ = c(0.75, 1.95, 0.6, 2.15), ...) {
   assert_that(is_yspec(spec))
-  assert_that(is.character(ns) || is.null(ns))
-  if(is.character(ns)) {
-    warn_if_missing_namespace(spec, setdiff(ns, "tex"))
-  }
-  if(isTRUE(tex) && !is.null(ns)) {
-    ns <- unique(c("tex", ns))  
-  }
-  spec <- try_this_namespace(spec, namespace = ns)
+  spec <- try_tex_namespace(spec)
   if(is.null(fun)) {
     tab <- fda_table(spec, widths = widths_, ...)  
   } else {
