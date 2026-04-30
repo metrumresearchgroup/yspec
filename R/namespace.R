@@ -143,7 +143,7 @@ try_tex_namespace <- function(x) {
 }
 
 current_namespace <- function(x) {
-  attr(x, "namespace")
+  pull_meta(x, "namespace")
 }
 
 set_namespace <- function(x, ns) { 

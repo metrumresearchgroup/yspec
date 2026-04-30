@@ -176,7 +176,7 @@ get_meta <- function(x) {
   ans
 }
 
-put_meta <- function(x, meta) {
+set_meta <- function(x, meta) {
   attr(x, "meta") <- meta
   x
 }
@@ -193,14 +193,20 @@ put_meta <- function(x, meta) {
 #' pull_meta(spec, "description")
 #' 
 #' @export
-pull_meta <- function(x,what) {
-  ans <- attr(x, "meta")
-  assert_that(exists(what,ans))
+pull_meta <- function(x, what) {
+  ans <- get_meta(x)
+  assert_that(exists(what, ans))
   ans[[what]]
 }
 
 maybe_pull_meta <- function(x, what) {
-  attr(x, "meta")[[what]]  
+  get_meta(x)[[what]]  
+}
+
+push_meta <- function(x, what, value) {
+  meta <- get_meta(x)
+  meta[[what]] <- value
+  set_meta(x, meta)
 }
 
 ##' Get the file name for a yspec object
