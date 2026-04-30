@@ -32,8 +32,8 @@ test_that("ns argument applies namespace before rendering document", {
                    output_dir = tempdir(), build_dir = tempdir(), quiet = TRUE)
   output <- readLines(file.path(tempdir(), basename(x)))
   expect_match(output[grepl("LDOS", output)], "milligram", fixed = TRUE)
-  # ns = "error": not a valid namespace, raises a warning
-  expect_warning(
+  # ns = "error": not a valid namespace; error
+  expect_error(
     ys_document(spec, ns = "error", run_pandoc = FALSE, output_dir = tempdir(),
                 build_dir = tempdir(), quiet = TRUE),
     "not a namespace"
