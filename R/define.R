@@ -71,7 +71,8 @@ ys_document <- function(x, type = c("working", "regulatory"),
   assert_that(is.character(ns) || is.null(ns))
   if(is.character(ns)) {
     ns <- cvec_cs(ns)
-    warn_if_missing_namespace(x, setdiff(ns, "tex"))
+    ns_test <- setdiff(ns, "tex")
+    x <- ys_namespace(x, ns_test)
   }
   type <- match.arg(type)
   if(type=="regulatory") {

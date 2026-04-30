@@ -163,16 +163,3 @@ set_namespace <- function(x, ns) {
   }
   structure(x, namespace = c(current_namespace(x), ns))
 }
-
-warn_if_missing_namespace <- function(x, ns) {
-  ret <- invisible(NULL)
-  meta_ns <- pull_meta(x, "namespace")
-  if(!is.character(meta_ns)) return(ret)
-  bad <- setdiff(ns, meta_ns)
-  if(!length(bad)) return(ret)
-  for(i in bad) {
-    msg <- c("x" = glue("`{i}` is not a namespace in this model specification object."))
-    warn(msg)
-  }
-  ret
-}
