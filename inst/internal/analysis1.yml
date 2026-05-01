@@ -12,7 +12,7 @@ SETUP__:
     cat: [SEQ, STUDY]
   lookup_file: "look.yml"
   extend_file: "analysis1-ext.yml"
-  ys_document_namespace: define
+  ys_document_namespace: [tex, define]
 C:
 NUM:
 ID:
