@@ -269,7 +269,7 @@ define_for_rmd <- function(x,form_,proj=NULL,meta=NULL,tex=TRUE) {
   }
   
   if(isTRUE(tex)) {
-    specs <- map(specs, try_tex_namespace)
+    specs <- map(specs, ys_document_namespace)
   }
   
   tex <- imap(proj, .f = function(xi,.name) {

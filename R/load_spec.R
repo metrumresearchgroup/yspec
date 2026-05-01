@@ -154,6 +154,21 @@ check_for_err <- function(x, .fun, ...) {
   err
 }
 
+check_ys_document_namespace <- function(meta) {
+  if(is.null(meta[["ys_document_namespace"]])) {
+    return(invisible(NULL))
+  }
+  ns <- meta[["ys_document_namespace"]]
+  if(!all(ns %in% meta[["namespace"]])) {
+    bad <- setdiff(ns, meta[["namespace"]])
+    names(bad) <- rep("x", length(bad))
+    abort(
+      "namespace(s) in ys_document_namespace not found in the spec:", 
+      bad
+    )
+  }
+}
+
 capture_file_info <- function(x,file,where = "SETUP__") {
   x[[where]][["spec_file"]] <- file
   x[[where]][["spec_path"]] <- normalPath(dirname(file),mustWork=FALSE)
@@ -190,7 +205,9 @@ ys_load <- function(file, verbose = FALSE, ...) {
   x <- ys_load_file(file, verbose = verbose, ...)
   x <- unpack_spec(x, verbose = verbose)
   x <- add_flags(x)
-  set_namespace(x, "base")
+  x <- set_namespace(x, "base")
+  check_ys_document_namespace(x)
+  x
 }
 
 ##' @rdname ys_load
@@ -256,6 +273,7 @@ unpack_spec <- function(x, verbose = FALSE) {
     comment <- names(ans) %in% maybe_pull_meta(x, "comment_col")
     ans <- c(ans[(!chr) | comment], ans[chr & (!comment)])
   }
+  check_ys_document_namespace(m)
   ans
 }
 
@@ -274,7 +292,7 @@ unpack_meta <- function(x, to_update, verbose = FALSE, ...) {
     assert_that(is.character(meta[["lookup_file"]]))
     meta[["lookup_file"]] <- file.path(meta[["spec_path"]], meta[["lookup_file"]])
     meta[["lookup_file"]] <- normalPath(meta[["lookup_file"]], mustWork = FALSE)
-  }
+}
   if(.no("name", meta)) {
     meta[["name"]] <- basename(meta[["spec_file"]])
     meta[["name"]] <- tools::file_path_sans_ext(meta[["name"]])

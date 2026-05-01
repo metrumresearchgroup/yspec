@@ -12,6 +12,7 @@ SETUP__:
     cat: [SEQ, STUDY]
   lookup_file: "look.yml"
   extend_file: "analysis1-ext.yml"
+  ys_document_namespace: define
 C:
 NUM:
 ID:
@@ -76,6 +77,7 @@ TAD:
 LDOS:
   short: last dose amount
   unit: mg
+  unit.define: milligrams
 MDV:
 BLQ:
   short: below limit of quantification
