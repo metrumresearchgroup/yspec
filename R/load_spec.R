@@ -290,7 +290,7 @@ unpack_meta <- function(x, to_update, verbose = FALSE, ...) {
     assert_that(is.character(meta[["lookup_file"]]))
     meta[["lookup_file"]] <- file.path(meta[["spec_path"]], meta[["lookup_file"]])
     meta[["lookup_file"]] <- normalPath(meta[["lookup_file"]], mustWork = FALSE)
-}
+  }
   if(.no("name", meta)) {
     meta[["name"]] <- basename(meta[["spec_file"]])
     meta[["name"]] <- tools::file_path_sans_ext(meta[["name"]])
