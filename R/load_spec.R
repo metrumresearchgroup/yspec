@@ -206,7 +206,6 @@ ys_load <- function(file, verbose = FALSE, ...) {
   x <- unpack_spec(x, verbose = verbose)
   x <- add_flags(x)
   x <- set_namespace(x, "base")
-  check_ys_document_namespace(x)
   x
 }
 
