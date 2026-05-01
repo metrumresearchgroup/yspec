@@ -58,3 +58,19 @@ test_that("multiple namespaces are handled properly [YSP-TEST-0080]", {
   expect_identical(lc$STUDY$decode, c("phase 1", "phase 2", "phase 3"))
   expect_identical(uc$STUDY$decode, c("PHASE 1", "PHASE 2", "PHASE 3"))
 })
+
+test_that("ys_document_namespace invokes only user-input selections", {
+  spec <- yspec:::test_spec_list(
+    list(
+      A = list(short = "foo", short.define = "bar", short.tex = "yak"), 
+      B = list(short = "base_short", short.tex = "tex_short")
+    ), 
+    setup = list(ys_document_namespace = "define")
+  )
+  spec <- yspec:::ys_document_namespace(spec)
+  expect_equal(pull_meta(spec, "namespace"), c("base", "define", "tex"))
+  # Selects namespace in ys_document_namespace
+  expect_equal(spec$A$short, "bar")
+  # Didn't invoke tex namespace b/c it wasn't in user input
+  expect_equal(spec$B$short, "base_short")
+})

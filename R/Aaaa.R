@@ -43,7 +43,7 @@ VALID_SETUP_NAMES <- c(
   "spec_path", "glue", "use_internal_db", 
   "import", "character_last","comment_col", 
   "max_nchar_label", "max_nchar_col", "max_nchar_short", 
-  "flags"
+  "flags", "ys_document_namespace"
 )
 
 ys_control_defaults <- function() {

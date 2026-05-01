@@ -136,7 +136,7 @@ fda_content_table <- function(x, ext=".xpt", loc=".") {
 ##' @export
 fda_table_file <- function(file) {
   x <- load_spec(file)
-  x <- try_tex_namespace(x)
+  x <- ys_document_namespace(x)
   fda_table(x)
 }
 
@@ -375,7 +375,7 @@ render_fda_define.yspec <- function(x, ..., dots = list()) {
 ys_table <- function(spec, fun = NULL, tex = TRUE, 
                      widths_ = c(0.75, 1.95, 0.6, 2.15), ...) {
   assert_that(is_yspec(spec))
-  spec <- try_tex_namespace(spec)
+  spec <- ys_document_namespace(spec)
   if(is.null(fun)) {
     tab <- fda_table(spec, widths = widths_, ...)  
   } else {

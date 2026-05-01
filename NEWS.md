@@ -1,3 +1,5 @@
+# yspec (development version)
+
 # yspec 0.7.0
 
 - Added utilities to work with flags in the spec (#166), including 

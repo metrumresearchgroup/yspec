@@ -135,3 +135,15 @@ test_that("ys_load - only assume character type if type is NULL [YSP-TEST-0145]"
   )
   expect_equal(spec$A$type, "integer")
 })
+
+test_that("error when ys_document_namespace doesn't name an actual namespace", {
+  a <- list(A = list(unit = "mg", unit.foo = "milligrams"))
+  spec <- yspec:::test_spec_list(a, setup = list(ys_document_namespace = "foo"))
+  expect_is(spec, "yspec")
+  expect_equal(pull_meta(spec, "ys_document_namespace"), "foo")
+  expect_error(
+    spec <- yspec:::test_spec_list(a, setup = list(ys_document_namespace = "bar")), 
+    "ys_document_namespace in SETUP__ not found in spec", 
+    fixed = TRUE
+  )
+})

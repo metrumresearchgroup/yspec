@@ -22,20 +22,17 @@ test_that("define [YSP-TEST-0031]", {
   
 })
 
-# test_that("md_outline", {
-#   sp <- load_spec_ex(("DEM104101F_PK.yml"))
-#   expect_is(sp, "yspec [YSP-TEST-0086]")
-#   pr <- ys_project(sp)
-#   expect_is(pr,"yproj")
-#   yamlfile <- pull_meta(pr,"spec_file")
-#   ans <- define_for_rmd(yamlfile,"md_outline")
-#   expect_is(ans,"character")
-# })
-# 
-# test_that("pander_table", {
-#   pr <- ys_project_file(file_spec_ex("DEM104101F_PK.yml"))
-#   expect_is(pr,"yproj")
-#   yamlfile <- ys_spec_file(pr)
-#   ans <- define_for_rmd(yamlfile,"pander_table")
-#   expect_is(ans,"character")
-# })
+test_that("ys_document_namespace is invoked on render define", {
+  spec <- ys_help$spec()
+  temp <- tempdir()
+  x <- ys_document(
+    spec, 
+    run_pandoc = FALSE, 
+    build_dir = temp, 
+    quiet = TRUE
+  )
+  lines <- readLines(file.path(temp,x))
+  lines <- lines[grepl("LDOS", lines)]
+  expect_match(lines, "(milligrams)", fixed = TRUE)
+  expect_equal(spec$LDOS$unit, "mg")
+})
