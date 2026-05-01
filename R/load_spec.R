@@ -205,8 +205,7 @@ ys_load <- function(file, verbose = FALSE, ...) {
   x <- ys_load_file(file, verbose = verbose, ...)
   x <- unpack_spec(x, verbose = verbose)
   x <- add_flags(x)
-  x <- set_namespace(x, "base")
-  x
+  set_namespace(x, "base")
 }
 
 ##' @rdname ys_load
