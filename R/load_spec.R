@@ -163,8 +163,8 @@ check_ys_document_namespace <- function(meta) {
     bad <- setdiff(ns, meta[["namespace"]])
     names(bad) <- rep("x", length(bad))
     abort(
-      "namespace(s) in ys_document_namespace not found in the spec:", 
-      bad
+      message = "ys_document_namespace in SETUP__ not found in spec:", 
+      body = bad
     )
   }
 }

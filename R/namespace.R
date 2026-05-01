@@ -148,8 +148,8 @@ ys_document_namespace <- function(x) {
   if(is.character(ns)) {
     x <- ys_namespace(x, ns)
   }
+  x
 }
-
 
 current_namespace <- function(x) {
   attr(x, "namespace")
