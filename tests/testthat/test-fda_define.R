@@ -37,3 +37,19 @@ test_that("skip printing unit in define.pdf when blank", {
   expect_match(ans[2], "unit: ng/mL", fixed = TRUE)
   expect_no_match(ans[3], "unit")
 })
+
+test_that("ys_document_namespace is invoked on render fda define", {
+  spec <- ys_help$spec()
+  temp <- tempdir()
+  x <- ys_document(
+    spec, 
+    run_pandoc = FALSE, 
+    build_dir = temp, 
+    type = "regulatory", 
+    quiet = TRUE
+  )
+  lines <- readLines(file.path(temp,x))
+  lines <- lines[grepl("LDOS", lines)]
+  expect_match(lines, "unit: milligrams", fixed = TRUE)
+  expect_equal(spec$LDOS$unit, "mg")
+})

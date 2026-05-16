@@ -136,7 +136,7 @@ fda_content_table <- function(x, ext=".xpt", loc=".") {
 ##' @export
 fda_table_file <- function(file) {
   x <- load_spec(file)
-  x <- try_tex_namespace(x)
+  x <- ys_document_namespace(x)
   fda_table(x)
 }
 
@@ -183,16 +183,16 @@ fda_content_table_loc <- function(data_file,loc) {
 ##' @seealso [fda_table()]
 ##' @md
 ##' @export
-fda_define <- function(file, title="Datasets", ext=".xpt", loc=".",...) {
+fda_define <- function(file, title = "Datasets", ext = ".xpt", loc = ".",...) {
   
   x <- load_spec_proj(file)
   
   main <- paste0("# ", title)
 
-  contents <- fda_content_table(x, ext=ext, loc=loc, ...)
+  contents <- fda_content_table(x, ext = ext, loc = loc, ...)
   
   specs <- map(x, function(this) {
-    title <- paste0(this$description, " (`", this$data_file, "`)")
+    title <- paste0(this$description, " (`", this$data_stem, ext, "`)")
     header <- paste0("## ", title, " \\label{", this$name,"}")
     c(header, "\\noindent", " ", "  ", fda_table_file(this$spec_file))
   })
@@ -375,7 +375,7 @@ render_fda_define.yspec <- function(x, ..., dots = list()) {
 ys_table <- function(spec, fun = NULL, tex = TRUE, 
                      widths_ = c(0.75, 1.95, 0.6, 2.15), ...) {
   assert_that(is_yspec(spec))
-  spec <- try_tex_namespace(spec)
+  spec <- ys_document_namespace(spec)
   if(is.null(fun)) {
     tab <- fda_table(spec, widths = widths_, ...)  
   } else {

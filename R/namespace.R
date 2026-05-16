@@ -143,6 +143,16 @@ try_tex_namespace <- function(x) {
   x
 }
 
+ys_document_namespace <- function(x) {
+  ns <- maybe_pull_meta(x, "ys_document_namespace")
+  if(is.character(ns)) {
+    x <- ys_namespace(x, ns)
+  } else {
+    x <- try_tex_namespace(x)
+  }
+  x
+}
+
 current_namespace <- function(x) {
   pull_meta(x, "namespace")
 }

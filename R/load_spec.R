@@ -154,6 +154,21 @@ check_for_err <- function(x, .fun, ...) {
   err
 }
 
+check_ys_document_namespace <- function(meta) {
+  if(is.null(meta[["ys_document_namespace"]])) {
+    return(invisible(NULL))
+  }
+  ns <- meta[["ys_document_namespace"]]
+  if(!all(ns %in% meta[["namespace"]])) {
+    bad <- setdiff(ns, meta[["namespace"]])
+    names(bad) <- rep("x", length(bad))
+    abort(
+      message = "ys_document_namespace in SETUP__ not found in spec:", 
+      body = bad
+    )
+  }
+}
+
 capture_file_info <- function(x,file,where = "SETUP__") {
   x[[where]][["spec_file"]] <- file
   x[[where]][["spec_path"]] <- normalPath(dirname(file),mustWork=FALSE)
@@ -256,6 +271,7 @@ unpack_spec <- function(x, verbose = FALSE) {
     comment <- names(ans) %in% maybe_pull_meta(x, "comment_col")
     ans <- c(ans[(!chr) | comment], ans[chr & (!comment)])
   }
+  check_ys_document_namespace(m)
   ans
 }
 

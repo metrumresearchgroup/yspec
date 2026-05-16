@@ -76,4 +76,18 @@ test_that("yspec:::list_namespaces preserves order", {
   ))  
   x <- yspec:::list_namespaces(spec)
   expect_equal(x, c("base", "ZZZ", "n", "AAA", "m"))
+test_that("ys_document_namespace invokes only user-input selections", {
+  spec <- yspec:::test_spec_list(
+    list(
+      A = list(short = "foo", short.define = "bar", short.tex = "yak"), 
+      B = list(short = "base_short", short.tex = "tex_short")
+    ), 
+    setup = list(ys_document_namespace = "define")
+  )
+  spec <- yspec:::ys_document_namespace(spec)
+  expect_equal(pull_meta(spec, "namespace"), c("base", "define", "tex"))
+  # Selects namespace in ys_document_namespace
+  expect_equal(spec$A$short, "bar")
+  # Didn't invoke tex namespace b/c it wasn't in user input
+  expect_equal(spec$B$short, "base_short")
 })
