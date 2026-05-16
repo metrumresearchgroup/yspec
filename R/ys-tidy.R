@@ -211,9 +211,9 @@ ys_fill_dots_impl <- function(x, .defaults, .overwrite) {
 
 #' Join yspec objects together
 #' 
-#' @param left A yspec object.
-#' @param right A yspec object.
-#' @param ... More yspec objects.
+#' @param left a yspec object.
+#' @param right a yspec object.
+#' @param ... more yspec objects.
 #' 
 #' @details
 #' All inputs must be `yspec` objects. When the `right` spec (or specs passed
@@ -246,8 +246,12 @@ ys_join <- function(left, right, ...) {
   if(length(take)==0) return(left)
   right <- ys_select(right, all_of(take))
   ans <- c(left, right)
+  left_ns <- list_namespaces(left)
+  right_ns <- list_namespaces(right)
+  ns <- unique(c(left_ns, right_ns))
+  ans <- push_meta(ans, what = "namespace", value = ns)
   for(addl in list(...)) {
-    ans <- ys_join(ans,addl)
+    ans <- ys_join(ans, addl)
   }
   ans
 }

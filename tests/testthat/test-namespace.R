@@ -10,7 +10,7 @@ test_that("load a yaml file and parse namespaces [YSP-TEST-0076]", {
   spec <- ys_load(works)
   expect_message(ys_namespace(spec), msg = "namespaces:")
   ns <- pull_meta(spec, "namespace")
-  expect_equal(ns, c("base", "plot", "tex"))
+  expect_equal(ns, c("base", "tex", "plot"))
 })
 
 test_that("switch to tex namespace [YSP-TEST-0077]", {
@@ -59,6 +59,23 @@ test_that("multiple namespaces are handled properly [YSP-TEST-0080]", {
   expect_identical(uc$STUDY$decode, c("PHASE 1", "PHASE 2", "PHASE 3"))
 })
 
+test_that("namespace order is base first", {
+  # However, no assumption is made around this; just confirming how these 
+  # are discovered and logged
+  spec <- yspec::test_spec_list(list(                                                                                     
+    A = list(short = "A", short.ZZZ = "foo"),                                                           
+    B = list(short = "B", short.AAA = "bar")                                                                   
+  ))  
+  expect_equal(pull_meta(spec, "namespace"), c("base", "ZZZ", "AAA"))
+})
+
+test_that("yspec:::list_namespaces preserves order", {
+  spec <- yspec::test_spec_list(list(                                                                                     
+    A = list(short = "A", short.ZZZ = "foo", unit = "L", unit.n = "ml"),                                                           
+    B = list(short = "B", short.AAA = "bar", short.m = "yak")                                                                   
+  ))  
+  x <- yspec:::list_namespaces(spec)
+  expect_equal(x, c("base", "ZZZ", "n", "AAA", "m"))
 test_that("ys_document_namespace invokes only user-input selections", {
   spec <- yspec:::test_spec_list(
     list(

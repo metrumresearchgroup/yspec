@@ -7,12 +7,12 @@
 ys_namespace(x, namespace = NULL)
 }
 \arguments{
-\item{x}{a `yspec` object}
+\item{x}{a \code{yspec} object.}
 
-\item{namespace}{namespace name (character) to switch to}
+\item{namespace}{namespace name (character) to switch to.}
 }
 \value{
-the `yspec` object (`x`) is returned, possibly modified
+the \code{yspec} object (\code{x}) is returned, possibly modified.
 }
 \description{
 Change namespace
