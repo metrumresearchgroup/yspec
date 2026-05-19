@@ -76,6 +76,8 @@ test_that("yspec:::list_namespaces preserves order", {
   ))  
   x <- yspec:::list_namespaces(spec)
   expect_equal(x, c("base", "ZZZ", "n", "AAA", "m"))
+})
+
 test_that("ys_document_namespace invokes only user-input selections", {
   spec <- yspec:::test_spec_list(
     list(

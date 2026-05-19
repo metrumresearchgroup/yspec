@@ -1,4 +1,21 @@
-# yspec (development version)
+# yspec 0.8.0
+
+- `ys_document()` no longer prints `unit` in define.pdf when it is set to an
+  empty string (#173).
+
+- `ys_add_factors()` and `ys_factors()` now retain attributes on data columns
+  that are converted to factors (#177).
+
+- `ys_extend()` and `ys_join()` now properly copy namespace information from
+  the extension spec to the parent, so namespaces defined only in an extension
+  spec are recognized without error (#179).
+
+- Added `ys_document_namespace` as a `SETUP__` meta field to control which
+  namespaces are invoked when rendering define.pdf; falls back to the `tex`
+  namespace by default (#180).
+
+- Fixed a bug in the regulatory define.pdf where the file extension was
+  incorrect in section headers (#181).
 
 # yspec 0.7.0
 
