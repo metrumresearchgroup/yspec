@@ -20,7 +20,7 @@ modeling outputs (e.g. IPRED)."><meta property="og:image" content="https://metru
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">yspec</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.0</span>
       </span>
     </div>
 
@@ -78,7 +78,7 @@ modeling outputs (e.g. IPRED)."><meta property="og:image" content="https://metru
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Extend a yspec object</h1>
-    <small class="dont-index">Source: <a href="https://github.com/metrumresearchgroup/yspec/blob/0.7.0/R/extend.R" class="external-link"><code>R/extend.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/metrumresearchgroup/yspec/blob/0.8.0/R/extend.R" class="external-link"><code>R/extend.R</code></a></small>
     <div class="hidden name"><code>ys_extend.Rd</code></div>
     </div>
 
@@ -145,7 +145,7 @@ warning will be generated.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 33 CWRES  --e    . conditional weighted residual  nm-extension</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">ys_extend</span><span class="op">(</span><span class="va">spec</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Note: added 5 columns by extension.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Note: added 8 columns by extension.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  name  info unit         short                          source       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  C     cd-  .            comment character              ysdb_internal</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  NUM   ---  .            record number                  ysdb_internal</span>
@@ -181,6 +181,9 @@ warning will be generated.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  IPRED --e  .            individual prediction          analysis1-ext</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  PRED  --e  .            population prediction          analysis1-ext</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  LDV   --e  .            log DV                         analysis1-ext</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  AUC   --e  mg*hr/mL     AUC                            analysis1-ext</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  CMIN  --e  ng/mL        Cmin                           analysis1-ext</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  CMAX  --e  ng/mL        Cmax                           analysis1-ext</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="co"># In case COL is in both the primary spec and the extension, but you want </span></span></span>
@@ -202,7 +205,7 @@ warning will be generated.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.9000.</p>
 </div>
 
       </footer></div>

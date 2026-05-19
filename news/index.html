@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">yspec</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.0</span>
       </span>
     </div>
 
@@ -75,9 +75,17 @@
   <div class="col-md-9 contents">
     <div class="page-header">
       <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href="https://github.com/metrumresearchgroup/yspec/blob/0.7.0/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/metrumresearchgroup/yspec/blob/0.8.0/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.8.0" id="yspec-080">yspec 0.8.0<a class="anchor" aria-label="anchor" href="#yspec-080"></a></h2>
+<ul><li><p><code><a href="../reference/ys_document.html">ys_document()</a></code> no longer prints <code>unit</code> in define.pdf when it is set to an empty string (<a href="https://github.com/metrumresearchgroup/yspec/issues/173" class="external-link">#173</a>).</p></li>
+<li><p><code><a href="../reference/ys_add_factors.html">ys_add_factors()</a></code> and <code><a href="../reference/ys_factors.html">ys_factors()</a></code> now retain attributes on data columns that are converted to factors (<a href="https://github.com/metrumresearchgroup/yspec/issues/177" class="external-link">#177</a>).</p></li>
+<li><p><code><a href="../reference/ys_extend.html">ys_extend()</a></code> and <code><a href="../reference/ys_join.html">ys_join()</a></code> now properly copy namespace information from the extension spec to the parent, so namespaces defined only in an extension spec are recognized without error (<a href="https://github.com/metrumresearchgroup/yspec/issues/179" class="external-link">#179</a>).</p></li>
+<li><p>Added <code>ys_document_namespace</code> as a <code>SETUP__</code> meta field to control which namespaces are invoked when rendering define.pdf; falls back to the <code>tex</code> namespace by default (<a href="https://github.com/metrumresearchgroup/yspec/issues/180" class="external-link">#180</a>).</p></li>
+<li><p>Fixed a bug in the regulatory define.pdf where the file extension was incorrect in section headers (<a href="https://github.com/metrumresearchgroup/yspec/issues/181" class="external-link">#181</a>).</p></li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.7.0" id="yspec-070">yspec 0.7.0<a class="anchor" aria-label="anchor" href="#yspec-070"></a></h2>
 <ul><li>Added utilities to work with flags in the spec (<a href="https://github.com/metrumresearchgroup/yspec/issues/166" class="external-link">#166</a>), including
@@ -266,7 +274,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.9000.</p>
 </div>
 
       </footer></div>
