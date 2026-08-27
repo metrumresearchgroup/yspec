@@ -6,6 +6,7 @@ projectnumber: <projectnumber>
 scientist: <author>
 author: <author>
 geometry: "margin=1in"
+toc-title: Datasets
 output:
   pdf_document:
     number_sections: <number_sections>
