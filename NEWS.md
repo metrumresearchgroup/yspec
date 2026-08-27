@@ -1,3 +1,5 @@
+# yspec (development version)
+
 # yspec 0.8.0
 
 - `ys_document()` no longer prints `unit` in define.pdf when it is set to an
