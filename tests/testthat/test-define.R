@@ -36,3 +36,16 @@ test_that("ys_document_namespace is invoked on render define", {
   expect_match(lines, "(milligrams)", fixed = TRUE)
   expect_equal(spec$LDOS$unit, "mg")
 })
+
+test_that("working document header is data_stem", {
+  spec <- ys_help$spec()
+  ds <- pull_meta(spec, "data_stem")
+  file <- ys_document(spec, type = "working", output_format = "md_document", quiet = TRUE)
+  doc <- readLines(file)
+  expect_match(doc[1], ds)
+
+  spec <- yspec:::push_meta(spec, "data_stem", "new-data-stem")
+  file <- ys_document(spec, type = "working", output_format = "md_document", quiet = TRUE)
+  doc <- readLines(file)
+  expect_match(doc[1], "new-data-stem")
+})

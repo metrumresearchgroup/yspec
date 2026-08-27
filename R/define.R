@@ -275,7 +275,7 @@ define_for_rmd <- function(x,form_,proj=NULL,meta=NULL,tex=TRUE) {
   tex <- imap(proj, .f = function(xi,.name) {
     description <- proj[[.name]][["description"]]
     sp <- format_fun(specs[[.name]])
-    c(paste0("# ", .name),
+    c(paste0("# ", proj[[.name]][["data_stem"]]),
       "",
       "__Description__: ",
       description,"",
