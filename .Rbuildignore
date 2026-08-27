@@ -20,3 +20,5 @@ dev
 ^docs$
 ^\.github$
 vignettes/*\.pdf
+^\.positai$
+^\.claude$

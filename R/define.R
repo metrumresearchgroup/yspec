@@ -91,6 +91,9 @@ ys_document <- function(x, type = c("working", "regulatory"), ...) {
 ##' data specification document
 ##' @param date used in yaml front matter
 ##' @param dots passed to object converter
+##' @param ext a data set file extension (including the dot); this is combined
+##' with the `data_stem` to specify the file name, which is adopted as the 
+##' section for each spec object
 ##' @param ... passed to [rmarkdown::render()]
 ##' 
 ##'
@@ -140,6 +143,7 @@ render_define.yproj <- function(x,
                                 date = as.character(Sys.Date()),
                                 sponsor = NULL, 
                                 projectnumber = NULL,
+                                ext = ".csv",
                                 ...) {
   
   if(missing(toc) & length(x)==1) toc <- "no"
@@ -154,7 +158,7 @@ render_define.yproj <- function(x,
   if(missing(projectnumber)) {
     projectnumber <- meta[["projectnumber"]] 
   }
-
+  
   sponsor <- db_quote(sponsor)
   projectnumber <- db_quote(projectnumber)
   
@@ -174,7 +178,9 @@ render_define.yproj <- function(x,
   ys_working_markup_ <- basename(tempfile(fileext="aeiou"))
   
   env <- new.env()
-  env[[ys_working_markup_]] <- define_for_rmd(yamlfile,format,x,meta,tex=TRUE) 
+  env[[ys_working_markup_]] <- define_for_rmd(
+    yamlfile, format, x, meta, tex = TRUE, ext = ext
+  ) 
   
   file <- normalPath(paste0(stem, ".Rmd"),mustWork=FALSE)
   
@@ -244,7 +250,7 @@ render_spec.yspec <- function(x, stem = get_meta(x)[["name"]], ..., dots = list(
 ##' @keywords internal
 ##' @md
 ##' @export
-define_for_rmd <- function(x,form_,proj=NULL,meta=NULL,tex=TRUE) {
+define_for_rmd <- function(x,form_,proj=NULL,meta=NULL,tex=TRUE,ext=".csv") {
   
   if(is.character(form_)) {
     format_fun <- get(form_, mode = "function")
@@ -273,13 +279,22 @@ define_for_rmd <- function(x,form_,proj=NULL,meta=NULL,tex=TRUE) {
   }
   
   tex <- imap(proj, .f = function(xi,.name) {
+    section <- paste0(proj[[.name]][["data_stem"]], ext)
     description <- proj[[.name]][["description"]]
+    doc_in <- basename(proj[[.name]][["spec_file"]])
     sp <- format_fun(specs[[.name]])
-    c(paste0("# ", proj[[.name]][["data_stem"]]),
+    c(
+      paste0("# ", section),
       "",
       "__Description__: ",
-      description,"",
-      sp, " ")
+      description,
+      "",
+      "__Documented in__: ", 
+      doc_in,
+      "",
+      sp, 
+      " "
+    )
   })
   
   tex <- flatten_chr(tex)
