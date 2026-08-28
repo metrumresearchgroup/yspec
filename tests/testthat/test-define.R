@@ -43,7 +43,9 @@ test_that("working document header is data_stem.ext", {
   file <- ys_document(
     spec, 
     type = "working", 
+    stem = basename(tempfile()), 
     output_format = "md_document", 
+    output_dir = tempdir(),
     quiet = TRUE
   )
   doc <- readLines(file)
@@ -53,7 +55,9 @@ test_that("working document header is data_stem.ext", {
   file <- ys_document(
     spec, 
     type = "working", 
+    stem = basename(tempfile()), 
     output_format = "md_document", 
+    output_dir = tempdir(),
     quiet = TRUE
   )
   doc <- readLines(file)
@@ -66,7 +70,9 @@ test_that("change extension for working document header", {
   file <- ys_document(
     spec, 
     type = "working", 
+    stem = basename(tempfile()), 
     output_format = "md_document", 
+    output_dir = tempdir(), 
     quiet = TRUE, 
     ext = ".bar"
   )
