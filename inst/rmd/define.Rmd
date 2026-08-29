@@ -19,7 +19,21 @@ output:
   html_document:
     number_sections: true
     toc: true
+header-includes:
+  - \let\oldtoc\tableofcontents
+  - \renewcommand{\tableofcontents}{\oldtoc\vspace{1em}\noindent\rule{\linewidth}{1pt}\vspace{1.5em}}
 ---
+
+```{css, echo=FALSE}
+#TOC::after {
+  content: "";
+  display: block;
+  width: 100%;
+  border-bottom: 1px solid #000;
+  margin-top: 15px;
+  margin-bottom: 25px;
+}
+```
 
 ```{r, "yspec_define_rmd_setup", echo = FALSE, results = "hide", message = FALSE}
 knitr::opts_chunk$set(echo = FALSE)
