@@ -27,6 +27,7 @@ render_define(x, ...)
   date = as.character(Sys.Date()),
   sponsor = NULL,
   projectnumber = NULL,
+  ext = ".csv",
   ...
 )
 
@@ -73,6 +74,10 @@ data specification document}
 \item{sponsor}{optional project sponsor}
 
 \item{projectnumber}{optional project number in \code{...}}
+
+\item{ext}{a data set file extension (including the dot); this is combined
+with the \code{data_stem} to specify the file name, which is adopted as the
+section for each spec object}
 
 \item{dots}{passed to object converter}
 }

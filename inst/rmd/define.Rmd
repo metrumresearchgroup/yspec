@@ -6,6 +6,7 @@ projectnumber: <projectnumber>
 scientist: <author>
 author: <author>
 geometry: "margin=1in"
+toc-title: Datasets
 output:
   pdf_document:
     number_sections: <number_sections>
@@ -18,6 +19,9 @@ output:
   html_document:
     number_sections: true
     toc: true
+header-includes:
+  - \let\oldtoc\tableofcontents
+  - \renewcommand{\tableofcontents}{\oldtoc\vspace{1em}\noindent\rule{\linewidth}{1pt}\vspace{1.5em}}
 ---
 
 ```{r, "yspec_define_rmd_setup", echo = FALSE, results = "hide", message = FALSE}
