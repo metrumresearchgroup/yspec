@@ -4,6 +4,7 @@
 # yspec <a href="https://metrumresearchgroup.github.io/yspec"><img src="man/figures/logo.png" align="right" width="135px" alt="yspec website" /></a>
 
 <!-- badges: start -->
+
 <!-- badges: end -->
 
 Use yspec to document analysis data sets and utilize data attributes in
@@ -39,17 +40,17 @@ readLines("inst/internal/analysis1.yml")[1:20] %>% writeLines()
 .     bmiunits: "kg/m$^2$"
 .   flags: 
 .     covariate: [AGE:SCR, HT, AST:ALT]
+.     nm: [ID, TIME, CMT, AMT, MDV]
+.     times: [TIME, TAD]
+.     cat: [SEQ, STUDY]
 .   lookup_file: "look.yml"
 .   extend_file: "analysis1-ext.yml"
+.   ys_document_namespace: [tex, define]
 . C:
 . NUM:
 . ID:
 . SUBJ: !look
 . TIME: !look
-.   label: time after first dose
-.   unit: hour
-. SEQ: 
-.   label: data type
 ```
 
 Now use yspec to read that into a object in R
@@ -101,7 +102,7 @@ spec$BLQ
 
 And we can render a `define.pdf` file as well
 
-<img src="man/figures/define.png" width="600" height="558.85" />
+<img src="man/figures/define.png" alt="" width="600" height="558.85" />
 
 ## Using yspec
 
