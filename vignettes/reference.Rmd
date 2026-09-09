@@ -317,7 +317,7 @@ The default behavior can be achieved with
 
 ```txt
 SEX: 
-  values: !value:decode
+  values: !decode:value
     dude: 0
     gal: 1
 ```
