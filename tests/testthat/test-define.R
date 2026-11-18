@@ -79,3 +79,25 @@ test_that("change extension for working document header", {
   doc <- readLines(file)
   expect_match(doc[1], "# new-data-stem.bar", fixed = TRUE)
 })
+
+test_that("define pdf files are reproducible", {
+  skip_on_cran()
+  sp <- load_spec_ex("DEM104101F_PK.yml")
+  out1 <- withr::local_tempdir()
+  out2 <- withr::local_tempdir()
+  render <- function(dir, stem) {
+    suppressWarnings(ys_document(sp, quiet = TRUE, output_dir = dir, stem = stem))
+    suppressWarnings(
+      ys_document(sp, type = "regulatory", quiet = TRUE, output_dir = dir,
+                  stem = paste0(stem, "r"))
+    )
+  }
+  render(out1, "d")
+  Sys.sleep(1)
+  render(out2, "d")
+  files <- c("d.pdf", "dr.pdf")
+  expect_identical(
+    unname(tools::md5sum(file.path(out1, files))),
+    unname(tools::md5sum(file.path(out2, files)))
+  )
+})

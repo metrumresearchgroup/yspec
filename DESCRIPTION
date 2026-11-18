@@ -49,7 +49,7 @@ Imports:
     tidyselect, 
     fs, 
     stringr
-Suggests: pander, testthat
+Suggests: pander, testthat, withr
 VignetteBuilder: knitr
 RoxygenNote: 7.3.3
 Collate: 

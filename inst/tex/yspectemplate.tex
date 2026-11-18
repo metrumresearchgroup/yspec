@@ -14,6 +14,8 @@ $if(linestretch)$
 \usepackage{setspace}
 \setstretch{$linestretch$}
 $endif$
+\pdfinfoomitdate=1
+\pdftrailerid{}
 \usepackage{pdfpages}
 % \usepackage{amssymb,amsmath}
 % \usepackage{ifxetex,ifluatex}
@@ -255,6 +257,16 @@ $endfor$
 \cfoot{Page \thepage\ of \pageref{LastPage}}
 
 
+\AtBeginDocument{%
+  \hypersetup{
+    pdftitle={},
+    pdfauthor={},
+    pdfcreator={},
+    pdfproducer={},
+    pdfsubject={},
+    pdfkeywords={}
+  }%
+}
 \begin{document}
 \thispagestyle{empty}
 %\maketitle
