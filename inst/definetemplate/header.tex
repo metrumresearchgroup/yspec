@@ -9,3 +9,17 @@
 \usepackage[utopia]{mathdesign}
 \usepackage[margin=1in]{geometry}
 
+
+%%%%%%%%%%%% reproducible pdf %%%%%
+\pdfinfoomitdate=1
+\pdftrailerid{}
+\AtBeginDocument{%
+  \hypersetup{
+    pdftitle={},
+    pdfauthor={},
+    pdfcreator={},
+    pdfproducer={},
+    pdfsubject={},
+    pdfkeywords={}
+  }%
+}

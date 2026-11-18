@@ -33,7 +33,7 @@ yspec will guess which format it is and render accordingly.
 
 Because \code{...} are passed to \code{\link[=render_define]{render_define()}} and \code{\link[=render_fda_define]{render_fda_define()}},
 it is important to review arguments to those functions as well.  Specifically,
-please note that the document \strong{title}, \strong{author}, and \strong{date} can
+please note that the document \strong{title} and \strong{author} can
 be set, along with the name of the output document, the working document
 build directory, and several other aspects of the document can be set
 in the call to \link{ys_document}.

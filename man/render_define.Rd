@@ -24,7 +24,6 @@ render_define(x, ...)
   toc = "yes",
   number_sections = "yes",
   rmd_template = NULL,
-  date = as.character(Sys.Date()),
   sponsor = NULL,
   projectnumber = NULL,
   ext = ".csv",
@@ -68,8 +67,6 @@ document}
 
 \item{rmd_template}{full path to rmarkdown file to be used to template the
 data specification document}
-
-\item{date}{used in yaml front matter}
 
 \item{sponsor}{optional project sponsor}
 
