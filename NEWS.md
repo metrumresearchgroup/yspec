@@ -2,7 +2,9 @@
 
 - PDF files created by `ys_document()` (working and regulatory) are now
   reproducible: creation date, trailer id and author / producer metadata are no
-  longer written into the PDF.
+  longer written into the PDF. The date has also been removed from the
+  document and the `date` argument dropped from `render_define()` and
+  `render_fda_define()`.
 
 # yspec 0.8.1
 

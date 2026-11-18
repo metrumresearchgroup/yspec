@@ -204,7 +204,6 @@ fda_define <- function(file, title = "Datasets", ext = ".xpt", loc = ".",...) {
 ##' @param x a yaml specification file name or a yproj object
 ##' @param stem used to name the output document
 ##' @param title a title for the document
-##' @param date the document date
 ##' @param author the document author
 ##' @param format function to generate the define text
 ##' @param dots named list of arguments passed to object converter function
@@ -247,7 +246,6 @@ render_fda_define  <- function(x, ... ) {
 render_fda_define.yproj <- function(x, 
                                     stem = "define",
                                     title = "Data Definitions",
-                                    date = as.character(Sys.Date()),
                                     author = "",
                                     format = "fda_define",
                                     output_dir = getwd(),

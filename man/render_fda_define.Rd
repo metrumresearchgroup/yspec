@@ -13,7 +13,6 @@ render_fda_define(x, ...)
   x,
   stem = "define",
   title = "Data Definitions",
-  date = as.character(Sys.Date()),
   author = "",
   format = "fda_define",
   output_dir = getwd(),
@@ -37,8 +36,6 @@ render_fda_define(x, ...)
 \item{stem}{used to name the output document}
 
 \item{title}{a title for the document}
-
-\item{date}{the document date}
 
 \item{author}{the document author}
 

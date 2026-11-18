@@ -1,6 +1,5 @@
 ---
 title: <title>
-date: <date>
 sponsor: <sponsor>
 projectnumber: <projectnumber>
 scientist: <author>

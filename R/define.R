@@ -34,7 +34,7 @@ call_format_fun <- function(yamlfile,
 ##' 
 ##' Because `...` are passed to [render_define()] and [render_fda_define()], 
 ##' it is important to review arguments to those functions as well.  Specifically, 
-##' please note that the document **title**, **author**, and **date** can 
+##' please note that the document **title** and **author** can 
 ##' be set, along with the name of the output document, the working document 
 ##' build directory, and several other aspects of the document can be set
 ##' in the call to [ys_document]. 
@@ -89,7 +89,6 @@ ys_document <- function(x, type = c("working", "regulatory"), ...) {
 ##' @param number_sections used in yaml front matter
 ##' @param rmd_template full path to rmarkdown file to be used to template the 
 ##' data specification document
-##' @param date used in yaml front matter
 ##' @param dots passed to object converter
 ##' @param ext a data set file extension (including the dot); this is combined
 ##' with the `data_stem` to specify the file name, which is adopted as the 
@@ -140,7 +139,6 @@ render_define.yproj <- function(x,
                                 toc = "yes",
                                 number_sections = "yes",
                                 rmd_template = NULL,
-                                date = as.character(Sys.Date()),
                                 sponsor = NULL, 
                                 projectnumber = NULL,
                                 ext = ".csv",
